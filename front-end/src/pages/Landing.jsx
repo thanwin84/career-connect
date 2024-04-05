@@ -7,7 +7,7 @@ export default function Landing(){
     return (
         <section className="h-screen bg-stone-100 w-full flex flex-col">
             <nav className="px-6 pt-10 w-5/6">
-                <Logo />
+                <Logo className="w-72" />
             </nav>
             <div className="my-20 flex w-full lg:w-5/6">
                 <div className=" px-6">
