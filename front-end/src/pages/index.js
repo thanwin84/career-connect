@@ -9,9 +9,12 @@ import Register from './Register'
 import Stats from './Stats'
 import Admin from './Admin'
 import DashboardLayout from './DashboardLayout'
+import AllJobs from './AllJobs'
+import Profile from './Profile'
 
 
 export {
+    AllJobs,
     AddJob,
     DeleteJob,
     EditJob,
@@ -22,5 +25,6 @@ export {
     Register,
     Stats,
     Admin,
-    DashboardLayout
+    DashboardLayout,
+    Profile
 }

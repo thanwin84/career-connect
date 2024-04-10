@@ -7,37 +7,49 @@ const dashboardContext = createContext()
 export default function DashboardLayout(){
     // temp
     const user = {name: "Than Win"}
-    const [showSidebar, setShowSidebar] = useState(false)
     const [isDarkTheme, setIsDarkTheme] = useState(false)
-
+    const [showBigSidebar, setShowBigSidebar] = useState(true)
+    const [showSmallSidebar, setShowSmallSidebar] = useState(false)
+    
+    
     function toggleDarkTheme(){
         console.log("toggle theme")
     }
 
-    function toggleSidebar(){
-        setShowSidebar(!showSidebar)
+   
+    // testing
+    
+    function toggleBigSidebar(){
+        setShowBigSidebar(!showBigSidebar)
     }
-
+    function toggleSmallSidebar(){
+        setShowSmallSidebar(!showSmallSidebar)
+    }
     async function logoutUser(){
         console.log("log out user")
     }
+    
 
     return (
         <dashboardContext.Provider value={{
                 user,
-                showSidebar,
                 isDarkTheme,
                 toggleDarkTheme,
-                toggleSidebar,
-                logoutUser
+                logoutUser,
+                showBigSidebar,
+                showSmallSidebar,
+                toggleBigSidebar,
+                toggleSmallSidebar
             }}>
-            <main className="flex flex-col lg:flex-row">
-                <div className="w-auto">
-                    <SmallSidebar className="lg:hidden " />
-                    <BigSidebar className="hidden lg:block "/>
+            <main className="flex flex-row">
+                <div className="">
+                     <SmallSidebar className="lg:hidden xl:hidden 2xl:hidden" />
+                    <BigSidebar className="hidden  md:block lg:block xl:block 2xl:block"/> 
+                    
                 </div>
+
                 <div className="w-full">
-                    <Navbar/>
+                    <Navbar />
                     <div className="">
                         <Outlet />
                     </div>

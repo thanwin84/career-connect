@@ -2,14 +2,16 @@ import React from "react";
 import { FaAlignLeft } from "react-icons/fa";
 import {Logo} from '../components'
 import { useDashboardContext } from "../pages/DashboardLayout";
-
+import {useWindowScreenSize} from '../hooks'
 export default function Navbar(){
-    const {toggleSidebar, showSidebar} = useDashboardContext()
-    
+    const {toggleBigSidebar, toggleSmallSidebar} = useDashboardContext()
+    const currentSize = useWindowScreenSize()
+    const isBigSidebar = ["2xl", "xl", "lg"].includes(currentSize)
+   
     return (
         <nav className="w-full flex justify-between px-4 py-6 shadow-sm">
             <button 
-                onClick={toggleSidebar}
+                onClick={isBigSidebar ? toggleBigSidebar : toggleSmallSidebar}
                 className="text-blue-600"
             >
             <FaAlignLeft size="1.4rem"/>
