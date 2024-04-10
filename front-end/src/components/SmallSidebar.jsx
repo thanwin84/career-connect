@@ -1,7 +1,7 @@
 import React from "react";
 import { useDashboardContext } from "../pages/DashboardLayout";
 import { FaTimes } from "react-icons/fa";
-import {Logo, NavLinks} from '../components'
+import {Logo, NavLinks, ModalContainer} from '../components'
 
 
 export default function SmallSidebar({className}){
@@ -9,7 +9,7 @@ export default function SmallSidebar({className}){
     
     if (showSmallSidebar){
         return (
-            <section className={`fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 ${className}`}>
+            <ModalContainer className={className}>
                 <div className={`bg-white w-5/6 p-6 rounded-md`}>
                     <button 
                         onClick={toggleSmallSidebar}
@@ -24,7 +24,7 @@ export default function SmallSidebar({className}){
                         <NavLinks isSmallSidebar={true} />
                     </div>
                 </div>
-            </section>
+            </ModalContainer>
         )
     }
    
