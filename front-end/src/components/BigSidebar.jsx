@@ -15,7 +15,7 @@ export default function BigSidebar({className}){
 
 function SideBar({className}){
     return (
-        <section className={`p-4 border-r h-screen  ${className}`}>
+        <section className={`p-4 border-r dark:border-slate-800  h-screen  ${className}`}>
             <Logo className="w-52 pb-14 pt-4" />
             <NavLinks className=""  />
         </section>

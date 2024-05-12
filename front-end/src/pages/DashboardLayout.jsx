@@ -1,24 +1,26 @@
-import React, {useState, useContext, createContext} from "react";
+import React, {useState, useContext, createContext, useEffect} from "react";
 import {Outlet} from 'react-router-dom'
 import { BigSidebar, Navbar, SmallSidebar } from "../components";
 
 const dashboardContext = createContext()
 
-export default function DashboardLayout(){
+export default function DashboardLayout({defaultTheme}){
     // temp
     const user = {name: "Than Win"}
-    const [isDarkTheme, setIsDarkTheme] = useState(false)
+    const [theme, setTheme] = useState(defaultTheme)
     const [showBigSidebar, setShowBigSidebar] = useState(true)
     const [showSmallSidebar, setShowSmallSidebar] = useState(false)
     
     
-    function toggleDarkTheme(){
-        console.log("toggle theme")
+    function toggleTheme(){
+        if (theme === "dark"){
+            setTheme("light")
+        } else {
+            setTheme("dark")
+        }
     }
 
    
-    // testing
-    
     function toggleBigSidebar(){
         setShowBigSidebar(!showBigSidebar)
     }
@@ -29,19 +31,25 @@ export default function DashboardLayout(){
         console.log("log out user")
     }
     
+    // for dark theme
+    useEffect(()=>{
+        document.querySelector('html').classList.remove("light", "dark")
+        document.querySelector('html').classList.add(theme)
+        localStorage.setItem("themeMode", theme)
+    }, [theme])
 
     return (
         <dashboardContext.Provider value={{
                 user,
-                isDarkTheme,
-                toggleDarkTheme,
+                theme,
+                toggleTheme,
                 logoutUser,
                 showBigSidebar,
                 showSmallSidebar,
                 toggleBigSidebar,
                 toggleSmallSidebar
             }}>
-            <main className="flex flex-row">
+            <main className="flex flex-row dark:bg-slate-900">
                 <div className="">
                      <SmallSidebar className="lg:hidden xl:hidden 2xl:hidden" />
                     <BigSidebar className="hidden  md:block lg:block xl:block 2xl:block"/> 

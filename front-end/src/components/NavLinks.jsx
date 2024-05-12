@@ -7,7 +7,7 @@ import { useWindowScreenSize } from "../hooks";
 export default function NavLinks({className, isSmallSidebar}){
     const {toggleSmallSidebar} = useDashboardContext()
     
-    const linkStyle = `flex gap-6 text-gray-700 text-xl  mb-4 hover:text-blue-600 ${className}`
+    const linkStyle = `flex gap-6 text-gray-700 dark:text-white text-xl  mb-4 hover:text-blue-600 ${className}`
     const activeStyle = `flex gap-6 text-blue-700 text-xl  mb-4 hover:text-blue-600 ${className}`
     return (
         <div>

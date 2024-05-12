@@ -1,8 +1,14 @@
 import React from "react";
 import { FaAlignLeft } from "react-icons/fa";
-import {Logo} from '../components'
+import {
+    Logo,
+    LogoutContainer,
+    ThemeToggle
+} from '../components'
 import { useDashboardContext } from "../pages/DashboardLayout";
 import {useWindowScreenSize} from '../hooks'
+
+
 export default function Navbar(){
     const {toggleBigSidebar, toggleSmallSidebar} = useDashboardContext()
     const currentSize = useWindowScreenSize()
@@ -18,11 +24,12 @@ export default function Navbar(){
             </button>
             <div>
                 <Logo className="lg:hidden w-36" />
-                <h4 className="hidden lg:block text-xl">dashboard</h4>
+                <h4 className="hidden lg:block text-xl dark:text-white">dashboard</h4>
             </div>
-           <div>
-            toggle/logout
-           </div>
+            <div className="flex gap-4">
+                <ThemeToggle />
+                <LogoutContainer />
+            </div>
         </nav>
     )
 }

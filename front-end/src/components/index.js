@@ -6,7 +6,8 @@ import SmallSidebar from "./SmallSidebar";
 import Navbar from "./Navbar";
 import NavLinks from "./NavLinks";
 import ModalContainer from "./ModalContainer";
-
+import LogoutContainer from "./LogoutContainer";
+import ThemeToggle from "./ThemeToggle";
 
 export {
     Logo,
@@ -16,5 +17,7 @@ export {
     SmallSidebar,
     Navbar,
     NavLinks,
-    ModalContainer
+    ModalContainer,
+    LogoutContainer,
+    ThemeToggle
 }

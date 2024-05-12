@@ -14,6 +14,14 @@ import {
   Stats
 } from './pages'
 
+const checkDefaultTheme = ()=>{
+  const theme = localStorage.getItem('themeMode')
+  document.querySelector('html').classList.remove("light", "dark")
+  document.querySelector('html').classList.add(theme)
+  return theme
+}
+const theme = checkDefaultTheme()
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard",
-        element: <DashboardLayout />,
+        element: <DashboardLayout defaultTheme={theme} />,
         children: [
           {
             index: true,
