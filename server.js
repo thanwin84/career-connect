@@ -1,6 +1,8 @@
 import express, { json } from 'express'
 import morgan from 'morgan'
 import * as dotenv from 'dotenv'
+import connectToDB from './db/index.js'
+import errorHandler from './middleware/errorHandler.js'
 dotenv.config()
 
 const app = express()
@@ -28,11 +30,14 @@ app.use("*", (req, res)=>{
     res.status(404).json({msg: "Not Found"})
 })
 
-app.use((err, req, res, next)=>{
-    res.status(500).json({msg: "something went wrong"})
-})
+app.use(errorHandler)
 
 const port = process.env.PORT || 5100
-app.listen(process.env.PORT, (req, res)=>{
-    console.log('Server is running on port ', port)
-})
+
+
+connectToDB()
+.then(()=>{
+    app.listen(process.env.PORT, (req, res)=>{
+        console.log('Server is running on port ', port)
+    })
+}).catch(error => console.log("mongodb connection failed error ", error))
