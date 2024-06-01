@@ -5,6 +5,8 @@ import connectToDB from './db/index.js'
 import errorHandler from './middleware/errorHandler.js'
 dotenv.config()
 
+
+
 const app = express()
 
 if (process.env.NODE_ENV === 'development'){
@@ -23,6 +25,8 @@ import jobRouter from './routes/job.route.js'
 
 // routes declaration
 app.use("/api/v1/jobs", jobRouter)
+
+
 
 
 
