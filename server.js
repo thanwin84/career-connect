@@ -3,6 +3,7 @@ import morgan from 'morgan'
 import * as dotenv from 'dotenv'
 import connectToDB from './db/index.js'
 import errorHandler from './middleware/errorHandler.js'
+import cookieParser from 'cookie-parser'
 dotenv.config()
 
 
@@ -18,14 +19,15 @@ if (process.env.NODE_ENV === 'development'){
 app.use(express.json())
 //parse incoming URL-enconded data with extended options and limit of 16kb
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
+app.use(cookieParser())
 
 // routes import
 import jobRouter from './routes/job.route.js'
-
+import authRouter from './routes/auth.route.js'
 
 // routes declaration
 app.use("/api/v1/jobs", jobRouter)
-
+app.use("/api/v1/auth", authRouter)
 
 
 

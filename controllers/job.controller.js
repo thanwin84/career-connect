@@ -6,12 +6,19 @@ import {
     NotFoundError,
     BadRequestError
  } from '../errors/customErrors.js'
+import mongoose from 'mongoose'
 
 const getAllJobs = asyncHandler(async (req, res)=>{
     const {limit=10, page=1} = req.query
+    
     const skips = (Number(page) - 1) * Number(limit)
 
     const aggregationPipeline = [
+        {
+            $match: {
+                createdBy: new mongoose.Types.ObjectId(req.user.userId)
+            }
+        },
         {
             $skip: skips
         },
@@ -24,22 +31,18 @@ const getAllJobs = asyncHandler(async (req, res)=>{
 })
 
 const createJob = asyncHandler(async (req, res)=>{
-    const {company, position} = req.body
-    if (!company || !position){
-        throw new BadRequestError(`All fields are required`) 
-    }
+    req.body.createdBy = req.user.userId
    
-    const job = await Job.create({company, position})
+    const job = await Job.create(req.body)
 
     res.status(statusCodes.CREATED).json({job})
 })
 
 const getJob = asyncHandler(async (req, res)=>{
     const {id} = req.params
-    if (!id){
-        throw new BadRequestError("Id is missing")
-    }
+    
     const job = await Job.findById(id)
+    console.log(job)
     if (!job){
         throw new NotFoundError(`No job with id ${id}`)
     }

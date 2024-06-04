@@ -9,10 +9,12 @@ import {
 import { 
     ValidateJobInput,
     validateIdParam
-
 } from "../middleware/validationMiddleware.js";
+import { authenticateUser } from "../middleware/auth.middleware.js";
 
 const router = Router()
+
+router.use(authenticateUser)
 
 router.route("/")
 .get(getAllJobs)
