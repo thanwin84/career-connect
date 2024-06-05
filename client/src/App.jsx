@@ -13,6 +13,10 @@ import {
   Admin,
   Stats
 } from './pages'
+import { action as registerAction } from './pages/Register'
+import {action as loginAction} from './pages/Login'
+import {loader as dashboardLoader} from './pages/DashboardLayout'
+
 
 const checkDefaultTheme = ()=>{
   const theme = localStorage.getItem('themeMode')
@@ -34,15 +38,18 @@ const router = createBrowserRouter([
       },
       {
         path: "register",
-        element: <Register/>
+        element: <Register/>,
+        action: registerAction
       },
       {
         path: "login",
-        element: <Login />
+        element: <Login />,
+        action: loginAction
       },
       {
         path: "dashboard",
         element: <DashboardLayout defaultTheme={theme} />,
+        loader: dashboardLoader,
         children: [
           {
             index: true,
