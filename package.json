@@ -5,16 +5,17 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "setup-project": "npm i && cd front-end && npm i",
-    "dev": "nodemon server.js",
-    "watch": "node --watch server.js"
+    "setup-project": "npm i && cd client && npm i",
+    "server": "nodemon server",
+    "client": "cd client && npm run dev",
+    "dev": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.2.0",
+    "concurrently": "^8.2.2",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

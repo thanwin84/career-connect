@@ -21,6 +21,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(cookieParser())
 
+
+
 // routes import
 import jobRouter from './routes/job.route.js'
 import authRouter from './routes/auth.route.js'
@@ -36,6 +38,7 @@ app.use("/api/v1/users", userRouter)
 app.use("*", (req, res)=>{
     res.status(404).json({msg: "Not Found"})
 })
+
 
 app.use(errorHandler)
 
