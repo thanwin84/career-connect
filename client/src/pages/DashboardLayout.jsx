@@ -36,7 +36,7 @@ export default function DashboardLayout({defaultTheme}){
     const [showBigSidebar, setShowBigSidebar] = useState(true)
     const [showSmallSidebar, setShowSmallSidebar] = useState(false)
     const data = useLoaderData()
-    console.log(data)
+    
     
     function toggleTheme(){
         if (theme === "dark"){

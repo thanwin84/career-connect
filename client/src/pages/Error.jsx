@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Error(){
     const error = useRouteError()
+    
     if (error.status === 404){
         return (
             <div className="h-screen">

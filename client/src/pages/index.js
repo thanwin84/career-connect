@@ -1,5 +1,4 @@
 import AddJob from './AddJob'
-import DeleteJob from './DeleteJob'
 import EditJob from './EditJob'
 import Error from './Error'
 import HomeLayout from './HomeLayout'
@@ -16,7 +15,6 @@ import Profile from './Profile'
 export {
     AllJobs,
     AddJob,
-    DeleteJob,
     EditJob,
     Error,
     HomeLayout,

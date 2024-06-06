@@ -1,0 +1,32 @@
+import React, {useId} from "react";
+
+export default function Select({
+    label,
+    options=[],
+    className,
+    name,
+    ...props
+    
+}){
+    const id = useId()
+    return (
+        <div className="">
+            {label && <label htmlFor={id} className="mb-1 pl-1 inline-block">{label}</label>}
+            <select
+                name={name}
+                {...props}
+                id={id}
+                className={`w-full px-3 py-2 bg-gray-50 rounded-md border border-gray-200 ${className}`}
+            >
+                {
+                    options?.map(option =>(
+                        <option key={option} value={option}>
+                            {option}
+                        </option>
+                    ))
+                }
+
+            </select>
+        </div>
+    )
+}
