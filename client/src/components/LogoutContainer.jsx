@@ -6,7 +6,7 @@ import { useDashboardContext } from "../pages/DashboardLayout"
 export default function LogoutContainer(){
     const [showLogout, setShowLogout] = useState(false)
     const {user, logoutUser} = useDashboardContext()
-
+    
     return (
         <div className="relative">
             <button
@@ -16,7 +16,7 @@ export default function LogoutContainer(){
             >
                 <span className="my-auto">
                     {user.avatar ? (
-                        <img src={user.avatar} alt="avatar" className="" />
+                        <img src={user.avatar[0]} alt="avatar" className="w-8 h-8 rounded-full" />
                     ): (
                         <FaUserCircle />
                     )}

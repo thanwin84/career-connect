@@ -39,7 +39,7 @@ export default function EditJob(){
     const isSubmitting = useNavigation().state === 'submitting'
     
     return (
-        <main className="bg-slate-100 h-screen">
+        <main className="bg-slate-100 h-screen p-6">
             <Form method="post">
             <div className="p-8 shadow-md bg-white border">
                 <h2 className="text-2xl mb-6">Edit Job</h2>

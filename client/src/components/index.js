@@ -12,6 +12,10 @@ import Select from "./Select";
 import JobsContainer from "./JobsContainer";
 import SearchJobsContainer from "./SearchJobsContainer";
 import Job from "./Job";
+import AreaChart from "./AreaChart";
+import BarChart from "./BarChart";
+import ChartsContainers from "./ChartsContainer";
+import StatsContainer from "./StatsContainer";
 
 export {
     Logo,
@@ -27,5 +31,9 @@ export {
     Select,
     JobsContainer,
     SearchJobsContainer,
-    Job
+    Job,
+    AreaChart,
+    BarChart,
+    StatsContainer,
+    ChartsContainers
 }

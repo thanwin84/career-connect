@@ -1,12 +1,12 @@
 import asyncHandler from '../utils/asyncHandler.js'
 import {Job} from '../models/job.model.js'
-import { nanoid } from 'nanoid'
 import {statusCodes} from '../utils/constants.js'
 import { 
     NotFoundError,
     BadRequestError
  } from '../errors/customErrors.js'
 import mongoose from 'mongoose'
+import day from "dayjs"
 
 const getAllJobs = asyncHandler(async (req, res)=>{
     const {limit=10, page=1} = req.query
@@ -80,10 +80,72 @@ const deleteJob = asyncHandler(async (req, res)=>{
     res.status(statusCodes.OK).json({msg: "job deleted"})
 })
 
+const showStats = asyncHandler(async (req, res)=>{
+    let stats = await Job.aggregate([
+        {
+            $match: {
+                createdBy: new mongoose.Types.ObjectId(req.user.userId)
+            }
+        },
+        {
+            $group: {
+                _id: "$jobStatus",
+                count: {$sum: 1}
+            }
+        }
+    ])
+    stats = stats.reduce((acc, curr)=>{
+        const {_id:title, count} = curr
+        acc[title] = count
+        return acc
+    }, {})
+    
+    const defaultStats = {
+        pending: stats.pending || 0,
+        interview: stats.interview || 0,
+        declined: stats.declined || 0
+    }
+    let monthlyApplications = await Job.aggregate([
+        {
+            $match: {
+                createdBy: new mongoose.Types.ObjectId(req.user.userId)
+            }
+        },
+        {
+            $addFields: {
+                createdAt: {$toDate: "$createdAt"}
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    year: {$year: "$createdAt"},
+                    month: {$month: "$createdAt"}
+                },
+                count: {$sum: 1}
+            }
+        },
+        {
+            $sort: {"_id.year": -1, "_id:month": -1}
+        },
+        {
+            $limit: 6
+        }
+    ])
+    monthlyApplications = monthlyApplications.map(item =>{
+        const {_id:{year, month}, count} = item
+        const date = day().year(year).month(month -1).format("MMM YY")
+        return {date, count}
+    }).reverse()
+
+    res.status(statusCodes.OK).json({defaultStats, monthlyApplications})
+})
+
 export {
     getAllJobs,
     createJob,
     getJob,
     updateJob,
-    deleteJob
+    deleteJob,
+    showStats
 }

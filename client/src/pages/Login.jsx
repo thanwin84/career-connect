@@ -18,7 +18,7 @@ export const action = async ({request})=>{
     const data = Object.fromEntries(formData)
     try {
         await customFetch.post("/auth/login", data)
-        toast.success("Login is successfull", {autoClose: 3000})
+        toast.success("Login is successfull", {autoClose: 2000})
         return redirect("/dashboard")
     } catch (error) {
         toast.error(error?.response?.data?.message, {autoClose: 3000})

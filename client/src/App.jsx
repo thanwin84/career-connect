@@ -21,6 +21,9 @@ import { action as addjobAction} from './pages/AddJob'
 import { loader as allJobsLoader } from './pages/AllJobs'
 import { action as editJobAction, loader as editJobLoader } from './pages/EditJob'
 import { action as deleteJobAction } from './pages/DeleteJob'
+import { loader as adminLoader } from './pages/Admin'
+import { action as profileAction } from './pages/Profile'
+import { loader as statsLoader } from './pages/Stats'
 
 const checkDefaultTheme = ()=>{
   const theme = localStorage.getItem('themeMode')
@@ -67,11 +70,13 @@ const router = createBrowserRouter([
           },
           {
             path: 'profile',
-            element: <Profile />
+            element: <Profile />,
+            action: profileAction
           },
           {
             path: 'admin',
-            element: <Admin />
+            element: <Admin />,
+            loader: adminLoader
           },
           {
 
@@ -86,7 +91,8 @@ const router = createBrowserRouter([
           },
           {
             path: 'stats',
-            element: <Stats />
+            element: <Stats />,
+            loader: statsLoader
           }
 
         ]

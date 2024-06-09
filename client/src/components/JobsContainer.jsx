@@ -8,7 +8,7 @@ export default function JobsContainer(){
     if (jobs.length === 0){
         return (
             <div>
-                <h2>No Jobs to Show</h2>
+                <h2 className="text-3xl">No Jobs to display.....</h2>
             </div>
         )
     }

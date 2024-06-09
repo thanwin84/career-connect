@@ -56,7 +56,7 @@ export default function DashboardLayout({defaultTheme}){
     async function logoutUser(){
         navigate("/")
         await customFetch.get("/auth/logout")
-        toast.success("Log out is successful")
+        toast.success("Log out is successful", {autoClose:2000})
     }
     
     // for dark theme
@@ -79,14 +79,14 @@ export default function DashboardLayout({defaultTheme}){
             }}>
             <main className="flex flex-row dark:bg-slate-900">
                 <div className="">
-                     <SmallSidebar className="lg:hidden xl:hidden 2xl:hidden" />
+                    <SmallSidebar className="lg:hidden xl:hidden 2xl:hidden" />
                     <BigSidebar className="hidden  md:block lg:block xl:block 2xl:block"/> 
                     
                 </div>
 
                 <div className="w-full">
                     <Navbar />
-                    <div className="">
+                    <div className="bg-slate-100 h-screen">
                         <Outlet context={{user}}/>
                     </div>
                 </div>

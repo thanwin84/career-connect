@@ -1,10 +1,11 @@
-import express, { json } from 'express'
-import morgan from 'morgan'
 import * as dotenv from 'dotenv'
+dotenv.config()
+import express from 'express'
+import morgan from 'morgan'
 import connectToDB from './db/index.js'
 import errorHandler from './middleware/errorHandler.js'
 import cookieParser from 'cookie-parser'
-dotenv.config()
+
 
 
 
@@ -28,13 +29,19 @@ import jobRouter from './routes/job.route.js'
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
 
+// public
+import path, {dirname} from "path"
+import { fileURLToPath } from 'url'
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+
 // routes declaration
 app.use("/api/v1/jobs", jobRouter)
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", userRouter)
 
 
-
+app.use(express.static(path.resolve(__dirname, "./public")))
 app.use("*", (req, res)=>{
     res.status(404).json({msg: "Not Found"})
 })

@@ -4,7 +4,8 @@ import {
     createJob,
     getJob,
     updateJob,
-    deleteJob
+    deleteJob,
+    showStats
 } from "../controllers/job.controller.js"
 import { 
     ValidateJobInput,
@@ -19,6 +20,8 @@ router.use(authenticateUser)
 router.route("/")
 .get(getAllJobs)
 .post(ValidateJobInput,createJob)
+
+router.route("/show-stats").get(showStats)
 
 router.route("/:id")
 .get(validateIdParam,getJob)

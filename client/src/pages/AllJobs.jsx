@@ -21,7 +21,7 @@ export default function AllJobs(){
     
     return (
         <allJobsContext.Provider value={{jobs}}>
-            <main className="bg-slate-100">
+            <main className="bg-slate-100 h-screen">
                 <SearchJobsContainer />
                 <JobsContainer />
             </main>
