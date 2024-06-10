@@ -37,9 +37,9 @@ export default function AddJob(){
     const isSubmitting = navigation.state === "submitting"
 
     return (
-        <section className="dark:bg-slate-800 dark:text-white bg-slate-100 h-screen p-6 rounded-md">
+        <section className=" dark:text-white p-6">
          <Form method="post">
-            <div className="p-8 shadow-md bg-white border">
+            <div className="p-8 shadow-md bg-white  dark:bg-zinc-900 rounded-md">
                 <h2 className="text-2xl mb-6">Add Job</h2>
                 <div className="grid lg:grid-cols-3 gap-4">
                     <Input 

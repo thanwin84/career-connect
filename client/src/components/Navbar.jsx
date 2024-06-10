@@ -15,12 +15,12 @@ export default function Navbar(){
     const isBigSidebar = ["2xl", "xl", "lg"].includes(currentSize)
    
     return (
-        <nav className="w-full flex justify-between px-4 py-6 shadow-sm">
+        <nav className="w-full flex justify-between px-4 py-6 shadow-sm bg-white dark:bg-zinc-900">
             <button 
                 onClick={isBigSidebar ? toggleBigSidebar : toggleSmallSidebar}
-                className="text-blue-600"
+                className="text-blue-600 ml-4"
             >
-            <FaAlignLeft size="1.4rem"/>
+            <FaAlignLeft size="1.8rem"/>
             </button>
             <div>
                 <Logo className="lg:hidden w-36" />

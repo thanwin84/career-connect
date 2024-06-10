@@ -23,7 +23,7 @@ export default function StatItem({icon, count, title, color, className}){
     }
     
     return (
-        <div className={`w-60 p-6 bg-white rounded-md flex flex-col  gap-4 text-2xl border-b-4 ${className}  ${colors[color]?.border}  `}>
+        <div className={`w-60 p-6 bg-white dark:bg-zinc-900 rounded-md flex flex-col  gap-4 text-2xl border-b-4 ${className}  ${colors[color]?.border}  `}>
             <div className="flex justify-between">
                 <span className={`font-bold  ${colors[color]?.text} my-auto`}>{count}</span>
                 <div className={`my-auto ${colors[color]?.iconBg} rounded-sm p-4`}>
@@ -31,7 +31,7 @@ export default function StatItem({icon, count, title, color, className}){
                 </div>
             </div>
             <div>
-                <span className="text-xl">{title}</span>
+                <span className="text-xl dark:text-slate-100">{title}</span>
             </div>
         </div>
     )

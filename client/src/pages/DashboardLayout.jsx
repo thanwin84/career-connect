@@ -77,16 +77,16 @@ export default function DashboardLayout({defaultTheme}){
                 toggleBigSidebar,
                 toggleSmallSidebar
             }}>
-            <main className="flex flex-row dark:bg-slate-900">
-                <div className="">
+            <main className="flex flex-row">
+                
+                <div className="dark:bg-zinc-900 bg-white h-screen fixed">
                     <SmallSidebar className="lg:hidden xl:hidden 2xl:hidden" />
                     <BigSidebar className="hidden  md:block lg:block xl:block 2xl:block"/> 
-                    
                 </div>
 
-                <div className="w-full">
+                <div className={`w-full ${showBigSidebar ? "lg:ml-60 md:ml-60": ""}`}>
                     <Navbar />
-                    <div className="bg-slate-100 h-screen">
+                    <div className="bg-slate-50 dark:bg-zinc-800 min-h-screen">
                         <Outlet context={{user}}/>
                     </div>
                 </div>

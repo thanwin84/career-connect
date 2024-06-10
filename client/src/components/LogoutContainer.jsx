@@ -11,7 +11,7 @@ export default function LogoutContainer(){
         <div className="relative">
             <button
                 type="button"
-                className="flex gap-2 my-auto bg-blue-500 text-white px-2 py-1 rounded-md"
+                className="flex gap-2 my-auto bg-blue-600 text-white px-2 py-1 rounded-md"
                 onClick={()=> setShowLogout(!showLogout)}
             >
                 <span className="my-auto">
@@ -33,7 +33,7 @@ export default function LogoutContainer(){
                 {showLogout && (
                     <button
                         type="button"
-                        className="bg-blue-500 text-white px-4 py-1 rounded-md  w-full"
+                        className="bg-blue-600 text-white px-4 py-1 rounded-md  w-full"
                         onClick={logoutUser}
                     >
                         logout

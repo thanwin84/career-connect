@@ -4,9 +4,9 @@ import {BarChart,AreaChart} from "../components"
 export default function ChartsContainers({data}){
     const [barChart, setBarChart] = useState(true)
     return (
-        <section className="bg-slate-100">
+        <section className="bg-slate-100 dark:bg-zinc-800">
             <div className="text-center">
-                <h4 className="text-xl">Monthly Applications</h4>
+                <h4 className="text-xl dark:text-slate-200">Monthly Applications</h4>
                 <button
                     className="text-xl text-green-600"
                     onClick={()=>setBarChart(!barChart)}

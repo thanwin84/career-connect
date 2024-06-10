@@ -14,8 +14,8 @@ export default function JobsContainer(){
     }
     return (
         <div>
-            <h4 className="font-bold text-slate-600 mb-2 px-6">{jobs.length} jobs found</h4>
-            <section className="grid lg:grid-cols-2 md:grid-cols-2 gap-2 px-4">
+            <h4 className="font-bold text-slate-600 dark:text-slate-200 mb-2 px-6">{jobs.length} jobs found</h4>
+            <section className="grid lg:grid-cols-2 md:grid-cols-2 gap-4 px-4">
             {jobs.map(job =>(
                 <Job key={job._id} {...job}/>
             ))}

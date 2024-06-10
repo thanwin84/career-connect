@@ -21,10 +21,10 @@ export default function AllJobs(){
     
     return (
         <allJobsContext.Provider value={{jobs}}>
-            <main className="bg-slate-100 h-screen">
+            <section className="dark:bg-zinc-800">
                 <SearchJobsContainer />
                 <JobsContainer />
-            </main>
+            </section>
         </allJobsContext.Provider>
     )
 }

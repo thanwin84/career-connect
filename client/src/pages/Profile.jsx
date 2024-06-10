@@ -30,9 +30,9 @@ export default function Profile(){
     
     
     return (
-        <section className="p-4">
-            <Form className="bg-white p-4 rounded-md shadow-md" method="post" encType="multipart/form-data">
-                <h3 className="mb-2">Profile</h3>
+        <section className="p-4 ">
+            <Form className="bg-white dark:bg-zinc-900 p-4 rounded-md shadow-md" method="post" encType="multipart/form-data">
+                <h3 className="mb-2 text-2xl dark:text-slate-200">Profile</h3>
                 <div className="grid gap-4 lg:grid-cols-3">
                     <Input 
                         label="Select an image File (Max 0.5MB)"

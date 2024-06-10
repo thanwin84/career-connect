@@ -23,15 +23,15 @@ export default function Job({
     }
     const date = day(createdAt).format('MMM Do, YYYY')
     return (
-        <section className="p-4 rounded-md mb-2 shadow-md bg-white">
+        <section className="p-4 rounded-md mb-2 shadow-md bg-white dark:bg-zinc-900">
            <header className="flex border-b border-b-slate-200 p-4">
             <div className="mr-4 bg-blue-700 text-white p-4 rounded-md">{company.substring(0, 1)}</div>
             <div className="">
-                <h4 className="text-xl">{position}</h4>
-                <h4 className="text-slate-600">{company}</h4>
+                <h4 className="text-xl dark:text-slate-100">{position}</h4>
+                <h4 className="text-slate-600  dark:text-slate-200">{company}</h4>
             </div>
            </header>
-           <div className="p-4 grid grid-cols-2 gap-y-2"> 
+           <div className="p-4 grid grid-cols-2 gap-y-3"> 
                 <JobInfo icon={<FaLocationArrow className="text-blue-600"/>} text={jobLocation} />
                 <JobInfo icon={<FaCalendarAlt className="text-blue-600"/>} text={date} />
                 <JobInfo icon={<FaBriefcase className="text-blue-600"/>} text={jobType} />

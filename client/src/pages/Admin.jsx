@@ -20,7 +20,7 @@ export default function Admin(){
     const {users, jobs} = useLoaderData()
     
     return (
-        <div className=" bg-slate-100 p-6 flex gap-4">
+        <div className="p-6 flex gap-4">
         <StatItem
             count={users}
             title="Current User"
