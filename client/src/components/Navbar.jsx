@@ -15,7 +15,7 @@ export default function Navbar(){
     const isBigSidebar = ["2xl", "xl", "lg"].includes(currentSize)
    
     return (
-        <nav className="w-full flex justify-between px-4 py-6 shadow-sm bg-white dark:bg-zinc-900">
+        <nav className="w-full flex justify-between px-4 py-6 shadow-sm bg-white dark:bg-zinc-900 border-b dark:border-none">
             <button 
                 onClick={isBigSidebar ? toggleBigSidebar : toggleSmallSidebar}
                 className="text-blue-600 ml-4"

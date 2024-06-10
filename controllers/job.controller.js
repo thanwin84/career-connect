@@ -1,6 +1,6 @@
 import asyncHandler from '../utils/asyncHandler.js'
 import {Job} from '../models/job.model.js'
-import {statusCodes} from '../utils/constants.js'
+import {statusCodes, JOB_SORT_BY} from '../utils/constants.js'
 import { 
     NotFoundError,
     BadRequestError
@@ -9,15 +9,37 @@ import mongoose from 'mongoose'
 import day from "dayjs"
 
 const getAllJobs = asyncHandler(async (req, res)=>{
-    const {limit=10, page=1} = req.query
+    const {limit=10, page=1, search, jobStatus, jobType, sort} = req.query
     
     const skips = (Number(page) - 1) * Number(limit)
 
+    const queryObject = {createdBy: new mongoose.Types.ObjectId(req.user.userId)}
+    if (search){
+        queryObject.$or = [
+            {position: {$regex: search, $options: "i"}},
+            {company: {$regex: search, $options: "i"}}
+        ]
+    }
+    if (jobStatus && jobStatus !== "all"){
+        queryObject.jobStatus = jobStatus
+    }
+    if (jobType && jobType !== "all"){
+        queryObject.jobType = jobType
+    }
+    const sortOptions = {
+        newest: {"createdAt": -1},
+        oldest: {"createdAt": 1},
+        "a-z": {"position": 1},
+        "z-a": {"position": -1}
+    }
+    const sortKey = sortOptions[sort] || sortOptions["newest"]
+    console.log(sortKey)
     const aggregationPipeline = [
         {
-            $match: {
-                createdBy: new mongoose.Types.ObjectId(req.user.userId)
-            }
+            $match: queryObject
+        },
+        {
+            $sort: sortKey
         },
         {
             $skip: skips
