@@ -33,7 +33,7 @@ const getAllJobs = asyncHandler(async (req, res)=>{
         "z-a": {"position": -1}
     }
     const sortKey = sortOptions[sort] || sortOptions["newest"]
-    console.log(sortKey)
+   
     const aggregationPipeline = [
         {
             $match: queryObject
@@ -49,7 +49,10 @@ const getAllJobs = asyncHandler(async (req, res)=>{
         }
     ]
     const jobs = await Job.aggregate(aggregationPipeline)
-    res.status(statusCodes.OK).json({jobs})
+    const totalJobs = await Job.countDocuments()
+    const totalPages = Math.ceil(totalJobs / limit)
+
+    res.status(statusCodes.OK).json({totalJobs, totalPages, currentPage: page, jobs})
 })
 
 const createJob = asyncHandler(async (req, res)=>{

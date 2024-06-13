@@ -80,6 +80,7 @@ export default function EditJob(){
                         <div className="flex flex-1 flex-col justify-end">
                             <Button
                                 type="submit"
+                                category="success"
                                 classname=""
                                 disabled = {isSubmitting}
                             

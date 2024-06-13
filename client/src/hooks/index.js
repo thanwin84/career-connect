@@ -1,5 +1,6 @@
 import useWindowScreenSize from "./useWindowSreenSize";
-
+import useDebounce from "./useDebounce";
 export {
-    useWindowScreenSize
+    useWindowScreenSize,
+    useDebounce
 }

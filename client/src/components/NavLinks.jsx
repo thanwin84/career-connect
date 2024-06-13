@@ -9,8 +9,8 @@ export default function NavLinks({className, isSmallSidebar}){
     const {role} = user
     
     
-    const linkStyle = `flex mb-6 gap-6 text-gray-700 dark:text-white text-xl  mb-4 hover:text-blue-600 ${className}`
-    const activeStyle = `flex  mb-6 gap-6 text-blue-700 text-xl  mb-4 hover:text-blue-600 ${className}`
+    const linkStyle = `flex mb-6 gap-6 text-gray-700 hover:text-blue-600 dark:hover:text-blue-500 dark:text-white text-xl  mb-4  ${className}`
+    const activeStyle = `flex  mb-6 gap-6 text-blue-700 hover:text-blue-600  text-xl  mb-4  ${className}`
     return (
         <div>
             {links.map(link =>{
