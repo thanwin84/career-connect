@@ -49,7 +49,7 @@ const getAllJobs = asyncHandler(async (req, res)=>{
         }
     ]
     const jobs = await Job.aggregate(aggregationPipeline)
-    const totalJobs = await Job.countDocuments()
+    const totalJobs = await Job.countDocuments(queryObject)
     const totalPages = Math.ceil(totalJobs / limit)
 
     res.status(statusCodes.OK).json({totalJobs, totalPages, currentPage: page, jobs})

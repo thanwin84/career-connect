@@ -9,13 +9,17 @@ import { useDebounce } from "../hooks";
 export default function SearchJobsContainer(){
     const submit = useSubmit()
     const {searchValues} = useAllJobsContext()
-    const [searchTerm, setSearchTerm] = useState(searchValues.search || "")
+    const {search, jobStatus="all", jobType="all", sort="newest"} = searchValues
+    const [searchTerm, setSearchTerm] = useState(search || "")
     const debouncedValue = useDebounce(searchTerm)
 
     useEffect(()=>{
-        submit({...searchValues, search: debouncedValue}, {method: "get"})
+       
+        const ob = {search: debouncedValue, jobStatus, jobType, sort}
+        submit(ob, {method: "get"})
+        
     },[debouncedValue, submit])
-    console.log(searchValues)
+    
     return (
         <Form className="p-6">
             <div className="px-4 py-6 bg-white dark:bg-zinc-900 rounded-md shadow-md">
@@ -26,27 +30,28 @@ export default function SearchJobsContainer(){
                         type="search"
                         name="search"
                         onChange={(e)=> setSearchTerm(e.target.value)}
-                        defaultValue={searchValues.search}
+                        defaultValue={search}
                     />
                     <Select 
                         label="Job Status"
                         options={["all", ...Object.values(JOB_STATUS)]}
                         name="jobStatus"
                         onChange={(e)=> submit(e.target.form)}
-                        defaultValue={searchValues.jobStatus}
+                        defaultValue={jobStatus}
+                        
                     />
                     <Select 
                         label = "Job Type"
                         name="jobType"
                         options={["all", ...Object.values(JOB_TYPE)]}
                         onChange={(e)=> submit(e.target.form)}
-                        defaultValue={searchValues.jobType}
+                        defaultValue={jobType}
                     />
                     <Select 
                         label = "Sort"
                         name="sort"
                         options={[...Object.values(JOB_SORT_BY)]}
-                        defaultValue={searchValues.sort}
+                        defaultValue={sort}
                         onChange={(e)=> submit(e.target.form)}
                     />
                     <div className="flex flex-col justify-end">
