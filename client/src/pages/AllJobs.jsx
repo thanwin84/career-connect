@@ -1,13 +1,12 @@
 import React, {useContext, createContext} from "react";
 import { JobsContainer, SearchJobsContainer } from "../components";
 import customFetch from "../utils/customFetch";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { useCustomQuery } from "../hooks";
 
 export const loader = async({request})=>{
     const params = Object.fromEntries(new URL(request.url).searchParams.entries())
-    
     try {
         const {data} = await customFetch.get("/jobs", {params:params})
         return {data, searchValues: params}
@@ -22,6 +21,11 @@ const allJobsContext = createContext()
 export default function AllJobs(){
     const {data, searchValues} = useLoaderData()
     const {jobs, totalJobs, totalPages, currentPage} = data
+    const {pathname, search} = useLocation()
+    const {data:resource, loading} = useCustomQuery(`/jobs${search}`)
+    
+    console.log(resource, loading)
+    
     
     return (
         <allJobsContext.Provider value={{jobs, searchValues,totalJobs, totalPages, currentPage}}>

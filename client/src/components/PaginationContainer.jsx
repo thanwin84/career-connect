@@ -3,7 +3,7 @@ import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi';
 import { useAllJobsContext } from "../pages/AllJobs";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function PageButtonContainer(){
+export default function PaginationContainer(){
     let {totalJobs, totalPages, currentPage} = useAllJobsContext()
     totalJobs = Number(totalJobs)
     totalPages = Number(totalPages)
@@ -23,7 +23,7 @@ export default function PageButtonContainer(){
        
         return (
             <button
-                className={`px-4 py-2 text-blue-700 dark:bg-zinc-900 dark:text-slate-100 bg-white shadow-ld rounded-md hover:bg-blue-700 dark:hover:bg-blue-800 hover:text-white ${activePage && "bg-blue-800 dark:bg-blue-800 text-white"}`}
+                className={`px-4 py-2 bg-white dark:bg-zinc-900 text-blue-700 dark:text-white shadow-md rounded-md border dark:border-none border-slate-300 hover:bg-blue-700 hover:text-white dark:hover:bg-blue-700 dark:hover:text-white ${activePage ?"bg-blue-800 text-white dark:bg-blue-800":""}`}
                 key={pageNumber}
                 onClick={()=>handlePageChange(pageNumber)}
             >
@@ -47,7 +47,6 @@ export default function PageButtonContainer(){
         }
         // before current page
         if (currentPage !== 1 && currentPage !== 2){
-            console.log("before current page")
             pageButtons.push(
                 pageButton({
                     pageNumber: currentPage - 1,
@@ -58,7 +57,6 @@ export default function PageButtonContainer(){
 
         // current page
         if (currentPage !== 1 && currentPage !== totalPages){
-            console.log("current page")
             pageButtons.push(
                 pageButton({
                     pageNumber: currentPage,
@@ -67,7 +65,6 @@ export default function PageButtonContainer(){
             )
         }
         if (currentPage !== totalPages && currentPage !== totalPages - 1){
-            console.log("after current page")
             pageButtons.push(
                 pageButton({
                     pageNumber: currentPage + 1,
@@ -76,7 +73,6 @@ export default function PageButtonContainer(){
             )
         }
         if (currentPage < totalPages - 2){
-
             pageButtons.push(
                 <span key ="dot-2" className="font-bold px-4 py-2 bg-white dark:bg-zinc-900 dark:text-white shadow-lg rounded-md text-blue-700">...</span>
             )

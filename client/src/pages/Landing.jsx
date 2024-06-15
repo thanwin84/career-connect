@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Landing(){
     return (
-        <section className="h-screen bg-stone-100 dark:bg-slate-900 w-full flex flex-col">
+        <section className="h-screen bg-stone-100 dark:bg-zinc-900 w-full flex flex-col">
             <nav className="px-6 pt-10 w-5/6">
                 <Logo className="w-72" />
             </nav>

@@ -31,10 +31,10 @@ export default function Login(){
     const isSubmitting = navigation.state === 'submitting'
 
     return (
-        <main className="h-screen bg-stone-50 dark:bg-zinc-700 py-8">
-            <div className="bg-white p-8 w-4/6 lg:w-2/5 shadow-lg rounded-md mx-auto border-t-4 border-blue-500 dark:bg-zinc-900">
+        <main className="h-screen bg-stone-50 dark:bg-zinc-900 py-8">
+            <div className="bg-white p-8 w-4/6 lg:w-2/5 shadow-lg rounded-md mx-auto border-t-4 border-blue-500 dark:bg-zinc-800">
                 <Form method="post">
-                    <Logo className="mx-auto mb-4"/>
+                    <Logo className="mx-auto mb-4 w-4/6"/>
                     <h2 className="text-center text-xl  text-blue-500 dark:text-white font-semibold">Login</h2>
                     
                     <Input  

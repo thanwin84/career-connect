@@ -1,5 +1,5 @@
 import React from "react";
-import {Job, PageButtonContainer} from "../components"
+import {Job, PaginationContainer} from "../components"
 import { useAllJobsContext } from "../pages/AllJobs";
 
 export default function JobsContainer(){
@@ -22,7 +22,7 @@ export default function JobsContainer(){
             
         </section>
         <div className="mr-2">
-        { totalPages> 1 && (<PageButtonContainer />)}
+        { totalPages> 1 && (<PaginationContainer />)}
         </div>
         </div>
     )

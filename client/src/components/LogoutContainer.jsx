@@ -8,10 +8,10 @@ export default function LogoutContainer(){
     const {user, logoutUser} = useDashboardContext()
     
     return (
-        <div className="relative">
+        <div className="relative w-40">
             <button
                 type="button"
-                className="px-2 py-1 rounded-md flex gap-2 my-auto  dark:bg-zinc-800 border border-slate-400 dark:border-slate-100 dark:text-slate-100  "
+                className="w-full px-2 py-1 rounded-md flex justify-between gap-2 my-auto  dark:bg-zinc-800 border border-slate-400 dark:border-slate-100 dark:text-slate-100  "
                 onClick={()=> setShowLogout(!showLogout)}
             >
                 <span className="my-auto">

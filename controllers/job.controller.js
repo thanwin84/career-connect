@@ -12,8 +12,9 @@ const getAllJobs = asyncHandler(async (req, res)=>{
     const {limit=10, page=1, search, jobStatus, jobType, sort} = req.query
     
     const skips = (Number(page) - 1) * Number(limit)
+    
 
-    const queryObject = {createdBy: new mongoose.Types.ObjectId(req.user.userId)}
+    const queryObject = req.user.role === 'admin' ? {} : {createdBy: new mongoose.Types.ObjectId(req.user.userId)}
     if (search){
         queryObject.$or = [
             {position: {$regex: search, $options: "i"}},
@@ -33,6 +34,7 @@ const getAllJobs = asyncHandler(async (req, res)=>{
         "z-a": {"position": -1}
     }
     const sortKey = sortOptions[sort] || sortOptions["newest"]
+    
    
     const aggregationPipeline = [
         {

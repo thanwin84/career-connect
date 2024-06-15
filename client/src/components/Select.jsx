@@ -11,7 +11,7 @@ export default function Select({
     const id = useId()
     return (
         <div className="">
-            {label && <label htmlFor={id} className="mb-1 pl-1 inline-block dark:text-slate-200">{label}</label>}
+            {label && <label htmlFor={id} className="mb-2 pl-1 inline-block dark:text-slate-200">{label}</label>}
             <select
                 name={name}
                 {...props}

@@ -25,7 +25,7 @@ export default function Job({
     return (
         <section className="p-4 rounded-md mb-2 shadow-md bg-white dark:bg-zinc-900">
            <header className="flex border-b border-b-slate-200 p-4">
-            <div className="mr-4 bg-blue-700 text-white p-4 rounded-md">{company.substring(0, 1)}</div>
+            <div className="mr-4 bg-blue-700 text-white p-4 rounded-md">{company.substring(0, 1).toUpperCase()}</div>
             <div className="">
                 <h4 className="text-xl dark:text-slate-100">{position}</h4>
                 <h4 className="text-slate-600  dark:text-slate-200">{company}</h4>
@@ -36,7 +36,7 @@ export default function Job({
                 <JobInfo icon={<FaCalendarAlt className="text-blue-600"/>} text={date} />
                 <JobInfo icon={<FaBriefcase className="text-blue-600"/>} text={jobType} />
                 <div className="">
-                    <span className={`px-4 py-1  rounded-sm ${styles[jobStatus]}`}>{jobStatus}</span>
+                    <span className={`px-4 py-1  rounded-sm ${styles[jobStatus]}`}>{jobStatus.substring(0, 1).toUpperCase()+ jobStatus.substring(1)}</span>
                 </div>
            </div>
            <div className="flex gap-2 px-4">
