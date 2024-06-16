@@ -10,7 +10,9 @@ export default function PaginationContainer(){
     currentPage = Number(currentPage)
     const {pathname, search} = useLocation()
     const navigate = useNavigate()
+
     
+
     function handlePageChange(pageNumber){
         
         const query = new URLSearchParams(search)
@@ -20,10 +22,11 @@ export default function PaginationContainer(){
         navigate(url)
     }
     function pageButton({pageNumber, activePage}){
-       
+        const pageBtnStyle = "px-4 py-2 bg-white dark:bg-zinc-900 text-blue-700 dark:text-white shadow-md rounded-md border dark:border-none border-slate-300"
+        const activePageBtnStyle = "px-4 py-2 rounded-md text-white bg-blue-800 dark:bg-blue-800"
         return (
             <button
-                className={`px-4 py-2 bg-white dark:bg-zinc-900 text-blue-700 dark:text-white shadow-md rounded-md border dark:border-none border-slate-300 hover:bg-blue-700 hover:text-white dark:hover:bg-blue-700 dark:hover:text-white ${activePage ?"bg-blue-800 text-white dark:bg-blue-800":""}`}
+                className={activePage ? activePageBtnStyle: pageBtnStyle}
                 key={pageNumber}
                 onClick={()=>handlePageChange(pageNumber)}
             >
@@ -106,6 +109,7 @@ export default function PaginationContainer(){
             {currentPage !== totalPages && (
                 <button
                     className="ml-2 px-4 py-2 text-blue-700 dark:text-slate-100 bg-white dark:bg-zinc-900 shadow-lg rounded-md flex gap-2 my-auto items-center hover:bg-blue-700 dark:hover:bg-blue-700 hover:text-white"
+
                     onClick={()=> handlePageChange(currentPage + 1)}
                 >
                     Next
