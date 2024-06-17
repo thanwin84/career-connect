@@ -22,7 +22,7 @@ export default function PaginationContainer(){
         navigate(url)
     }
     function pageButton({pageNumber, activePage}){
-        const pageBtnStyle = "px-4 py-2 bg-white dark:bg-zinc-900 text-blue-700 dark:text-white shadow-md rounded-md border dark:border-none border-slate-300"
+        const pageBtnStyle = "px-4 py-2 bg-white dark:bg-zinc-900 text-blue-700 dark:text-white shadow-md rounded-md border dark:border-none hover:bg-blue-900 dark:hover:bg-blue-800 border-slate-300"
         const activePageBtnStyle = "px-4 py-2 rounded-md text-white bg-blue-800 dark:bg-blue-800"
         return (
             <button

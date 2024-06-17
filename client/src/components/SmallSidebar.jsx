@@ -9,8 +9,8 @@ export default function SmallSidebar({className}){
     
     if (showSmallSidebar){
         return (
-            <ModalContainer className={className}>
-                <div className={`bg-white w-5/6 p-6 rounded-md dark:bg-zinc-900`}>
+            <ModalContainer className={`w-4/6 ${className}`}>
+                <div className={`bg-white p-6 rounded-md dark:bg-zinc-900`}>
                     <button 
                         onClick={toggleSmallSidebar}
                         className="text-red-500 hover:text-red-700"

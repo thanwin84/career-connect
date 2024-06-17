@@ -10,13 +10,13 @@ export default function Select({
 }){
     const id = useId()
     return (
-        <div className="">
+        <div className={`${className}`}>
             {label && <label htmlFor={id} className="mb-2 pl-1 inline-block dark:text-slate-200">{label}</label>}
             <select
                 name={name}
                 {...props}
                 id={id}
-                className={`w-full px-4 py-2  bg-gray-50 rounded-md border border-gray-200 dark:bg-zinc-700 dark:text-slate-200 ${className}`}
+                className={`w-full px-4 py-2  bg-gray-50 rounded-md border border-gray-200 dark:bg-zinc-700 dark:text-slate-200`}
             >
                 {
                     options?.map(option =>(

@@ -13,7 +13,7 @@ import {BadRequestError} from '../errors/customErrors.js'
 
  const getApplicationStats = asyncHandler(async (req, res)=>{
     const users = await User.countDocuments()
-    const jobs = await Job.countDocuments()
+    const jobs = await Job.countDocuments() 
 
     res.status(statusCodes.OK).json({users, jobs})
  })
@@ -44,8 +44,19 @@ import {BadRequestError} from '../errors/customErrors.js'
     res.status(statusCodes.OK).json({msg: "updated User"})
  })
 
+ const addEducation = asyncHandler(async(req, res)=>{
+   const userId = req.user.userId
+   console.log(req.body)
+   const updatedUser = await User.findOneAndUpdate(
+      {_id: userId},
+      {$push: {educationRecords: req.body}}
+   )
+   res.status(statusCodes.OK).json({msg: "education record is updated"})
+ })
+ 
  export {
     getCurrentUser,
     getApplicationStats,
-    updateUser
+    updateUser,
+    addEducation
  }

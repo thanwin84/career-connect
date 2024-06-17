@@ -70,3 +70,13 @@ export const validateUpdateInput = withValidationError([
     body('lastName').notEmpty().withMessage("lastName is required")
     
 ])
+
+export const validateAddEducationInput = withValidationError([
+    body("school").notEmpty().withMessage("name is required"),
+    body("degree").notEmpty().withMessage("degree is required"),
+    body("department").notEmpty().withMessage("department is required"),
+    body("startMonth").notEmpty().withMessage("starting month is required"),
+    body("startYear").notEmpty().withMessage("starting year is required"),
+    body("endMonth").if((value, {req})=> req.body.currentlyStudying ===  "false").notEmpty().withMessage("End month is required"),
+    body("endYear").if((value, {req})=> req.body.currentlyStudying === "false").notEmpty().withMessage("End year is required")
+])

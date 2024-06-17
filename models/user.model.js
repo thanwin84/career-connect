@@ -2,6 +2,20 @@ import mongoose from "mongoose";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+const educationSchema = new mongoose.Schema({
+    school: String,
+    department: String,
+    degree: String,
+    startMonth: String,
+    startYear: String,
+    endMonth: String,
+    endYear: String,
+    currentlyStudying: {
+        type: Boolean,
+        default: false
+    }
+})
+
 const userSchema = new mongoose.Schema({
     name: String,
     email: String,
@@ -21,7 +35,8 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
         type: [String] //cloudinary url-avatar:[url, publicId]
-    }
+    },
+    educationRecords: [educationSchema]
 })
 
 userSchema.pre('save', async function(next){

@@ -9,8 +9,8 @@ import Stats from './Stats'
 import Admin from './Admin'
 import DashboardLayout from './DashboardLayout'
 import AllJobs from './AllJobs'
+import EditProfile from './EditProfile'
 import Profile from './Profile'
-
 
 export {
     AllJobs,
@@ -24,5 +24,6 @@ export {
     Stats,
     Admin,
     DashboardLayout,
+    EditProfile,
     Profile
 }

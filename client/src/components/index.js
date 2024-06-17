@@ -17,6 +17,10 @@ import BarChart from "./BarChart";
 import ChartsContainers from "./ChartsContainer";
 import StatsContainer from "./StatsContainer";
 import PaginationContainer from "./PaginationContainer";
+import PersonalInformation from "./PersonalInformation";
+import Checkbox from "./CheckBox";
+import { Education } from "./education";
+import SubmitForm from "./SubmitForm";
 
 export {
     Logo,
@@ -37,5 +41,9 @@ export {
     BarChart,
     StatsContainer,
     ChartsContainers,
-    PaginationContainer
+    PaginationContainer,
+    PersonalInformation,
+    Checkbox,
+    Education,
+    SubmitForm
 }

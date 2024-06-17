@@ -9,11 +9,13 @@ import {
   DashboardLayout,
   AddJob,
   AllJobs,
-  Profile,
   Admin,
   Stats,
-  EditJob
+  EditJob,
+  Profile,
+  EditProfile
 } from './pages'
+
 import { action as registerAction } from './pages/Register'
 import {action as loginAction} from './pages/Login'
 import {loader as dashboardLoader} from './pages/DashboardLayout'
@@ -22,8 +24,10 @@ import { loader as allJobsLoader } from './pages/AllJobs'
 import { action as editJobAction, loader as editJobLoader } from './pages/EditJob'
 import { action as deleteJobAction } from './pages/DeleteJob'
 import { loader as adminLoader } from './pages/Admin'
-import { action as profileAction } from './pages/Profile'
+import { action as EditProfileAction } from './pages/EditProfile'
 import { loader as statsLoader } from './pages/Stats'
+/// testing
+import AddEducation from './components/education/AddEducation'
 
 const checkDefaultTheme = ()=>{
   const theme = localStorage.getItem('themeMode')
@@ -70,8 +74,13 @@ const router = createBrowserRouter([
           },
           {
             path: 'profile',
-            element: <Profile />,
-            action: profileAction
+            element: <Profile/>,
+           
+          },
+          {
+            path: "profile/edit",
+            element: <EditProfile/>,
+            action: EditProfileAction
           },
           {
             path: 'admin',
@@ -93,6 +102,10 @@ const router = createBrowserRouter([
             path: 'stats',
             element: <Stats />,
             loader: statsLoader
+          },
+          {
+            path: "testing",
+            element: <AddEducation/>
           }
 
         ]
