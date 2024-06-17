@@ -1,5 +1,5 @@
-import Education from "./Education";
+import EducationContainer from "./EducationContainer";
 
 export {
-    Education
+    EducationContainer
 }

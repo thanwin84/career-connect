@@ -46,7 +46,6 @@ import {BadRequestError} from '../errors/customErrors.js'
 
  const addEducation = asyncHandler(async(req, res)=>{
    const userId = req.user.userId
-   console.log(req.body)
    const updatedUser = await User.findOneAndUpdate(
       {_id: userId},
       {$push: {educationRecords: req.body}}
@@ -54,9 +53,46 @@ import {BadRequestError} from '../errors/customErrors.js'
    res.status(statusCodes.OK).json({msg: "education record is updated"})
  })
  
+ const deleteEducationEntry = asyncHandler(async (req, res)=>{
+   const {recordId} = req.params
+   if (!recordId){
+      throw new BadRequestError("record id is missing")
+   }
+   
+   const updatedUser = await User.findByIdAndUpdate(
+      req.user.userId,
+      {$pull: {educationRecords: {_id: recordId}}}
+   )
+   
+   
+   if (!updatedUser){
+      throw new BadRequestError("User not found")
+   }
+   res.status(statusCodes.OK).json({message: "education record has been deleted successfully"})
+
+ })
+const updateEducationEntry = asyncHandler(async (req, res)=>{
+   const {recordId} = req.params
+   if (!recordId){
+      throw new BadRequestError("record id is missing")
+   }
+   const updatedUser = await User.findOneAndUpdate(
+      {_id: req.user.userId, "educationRecords._id": recordId},
+      {
+         "educationRecords.$": req.body
+      }
+   )
+   if (!updatedUser){
+      throw new BadRequestError("Record is not found")
+   }
+   res.status(statusCodes.OK).json({message: "Education record has been updated successfully"})
+
+})
  export {
     getCurrentUser,
     getApplicationStats,
     updateUser,
-    addEducation
+    addEducation,
+    deleteEducationEntry,
+    updateEducationEntry
  }
