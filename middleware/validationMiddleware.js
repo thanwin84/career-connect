@@ -80,3 +80,9 @@ export const validateAddEducationInput = withValidationError([
     body("endMonth").if((value, {req})=> req.body.currentlyStudying ===  "false").notEmpty().withMessage("End month is required"),
     body("endYear").if((value, {req})=> req.body.currentlyStudying === "false").notEmpty().withMessage("End year is required")
 ])
+
+export const validateChangePasswordInput = withValidationError([
+    body("oldPassword").notEmpty().withMessage("old password is required").isLength({min: 8}).withMessage("password should be at least 8 characters long"),
+    body("newPassword").notEmpty().withMessage("new password is required").isLength({min: 8}).withMessage("password should be at least 8 characters long")
+
+])

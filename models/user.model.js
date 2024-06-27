@@ -36,7 +36,19 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: [String] //cloudinary url-avatar:[url, publicId]
     },
-    educationRecords: [educationSchema]
+    educationRecords: [educationSchema],
+    // only admin can change this
+    accessStutus: {
+        type: Boolean,
+        default: true
+    },
+    twoStepAuthentication: {
+        type: Boolean,
+        default: false
+    },
+    mobileNumber: {
+        type: String
+    }
 })
 
 userSchema.pre('save', async function(next){

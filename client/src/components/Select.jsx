@@ -1,5 +1,6 @@
 import React, {useId} from "react";
 
+
 export default function Select({
     label,
     options=[],
@@ -16,7 +17,8 @@ export default function Select({
                 name={name}
                 {...props}
                 id={id}
-                className={`w-full px-4 py-2  bg-gray-50 rounded-md border border-gray-200 dark:bg-zinc-700 dark:text-slate-200`}
+                className={`w-full px-4 py-2 custom-select bg-gray-50 rounded-md border border-gray-200 dark:bg-zinc-700 dark:text-slate-200`}
+                
             >
                 {
                     options?.map(option =>(

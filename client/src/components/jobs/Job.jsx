@@ -5,7 +5,7 @@ day.extend(advancedFormat);
 import JobInfo from "./JobInfor";
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
 import { Link, Form } from "react-router-dom";
-import Button from "./Button";
+import Button from "../Button";
 
 export default function Job({
     _id,
@@ -25,16 +25,27 @@ export default function Job({
     return (
         <section className="p-4 rounded-md mb-2 shadow-md bg-white dark:bg-zinc-900">
            <header className="flex border-b border-b-slate-200 p-4">
-            <div className="mr-4 bg-blue-700 text-white p-4 rounded-md">{company.substring(0, 1).toUpperCase()}</div>
+            <div className="mr-4 bg-blue-700 text-white p-4 rounded-md">
+                {company.substring(0, 1).toUpperCase()}
+            </div>
             <div className="">
                 <h4 className="text-xl dark:text-slate-100">{position}</h4>
                 <h4 className="text-slate-600  dark:text-slate-200">{company}</h4>
             </div>
            </header>
            <div className="p-4 grid grid-cols-2 gap-y-3"> 
-                <JobInfo icon={<FaLocationArrow className="text-blue-600"/>} text={jobLocation} />
-                <JobInfo icon={<FaCalendarAlt className="text-blue-600"/>} text={date} />
-                <JobInfo icon={<FaBriefcase className="text-blue-600"/>} text={jobType} />
+                <JobInfo 
+                    icon={<FaLocationArrow className="text-blue-600"/>} 
+                    text={jobLocation} 
+                />
+                <JobInfo 
+                    icon={<FaCalendarAlt className="text-blue-600"/>} 
+                    text={date} 
+                />
+                <JobInfo 
+                    icon={<FaBriefcase className="text-blue-600"/>} 
+                    text={jobType} 
+                />
                 <div className="">
                     <span className={`px-4 py-1  rounded-sm ${styles[jobStatus]}`}>{jobStatus.substring(0, 1).toUpperCase()+ jobStatus.substring(1)}</span>
                 </div>
@@ -43,7 +54,8 @@ export default function Job({
             <Link
                 to={`../edit-job/${_id}`}
                 className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-sm"
-            >Edit
+            >
+                Edit
             </Link>
             <Form method="post" action={`../delete-job/${_id}`}>
                 <Button 

@@ -1,6 +1,7 @@
 import asyncHandler from '../utils/asyncHandler.js'
 import {statusCodes} from '../utils/constants.js'
 import {User} from '../models/user.model.js'
+import twilioService from '../third party/twillioService.js'
 import { 
    
     BadRequestError,
@@ -56,8 +57,53 @@ const logout = asyncHandler(async (req, res)=>{
     .json({msg: "user is logged out successfully"})
 })
 
+const changePassword = asyncHandler(async (req, res)=>{
+    const {oldPassword, newPassword} = req.body
+    
+    const user = await User.findById(req.user.userId)
+    const isPasswordValid = user.isPasswordCorrect(oldPassword)
+    if (!isPasswordValid){
+        throw new BadRequestError("Your current is incorrect")
+    }
+    user.password = newPassword
+    await user.save()
+    res.status(statusCodes.OK).json({message: "Your password has been changed successfully"})
+})
+
+const toggleTwoStepAuthentication = asyncHandler(async (req, res)=>{
+    const user = await User.findById(req.user.userId)
+    if (!user){
+        throw new NotFoundError(`user with id ${req.user.id} not found`)
+    }
+    user.twoStepAuthentication = !user.twoStepAuthentication
+    await user.save()
+    res.status(statusCodes.OK).json({message: "two step authentican is updated."})
+})
+
+const sendVerificationCode = asyncHandler(async (req, res)=>{
+    const {phoneNumber, channel} = req.body
+    const response = await twilioService.sendVerificationToken(phoneNumber, channel)
+    res.status(statusCodes.OK).json({message: "Verification code has been sent"})
+})
+
+const verifyVerificationCode = asyncHandler(async (req, res)=>{
+    const {code, phoneNumber} = req.body
+    if (!code && !phoneNumber){
+        throw new BadRequestError("both code and phone is required")
+    }
+    const response = await twilioService.verificationCheck(phoneNumber, code)
+    if (response === 'approved'){
+        res.status(statusCodes.OK).json({message: "user has been approved", data: response})
+    }
+    res.status(statusCodes.OK).json({message: "wrong code", data: response})
+})
+
 export {
     register,
     login,
-    logout
+    logout,
+    toggleTwoStepAuthentication,
+    sendVerificationCode,
+    verifyVerificationCode,
+    changePassword
 }

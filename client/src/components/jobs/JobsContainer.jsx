@@ -1,6 +1,6 @@
 import React from "react";
-import {Job, PaginationContainer} from "../components"
-import { useAllJobsContext } from "../pages/AllJobs";
+import {Job, PaginationContainer} from ".."
+import { useAllJobsContext } from "../../pages/AllJobs";
 
 export default function JobsContainer(){
     const {jobs, totalJobs, totalPages} = useAllJobsContext()

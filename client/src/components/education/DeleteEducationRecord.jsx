@@ -1,5 +1,4 @@
 import React from "react";
-import { act } from "react";
 import customFetch from "../../utils/customFetch";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

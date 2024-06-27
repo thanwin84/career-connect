@@ -5,7 +5,9 @@ import {
     updateUser,
     addEducation,
     deleteEducationEntry,
-    updateEducationEntry
+    updateEducationEntry,
+    toggleAccessStatus,
+    getUsersList
 } from '../controllers/user.controller.js'
 import { authenticateUser, authorizePermissions } from "../middleware/auth.middleware.js";
 import { 
@@ -17,6 +19,9 @@ import upload from '../middleware/multer.middleware.js'
 const router = Router()
 
 router.use(authenticateUser)
+
+router.route("/toggle-access-status/:userId").patch(authorizePermissions("admin"), toggleAccessStatus)
+router.route("/get-users-list").get(authorizePermissions("admin"), getUsersList)
 
 router.route('/current-user').get(getCurrentUser)
 router.route('/admin/app-stats').get(authorizePermissions("admin") ,getApplicationStats)

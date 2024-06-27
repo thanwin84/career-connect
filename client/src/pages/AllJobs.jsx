@@ -21,11 +21,6 @@ const allJobsContext = createContext()
 export default function AllJobs(){
     const {data, searchValues} = useLoaderData()
     const {jobs, totalJobs, totalPages, currentPage} = data
-    const {pathname, search} = useLocation()
-    const {data:resource, loading} = useCustomQuery(`/jobs${search}`)
-    
-    console.log(resource, loading)
-    
     
     return (
         <allJobsContext.Provider value={{jobs, searchValues,totalJobs, totalPages, currentPage}}>

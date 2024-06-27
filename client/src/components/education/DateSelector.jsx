@@ -34,6 +34,7 @@ export default function DateSelector({
                     options={months}
                     className="w-1/2"
                     defaultValue={defaultMonth}
+                    
                 />
                 <Select
                     name = {yearName}

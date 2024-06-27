@@ -71,6 +71,7 @@ import {BadRequestError} from '../errors/customErrors.js'
    res.status(statusCodes.OK).json({message: "education record has been deleted successfully"})
 
  })
+
 const updateEducationEntry = asyncHandler(async (req, res)=>{
    const {recordId} = req.params
    if (!recordId){
@@ -88,11 +89,43 @@ const updateEducationEntry = asyncHandler(async (req, res)=>{
    res.status(statusCodes.OK).json({message: "Education record has been updated successfully"})
 
 })
+
+ // for admin
+ const toggleAccessStatus = asyncHandler(async (req, res)=>{
+   
+   const {userId} = req.params
+   if (!userId){
+      throw new BadRequestError("User id is missing")
+   }
+   const user = await User.findById(userId)
+   user.accessStutus = !user.accessStutus
+   await user.save()
+   res.status(statusCodes.OK).json({message: "User access status has been updated."})
+ })
+
+ const getUsersList = asyncHandler(async (req, res)=>{
+   const {page=1, limit=10} = req.query
+   const skip = (Number(page) - 1) * Number(limit)
+   const users = await User.aggregate([
+      {
+         $sort: {"name": 1} 
+      },
+      {
+         $skip: skip
+      },
+      {$limit: Number(limit)}
+   ])
+   res.status(statusCodes.OK).json({users})
+ })
+
+
  export {
     getCurrentUser,
     getApplicationStats,
     updateUser,
     addEducation,
     deleteEducationEntry,
-    updateEducationEntry
+    updateEducationEntry,
+    toggleAccessStatus,
+    getUsersList
  }
