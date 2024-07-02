@@ -26,6 +26,7 @@ import { action as deleteJobAction } from './pages/DeleteJob'
 import { loader as adminLoader } from './pages/Admin'
 import { action as EditProfileAction } from './pages/EditProfile'
 import { loader as statsLoader } from './pages/Stats'
+import Setting from './pages/Setting'
 /// testing
 import AddEducation from './components/education/AddEducation'
 
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
           {
             path: "testing",
             element: <AddEducation/>
+          },
+          {
+            path: "setting",
+            element: <Setting />
           }
 
         ]

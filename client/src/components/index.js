@@ -6,7 +6,6 @@ import SmallSidebar from "./SmallSidebar";
 import Navbar from "./Navbar";
 import NavLinks from "./NavLinks";
 import ModalContainer from "./ModalContainer";
-import LogoutContainer from "./LogoutContainer";
 import ThemeToggle from "./ThemeToggle";
 import Select from "./Select";
 import JobsContainer from "./jobs/JobsContainer";
@@ -21,6 +20,7 @@ import PersonalInformation from "./personalInformation/PersonalInformation";
 import Checkbox from "./CheckBox";
 import SubmitForm from "./SubmitForm";
 import EducationContainer from "./education/EducationContainer";
+import DropDownContainer from "./DropDownContainer"
 
 export {
     Logo,
@@ -31,7 +31,7 @@ export {
     Navbar,
     NavLinks,
     ModalContainer,
-    LogoutContainer,
+    DropDownContainer,
     ThemeToggle,
     Select,
     JobsContainer,

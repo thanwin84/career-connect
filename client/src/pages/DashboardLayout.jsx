@@ -11,6 +11,7 @@ import {
     useNavigate} from 'react-router-dom'
 import { 
     BigSidebar, 
+    ModalContainer, 
     Navbar, 
     SmallSidebar 
 } from "../components";
@@ -80,7 +81,12 @@ export default function DashboardLayout({defaultTheme}){
             <main className="flex flex-row">
                 
                 <div className="dark:bg-zinc-900 bg-white h-screen fixed">
-                    <SmallSidebar className="lg:hidden xl:hidden 2xl:hidden" />
+                    
+                    {showSmallSidebar && (
+                        <ModalContainer className= "w-5/6" modelClassName="lg:hidden md:hidden">
+                            <SmallSidebar />
+                        </ModalContainer>
+                    )}
                     <BigSidebar className="hidden  md:block lg:block xl:block 2xl:block"/> 
                 </div>
 

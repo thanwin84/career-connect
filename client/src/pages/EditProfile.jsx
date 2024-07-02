@@ -27,7 +27,7 @@ export default function EditProfile(){
     const {user} = useOutletContext()
     const isSubmiting = useNavigation().state === "submitting"
     
-    const {name, lastName, email, location} = user
+    const {name, lastName, email, location, phoneNumber} = user
     
     
     return (
@@ -61,6 +61,12 @@ export default function EditProfile(){
                         label="Location"
                         name="location"
                         defaultValue={location}
+                     />
+                     <Input 
+                     type= "tel"
+                      label= "Phone Number"
+                      name="phoneNumber"
+                      defaultValue={phoneNumber || ""}
                      />
                      <div className="flex flex-col justify-end">
                         <Button

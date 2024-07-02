@@ -7,7 +7,7 @@ import { CiMobile2 } from "react-icons/ci"
 import { CiEdit } from "react-icons/ci"
 import { Link } from "react-router-dom";
 
-export default function PersonalInformation({name, email, lastName, avatar, location, role, className}){
+export default function PersonalInformation({name, email, lastName, avatar, location, role, phoneNumber, className}){
    
     return (
         <div className={`bg-white dark:bg-zinc-900 w-full rounded-md shadow-md p-6 ${className}`}>
@@ -31,7 +31,7 @@ export default function PersonalInformation({name, email, lastName, avatar, loca
             <ProfileInfo icon={<MdEmail/>} text={email} />
             <ProfileInfo icon={<CiLocationOn/>} text={location} />
             <ProfileInfo icon={<IoPersonOutline/>} text={role}/>
-            <ProfileInfo icon={<CiMobile2/>} text="01861675809" />
+            <ProfileInfo icon={<CiMobile2/>} text={phoneNumber || "not present"} />
            </div>
         </div>
     )

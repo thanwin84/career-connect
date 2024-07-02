@@ -2,7 +2,7 @@ import React from "react";
 import { FaAlignLeft } from "react-icons/fa";
 import {
     Logo,
-    LogoutContainer,
+    DropDownContainer,
     ThemeToggle
 } from '../components'
 import { useDashboardContext } from "../pages/DashboardLayout";
@@ -28,7 +28,7 @@ export default function Navbar(){
             </div>
             <div className="flex gap-4">
                 <ThemeToggle />
-                <LogoutContainer />
+                <DropDownContainer />
             </div>
         </nav>
     )
