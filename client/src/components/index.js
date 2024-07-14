@@ -21,8 +21,20 @@ import Checkbox from "./CheckBox";
 import SubmitForm from "./SubmitForm";
 import EducationContainer from "./education/EducationContainer";
 import DropDownContainer from "./DropDownContainer"
+import SettingLinks from "./Setting/SettingLinks";
+import ChangePassword from "./Setting/ChangePassword";
+import TwoStepAuthentication from "./Setting/TwoStepAuthentication";
+import Alert from "./Alert";
+import Password from "./Password";
+import TurnOff from "./TurnOff";
+import TurnOn from "./TurnOn";
+import ReEnterPassword from "./ReEnterPassword";
+import EnterConfirmationCode from "./Setting/EnterConfirmationCode";
+import CloseModal from "./CloseModal";
+import AddPhoneNumber from "./Setting/AddPhoneNumber";
 
 export {
+    Alert,
     Logo,
     Input,
     Button,
@@ -45,5 +57,15 @@ export {
     PersonalInformation,
     Checkbox,
     SubmitForm,
-    EducationContainer
+    EducationContainer,
+    SettingLinks,
+    ChangePassword,
+    TwoStepAuthentication,
+    Password,
+    TurnOff,
+    TurnOn,
+    ReEnterPassword,
+    EnterConfirmationCode,
+    CloseModal,
+    AddPhoneNumber
 }

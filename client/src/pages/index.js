@@ -11,6 +11,10 @@ import DashboardLayout from './DashboardLayout'
 import AllJobs from './AllJobs'
 import EditProfile from './EditProfile'
 import Profile from './Profile'
+import Account from './Account'
+import PasswordAndSecurity from './PasswordAndSecurity'
+import SettingPageLayout from './SettingPageLayout'
+import AddEducation from '../components/education/AddEducation'
 
 export {
     AllJobs,
@@ -25,5 +29,9 @@ export {
     Admin,
     DashboardLayout,
     EditProfile,
-    Profile
+    Profile,
+    Account,
+    PasswordAndSecurity,
+    SettingPageLayout,
+    AddEducation
 }

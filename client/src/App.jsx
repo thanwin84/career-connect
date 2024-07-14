@@ -13,11 +13,14 @@ import {
   Stats,
   EditJob,
   Profile,
-  EditProfile
+  EditProfile,
+  SettingPageLayout,
+  PasswordAndSecurity,
+  Account,
+  AddEducation
 } from './pages'
 
-import { action as registerAction } from './pages/Register'
-import {action as loginAction} from './pages/Login'
+
 import {loader as dashboardLoader} from './pages/DashboardLayout'
 import { action as addjobAction} from './pages/AddJob'
 import { loader as allJobsLoader } from './pages/AllJobs'
@@ -26,10 +29,10 @@ import { action as deleteJobAction } from './pages/DeleteJob'
 import { loader as adminLoader } from './pages/Admin'
 import { action as EditProfileAction } from './pages/EditProfile'
 import { loader as statsLoader } from './pages/Stats'
-import Setting from './pages/Setting'
-/// testing
-import AddEducation from './components/education/AddEducation'
+import {loader as settingPageLayoutLoader} from './pages/SettingPageLayout'
 
+// testing
+import ReEnterPassword from './components/ReEnterPassword'
 const checkDefaultTheme = ()=>{
   const theme = localStorage.getItem('themeMode')
   document.querySelector('html').classList.remove("light", "dark")
@@ -40,23 +43,26 @@ const theme = checkDefaultTheme()
 
 const router = createBrowserRouter([
   {
+    
     path: "/",
     element: <HomeLayout />,
     errorElement: <Error/>,
     children: [
+      {
+        path: "/testing-route",
+        element: <ReEnterPassword />
+      },
       {
         index: true,
         element: <Landing/>
       },
       {
         path: "register",
-        element: <Register/>,
-        action: registerAction
+        element: <Register/>
       },
       {
         path: "login",
-        element: <Login />,
-        action: loginAction
+        element: <Login />
       },
       {
         path: "dashboard",
@@ -110,7 +116,18 @@ const router = createBrowserRouter([
           },
           {
             path: "setting",
-            element: <Setting />
+            element: <SettingPageLayout />,
+            loader: settingPageLayoutLoader,
+            children: [
+              {
+                element: <Account />,
+                index: true
+              },
+              {
+                path: "password-and-security",
+                element: <PasswordAndSecurity />
+              }
+            ]
           }
 
         ]

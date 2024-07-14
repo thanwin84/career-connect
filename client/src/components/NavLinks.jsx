@@ -1,14 +1,11 @@
 import React from "react";
 import { useDashboardContext } from "../pages/DashboardLayout";
 import links from "../utils/links";
-import { NavLink, useNavigation } from "react-router-dom";
-import { useWindowScreenSize } from "../hooks";
+import { NavLink} from "react-router-dom";
 
 export default function NavLinks({className, isSmallSidebar}){
     const {toggleSmallSidebar, user} = useDashboardContext()
     const {role} = user
-    const state = useNavigation().state
-    console.log(state)
     
     const linkStyle = `flex mb-6 gap-6 text-gray-700 hover:text-blue-600 dark:hover:text-blue-500 dark:text-white text-xl  mb-4  ${className}`
     const loadingStyle = `flex mb-6 gap-6 text-blue-400  dark:hover:text-blue-500 dark:text-white text-xl  mb-4`

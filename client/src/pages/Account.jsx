@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Setting(){
+export default function Account(){
     return (
         <div>
-            Setting Page
+            Account Page
         </div>
     )
 }

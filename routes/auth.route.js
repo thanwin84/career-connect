@@ -4,6 +4,7 @@ import {
     login,
     logout,
     changePassword,
+    reEnterPassword,
     toggleTwoStepAuthentication,
     sendVerificationCode,
     verifyVerificationCode
@@ -25,6 +26,7 @@ router.post('/login',validateLoginInput, login)
 router.route('/logout').get(logout)
 
 router.route("/change-password").patch(authenticateUser, validateChangePasswordInput, changePassword)
+router.route("/re-enter-password").post(authenticateUser, reEnterPassword)
 router.route("/toggle-two-step-authentication").patch(authenticateUser, toggleTwoStepAuthentication)
 router.route("/send-verification-code").post(authenticateUser, sendVerificationCode)
 router.route("/verify-code").post(authenticateUser, verifyVerificationCode)

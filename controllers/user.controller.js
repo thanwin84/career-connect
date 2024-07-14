@@ -118,6 +118,17 @@ const updateEducationEntry = asyncHandler(async (req, res)=>{
    res.status(statusCodes.OK).json({users})
  })
 
+const addPhoneNumber = asyncHandler(async (req, res)=>{
+   const {phoneNumber} = req.body
+   console.log("running")
+   if (!phoneNumber){
+      throw new BadRequestError("Phone number is missing")
+   }
+   const user = await User.findById(req.user.userId)
+   user.phoneNumber = phoneNumber
+   await user.save()
+   res.status(statusCodes.OK).json({message: "Phone Number has been added"})
+})
 
  export {
     getCurrentUser,
@@ -127,5 +138,6 @@ const updateEducationEntry = asyncHandler(async (req, res)=>{
     deleteEducationEntry,
     updateEducationEntry,
     toggleAccessStatus,
-    getUsersList
+    getUsersList,
+    addPhoneNumber
  }

@@ -61,13 +61,27 @@ const changePassword = asyncHandler(async (req, res)=>{
     const {oldPassword, newPassword} = req.body
     
     const user = await User.findById(req.user.userId)
-    const isPasswordValid = user.isPasswordCorrect(oldPassword)
+    const isPasswordValid = await user.isPasswordCorrect(oldPassword)
     if (!isPasswordValid){
-        throw new BadRequestError("Your current is incorrect")
+        throw new BadRequestError("Your current password is incorrect")
     }
     user.password = newPassword
     await user.save()
     res.status(statusCodes.OK).json({message: "Your password has been changed successfully"})
+})
+
+const reEnterPassword = asyncHandler(async (req, res)=>{
+    const userId = req.user.userId
+    const {password} = req.body
+    if (!password){
+        throw new BadRequestError("Password feild is required")
+    }
+    const user = await User.findById(userId)
+    const isPasswordCorrect = await user.isPasswordCorrect(password)
+    if (!isPasswordCorrect){
+        throw new UnauthenticatedError('invalid credentials') 
+    }
+    res.status(statusCodes.OK).json({message: "your password is correct"})
 })
 
 const toggleTwoStepAuthentication = asyncHandler(async (req, res)=>{
@@ -105,5 +119,6 @@ export {
     toggleTwoStepAuthentication,
     sendVerificationCode,
     verifyVerificationCode,
-    changePassword
+    changePassword,
+    reEnterPassword
 }

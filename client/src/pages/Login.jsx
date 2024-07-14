@@ -1,39 +1,37 @@
 import React from "react";
-import { Input } from "../components";
 import {
+    Input,
     Logo,
-    Button
+    Password,
+    SubmitForm
 } from "../components";
 import {
     Link,
-    Form,
-    useNavigation,
-    redirect
+    useNavigate
 } from 'react-router-dom'
 import {toast} from 'react-toastify'
 import customFetch from "../utils/customFetch";
 
-export const action = async ({request})=>{
-    const formData = await request.formData()
-    const data = Object.fromEntries(formData)
-    try {
-        await customFetch.post("/auth/login", data)
-        toast.success("Login is successfull", {autoClose: 2000})
-        return redirect("/dashboard")
-    } catch (error) {
-        toast.error(error?.response?.data?.message, {autoClose: 3000})
-        return error
-    }
-}
 
 export default function Login(){
-    const navigation = useNavigation()
-    const isSubmitting = navigation.state === 'submitting'
+    const navigate = useNavigate()
+    
+    async function action (formData){
+        const data = Object.fromEntries(formData.entries())
+        try {
+            await customFetch.post("/auth/login", data)
+            toast.success("Login is successfull", {autoClose: 2000})
+            navigate("/dashboard")
+        } catch (error) {
+            toast.error(error?.response?.data?.message, {autoClose: 3000})
+        }
+    }
 
+    
     return (
         <main className="h-screen bg-stone-50 dark:bg-zinc-900 py-8">
             <div className="bg-white p-8 w-4/6 lg:w-2/5 shadow-lg rounded-md mx-auto border-t-4 border-blue-500 dark:bg-zinc-800">
-                <Form method="post">
+                <form action={action}>
                     <Logo className="mx-auto mb-4 w-4/6"/>
                     <h2 className="text-center text-xl  text-blue-500 dark:text-white font-semibold">Login</h2>
                     
@@ -45,21 +43,12 @@ export default function Login(){
                         className="mb-2"
                         required
                     />
-                    <Input 
-                        type="password"
-                        label="Password"
-                        placeholder= "Enter your password"
-                        name = "password"
-                        className="mb-4"
-                        required
-                    />
-                    <Button type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? "submitting....": "Login"}
-                    </Button>
+                    <Password />
+                    <SubmitForm buttonText={{pending: "Logging in..", default: "Login"}}/>
                     <p className="text-center mt-2 dark:text-slate-100">
                         Not a member yet? <Link to="/register" className="text-blue-500 hover:text-blue-700 hover:underline">Register</Link>
                     </p>
-                </Form>
+                </form>
             </div>
         </main>
     )
