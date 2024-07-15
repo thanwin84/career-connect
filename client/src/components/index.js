@@ -32,6 +32,8 @@ import ReEnterPassword from "./ReEnterPassword";
 import EnterConfirmationCode from "./Setting/EnterConfirmationCode";
 import CloseModal from "./CloseModal";
 import AddPhoneNumber from "./Setting/AddPhoneNumber";
+import NumberInput from "./NumberInput";
+import SelectCountry from "./SelectCountry";
 
 export {
     Alert,
@@ -67,5 +69,7 @@ export {
     ReEnterPassword,
     EnterConfirmationCode,
     CloseModal,
-    AddPhoneNumber
+    AddPhoneNumber,
+    NumberInput,
+    SelectCountry
 }
