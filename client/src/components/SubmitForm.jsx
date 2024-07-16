@@ -8,9 +8,9 @@ export default function SubmitForm({buttonText, className}){
         <Button
             type="submit"
             classname={className}
-            disabled={pending}
+            disabled={pending }
         >
             {pending ? buttonText.pending: buttonText.default}
         </Button>
     )
-}
+} 

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import {NumberInput, SubmitForm, SelectCountry, ModalContainer} from "../../components"
 import { useTwoStepAuthContext } from "./TwoStepAuthentication";
 import customFetch from "../../utils/customFetch";
 import { toast } from "react-toastify";
+
 export default function AddPhoneNumber(){
     
     const {

@@ -15,7 +15,6 @@ import AreaChart from "./AreaChart";
 import BarChart from "./BarChart";
 import ChartsContainers from "./ChartsContainer";
 import StatsContainer from "./StatsContainer";
-import PaginationContainer from "./PaginationContainer";
 import PersonalInformation from "./personalInformation/PersonalInformation";
 import Checkbox from "./CheckBox";
 import SubmitForm from "./SubmitForm";
@@ -34,6 +33,12 @@ import CloseModal from "./CloseModal";
 import AddPhoneNumber from "./Setting/AddPhoneNumber";
 import NumberInput from "./NumberInput";
 import SelectCountry from "./SelectCountry";
+import UsersContainer from "./admin_dashboard/UsersContainer";
+import StatItem from "./StatItem";
+import ToggleSwitch from "./admin_dashboard/ToggleStatus";
+import Pagination from "./Pagination/Pagination";
+import AllJobsPaginationContainer from "./jobs/AllJobsPaginationContainer";
+import UsersTable from "./admin_dashboard/UsersTable";
 
 export {
     Alert,
@@ -55,7 +60,7 @@ export {
     BarChart,
     StatsContainer,
     ChartsContainers,
-    PaginationContainer,
+    AllJobsPaginationContainer,
     PersonalInformation,
     Checkbox,
     SubmitForm,
@@ -71,5 +76,10 @@ export {
     CloseModal,
     AddPhoneNumber,
     NumberInput,
-    SelectCountry
+    SelectCountry,
+    UsersContainer,
+    StatItem,
+    ToggleSwitch,
+    Pagination,
+    UsersTable
 }

@@ -1,5 +1,9 @@
 import React from "react";
-import {Input, Button} from '../components'
+import {
+    Input, 
+    Button,
+    NumberInput
+} from '../components'
 import { useOutletContext, Form, useNavigation, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
@@ -62,11 +66,10 @@ export default function EditProfile(){
                         name="location"
                         defaultValue={location}
                      />
-                     <Input 
-                     type= "tel"
-                      label= "Phone Number"
-                      name="phoneNumber"
-                      defaultValue={phoneNumber || ""}
+                     
+                     <NumberInput
+                        label="Phone Number"
+                        defaultPhoneNumber={phoneNumber}
                      />
                      <div className="flex flex-col justify-end">
                         <Button

@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
-import {Button, Input, SubmitForm} from "../../components"
+import React, { useState } from "react";
+import {
+    Button, 
+    Input, 
+    SubmitForm
+} from "../../components"
 import customFetch from "../../utils/customFetch";
 import { toast } from "react-toastify";
-import { useOutletContext } from "react-router-dom";
 import { useTwoStepAuthContext } from "./TwoStepAuthentication";
 
 export default function EnterConfirmationCode(){
@@ -21,7 +24,7 @@ export default function EnterConfirmationCode(){
             })
         
             if (data.data === "approved"){
-                moveToNextModal()
+                moveToNextModal(true)
             }
             else {
                 toast.error("Your code does not match")
@@ -53,7 +56,9 @@ export default function EnterConfirmationCode(){
         <div className="p-10  bg-white rounded dark:bg-zinc-900">
          <h4 className="text-xl font-semibold mb-2 dark:text-slate-100">Enter Confirmation Code</h4>
          <p className="mb-2 dark:text-slate-200">
-            {sendCode ? `A 6-digit code has been sent to +**********${user?.phoneNumber.substr(-3) || ""}`: "Click send code button to get a code"}
+            {sendCode ? `A 6-digit code has been sent to +**********${user?.phoneNumber.substr(-3) || ""}`: 
+              <>Click <span className="text-blue-500 font-semibold">Send Code</span> button to get a new code.</>
+            }
         </p>
          <p className="mb-4 dark:text-slate-200">It may take up to a minute for you to receive this code</p>
          <form action={handleNextAction}>

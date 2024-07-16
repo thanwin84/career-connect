@@ -43,7 +43,7 @@ export default function TwoStepAuthentication(){
     return (
         <twoStepAuthenticationContext.Provider value={{
             handleOpenModal,
-            handleCurrentModal: moveToNextModal,
+            moveToNextModal,
             handleCountryModal,
             openCountryModal,
             selectedCountry,

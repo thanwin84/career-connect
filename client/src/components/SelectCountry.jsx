@@ -25,7 +25,7 @@ export default function SelectCountry({onSelect, selectedCountry}){
                     <li 
                         key={index} 
                         onClick={()=>onSelect(item)}
-                        className="cursor-pointer w-full flex justify-between text-xl mb-1"
+                        className="p-2 cursor-pointer rounded-md w-full flex justify-between text-xl mb-1 hover:bg-slate-50 dark:hover:bg-zinc-800"
                     >
                         <span className="dark:text-slate-200">{item.name} ({item.code})</span>
                         <input 

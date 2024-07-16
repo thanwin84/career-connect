@@ -1,48 +1,25 @@
 import React from "react";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi';
-import { useAllJobsContext } from "../pages/AllJobs";
-import { useLocation, useNavigate } from "react-router-dom";
+import PageButton from "./PageButton";
 
-export default function PaginationContainer(){
-    let {totalJobs, totalPages, currentPage} = useAllJobsContext()
-    totalJobs = Number(totalJobs)
-    totalPages = Number(totalPages)
-    currentPage = Number(currentPage)
-    const {pathname, search} = useLocation()
-    const navigate = useNavigate()
-
+export default function Pagination({
+    handlePageChange,
+    totalPages,
+    currentPage,
+    className
+}){
     
-
-    function handlePageChange(pageNumber){
-        
-        const query = new URLSearchParams(search)
-        query.set('page', pageNumber)
-        const url = `${pathname}?${query}`
-        
-        navigate(url)
-    }
-    function pageButton({pageNumber, activePage}){
-        const pageBtnStyle = "px-4 py-2 bg-white dark:bg-zinc-900 text-blue-700 dark:text-white shadow-md rounded-md border dark:border-none hover:bg-blue-900 dark:hover:bg-blue-800 border-slate-300"
-        const activePageBtnStyle = "px-4 py-2 rounded-md text-white bg-blue-800 dark:bg-blue-800"
-        return (
-            <button
-                className={activePage ? activePageBtnStyle: pageBtnStyle}
-                key={pageNumber}
-                onClick={()=>handlePageChange(pageNumber)}
-            >
-                {pageNumber}
-            </button>
-        )
-    }
     const displayPageButtons = ()=>{
         const pageButtons = []
         // first page
-        pageButtons.push(pageButton(
-            {
-                pageNumber: 1, 
-                activePage: currentPage === 1
-            }
-            ))
+        pageButtons.push(
+            <PageButton 
+                activePage={currentPage===1} 
+                pageNumber={1} 
+                handlePageChange={handlePageChange}
+                key={1}
+            />
+    )
         if (currentPage > 3){
             pageButtons.push(
                 <span className="font-bold px-4 py-2 bg-white dark:bg-zinc-900 dark:text-white shadow-lg rounded-md text-blue-700">...</span>
@@ -51,28 +28,35 @@ export default function PaginationContainer(){
         // before current page
         if (currentPage !== 1 && currentPage !== 2){
             pageButtons.push(
-                pageButton({
-                    pageNumber: currentPage - 1,
-                    activePage: false
-                })
+                <PageButton 
+                    activePage= {false} 
+                    pageNumber={currentPage - 1} 
+                    handlePageChange={handlePageChange} 
+                    key={2}
+                />
             )
         }
 
         // current page
         if (currentPage !== 1 && currentPage !== totalPages){
             pageButtons.push(
-                pageButton({
-                    pageNumber: currentPage,
-                    activePage: true
-                })
+                <PageButton 
+                activePage={true}
+                pageNumber={currentPage} 
+                handlePageChange={handlePageChange} 
+                key={3}
+                />
             )
         }
+        // before last page
         if (currentPage !== totalPages && currentPage !== totalPages - 1){
             pageButtons.push(
-                pageButton({
-                    pageNumber: currentPage + 1,
-                    activePage: false
-                })
+                <PageButton 
+                activePage={false} 
+                pageNumber={currentPage + 1} 
+                handlePageChange={handlePageChange} 
+                key={4}
+            />
             )
         }
         if (currentPage < totalPages - 2){
@@ -82,14 +66,19 @@ export default function PaginationContainer(){
         }
         //last page
 
-        pageButtons.push(pageButton(
-            {pageNumber:totalPages, 
-            activePage: currentPage === totalPages})
+        pageButtons.push(
+            <PageButton 
+                activePage={currentPage === totalPages} 
+                pageNumber={totalPages} 
+                handlePageChange={handlePageChange} 
+                key={5}
+            />
         )
         return pageButtons
     }
+
     return (
-        <div className="flex py-6 px-2 justify-end">
+        <div className={`py-6 px-2 w-full flex ${className}`}>
             {currentPage > 1 && (
                 <button
                     className="px-4 py-2 text-blue-700 dark:text-slate-100 bg-white dark:bg-zinc-900 shadow-lg rounded-md flex gap-2 items-center  hover:bg-blue-700 dark:hover:bg-blue-700  hover:text-white  mr-4"

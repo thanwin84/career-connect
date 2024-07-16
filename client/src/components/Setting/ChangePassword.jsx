@@ -53,7 +53,7 @@ export default function ChangePassword(){
                     onChange = {handleChange}
                     required
                 />
-                <div className="flex gap-4">
+                <div className="flex gap-4 mb-4">
                     <Input
                         name="newPassword"
                         label = "New Password"
@@ -76,11 +76,12 @@ export default function ChangePassword(){
                 </div>
                 <Button
                     category="success"
-                    classname= {`mt-4 w-auto ${!canSubmit ? "cursor-not-allowed": ""}`}
+                    classname= {`mt-4 w-auto bg-green-300 ${canSubmit ? "bg-green-800": ""} ${(!canSubmit || pending) ? "cursor-not-allowed": ""}`}
                     disabled={!canSubmit}
                 >
-                    {pending ? "Saving in progress...": "Save changes"}
+                    {pending ? "Updating...": "Save changes"}
                 </Button>
+                
             </form>
         </div>
     )

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import {Input} from "../components"
 
-export default function NumberInput(){
-    const [phoneNumber, setPhoneNumber] = useState("")
+export default function NumberInput({defaultPhoneNumber,...props}){
+    const [phoneNumber, setPhoneNumber] = useState(defaultPhoneNumber || "")
     
 
     function validateNumber(number){
-        const regex = /^\d*$/
+        const regex = /^\+?\d*$/
         return regex.test(number)
     }
     function handleChange(e){
@@ -17,9 +17,10 @@ export default function NumberInput(){
     return (
         <Input
             type="tel"
-            name="phoneNumber"
+            name="phoneNumber" 
             value={phoneNumber}
             onChange={handleChange}
+            {...props}
         />
     )
 }

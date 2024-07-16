@@ -98,7 +98,7 @@ const updateEducationEntry = asyncHandler(async (req, res)=>{
       throw new BadRequestError("User id is missing")
    }
    const user = await User.findById(userId)
-   user.accessStutus = !user.accessStutus
+   user.accessStatus = !user.accessStatus
    await user.save()
    res.status(statusCodes.OK).json({message: "User access status has been updated."})
  })
@@ -115,7 +115,10 @@ const updateEducationEntry = asyncHandler(async (req, res)=>{
       },
       {$limit: Number(limit)}
    ])
-   res.status(statusCodes.OK).json({users})
+   const usersCount = await User.countDocuments()
+   const totalPages = Math.ceil(usersCount / limit)
+
+   res.status(statusCodes.OK).json({users, totalPages, usersCount})
  })
 
 const addPhoneNumber = asyncHandler(async (req, res)=>{

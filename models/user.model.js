@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
     },
     educationRecords: [educationSchema],
     // only admin can change this
-    accessStutus: {
+    accessStatus: {
         type: Boolean,
         default: true
     },
@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema({
     phoneNumber: {
         type: String
     }
-})
+}, {timestamps: true})
 
 userSchema.pre('save', async function(next){
     if (this.isModified("password")){
