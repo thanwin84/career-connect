@@ -6,7 +6,7 @@ import {useFormStatus} from "react-dom"
 export default function ConfirmAccountDelete({userData, moveToNextModal}){
     const [typedAccount, setTypedAccount] = useState("")
     const {pending} = useFormStatus()
-
+    
     return (
         <div className="w-full p-8 bg-white dark:bg-zinc-900 rounded-md">
             <h4 className="dark:text-slate-200 border-b py-2 mb-2">Delete Account  {userData.name}</h4>

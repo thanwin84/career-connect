@@ -3,18 +3,14 @@ import { countries } from "../../../constants/countyCodes";
 import { useTwoStepAuthContext } from "./Setting/TwoStepAuthentication";
 import { IoIosArrowBack } from "react-icons/io";
 
-export default function SelectCountry({onSelect, selectedCountry}){
-    const {handleOpenModal, handleCountryModal} = useTwoStepAuthContext()
-    function handleClick(){
-        handleCountryModal()
-        handleOpenModal()
-    }
+export default function SelectCountry({onSelect, selectedCountry, handleBackClick}){
+    
     return (
         <div className="bg-white dark:bg-zinc-900 px-6 py-6 rounded-md">
             <div className=" mb-4">
                 <button 
                     className="dark:text-slate-300 flex"
-                    onClick={handleClick}
+                    onClick={handleBackClick}
                 >
                     <IoIosArrowBack className="text-2xl hover:text-blue-500"/>
                 </button>

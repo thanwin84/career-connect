@@ -8,8 +8,8 @@ import customFetch from "../../utils/customFetch";
 import { toast } from "react-toastify";
 import { useTwoStepAuthContext } from "./TwoStepAuthentication";
 
-export default function EnterConfirmationCode(){
-    const {moveToNextModal, user} = useTwoStepAuthContext()
+export default function EnterConfirmationCode({moveToNextModal}){
+    const {user} = useTwoStepAuthContext()
     const [sendCode, setSendCode] = useState(false)
     const [code, setCode] = useState("")
     const moveNext = code !== ""
@@ -29,6 +29,7 @@ export default function EnterConfirmationCode(){
             else {
                 toast.error("Your code does not match")
             }
+            
             
         } catch (error) {
             toast.error(error?.response?.data.message)
@@ -83,7 +84,8 @@ export default function EnterConfirmationCode(){
                     buttonText={
                         {
                             pending: "Sending...", 
-                            default: sendCode ? "Resend Code": "Send code"}
+                            default: sendCode ? "Resend Code": "Send code"
+                        }
                     } 
                 />
          </form>
