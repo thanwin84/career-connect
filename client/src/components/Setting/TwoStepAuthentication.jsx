@@ -62,9 +62,10 @@ export default function TwoStepAuthentication(){
                     </button>
                 </div>
                 {openModal && (<ModalContainer>
-                    <CloseModal>
+                    <CloseModal handleOpenModal={handleOpenModal}>
                         {userData.phoneNumber ? modals[currentModal]: 
                         modalsForAbsencePhoneNumber[currentModal]}
+                       
                     </CloseModal>
                 </ModalContainer>)}
 

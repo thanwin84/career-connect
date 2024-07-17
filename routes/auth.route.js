@@ -7,7 +7,8 @@ import {
     reEnterPassword,
     toggleTwoStepAuthentication,
     sendVerificationCode,
-    verifyVerificationCode
+    verifyVerificationCode,
+    deleteAccount
 } from '../controllers/auth.controller.js'
 import {
     validateRegisterInput,
@@ -30,5 +31,6 @@ router.route("/re-enter-password").post(authenticateUser, reEnterPassword)
 router.route("/toggle-two-step-authentication").patch(authenticateUser, toggleTwoStepAuthentication)
 router.route("/send-verification-code").post(authenticateUser, sendVerificationCode)
 router.route("/verify-code").post(authenticateUser, verifyVerificationCode)
+router.route("/delete-account").delete(authenticateUser, deleteAccount)
 
 export default router

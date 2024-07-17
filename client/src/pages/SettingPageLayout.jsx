@@ -17,7 +17,6 @@ export const loader = async()=>{
 export default function SettingPageLayout(){
     const userData = useLoaderData()
    
-    
     return (
         <div className="w-full bg-white dark:bg-zinc-800">
             <h3 className="text-2xl font-semibold px-2 py-4 text-slate-800 dark:text-slate-100">Setting</h3>

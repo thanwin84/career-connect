@@ -1,6 +1,7 @@
 import asyncHandler from '../utils/asyncHandler.js'
-import {statusCodes} from '../utils/constants.js'
+import {JOB_SORT_BY, statusCodes} from '../utils/constants.js'
 import {User} from '../models/user.model.js'
+import {Job} from "../models/job.model.js"
 import twilioService from '../third party/twillioService.js'
 import { 
    
@@ -30,6 +31,10 @@ const login = asyncHandler(async(req, res)=>{
     if (!isPasswordValid){
         throw new UnauthenticatedError('invalid credentials')
     }
+    if (!user.accessStatus){
+        throw new UnauthenticatedError("Access Denied")
+    }
+    
     const token = user.generateToken()
 
     const oneDay = 1000 * 60 * 60 * 24
@@ -112,6 +117,16 @@ const verifyVerificationCode = asyncHandler(async (req, res)=>{
     res.status(statusCodes.OK).json({message: "wrong code", data: response})
 })
 
+const deleteAccount = asyncHandler(async (req, res)=>{
+    const userId = req.user.userId
+    // delete the account
+    await User.deleteOne({_id: userId})
+    // delete all jobs created by this user
+    await Job.deleteMany({createdBy: userId})
+    res.status(200).json({message: "Your account has been deleted"})
+
+})
+
 export {
     register,
     login,
@@ -120,5 +135,6 @@ export {
     sendVerificationCode,
     verifyVerificationCode,
     changePassword,
-    reEnterPassword
+    reEnterPassword,
+    deleteAccount
 }

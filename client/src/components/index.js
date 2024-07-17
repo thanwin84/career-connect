@@ -39,6 +39,10 @@ import ToggleSwitch from "./admin_dashboard/ToggleStatus";
 import Pagination from "./Pagination/Pagination";
 import AllJobsPaginationContainer from "./jobs/AllJobsPaginationContainer";
 import UsersTable from "./admin_dashboard/UsersTable";
+import DeleteAccount from "./Setting/DeleteAccount";
+import ReEnterPasswordForm from "./ReEnterPasswordForm";
+import ConfirmAccountDelete from "./Setting/ConfirmAccountDelete";
+import ReEnterPasswordForDelete from "./Setting/ReEnterPasswordForDelete";
 
 export {
     Alert,
@@ -81,5 +85,9 @@ export {
     StatItem,
     ToggleSwitch,
     Pagination,
-    UsersTable
+    UsersTable,
+    DeleteAccount,
+    ReEnterPasswordForm,
+    ReEnterPasswordForDelete,
+    ConfirmAccountDelete
 }

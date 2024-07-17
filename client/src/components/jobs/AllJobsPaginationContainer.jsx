@@ -12,8 +12,6 @@ export default function AllJobsPaginationContainer(){
     const {pathname, search} = useLocation()
     const navigate = useNavigate()
 
-    
-
     function handlePageChange(pageNumber){
         
         const query = new URLSearchParams(search)
@@ -25,11 +23,15 @@ export default function AllJobsPaginationContainer(){
     
     
     return (
-        <Pagination 
-            totalPages={totalPages} 
-            currentPage={currentPage}
-            handlePageChange={handlePageChange}
-            className= "justify-end"
-        />
+        <div>
+            {totalPages > 1 && (
+                <Pagination 
+                    totalPages={totalPages} 
+                    currentPage={currentPage}
+                    handlePageChange={handlePageChange}
+                    className= "justify-end"
+                />
+            )}
+        </div>
     )
 }

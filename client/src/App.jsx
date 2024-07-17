@@ -32,8 +32,7 @@ import { loader as statsLoader } from './pages/Stats'
 import {loader as settingPageLayoutLoader} from './pages/SettingPageLayout'
 
 // testing
-import SelectCountry from './components/SelectCountry'
-
+import ReEnterPasswordForDelete from './components/Setting/ReEnterPasswordForDelete'
 const checkDefaultTheme = ()=>{
   const theme = localStorage.getItem('themeMode')
   document.querySelector('html').classList.remove("light", "dark")
@@ -51,7 +50,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/testing-route",
-        element: <SelectCountry />
+        element: <ReEnterPasswordForDelete />
       },
       {
         index: true,

@@ -40,12 +40,14 @@ export default function UsersContainer({className}){
                 handleToggle={handleToggle} 
                 users={users} 
             />
-            <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                handlePageChange={handlePageChange}
-                className="justify-end"
-             />
+            {totalPages > 1 && (
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    handlePageChange={handlePageChange}
+                    className="justify-end"
+                />
+            )}
         </div>
     )
 }

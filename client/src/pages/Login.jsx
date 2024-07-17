@@ -23,7 +23,12 @@ export default function Login(){
             toast.success("Login is successfull", {autoClose: 2000})
             navigate("/dashboard")
         } catch (error) {
-            toast.error(error?.response?.data?.message, {autoClose: 3000})
+            if (error?.response?.data?.message === "Access Denied"){
+                toast.error("Sorry, Your are temporarily blocked")
+            }
+            else {
+                toast.error(error?.response?.data?.message, {autoClose: 3000})
+            }
         }
     }
 
