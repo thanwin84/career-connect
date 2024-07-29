@@ -21,7 +21,7 @@ export default function Password(){
                 required
             />
             <span
-                className="py-10 cursor-pointer"
+                className="py-10 cursor-pointer dark:text-slate-300"
                 onClick={handleClick}
             >
                 {showPassword ? <FaRegEyeSlash/>: <FaEye/>}

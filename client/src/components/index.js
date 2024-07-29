@@ -35,7 +35,7 @@ import NumberInput from "./NumberInput";
 import SelectCountry from "./SelectCountry";
 import UsersContainer from "./admin_dashboard/UsersContainer";
 import StatItem from "./StatItem";
-import ToggleSwitch from "./admin_dashboard/ToggleStatus";
+import ToggleStatus from "./admin_dashboard/ToggleStatus";
 import Pagination from "./Pagination/Pagination";
 import AllJobsPaginationContainer from "./jobs/AllJobsPaginationContainer";
 import UsersTable from "./admin_dashboard/UsersTable";
@@ -43,6 +43,10 @@ import DeleteAccount from "./Setting/DeleteAccount";
 import ReEnterPasswordForm from "./ReEnterPasswordForm";
 import ConfirmAccountDelete from "./Setting/ConfirmAccountDelete";
 import ReEnterPasswordForDelete from "./Setting/ReEnterPasswordForDelete";
+import CompleteSteps from "./create_account/CompleteSteps";
+import CreateAccount from "./create_account/CreateAccount";
+import DescribeYourself from "./create_account/DescribeYourself";
+import AddProfilePhoto from "./create_account/AddProfilePhoto";
 
 export {
     Alert,
@@ -83,11 +87,15 @@ export {
     SelectCountry,
     UsersContainer,
     StatItem,
-    ToggleSwitch,
+    ToggleStatus,
     Pagination,
     UsersTable,
     DeleteAccount,
     ReEnterPasswordForm,
     ReEnterPasswordForDelete,
-    ConfirmAccountDelete
+    ConfirmAccountDelete,
+    CompleteSteps,
+    CreateAccount,
+    DescribeYourself,
+    AddProfilePhoto
 }

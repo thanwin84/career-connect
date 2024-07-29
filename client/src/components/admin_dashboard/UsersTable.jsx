@@ -5,7 +5,7 @@ export default function UsersTable({handleToggle, users}){
     const headers = ["Ban", "Access Status", "User's Name", "Joined Date", "Role"]
     return (
         <table className="table-auto w-full bg-white dark:bg-zinc-900 shadow-md rounded-md">
-            <thead className="">
+            <thead>
                 <tr>
                     {headers.map((item,index)=>(
                         <th  key={index} className="p-4  text-slate-700 dark:text-slate-200">

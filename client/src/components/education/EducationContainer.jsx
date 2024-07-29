@@ -5,14 +5,12 @@ import  {
     ModalContainer
 } from '..'
 import AddEducation from './AddEducation'
-import { useDashboardContext } from "../../pages/DashboardLayout";
 import EducationRecordList from "./EducationRecordList";
 
 const educationContainerContext = createContext()
 
 export default function EducationContainer({className}){
     const [addEducationModal, setAddEducationModal] = useState(false)
-    const {user} = useDashboardContext()
     
     function handleAddEducationModal(){
         setAddEducationModal(!addEducationModal)

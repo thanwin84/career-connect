@@ -16,11 +16,12 @@ import {
     validateChangePasswordInput
 } from '../middleware/validationMiddleware.js'
 import {authenticateUser} from '../middleware/auth.middleware.js'
+import upload from "../middleware/multer.middleware.js";
 
 const router = Router()
 
 
-router.post('/register', validateRegisterInput, register)
+router.post('/register', upload.single("avatar"), validateRegisterInput, register)
 
 router.post('/login',validateLoginInput, login)
 

@@ -4,7 +4,6 @@ import Error from './Error'
 import HomeLayout from './HomeLayout'
 import Landing from './Landing'
 import Login from './Login'
-import Register from './Register'
 import Stats from './Stats'
 import Admin from './Admin'
 import DashboardLayout from './DashboardLayout'
@@ -15,6 +14,8 @@ import Account from './Account'
 import PasswordAndSecurity from './PasswordAndSecurity'
 import SettingPageLayout from './SettingPageLayout'
 import AddEducation from '../components/education/AddEducation'
+import CreateAccountPageLayout from './CreateAccountPageLayout'
+// testing
 
 export {
     AllJobs,
@@ -24,7 +25,6 @@ export {
     HomeLayout,
     Landing,
     Login,
-    Register,
     Stats,
     Admin,
     DashboardLayout,
@@ -33,5 +33,6 @@ export {
     Account,
     PasswordAndSecurity,
     SettingPageLayout,
-    AddEducation
+    AddEducation,
+    CreateAccountPageLayout
 }

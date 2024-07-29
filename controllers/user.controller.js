@@ -20,30 +20,44 @@ import {BadRequestError} from '../errors/customErrors.js'
 
  const updateUser = asyncHandler(async (req, res)=>{
    
-    const user = await User.findOne({email: req.body.email})
-    if (user && user._id.toString() !== req.user.userId){
-        throw new BadRequestError("email already exists")
-    }
-    const obj = {...req.body}
-    delete obj.password
-    const oldAvatarPublicId = user?.avatar[1]
-    if (oldAvatarPublicId){
-      await deleteAsset(oldAvatarPublicId)
-     
-    }
-    const localFilePath = req?.file?.path
-    if (localFilePath){
-      const updatedAvatarPath = await uploadOnCloudinary(localFilePath)
-      obj.avatar = [updatedAvatarPath.url, updatedAvatarPath.public_id]
-    }
+   const user = await User.findOne({email: req.body.email})
+   if (user && user._id.toString() !== req.user.userId){
+      throw new BadRequestError("email already exists")
+   }
+   const obj = {...req.body}
+   delete obj.password
+   const oldAvatarPublicId = user?.avatar[1]
+   if (oldAvatarPublicId){
+   await deleteAsset(oldAvatarPublicId)
+   
+   }
+   const localFilePath = req?.file?.path
+   if (localFilePath){
+   const updatedAvatarPath = await uploadOnCloudinary(localFilePath)
+   obj.avatar = [updatedAvatarPath.url, updatedAvatarPath.public_id]
+   }
     
-    const updatedUser = await User.findByIdAndUpdate(
+   await User.findByIdAndUpdate(
         req.user.userId,
         obj
     )
     res.status(statusCodes.OK).json({msg: "updated User"})
  })
 
+ const uploadPhoto = asyncHandler(async (req, res)=>{
+   const {userId} = req.params
+   const localFilePath = req?.file?.path
+   console.log(req.file)
+   const user = await User.findById(userId)
+   if (localFilePath){
+      const uploadedPhoto = await uploadOnCloudinary(localFilePath)
+      user.avatar = [uploadedPhoto.url, uploadedPhoto.public_id]
+   }
+   await user.save()
+   res.status(statusCodes.OK).json({message: "Photo has been updated", user})
+ })
+
+ 
  const addEducation = asyncHandler(async(req, res)=>{
    const userId = req.user.userId
    const updatedUser = await User.findOneAndUpdate(
@@ -142,5 +156,6 @@ const addPhoneNumber = asyncHandler(async (req, res)=>{
     updateEducationEntry,
     toggleAccessStatus,
     getUsersList,
-    addPhoneNumber
+    addPhoneNumber,
+    uploadPhoto
  }

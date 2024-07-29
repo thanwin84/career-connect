@@ -48,6 +48,11 @@ const userSchema = new mongoose.Schema({
     },
     phoneNumber: {
         type: String
+    },
+    userType: {
+        type: String,
+        enum: ['recruiter', 'user'],
+        default: "user"
     }
 }, {timestamps: true})
 

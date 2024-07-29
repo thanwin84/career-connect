@@ -22,6 +22,7 @@ export const action = async({request})=>{
         toast.success("Profile updated successfully", {autoClose: 500})
         return redirect("../profile")
     } catch (error) {
+        console.log(error)
         toast.error(error?.request?.data?.message)
     }
     return null

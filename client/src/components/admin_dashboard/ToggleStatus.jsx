@@ -7,7 +7,7 @@ import customFetch from "../../utils/customFetch";
 import { toast } from "react-toastify";
 
 
-export default function ToggleSwitch({accessStatus, _id, handleToggle}){
+export default function ToggleStatus({accessStatus, _id, handleToggle}){
     
     async function action(){
         

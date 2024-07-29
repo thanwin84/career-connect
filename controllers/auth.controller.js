@@ -9,16 +9,20 @@ import {
     NotFoundError,
     UnauthenticatedError
  } from '../errors/customErrors.js'
+ import { uploadOnCloudinary } from '../utils/cloudinary.js'
 
 const register = asyncHandler(async(req, res)=>{
+    console.log(req.body)
     const isFirstAccount = await User.countDocuments() === 0
     req.body.role = isFirstAccount ? 'admin': "user"
     const userExists = await User.findOne({email: req.body.email})
     if (userExists){
         throw new BadRequestError("User is already registered")
     }
-    const user = await User.create(req.body)
-    res.status(statusCodes.CREATED).json({msg: "user is created successfully"})
+    
+    const user = (await User.create(req.body))
+
+    res.status(statusCodes.CREATED).json({msg: "user is created successfully", userId: user._id})
 })
 
 const login = asyncHandler(async(req, res)=>{

@@ -8,7 +8,7 @@ const Input = function({
     name,
     ...props}){
     const id = useId()
-
+    
     return (
         <div className="w-full">
             {label && <label htmlFor={id} className="block mb-2  text-slate-600 dark:text-slate-200">{label}</label>}

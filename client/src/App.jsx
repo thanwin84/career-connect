@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import React from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+
 import {
   HomeLayout,
   Landing,
-  Register,
   Login,
   Error,
   DashboardLayout,
@@ -17,7 +17,8 @@ import {
   SettingPageLayout,
   PasswordAndSecurity,
   Account,
-  AddEducation
+  AddEducation,
+  CreateAccountPageLayout
 } from './pages'
 
 
@@ -31,8 +32,8 @@ import { action as EditProfileAction } from './pages/EditProfile'
 import { loader as statsLoader } from './pages/Stats'
 import {loader as settingPageLayoutLoader} from './pages/SettingPageLayout'
 
-// testing
-import ReEnterPasswordForDelete from './components/Setting/ReEnterPasswordForDelete'
+
+
 const checkDefaultTheme = ()=>{
   const theme = localStorage.getItem('themeMode')
   document.querySelector('html').classList.remove("light", "dark")
@@ -49,16 +50,12 @@ const router = createBrowserRouter([
     errorElement: <Error/>,
     children: [
       {
-        path: "/testing-route",
-        element: <ReEnterPasswordForDelete />
-      },
-      {
         index: true,
         element: <Landing/>
       },
       {
         path: "register",
-        element: <Register/>
+        element: <CreateAccountPageLayout />
       },
       {
         path: "login",

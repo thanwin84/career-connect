@@ -8,7 +8,8 @@ import {
     updateEducationEntry,
     toggleAccessStatus,
     getUsersList,
-    addPhoneNumber
+    addPhoneNumber,
+    uploadPhoto
 } from '../controllers/user.controller.js'
 import { authenticateUser, authorizePermissions } from "../middleware/auth.middleware.js";
 import { 
@@ -18,6 +19,8 @@ import {
 import upload from '../middleware/multer.middleware.js'
 
 const router = Router()
+
+router.route("/:userId/upload-profile-photo").patch(upload.single('avatar'), uploadPhoto)
 
 router.use(authenticateUser)
 

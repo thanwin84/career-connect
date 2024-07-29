@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-    ToggleSwitch
+    ToggleStatus
 } from "../../components"
 import { formatDate } from "../../utils";
 
@@ -15,7 +15,7 @@ export default function Row({
     return (
         <tr className="border-b last:border-none">
             <td className="p-4">
-                <ToggleSwitch 
+                <ToggleStatus 
                     accessStatus={accessStatus}
                     handleToggle={handleToggle}
                     _id={_id} 
