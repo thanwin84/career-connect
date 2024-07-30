@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const customFetch = await axios.create({
+const customFetch = axios.create({
     baseURL: "/api/v1"
 })
 

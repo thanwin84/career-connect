@@ -42,6 +42,7 @@ app.use("/api/v1/users", userRouter)
 
 
 app.use(express.static(path.resolve(__dirname, "./public")))
+
 app.use("*", (req, res)=>{
     res.status(404).json({msg: "Not Found"})
 })

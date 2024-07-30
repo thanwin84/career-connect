@@ -3,20 +3,14 @@ import {Input, Button} from "../../components"
 import { customFetch } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useFilePreview } from "../../hooks";
 
 export default function AddProfilePhoto({className, goBack, user}){
-    const [imageUrl, setImageUrl] = useState(null)
-    const [file, setFile] = useState(null)
     const [loading, setLoading] = useState(false)
+    const {file, fileUrl, handleFileChange} = useFilePreview()
     const navigate = useNavigate()
 
-    function handleFileChange(e){
-        const file = e.target.files[0]
-        console.log(file)
-        const url = URL.createObjectURL(file)
-        setImageUrl(url)
-        setFile(file)
-    }
+    
     async function handleFinish(){
         try {
             setLoading(true)
@@ -46,8 +40,8 @@ export default function AddProfilePhoto({className, goBack, user}){
             <h2 className="dark:text-slate-200 text-xl mb-6">Add Your Profile Photo or Skip it to upload later.</h2>
             <div className="flex justify-center mb-4">
             <div className="border-2 border-dashed w-40 h-40 rounded-md">
-                {imageUrl && (
-                    <img className="w-full h-full" src={imageUrl}  />
+                {fileUrl && (
+                    <img className="w-full h-full" src={fileUrl}  />
                 )}
             </div>
             </div>
