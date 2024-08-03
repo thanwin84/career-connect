@@ -1,11 +1,11 @@
 import useWindowScreenSize from "./useWindowSreenSize";
-import useDebounce from "./useDebounce";
 import useCustomQuery from "./useCustomQuery";
 import useFilePreview from "./useFilePreview";
+import useDebounce from "./useDebounce";
 
 export {
     useWindowScreenSize,
-    useDebounce,
     useCustomQuery,
-    useFilePreview
+    useFilePreview,
+    useDebounce
 }

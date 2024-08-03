@@ -1,25 +1,33 @@
-import React, { useEffect, useState} from "react";
-import {Button, Select, Input} from '../components'
-import { useAllJobsContext } from "../pages/AllJobs";
-import { JOB_TYPE, JOB_STATUS, JOB_SORT_BY } from "../../../utils/constants";
-import { Form, useSubmit, Link } from "react-router-dom";
-import customFetch from "../utils/customFetch";
-import { useDebounce } from "../hooks";
+import React, {  useState} from "react";
+import {Select, Input} from '../../components'
+import { useAllJobsContext } from "../../pages/AllJobs";
+import { JOB_TYPE, JOB_STATUS, JOB_SORT_BY } from "../../../../utils/constants";
+import { Form, useSubmit} from "react-router-dom";
+import { useDebounce } from "../../hooks";
+
+
 
 export default function SearchJobsContainer(){
     const submit = useSubmit()
     const {searchValues} = useAllJobsContext()
-    const {search, jobStatus="all", jobType="all", sort="newest"} = searchValues
-    const [searchTerm, setSearchTerm] = useState(search || "")
-    const debouncedValue = useDebounce(searchTerm)
+    const {search, jobStatus, jobType, sort} = searchValues
+    const [formObject, setFormObject] = useState({
+        search: search,
+        jobStatus: jobStatus,
+        jobType: jobType,
+        sort: sort 
+    })
+    const debounce = useDebounce(500)
+  
+    function handleChange(e){
+        const {name, value} = e.target
+        setFormObject(prev => ({...prev,[name]: value}))
+        submit(e.target.form)
+    }
+    function handleClick(){
+        setFormObject({search: "", jobStatus: "all", jobType: "", sort: "newest"})
+    }
 
-    useEffect(()=>{
-       
-        const ob = {search: debouncedValue, jobStatus, jobType, sort}
-        submit(ob, {method: "get"})
-        
-    },[debouncedValue, submit])
-    
     return (
         <Form className="p-6">
             <div className="px-4 py-6 bg-white dark:bg-zinc-900 rounded-md shadow-md">
@@ -29,38 +37,41 @@ export default function SearchJobsContainer(){
                         label="Search"
                         type="search"
                         name="search"
-                        onChange={(e)=> setSearchTerm(e.target.value)}
-                        defaultValue={search}
+                        onChange={(e)=> {
+                            setFormObject(prev => ({...prev, search: e.target.value}))
+                           debounce(()=>submit(e.target.form))
+                        }}
+                        value={formObject.search}
                     />
                     <Select 
                         label="Job Status"
                         options={["all", ...Object.values(JOB_STATUS)]}
                         name="jobStatus"
-                        onChange={(e)=> submit(e.target.form)}
-                        defaultValue={jobStatus}
+                        onChange={handleChange}
+                        value={formObject.jobStatus}
                         
                     />
                     <Select 
                         label = "Job Type"
                         name="jobType"
                         options={["all", ...Object.values(JOB_TYPE)]}
-                        onChange={(e)=> submit(e.target.form)}
-                        defaultValue={jobType}
+                        onChange={handleChange}
+                        value={formObject.jobType}
                     />
                     <Select 
                         label = "Sort"
                         name="sort"
                         options={[...Object.values(JOB_SORT_BY)]}
-                        defaultValue={sort}
-                        onChange={(e)=> submit(e.target.form)}
+                        value={formObject.sort}
+                        onChange={handleChange}
                     />
                     <div className="flex flex-col justify-end">
-                        <Link
-                            to="../all-jobs"
+                        <button
+                            onClick={handleClick}
                             className="w-full bg-blue-500 text-white text-center px-4 py-2 rounded hover:bg-blue-600"
                         >
                             Reset to Default Values
-                        </Link>
+                        </button>
                     </div>
                     
                 </div>

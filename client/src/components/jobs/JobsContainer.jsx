@@ -13,7 +13,7 @@ export default function JobsContainer(){
         )
     }
     return (
-        <div>
+        <section>
             <h4 className="font-bold text-slate-600 dark:text-slate-200 mb-2 px-6">{totalJobs} job{jobs.length > 1 ? "s": ""} found</h4>
             <section className="grid lg:grid-cols-2 md:grid-cols-2 gap-4 px-4">
             {jobs.map(job =>(
@@ -24,6 +24,6 @@ export default function JobsContainer(){
         <div className="mr-2">
         { totalPages> 1 && (<AllJobsPaginationContainer />)}
         </div>
-        </div>
+        </section>
     )
 }

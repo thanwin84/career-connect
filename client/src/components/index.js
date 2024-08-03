@@ -9,7 +9,7 @@ import ModalContainer from "./ModalContainer";
 import ThemeToggle from "./ThemeToggle";
 import Select from "./Select";
 import JobsContainer from "./jobs/JobsContainer";
-import SearchJobsContainer from "./SearchJobsContainer";
+import SearchJobsContainer from "./jobs/SearchJobsContainer";
 import Job from "./jobs/Job";
 import AreaChart from "./AreaChart";
 import BarChart from "./BarChart";
