@@ -8,7 +8,7 @@ import {
 import mongoose from 'mongoose'
 import day from "dayjs"
 
-const getAllJobs = asyncHandler(async (req, res)=>{
+const getAllJobsCreatedByUser = asyncHandler(async (req, res)=>{
     const {limit=10, page=1, search, jobStatus, jobType, sort} = req.query
     
     const skips = (Number(page) - 1) * Number(limit)
@@ -55,6 +55,74 @@ const getAllJobs = asyncHandler(async (req, res)=>{
     const totalPages = Math.ceil(totalJobs / limit)
 
     res.status(statusCodes.OK).json({totalJobs, totalPages, currentPage: page, jobs})
+})
+const getJobs = asyncHandler(async (req, res)=>{
+    const {
+        page = 1, 
+        limit = 10, 
+        jobType, 
+        jobStatus,
+        sort, 
+        location, 
+        search,
+        minSalary,
+        maxSalary,
+        experianceLevel
+    } = req.query
+    const skips = (Number(page) - 1) * (Number(limit))
+    const queryObject = {}
+    if (jobType && jobType !== "all"){
+        queryObject.jobType = jobType
+    }
+    if (location) {
+        queryObject.$or = [
+            {jobLocation: {$regex: location, $options: "i"}},
+            {country: {$regex: location, $options: 'i'}}
+        ]
+    }
+    if (jobStatus && jobStatus !== "all"){
+        queryObject.jobStatus = jobStatus
+    }
+    
+    const sortOptions = {
+        newest: {"createdAt": -1},
+        oldest: {"createdAt": 1},
+        "a-z": {"position": 1},
+        "z-a": {"position": -1}
+    }
+    const sortKey = sortOptions[sort] || sortOptions["newest"]
+    // search by position, company
+    if (search){
+        queryObject.$or = [
+            {position: {$regex: search, $options: 'i'}},
+            {company: {$regex: search, $options: 'i'}}
+        ]
+    }
+    if (minSalary || maxSalary){
+        queryObject['salary.min'] = minSalary ? {$gte: Number(minSalary)}: {$gte: 0},
+        queryObject['salary.max'] = maxSalary ? {$lte: Number(maxSalary)} : {$lte: Number.MAX_SAFE_INTEGER}
+    }
+    
+    if (experianceLevel){
+        queryObject.experianceLevel = experianceLevel
+    }
+
+    const aggregationPipeline = [
+        {
+            $match: queryObject
+        },
+        {
+            $sort: sortKey
+        },
+        {
+            $skip: skips
+        },
+        {$limit: Number(limit)}
+    ]
+    const jobs = await Job.aggregate(aggregationPipeline)
+    console.log(queryObject)
+    res.status(statusCodes.OK).json({jobs})
+
 })
 
 const createJob = asyncHandler(async (req, res)=>{
@@ -169,10 +237,11 @@ const showStats = asyncHandler(async (req, res)=>{
 })
 
 export {
-    getAllJobs,
+    getAllJobsCreatedByUser,
     createJob,
     getJob,
     updateJob,
     deleteJob,
-    showStats
+    showStats,
+    getJobs
 }

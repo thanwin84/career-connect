@@ -1,11 +1,12 @@
 import { Router } from "express";
 import {
-    getAllJobs,
+    getAllJobsCreatedByUser,
     createJob,
     getJob,
     updateJob,
     deleteJob,
-    showStats
+    showStats,
+    getJobs
 } from "../controllers/job.controller.js"
 import { 
     ValidateJobInput,
@@ -15,10 +16,11 @@ import { authenticateUser } from "../middleware/auth.middleware.js";
 
 const router = Router()
 
+router.route('/all-jobs').get(getJobs)
 router.use(authenticateUser)
 
 router.route("/")
-.get(getAllJobs)
+.get(getAllJobsCreatedByUser)
 .post(ValidateJobInput,createJob)
 
 router.route("/show-stats").get(showStats)

@@ -4,7 +4,7 @@ import {
     validationResult
 } from 'express-validator'
 import {BadRequestError, UnauthorizedError} from '../errors/customErrors.js'
-import { JOB_STATUS, JOB_TYPE } from '../utils/constants.js'
+import { JOB_STATUS, JOB_TYPE, experianceLevel } from '../utils/constants.js'
 import mongoose from 'mongoose'
 import { Job } from '../models/job.model.js'
 
@@ -30,7 +30,10 @@ export const ValidateJobInput = withValidationError([
     body('position').notEmpty().withMessage("position is required"),
     body('jobLocation').notEmpty().withMessage("jobLocation is required"),
     body('jobStatus').isIn(Object.values(JOB_STATUS)).withMessage('Invalid job status'),
-    body('jobType').isIn(Object.values(JOB_TYPE)).withMessage('invalid job type')
+    body('jobType').isIn(Object.values(JOB_TYPE)).withMessage('invalid job type'),
+    body('country').notEmpty().withMessage("Country is missing"),
+    body('salary').notEmpty().withMessage("Salary is missing"),
+    body('experianceLevel').isIn(Object.values(experianceLevel)).withMessage('Invalid experiance level')
 ])
 
 export const validateIdParam = withValidationError([

@@ -24,7 +24,9 @@ const JOB_STATUS = {
 const JOB_TYPE = {
     FULL_TIME: 'full-time',
     PART_TIME: 'part-time',
-    INTERNSHIP: 'internship'
+    INTERNSHIP: 'internship',
+    REMORE: 'remote',
+    HYBRID: 'hybrid'
 }
 const JOB_SORT_BY = {
     NEWEST_FIRST: 'newest',
@@ -32,10 +34,17 @@ const JOB_SORT_BY = {
     ASCENDING: 'a-z',
     DESCENDING: 'z-a'
 }
+const experianceLevel = {
+    ENTRY: 'entry',
+    MID: 'mid',
+    SENIOR: 'senior',
+    EXPERT: 'expert'
+}
 export {
     db_name,
     statusCodes,
     JOB_STATUS,
     JOB_TYPE,
-    JOB_SORT_BY
+    JOB_SORT_BY,
+    experianceLevel
 }

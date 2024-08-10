@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {JOB_STATUS, JOB_TYPE} from '../utils/constants.js'
+import {JOB_STATUS, JOB_TYPE, experianceLevel} from '../utils/constants.js'
 const jobSchema = new mongoose.Schema(
     {
         company: String,
@@ -17,6 +17,20 @@ const jobSchema = new mongoose.Schema(
         jobLocation: {
             type: String,
             default: 'my city'
+        },
+        country: {
+            type: String
+        },
+        salary: {
+            type: {
+                min: Number,
+                max: Number
+            }
+        },
+        experianceLevel: {
+            type: String,
+            enum: Object.values(experianceLevel),
+            default: experianceLevel.ENTRY
         },
         createdBy: {
             type: mongoose.Types.ObjectId,
