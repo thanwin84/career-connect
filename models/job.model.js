@@ -32,6 +32,7 @@ const jobSchema = new mongoose.Schema(
             enum: Object.values(experianceLevel),
             default: experianceLevel.ENTRY
         },
+        openRoles: Number,
         createdBy: {
             type: mongoose.Types.ObjectId,
             ref: "User"

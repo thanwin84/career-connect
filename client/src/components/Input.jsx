@@ -10,13 +10,13 @@ const Input = function({
     const id = useId()
     
     return (
-        <div className="w-full">
+        <div className={`w-full ${className}`}>
             {label && <label htmlFor={id} className="block mb-2  text-slate-600 dark:text-slate-200">{label}</label>}
             <input
                 type={type}
                 id = {id}
                 placeholder={placeholder}
-                className={`border border-gray-200 w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-zinc-700 text-black dark:text-slate-100 outline-none  focus:ring-1 dark:ring-slate-100 ${className}`}
+                className={`border border-gray-200 w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-zinc-700 text-black dark:text-slate-100 outline-none  focus:ring-1 dark:ring-slate-100 `}
                 name={name}
                 {...props}
             />

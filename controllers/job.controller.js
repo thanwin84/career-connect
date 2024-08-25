@@ -120,7 +120,7 @@ const getJobs = asyncHandler(async (req, res)=>{
         {$limit: Number(limit)}
     ]
     const jobs = await Job.aggregate(aggregationPipeline)
-    console.log(queryObject)
+    
     res.status(statusCodes.OK).json({jobs})
 
 })
@@ -145,10 +145,7 @@ const getJob = asyncHandler(async (req, res)=>{
 })
 
 const updateJob = asyncHandler(async (req, res)=>{
-    const {company, position} = req.body
-    if (!company && !position){
-        throw new BadRequestError("At least one field is required")
-    }
+    
     const {id} = req.params
     
     const job = await Job.findByIdAndUpdate(

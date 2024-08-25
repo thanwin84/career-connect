@@ -32,7 +32,6 @@ export const ValidateJobInput = withValidationError([
     body('jobStatus').isIn(Object.values(JOB_STATUS)).withMessage('Invalid job status'),
     body('jobType').isIn(Object.values(JOB_TYPE)).withMessage('invalid job type'),
     body('country').notEmpty().withMessage("Country is missing"),
-    body('salary').notEmpty().withMessage("Salary is missing"),
     body('experianceLevel').isIn(Object.values(experianceLevel)).withMessage('Invalid experiance level')
 ])
 

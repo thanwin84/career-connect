@@ -10,7 +10,6 @@ export const loader = async({request})=>{
     const params = Object.fromEntries(new URL(request.url).searchParams.entries())
     try {
         const {data} = await customFetch.get("/jobs", {params:params})
-        console.log(params)
         return {data, searchValues: params}
     } catch (error) {
         toast.error(error?.response?.data?.message)

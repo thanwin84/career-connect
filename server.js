@@ -28,6 +28,7 @@ app.use(cookieParser())
 import jobRouter from './routes/job.route.js'
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
+import recordsRouter from './routes/records.route.js'
 
 // public
 import path, {dirname} from "path"
@@ -39,6 +40,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 app.use("/api/v1/jobs", jobRouter)
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", userRouter)
+app.use("/api/v1/records", recordsRouter)
 
 
 app.use(express.static(path.resolve(__dirname, "./public")))

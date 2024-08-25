@@ -47,6 +47,11 @@ import CompleteSteps from "./create_account/CompleteSteps";
 import CreateAccount from "./create_account/CreateAccount";
 import DescribeYourself from "./create_account/DescribeYourself";
 import AddProfilePhoto from "./create_account/AddProfilePhoto";
+import SelectOptionsInput from "./SelectOptionsInput";
+import SearchInput from "./SearchInput";
+import Location from "./create_job/Location";
+import CreateJobForm from "./create_job/CreateJobForm";
+import SalaryRange from "./create_job/SalaryRange";
 
 export {
     Alert,
@@ -97,5 +102,10 @@ export {
     CompleteSteps,
     CreateAccount,
     DescribeYourself,
-    AddProfilePhoto
+    AddProfilePhoto,
+    SelectOptionsInput,
+    SearchInput,
+    Location,
+    CreateJobForm,
+    SalaryRange
 }

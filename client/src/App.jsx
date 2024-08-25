@@ -23,7 +23,7 @@ import {
 
 
 import {loader as dashboardLoader} from './pages/DashboardLayout'
-import { action as addjobAction} from './pages/AddJob'
+import { action as addjobAction, loader as addJobLoader} from './pages/AddJob'
 import { loader as allJobsLoader } from './pages/AllJobs'
 import { action as editJobAction, loader as editJobLoader } from './pages/EditJob'
 import { action as deleteJobAction } from './pages/DeleteJob'
@@ -69,7 +69,8 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <AddJob />,
-            action: addjobAction
+            action: addjobAction,
+            loader: addJobLoader
           },
           {
             path: 'all-jobs',
@@ -130,6 +131,10 @@ const router = createBrowserRouter([
         ]
       }
     ]
+  },
+  {
+    path: "/testing",
+    element: <h2>Testing</h2>
   }
   
 ])
