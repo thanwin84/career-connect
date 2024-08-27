@@ -61,7 +61,6 @@ const getJobs = asyncHandler(async (req, res)=>{
         page = 1, 
         limit = 10, 
         jobType, 
-        jobStatus,
         sort, 
         location, 
         search,
@@ -69,28 +68,16 @@ const getJobs = asyncHandler(async (req, res)=>{
         maxSalary,
         experianceLevel
     } = req.query
+   
     const skips = (Number(page) - 1) * (Number(limit))
     const queryObject = {}
-    if (jobType && jobType !== "all"){
-        queryObject.jobType = jobType
-    }
+
     if (location) {
         queryObject.$or = [
             {jobLocation: {$regex: location, $options: "i"}},
             {country: {$regex: location, $options: 'i'}}
         ]
     }
-    if (jobStatus && jobStatus !== "all"){
-        queryObject.jobStatus = jobStatus
-    }
-    
-    const sortOptions = {
-        newest: {"createdAt": -1},
-        oldest: {"createdAt": 1},
-        "a-z": {"position": 1},
-        "z-a": {"position": -1}
-    }
-    const sortKey = sortOptions[sort] || sortOptions["newest"]
     // search by position, company
     if (search){
         queryObject.$or = [
@@ -98,15 +85,24 @@ const getJobs = asyncHandler(async (req, res)=>{
             {company: {$regex: search, $options: 'i'}}
         ]
     }
+    const sortOptions = {
+        newest: {"createdAt": -1},
+        oldest: {"createdAt": 1},
+        "a-z": {"position": 1},
+        "z-a": {"position": -1}
+    }
+    const sortKey = sortOptions[sort] || sortOptions["newest"]
     if (minSalary || maxSalary){
         queryObject['salary.min'] = minSalary ? {$gte: Number(minSalary)}: {$gte: 0},
         queryObject['salary.max'] = maxSalary ? {$lte: Number(maxSalary)} : {$lte: Number.MAX_SAFE_INTEGER}
     }
-    
-    if (experianceLevel){
-        queryObject.experianceLevel = experianceLevel
+    if (jobType && Array.isArray(jobType)){
+        queryObject.jobType = {$in: jobType}
     }
-
+    if (experianceLevel && Array.isArray(experianceLevel)){
+        queryObject.experianceLevel = {$in: experianceLevel}
+    }
+    
     const aggregationPipeline = [
         {
             $match: queryObject
@@ -120,8 +116,15 @@ const getJobs = asyncHandler(async (req, res)=>{
         {$limit: Number(limit)}
     ]
     const jobs = await Job.aggregate(aggregationPipeline)
+    const jobsCount = jobs.length
+    const totalPages = Math.ceil(jobsCount / limit)
+
     
-    res.status(statusCodes.OK).json({jobs})
+    res.status(statusCodes.OK).json({
+        jobs,
+        jobsCount,
+        totalPages
+    })
 
 })
 
@@ -137,7 +140,7 @@ const getJob = asyncHandler(async (req, res)=>{
     const {id} = req.params
     
     const job = await Job.findById(id)
-    console.log(job)
+    
     if (!job){
         throw new NotFoundError(`No job with id ${id}`)
     }
