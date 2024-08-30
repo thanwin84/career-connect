@@ -15,6 +15,9 @@ import PasswordAndSecurity from './PasswordAndSecurity'
 import SettingPageLayout from './SettingPageLayout'
 import AddEducation from '../components/education/AddEducation'
 import CreateAccountPageLayout from './CreateAccountPageLayout'
+import HomePageLayout from './HomePageLayout'
+import FindJobs from './FindJobs'
+
 // testing
 
 export {
@@ -34,5 +37,7 @@ export {
     PasswordAndSecurity,
     SettingPageLayout,
     AddEducation,
-    CreateAccountPageLayout
+    CreateAccountPageLayout,
+    HomePageLayout,
+    FindJobs
 }

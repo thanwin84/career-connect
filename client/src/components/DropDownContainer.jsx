@@ -4,9 +4,13 @@ import { FaCaretDown } from "react-icons/fa"
 import { useDashboardContext } from "../pages/DashboardLayout"
 import { Link } from "react-router-dom"
 
-export default function DropDownContainer(){
+export default function DropDownContainer({
+    user,
+    logoutUser,
+    showSmallSidebar
+}){
     const [showDropDown, setShowDropDown] = useState(false)
-    const {user, logoutUser, showSmallSidebar} = useDashboardContext()
+    // const {user, logoutUser, showSmallSidebar} = useDashboardContext()
     
     return (
         <div className={`w-40 ${showSmallSidebar ? "": "relative"}`}>

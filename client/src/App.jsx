@@ -18,7 +18,9 @@ import {
   PasswordAndSecurity,
   Account,
   AddEducation,
-  CreateAccountPageLayout
+  CreateAccountPageLayout,
+  HomePageLayout,
+  FindJobs
 } from './pages'
 
 
@@ -31,7 +33,10 @@ import { loader as adminLoader } from './pages/Admin'
 import { action as EditProfileAction } from './pages/EditProfile'
 import { loader as statsLoader } from './pages/Stats'
 import {loader as settingPageLayoutLoader} from './pages/SettingPageLayout'
+import { loader as findJobsLoader} from './pages/FindJobs'
 
+// test
+import { JobDetails } from './components'
 
 
 const checkDefaultTheme = ()=>{
@@ -133,8 +138,19 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "/testing",
-    element: <h2>Testing</h2>
+    path: "testing",
+    element: <JobDetails />
+  },
+  {
+    path: "/home",
+    element: <HomePageLayout />,
+    children: [
+      {
+        index: true,
+        element: <FindJobs />,
+        loader: findJobsLoader
+      }
+    ]
   }
   
 ])

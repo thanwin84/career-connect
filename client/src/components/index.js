@@ -52,6 +52,15 @@ import SearchInput from "./SearchInput";
 import Location from "./create_job/Location";
 import CreateJobForm from "./create_job/CreateJobForm";
 import SalaryRange from "./create_job/SalaryRange";
+import HomeNavbar from "./home/HomeNavbar";
+import FilterJobsContainer from "./home/find_jobs/FilterJobsContainer";
+import FindJobsContainer from "./home/find_jobs/FindJobsContainer";
+import InputWithIcon from "./InputWithIcon";
+import SearchContainer from "./home/find_jobs/SearchContainer";
+import MultipleSelect from "./MultipleSelect";
+import SingleOptionSelector from "./SingleOptionSelector";
+import JobCard from "./home/find_jobs/JobCard";
+import JobDetails from "./JobDetails";
 
 export {
     Alert,
@@ -107,5 +116,14 @@ export {
     SearchInput,
     Location,
     CreateJobForm,
-    SalaryRange
+    SalaryRange,
+    HomeNavbar,
+    FindJobsContainer,
+    InputWithIcon,
+    SearchContainer,
+    FilterJobsContainer,
+    MultipleSelect,
+    SingleOptionSelector,
+    JobCard,
+    JobDetails
 }

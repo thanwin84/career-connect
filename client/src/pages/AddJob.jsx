@@ -3,7 +3,6 @@ import {
     CreateJobForm
 } from "../components";
 import {
-    useOutletContext,
     redirect,
     useLoaderData
 } from 'react-router-dom'
@@ -58,9 +57,9 @@ export default function AddJob(){
     return (
         <section className=" dark:text-white p-6">
          <CreateJobForm 
-         countries={countries}
-         title="Add Job" 
-         buttonText= "Create Job"
+            countries={countries}
+            title="Add Job" 
+            buttonText= "Create Job"
          />
         </section>
     )

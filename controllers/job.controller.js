@@ -56,6 +56,7 @@ const getAllJobsCreatedByUser = asyncHandler(async (req, res)=>{
 
     res.status(statusCodes.OK).json({totalJobs, totalPages, currentPage: page, jobs})
 })
+
 const getJobs = asyncHandler(async (req, res)=>{
     const {
         page = 1, 
@@ -72,19 +73,29 @@ const getJobs = asyncHandler(async (req, res)=>{
     const skips = (Number(page) - 1) * (Number(limit))
     const queryObject = {}
 
+    const addConditions = []
+    
+
     if (location) {
-        queryObject.$or = [
-            {jobLocation: {$regex: location, $options: "i"}},
-            {country: {$regex: location, $options: 'i'}}
-        ]
+            addConditions.push({
+                $or: [
+                    {jobLocation: {$regex: location, $options: "i"}},
+                    {country: {$regex: location, $options: 'i'}}
+                ]
+            })
     }
-    // search by position, company
-    if (search){
-        queryObject.$or = [
-            {position: {$regex: search, $options: 'i'}},
-            {company: {$regex: search, $options: 'i'}}
-        ]
+    if (search) {
+        addConditions.push({
+            $or: [
+                {position: {$regex: search, $options: 'i'}},
+                {company: {$regex: search, $options: 'i'}}
+            ]
+        })
+    } 
+    if (addConditions.length > 0){
+        queryObject.$and = addConditions
     }
+    
     const sortOptions = {
         newest: {"createdAt": -1},
         oldest: {"createdAt": 1},
@@ -116,14 +127,15 @@ const getJobs = asyncHandler(async (req, res)=>{
         {$limit: Number(limit)}
     ]
     const jobs = await Job.aggregate(aggregationPipeline)
-    const jobsCount = jobs.length
+    const jobsCount = await Job.countDocuments(queryObject)
     const totalPages = Math.ceil(jobsCount / limit)
 
     
     res.status(statusCodes.OK).json({
         jobs,
         jobsCount,
-        totalPages
+        totalPages,
+        page
     })
 
 })

@@ -10,7 +10,13 @@ import {useWindowScreenSize} from '../hooks'
 
 
 export default function Navbar(){
-    const {toggleBigSidebar, toggleSmallSidebar} = useDashboardContext()
+    const {
+        toggleBigSidebar, 
+        toggleSmallSidebar,
+        user,
+        logoutUser,
+        showSmallSidebar
+    } = useDashboardContext()
     const currentSize = useWindowScreenSize()
     const isBigSidebar = ["2xl", "xl", "lg"].includes(currentSize)
    
@@ -28,7 +34,11 @@ export default function Navbar(){
             </div>
             <div className="flex gap-4">
                 <ThemeToggle />
-                <DropDownContainer />
+                <DropDownContainer
+                 user={user}
+                 logoutUser={logoutUser}
+                 showSmallSidebar={showSmallSidebar}
+                />
             </div>
         </nav>
     )
