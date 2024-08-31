@@ -49,11 +49,13 @@ export default function CreateAccount({next, setUser}){
                         className="mb-2"
                         required
                     />
-                    <Password />
+                    <Password className="mb-4" />
+                    <div className="flex justify-end">
                     <SubmitForm 
                         buttonText={{default: "Next", pending: "Submitting..."}}
-                        className= "w-24 item"
+                        className= "w-24"
                     />
+                    </div>
                     
                 </form>
             </div>

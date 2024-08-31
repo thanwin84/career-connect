@@ -11,7 +11,7 @@ export default function SubmitForm({
             type="submit"
             loading={pending}
             loadingText={buttonText.pending}
-            classname="w-full"
+            classname={className}
         >
             {pending ? 
             <span className="flex gap-4 justify-center">
