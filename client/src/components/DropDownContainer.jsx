@@ -1,19 +1,24 @@
 import React, {useState} from "react"
 import { FaUserCircle } from "react-icons/fa"
 import { FaCaretDown } from "react-icons/fa"
-import { useDashboardContext } from "../pages/DashboardLayout"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useMainContext } from "../contexts/MainContext"
 
 export default function DropDownContainer({
     user,
-    logoutUser,
-    showSmallSidebar
+    showSmallSidebar,
+    className
 }){
     const [showDropDown, setShowDropDown] = useState(false)
-    // const {user, logoutUser, showSmallSidebar} = useDashboardContext()
+    const {logout} = useMainContext()
+    const navigate = useNavigate()
+    async function handleLogout(){
+        logout()
+        navigate("/")
+    }
     
     return (
-        <div className={`w-40 ${showSmallSidebar ? "": "relative"}`}>
+        <div className={`w-40 ${showSmallSidebar ? "": "relative"} ${className}`}>
             <button
                 type="button"
                 className="w-full px-2 py-1 rounded-md flex justify-between gap-2 my-auto  dark:bg-zinc-800 border border-slate-400 dark:border-slate-100 dark:text-slate-100  "
@@ -34,7 +39,7 @@ export default function DropDownContainer({
                 </span>
             </button>
             
-            <div className={`w-full mt-2 ${showSmallSidebar? "": "absolute"}`}>
+            <div className={`w-full z-10 mt-2 ${showSmallSidebar? "": "absolute"}`}>
                 {showDropDown && (
                     <div className="grid gap-2 w-full bg-white dark:bg-zinc-800 border border-slate-300 rounded-md">
                         
@@ -48,7 +53,7 @@ export default function DropDownContainer({
                         <button
                             type="button"
                             className="mb-2 bg-white dark:text-slate-100 dark:bg-zinc-800 text-slate-900 hover:text-blue-800 hover:font-bold dark:hover:text-blue-500  px-4 py-1 rounded-md  w-full"
-                            onClick={logoutUser}
+                            onClick={handleLogout}
                         >
                             Logout
                         </button>

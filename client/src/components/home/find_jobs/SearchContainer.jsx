@@ -2,7 +2,6 @@ import React from "react";
 import {InputWithIcon, Button} from '../..'
 import { Form, useLocation, useSubmit } from "react-router-dom";
 import { icons } from "../../../utils/Icons";
-import { useFindJobsContext } from "../../../pages/FindJobs";
 
 export default function SearchContainer({
     className,

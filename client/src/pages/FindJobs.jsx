@@ -51,7 +51,6 @@ export default function FindJobs(){
             sort: paramsObject.sort || "newest"
         }
     )
-    
 
     function resetFormState(){
         setFormState(

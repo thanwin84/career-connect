@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
 export default function useWindowScreenSize(){
-    const [currentBreakPoint, setCurrentBreakPoint] = useState("lg")
+    const [currentBreakPoint, setCurrentBreakPoint] = useState("")
 
     function resizeHandler(){
         const sizes = {
@@ -24,11 +24,11 @@ export default function useWindowScreenSize(){
     }
 
     useEffect(()=>{
+        resizeHandler()
         window.addEventListener('resize', resizeHandler)
-        window.addEventListener('load', resizeHandler)
+        
         return ()=>{
             window.removeEventListener('resize', resizeHandler)
-            window.addEventListener('load', resizeHandler)
         }
     }, [])
 

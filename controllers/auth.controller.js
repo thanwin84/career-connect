@@ -12,7 +12,7 @@ import {
  import { uploadOnCloudinary } from '../utils/cloudinary.js'
 
 const register = asyncHandler(async(req, res)=>{
-    console.log(req.body)
+    
     const isFirstAccount = await User.countDocuments() === 0
     req.body.role = isFirstAccount ? 'admin': "user"
     const userExists = await User.findOne({email: req.body.email})
@@ -48,10 +48,10 @@ const login = asyncHandler(async(req, res)=>{
         expires: new Date(Date.now() + oneDay)
 
     }
-
+    user.password = null
     res.status(statusCodes.OK)
     .cookie('token', token, options)
-    .json({msg: 'User is logged in successfully'})
+    .json({msg: 'User is logged in successfully', data: user})
     
 })
 

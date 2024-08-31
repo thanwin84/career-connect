@@ -35,8 +35,11 @@ import { loader as statsLoader } from './pages/Stats'
 import {loader as settingPageLayoutLoader} from './pages/SettingPageLayout'
 import { loader as findJobsLoader} from './pages/FindJobs'
 
+import { CentralProvider } from './contexts/MainContext'
+
 // test
-import { JobDetails } from './components'
+
+
 
 
 const checkDefaultTheme = ()=>{
@@ -139,7 +142,7 @@ const router = createBrowserRouter([
   },
   {
     path: "testing",
-    element: <JobDetails />
+    element: <h2>testing</h2>
   },
   {
     path: "/home",
@@ -157,7 +160,11 @@ const router = createBrowserRouter([
 function App() {
   
 
-  return <RouterProvider router={router} />
+  return (
+    <CentralProvider>
+      <RouterProvider router={router} />
+    </CentralProvider>
+  )
 }
 
 export default App

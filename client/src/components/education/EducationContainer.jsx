@@ -9,7 +9,10 @@ import EducationRecordList from "./EducationRecordList";
 
 const educationContainerContext = createContext()
 
-export default function EducationContainer({className}){
+export default function EducationContainer({
+    className,
+    user
+}){
     const [addEducationModal, setAddEducationModal] = useState(false)
     
     function handleAddEducationModal(){
@@ -38,7 +41,7 @@ export default function EducationContainer({className}){
                     + Add Education
                     </button>
                 </div>
-                <EducationRecordList />
+                <EducationRecordList user={user} />
                 {addEducationModal && (
                     <ModalContainer className="lg:w-3/6 w-5/6">
                         <AddEducation /> 

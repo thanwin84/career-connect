@@ -7,11 +7,12 @@ export default function NavLinks({className, isSmallSidebar}){
     const {toggleSmallSidebar, user} = useDashboardContext()
     const {role} = user
     
-    const linkStyle = `flex mb-6 gap-6 text-gray-700 hover:text-blue-600 dark:hover:text-blue-500 dark:text-white text-xl  mb-4  ${className}`
-    const loadingStyle = `flex mb-6 gap-6 text-blue-400  dark:hover:text-blue-500 dark:text-white text-xl  mb-4`
-    const activeStyle = `flex  mb-6 gap-6 text-blue-700 hover:text-blue-600  text-xl  mb-4  ${className}`
+    const commonStyle = 'flex mb-6 gap-6 text-xl mb-4'
+    const linkStyle = `text-gray-700 hover:text-blue-600 dark:hover:text-blue-500 dark:text-white`
+    const loadingStyle = `text-blue-400  dark:hover:text-blue-500 dark:text-white`
+    const activeStyle = `text-blue-700 hover:text-blue-600`
     return (
-        <div>
+        <div className={` ${className}`} >
             {links.map(link =>{
                 const {text, path, icon} = link
                 if (path === 'admin' && role !== 'admin'){
@@ -20,7 +21,7 @@ export default function NavLinks({className, isSmallSidebar}){
                 return (
                     <NavLink
                         className= {({isActive, isPending})=>{
-                            return isActive ? activeStyle: isPending ? loadingStyle: linkStyle
+                            return `${commonStyle} ${isActive ? activeStyle: isPending ? loadingStyle: linkStyle}`
                         }}
                         onClick={isSmallSidebar ? toggleSmallSidebar: null}
                         to = {path}

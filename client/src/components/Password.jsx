@@ -4,14 +4,14 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import {Input} from '../components'
 
 
-export default function Password(){
+export default function Password({className}){
     const [showPassword, setShowPassword] = useState(false) 
     function handleClick(){
         setShowPassword(!showPassword)
     }
 
     return (
-        <div className="flex  gap-3">
+        <div className={`flex  relative gap-3 ${className}`} >
             <Input 
                 type={showPassword ? "text": "password"}
                 label="Password"
@@ -21,7 +21,7 @@ export default function Password(){
                 required
             />
             <span
-                className="py-10 cursor-pointer dark:text-slate-300"
+                className=" absolute right-2 bottom-3 cursor-pointer dark:text-slate-300"
                 onClick={handleClick}
             >
                 {showPassword ? <FaRegEyeSlash/>: <FaEye/>}

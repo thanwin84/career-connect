@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function SalaryRange({
     className,
@@ -7,26 +7,43 @@ export default function SalaryRange({
 }){
     return (
         <div className={`w-full ${className}`} >
-           <span  className="block mb-4   dark:text-slate-200">Salary Range</span>
+           <span  className="block mb-4  text-slate-600 dark:text-slate-200">Salary Range</span>
             <div className="flex gap-4 mt-2 px-4">
+                <SalaryInput 
+                    className="" name='min' 
+                    defaultValue={min} 
+                />
+                <span className="font-medium">-</span>
                 <div className="flex gap-2">
-                    <span className="dark:text-slate-300 my-auto">Min</span>
-                    <input
-                        className="border border-gray-200 w-full px-2 py-1 text-sm rounded-sm bg-gray-50 dark:bg-zinc-700 text-black dark:text-slate-100 outline-none  focus:ring-1 dark:ring-slate-100"
-                        name="min"
-                        defaultValue={min}
-                    />
-                </div>
-                <span className="">-</span>
-                <div className="flex gap-2">
-                    <span className=" dark:text-slate-300 my-auto">Max</span>
-                    <input
-                        name="max"
-                        className="text-sm border border-gray-200 w-full px-2 py-1 rounded-sm bg-gray-50 dark:bg-zinc-700 text-black dark:text-slate-100 outline-none  focus:ring-1 dark:ring-slate-100"
-                        defaultValue={max}
+                    <SalaryInput 
+                        className="" 
+                        name='max' 
+                        defaultValue={max} 
                     />
                 </div>
             </div>
+        </div>
+    )
+}
+
+function SalaryInput({className, name, defaultValue}){
+    const [value, setValue] = useState(defaultValue || "")
+    function handleChange(e){
+        const newValue = e.target.value
+        if (/^\d+$/.test(newValue) || newValue===""){
+            setValue(newValue)
+        }
+    }
+    return (
+        <div className={`flex gap-3 px-4 ${className}`}>
+            <span className="dark:text-slate-300 my-auto">Min</span>
+            <input
+                className="w-full focus:outline-none border-b-2 border-gray-300 px-2 focus:border-blue-300 dark:focus:border-blue-500 text-center text--700 font-semibold bg-transparent"
+                name={name}
+                value={value}
+                autoComplete="off"
+                onChange={handleChange}
+            />
         </div>
     )
 }

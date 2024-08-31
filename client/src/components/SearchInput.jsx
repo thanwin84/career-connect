@@ -40,7 +40,7 @@ export default function SearchInput({
     }
    
     return (
-        <div className={`w-full relative ${className}`} >
+        <div className={`w-full  ${className}`} >
             {label && <label htmlFor={id} className="block mb-2  text-slate-600 dark:text-slate-200">{label}</label>}
             <input 
                 id={id}
@@ -55,7 +55,7 @@ export default function SearchInput({
                 
             />
            {showDropDown && (
-                <ul className="mt-2 pt-4 pb-4 pl-4 max-h-36 overflow-y-auto  border border-gray-200 dark:bg-zinc-700 rounded-md absolute bg-gray-50 w-full z-10">
+                <ul className="mt-2 pt-4 pb-4 pl-4 max-h-36 overflow-y-auto  border border-gray-200 dark:bg-zinc-700 rounded-md absolute bg-gray-50 w-full">
                 {filteredData?.map(item => (
                     <li 
                         key={item._id}

@@ -14,16 +14,15 @@ export default function Navbar(){
         toggleBigSidebar, 
         toggleSmallSidebar,
         user,
-        logoutUser,
         showSmallSidebar
     } = useDashboardContext()
     const currentSize = useWindowScreenSize()
-    const isBigSidebar = ["2xl", "xl", "lg"].includes(currentSize)
+    const isSmallSidebar = currentSize === 'sm'
    
     return (
         <nav className="w-full flex justify-between px-4 py-6 shadow-sm bg-white dark:bg-zinc-900 border-b dark:border-none">
             <button 
-                onClick={isBigSidebar ? toggleBigSidebar : toggleSmallSidebar}
+                onClick={isSmallSidebar ?  toggleSmallSidebar: toggleBigSidebar}
                 className="text-blue-600 ml-4"
             >
             <FaAlignLeft size="1.8rem"/>
@@ -36,7 +35,6 @@ export default function Navbar(){
                 <ThemeToggle />
                 <DropDownContainer
                  user={user}
-                 logoutUser={logoutUser}
                  showSmallSidebar={showSmallSidebar}
                 />
             </div>

@@ -18,6 +18,7 @@ export default function CreateJobForm({countries, job, title, buttonText}){
     const [experiance, setExperiance] = useState(job?.experianceLevel || "")
     const navigation = useNavigation()
     const isSubmitting = navigation.state === "submitting"
+    
 
     const initialJobValues = {
         company: job?.company || "",
@@ -37,7 +38,7 @@ export default function CreateJobForm({countries, job, title, buttonText}){
     return (
         <Form method="post">
             <div className="p-8 shadow-md bg-white  dark:bg-zinc-900 rounded-md">
-                <h2 className="text-2xl mb-6 dark:text-slate-100">{title}</h2>
+                <h2 className="text-2xl mb-6 text-gray-800 font-medium dark:text-slate-100">{title}</h2>
                 <div className="">
                     <div className="lg:flex gap-4">
                         <Input 
@@ -79,7 +80,7 @@ export default function CreateJobForm({countries, job, title, buttonText}){
                             />
                         </div>
                         <div className="mt-2">
-                            <span  className="block mb-2   dark:text-slate-200">Select Experiance</span>
+                            <span  className="block mb-2  text-slate-600 dark:text-slate-200">Select Experiance</span>
                             <SelectOptionsInput 
                                 options={Object.values(experianceLevel)}
                                 select={experiance}
@@ -94,13 +95,17 @@ export default function CreateJobForm({countries, job, title, buttonText}){
                             max={initialJobValues.max}
                         />
                         
-                        <Button
-                            type="submit"
-                            classname="mt-6"
-                            disabled = {isSubmitting}
-                        >
-                                {buttonText}
-                        </Button>
+                        <div className="flex justify-end">
+                            <Button
+                            category="success"
+                                type="submit"
+                                classname="mt-6"
+                                loading = {isSubmitting}
+                                loadingText={"In progress..."}
+                            >
+                                    {buttonText}
+                            </Button>
+                        </div>
                 </div>
                 
 

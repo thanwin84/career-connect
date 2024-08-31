@@ -61,6 +61,7 @@ import MultipleSelect from "./MultipleSelect";
 import SingleOptionSelector from "./SingleOptionSelector";
 import JobCard from "./home/find_jobs/JobCard";
 import JobDetails from "./JobDetails";
+import Spinner from "./Spinner";
 
 export {
     Alert,
@@ -125,5 +126,6 @@ export {
     MultipleSelect,
     SingleOptionSelector,
     JobCard,
-    JobDetails
+    JobDetails,
+    Spinner
 }

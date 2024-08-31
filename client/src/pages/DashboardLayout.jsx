@@ -8,7 +8,7 @@ import {
     Outlet, 
     redirect, 
     useLoaderData,
-    useNavigate} from 'react-router-dom'
+    } from 'react-router-dom'
 import { 
     BigSidebar, 
     ModalContainer, 
@@ -16,7 +16,7 @@ import {
     SmallSidebar 
 } from "../components";
 import customFetch from "../utils/customFetch";
-import { toast } from "react-toastify";
+import { useWindowScreenSize } from "../hooks";
 
 export const loader = async()=>{
     try {
@@ -32,11 +32,10 @@ const dashboardContext = createContext()
 export default function DashboardLayout({defaultTheme}){
     
     const user = useLoaderData()
-    const navigate = useNavigate()
+    const currentSize = useWindowScreenSize()
     const [theme, setTheme] = useState(defaultTheme)
     const [showBigSidebar, setShowBigSidebar] = useState(true)
     const [showSmallSidebar, setShowSmallSidebar] = useState(false)
-    const data = useLoaderData()
     
     
     function toggleTheme(){
@@ -54,11 +53,7 @@ export default function DashboardLayout({defaultTheme}){
     function toggleSmallSidebar(){
         setShowSmallSidebar(!showSmallSidebar)
     }
-    async function logoutUser(){
-        navigate("/")
-        await customFetch.get("/auth/logout")
-        toast.success("Log out is successful", {autoClose:2000})
-    }
+    
     
     // for dark theme
     useEffect(()=>{
@@ -72,31 +67,31 @@ export default function DashboardLayout({defaultTheme}){
                 user,
                 theme,
                 toggleTheme,
-                logoutUser,
                 showBigSidebar,
                 showSmallSidebar,
                 toggleBigSidebar,
                 toggleSmallSidebar
             }}>
-            <main className="flex flex-row">
+            <div className="flex flex-row ">
                 
-                <div className="dark:bg-zinc-900 bg-white h-screen fixed">
-                    
-                    {showSmallSidebar && (
-                        <ModalContainer className= "w-5/6" modelClassName="lg:hidden md:hidden">
-                            <SmallSidebar />
-                        </ModalContainer>
-                    )}
-                    <BigSidebar className="hidden  md:block lg:block xl:block 2xl:block"/> 
-                </div>
+                <aside className="dark:bg-zinc-900 h-screen fixed top-0 hidden lg:block md:block">
+                    <BigSidebar className=""/> 
+                </aside>
 
-                <div className={`w-full ${showBigSidebar ? "lg:ml-60 md:ml-60": ""}`}>
-                    <Navbar />
-                    <div className="bg-slate-50 dark:bg-zinc-800 min-h-screen">
+                <div className={`w-full  ${showBigSidebar ? 'lg:ml-52 md:ml-52': ""}`}>
+                    <header>
+                        <Navbar />
+                    </header>
+                    <main className="bg-slate-50 dark:bg-zinc-800 min-h-screen">
                         <Outlet context={{user}}/>
-                    </div>
+                    </main>
                 </div>
-            </main>
+                {currentSize === 'sm' && showSmallSidebar && (
+                    <ModalContainer className= "w-3/5" modelClassName="">
+                    <SmallSidebar onClick={toggleSmallSidebar} />
+                </ModalContainer>
+                )}
+            </div>
         </dashboardContext.Provider>
     )
 }

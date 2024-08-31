@@ -11,17 +11,20 @@ import {
 } from 'react-router-dom'
 import {toast} from 'react-toastify'
 import customFetch from "../utils/customFetch";
+import { useMainContext } from "../contexts/MainContext";
 
 
 export default function Login(){
     const navigate = useNavigate()
-    
-    async function action (formData){
-        const data = Object.fromEntries(formData.entries())
+    const {login} = useMainContext()
+
+    async function action (form){
+        const formData = Object.fromEntries(form.entries())
         try {
-            await customFetch.post("/auth/login", data)
+            const {data} = await customFetch.post("/auth/login", formData)
+            login(data.data)
             toast.success("Login is successfull", {autoClose: 2000})
-            navigate("/dashboard")
+            navigate("/home")
         } catch (error) {
             if (error?.response?.data?.message === "Access Denied"){
                 toast.error("Sorry, Your are temporarily blocked")
@@ -48,13 +51,14 @@ export default function Login(){
                         className="mb-2"
                         required
                     />
-                    <Password />
+                    <Password className="mb-6" />
                     <SubmitForm buttonText={{pending: "Logging in..", default: "Login"}}/>
                     <p className="text-center mt-2 dark:text-slate-100">
                         Not a member yet? <Link to="/register" className="text-blue-500 hover:text-blue-700 hover:underline">Register</Link>
                     </p>
                 </form>
             </div>
+            
         </main>
     )
 }

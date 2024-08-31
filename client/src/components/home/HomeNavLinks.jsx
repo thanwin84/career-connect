@@ -9,7 +9,7 @@ export default function HomeNavLinks({className, isLoggedIn}){
         },
         {
             name: 'DASHBOARD',
-            path: "/dashboard"
+            path: "../dashboard"
         }
         
     ]
@@ -26,8 +26,10 @@ export default function HomeNavLinks({className, isLoggedIn}){
             else {
                 return (
                     <NavLink
-                    key={link.name}
-                    className={({isActive, isPending})=> isActive? styles.active: styles.normal}
+                        key={link.name}
+                        to={link.path}
+                        className={({isActive, isPending})=> isActive? styles.active: styles.normal}
+                        end
                     >
                         {link.name}
                     </NavLink>

@@ -3,16 +3,22 @@ import {
     DropDownContainer
 } from "../../components"
 import { Link } from "react-router-dom";
+import { useMainContext } from "../../contexts/MainContext";
 
 
 export default function LoginAndLogoutContainer({
-    isloggedIn=false,
     className
 }){
+    const {user, logout} = useMainContext()
+    const isLoggedIn = user !== null
     return (
         <div className={` ${className}`}>
-            {isloggedIn ? (
-                <DropDownContainer />
+            {isLoggedIn ? (
+                <DropDownContainer
+                    user={user}
+                    logoutUser={logout}
+                    className="pb-2"
+                 />
 
             ): (
                 <Link

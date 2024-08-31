@@ -40,11 +40,11 @@ export default function FilterJobsContainer({
         params.set(key, option)
         submit(params)
     }
-    function handleClearButton(){
+    function handleClearFilter(){
         resetFormState()
         navigate('/home')
     }
-    console.log(formState)
+    
     return (
         <Form className={` bg-white dark:bg-zinc-900  shadow-md ${className} px-2`}>
             <div className="flex justify-between px-3 py-3 border-b border-gray-300 dark:border-gray-500">
@@ -52,7 +52,7 @@ export default function FilterJobsContainer({
                 <button
                     type="button"
                     className="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 "
-                    onClick={handleClearButton}
+                    onClick={handleClearFilter}
                 >
                     Clear All
 
