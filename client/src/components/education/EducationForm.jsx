@@ -2,14 +2,18 @@ import React, {useState} from "react";
 import {
     Input,
     Checkbox,
-    SubmitForm,
-    DateSelector
+    SubmitForm
 } from "../../components"
+import {DateSelector} from './'
 import { useProfileContext } from "../../pages/Profile";
 import { CrossIcon } from "../../utils/Icons";
 
 
-export default function EducationForm({title, action, record, handleEditModal}){
+export default function EducationForm({
+    title, 
+    action, 
+    record, 
+    handleEditModal}){
     const {toggleAddEducationModal} = useProfileContext()
     const [currentlyStudying, setCurrentlyStudying] = useState(false || record?.currentlyStudying)
     const [formObject, setFormObject] = useState({
@@ -23,12 +27,12 @@ export default function EducationForm({title, action, record, handleEditModal}){
     })
     const editForm = title.substring(0, 1)=== 'E'
     const btnText = {
-        add: {pending:"Creating a new entry.. ", default: "Create new Entry"},
+        add: {pending:"In progress.. ", default: "Save"},
         update: {pending: "Updating...", default: "Update"}
     }
     
     return (
-        <section className="bg-white dark:bg-zinc-900 px-6 py-6 rounded-md">
+        <section className="bg-white dark:bg-zinc-900 px-6 py-6 rounded-lg">
            <div className="flex justify-between">
             <h2 className="text-xl mb-2 dark:text-slate-200">{title}</h2>
             <button
@@ -83,9 +87,14 @@ export default function EducationForm({title, action, record, handleEditModal}){
                         />
                     )
                 }
+                <div className="flex justify-end">
                 <SubmitForm 
                     buttonText={editForm ? btnText.update : btnText.add}
+                    className="mt-4"
+                    category="success"
                 />
+                </div>
+
            </form>
         </section>
     )

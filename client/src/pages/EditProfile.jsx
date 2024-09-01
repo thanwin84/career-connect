@@ -22,6 +22,7 @@ export const action = async({request})=>{
         toast.success("Profile updated successfully", {autoClose: 500})
         return redirect("../profile")
     } catch (error) {
+        
         toast.error(error?.request?.data?.message)
     }
     return null
@@ -71,10 +72,11 @@ export default function EditProfile(){
                         label="Phone Number"
                         defaultPhoneNumber={phoneNumber}
                      />
-                     <div className="flex flex-col justify-end">
+                     <div className="flex   justify-end">
                         <Button
                             type="submit"
                             disabled={isSubmiting}
+                            classname="w-28"
                         >
                             {isSubmiting ? "Submitting...": "Submit"}
                         </Button>

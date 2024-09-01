@@ -2,18 +2,21 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {useFormStatus} from 'react-dom'
-import { useProfileContext } from "../../pages/Profile";
 import { deleteEducationRecord } from "../../API";
 
 
-export default function DeleteEducationRecord({recordId}){
+export default function DeleteEducationRecord({
+    recordId,
+    toggleModal,
+    refetch
+}){
     const navigate = useNavigate()
     const {pending} = useFormStatus()
-    const {refetch} = useProfileContext()
     
     async function action(){
         try {
             await deleteEducationRecord(recordId)
+            toggleModal()
             refetch()
             navigate("/dashboard/profile")
             toast.success("Successfully deleted education record", {autoClose: 400})
@@ -34,3 +37,4 @@ export default function DeleteEducationRecord({recordId}){
         </form>
     )
 }
+

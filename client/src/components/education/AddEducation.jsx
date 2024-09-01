@@ -1,18 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import EducationForm from "./EducationForm";
+import {EducationForm} from './'
+import ModalContainer from "../ModalContainer";
 import { addEducationRecord } from "../../API";
-import { useProfileContext } from "../../pages/Profile";
 
 
-export default function AddEducation({}){
+export default function AddEducation({
+    closeModal,
+    refreshData
+}){
     
     const navigate = useNavigate()
-    const {
-        refetch, 
-        toggleAddEducationModal:closeAddEducationModal
-    } = useProfileContext()
     
     async function addEducationAction(form){
         const formData = Object.fromEntries(form.entries())
@@ -20,8 +19,8 @@ export default function AddEducation({}){
         
         try {
             await addEducationRecord(formData)
-            refetch()
-            closeAddEducationModal()
+            refreshData()
+            closeModal()
             navigate("/dashboard/profile")
             toast.success("Education record has been added successfully")
             
@@ -31,6 +30,11 @@ export default function AddEducation({}){
         
     }
     return (
-        <EducationForm  title="Add Education" action={addEducationAction} />
+        <ModalContainer className="lg:w-3/6 w-5/6 my-6">
+            <EducationForm  
+                title="Add Education" 
+                action={addEducationAction} 
+            />
+        </ModalContainer>
     )
 }

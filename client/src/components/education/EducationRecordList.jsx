@@ -1,6 +1,5 @@
 import React from "react";
-import EducationInfo from "./EducationInfo";
-
+import {EducationInfo} from './index'
 
 export default function EducationRecordList({
     className,

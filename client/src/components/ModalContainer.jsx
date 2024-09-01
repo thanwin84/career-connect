@@ -13,8 +13,10 @@ export default function ModalContainer({children, className, modelClassName}){
     }, []);
     return (
         <section className={`fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 ${modelClassName}`}>
-                <div className={`max-h-screen overflow-auto ${className}`}>
-                    {children}
+                <div className="w-full max-h-screen  overflow-y-auto">
+                    <div className={`mx-auto ${className}`}>
+                        {children}
+                    </div>
                 </div>
         </section>
     )

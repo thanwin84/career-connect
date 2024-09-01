@@ -2,13 +2,16 @@ import React from "react"
 import {useFormStatus} from 'react-dom'
 import {Button, Spinner} from '../components'
 export default function SubmitForm({
-    buttonText, className
+    buttonText, 
+    className,
+    category
 }){
     const {pending} = useFormStatus()
     
     return (
         <Button
             type="submit"
+            category={category}
             loading={pending}
             loadingText={buttonText.pending}
             classname={className}

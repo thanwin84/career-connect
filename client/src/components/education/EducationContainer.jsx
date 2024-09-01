@@ -1,23 +1,27 @@
 import React from "react";
 import ProfileInfo from "../personalInformation/ProfileInfo";
-import  {
-    ModalContainer
-} from '..'
-import AddEducation from './AddEducation'
-import EducationRecordList from "./EducationRecordList";
+import {
+    AddEducation,
+    EducationRecordList,
+    EditEducation
+} from './index'
 import { useProfileContext } from "../../pages/Profile";
 import { GraduationCapIcon } from "../../utils/Icons";
 
-
+ 
 export default function EducationContainer({
     className,
-    user,
-    refetch
+    user
 }){
     const {
         addEducationModal,
-        toggleAddEducationModal
+        toggleAddEducationModal,
+        editEducationModal,
+        selectedEducationRecord,
+        toggleEditEducationModal,
+        refetch
     } = useProfileContext()
+    
 
     return (
         <section className={`bg-white dark:bg-zinc-900 w-full rounded-md shadow-md py-4 ${className}`}>
@@ -32,14 +36,24 @@ export default function EducationContainer({
                     className="text-blue-600 hover:underline"
                     onClick={toggleAddEducationModal}
                 >
-                + Add Education
+                    + Add Education
                 </button>
                 </div>
                 <EducationRecordList user={user} />
+                {/* adding education modal */}
                 {addEducationModal && (
-                    <ModalContainer className="lg:w-3/6 w-5/6">
-                        <AddEducation refetch={refetch} /> 
-                    </ModalContainer>
+                    <AddEducation 
+                        refreshData={refetch}
+                        closeModal={toggleAddEducationModal}
+                    />
+                )}
+                {/* Edit education modal */}
+                {editEducationModal && (
+                    <EditEducation
+                        record={selectedEducationRecord}
+                        closeModal={toggleEditEducationModal}
+                        refreshData={refetch}
+                    />
                 )}
         </section>
     )
