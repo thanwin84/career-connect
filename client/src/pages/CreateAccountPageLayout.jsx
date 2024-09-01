@@ -8,8 +8,6 @@ import {
 import useMultiStep from '../hooks/useMultiStep'
 
 
-
-
 export default function CreateAccountPageLayout(){
     const [user, setUser] = useState({})
     

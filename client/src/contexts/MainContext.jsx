@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
-import { customFetch } from "../utils";
-
+import { logoutUser } from "../API";
 
 const MainContext = createContext()
 
@@ -18,8 +17,7 @@ export function CentralProvider({children}){
     const logout = async()=>{
         setUser(null)
         localStorage.removeItem('user')
-        await customFetch.get('/auth/logout')
-        
+        logoutUser()
     }
     return (
         <MainContext.Provider value={{

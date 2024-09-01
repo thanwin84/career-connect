@@ -1,18 +1,20 @@
 import React from "react";
-import customFetch from "../../utils/customFetch";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {useFormStatus} from 'react-dom'
-
+import { useProfileContext } from "../../pages/Profile";
+import { deleteEducationRecord } from "../../API";
 
 
 export default function DeleteEducationRecord({recordId}){
     const navigate = useNavigate()
     const {pending} = useFormStatus()
+    const {refetch} = useProfileContext()
     
-    async function action(form){
+    async function action(){
         try {
-            await customFetch.patch(`/users/education/${recordId}`)
+            await deleteEducationRecord(recordId)
+            refetch()
             navigate("/dashboard/profile")
             toast.success("Successfully deleted education record", {autoClose: 400})
         } catch (error) {

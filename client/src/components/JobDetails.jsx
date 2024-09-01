@@ -1,5 +1,5 @@
 import React from "react";
-import { icons } from "../utils/Icons";
+import { LovedIcon, LoveIcon } from "../utils/Icons";
 import {Button} from "../components"
 import { useFindJobsContext } from "../pages/FindJobs";
 
@@ -55,7 +55,7 @@ export default function JobDetails({
                     </Button>
                 </div>
                 <span className="text-2xl text-red-500 my-auto">
-                    {loved ? icons.loved: icons.love}
+                    {loved ? <LovedIcon/>: <LoveIcon/>}
                 </span>
             </div>
 

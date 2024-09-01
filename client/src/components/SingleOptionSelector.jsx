@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { icons } from "../utils/Icons";
+import { 
+    AngleDownIcon,
+    AngleUpIcon
+ } from "../utils/Icons";
 
 export default function SingleOptionSelector({
     className,
@@ -27,7 +30,7 @@ export default function SingleOptionSelector({
                 className="text-gray-600 dark:text-gray-200 text-xl focus:outline-none"
                 onClick={()=>setOpen(!open)}
             >
-                {open ? icons.upArrow: icons.downArrow}
+                {open ? <AngleUpIcon/>: <AngleDownIcon/>}
             </button>
         </div>
         {open && (

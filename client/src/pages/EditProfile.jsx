@@ -6,7 +6,7 @@ import {
 } from '../components'
 import { useOutletContext, Form, useNavigation, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
-import customFetch from "../utils/customFetch";
+import { updateUser } from "../API";
 
 export const action = async({request})=>{
     const formData = await request.formData()
@@ -18,11 +18,10 @@ export const action = async({request})=>{
         return null
     }
     try {
-        await customFetch.patch("/users/update-user", formData)
+        await updateUser(formData)
         toast.success("Profile updated successfully", {autoClose: 500})
         return redirect("../profile")
     } catch (error) {
-        console.log(error)
         toast.error(error?.request?.data?.message)
     }
     return null

@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from "react";
-import { icons } from "../utils/Icons";
+import { 
+    AngleDownIcon,
+    AngleUpIcon
+ } from "../utils/Icons";
 
 export default function MultipleSelect({
     className,
@@ -28,7 +31,7 @@ export default function MultipleSelect({
                 className="text-gray-600 dark:text-gray-200 text-xl focus:outline-none"
                 onClick={()=>setOpen(!open)}
             >
-                {open ? icons.upArrow: icons.downArrow}
+                {open ? <AngleUpIcon/>: <AngleDownIcon/>}
             </button>
         </div>
         {open && (
@@ -38,19 +41,19 @@ export default function MultipleSelect({
                         key={option}
                         className="flex gap-4 cursor-pointer mb-1"
                     >
-                    <input 
-                        id={option} 
-                        type="checkbox"
-                        checked={selectedOptions.includes(option)}
-                        className="accent-green-500 cursor-pointer"
-                        onChange={()=>onSelect(option)}
-                    />
-                    <label 
-                        htmlFor={option} 
-                        className="cursor-pointer"
-                    >
-                        {option.substring(0,1).toUpperCase() + option.substring(1)}
-                    </label>
+                        <input 
+                            id={option} 
+                            type="checkbox"
+                            checked={selectedOptions.includes(option)}
+                            className="accent-green-500 cursor-pointer"
+                            onChange={()=>onSelect(option)}
+                        />
+                        <label 
+                            htmlFor={option} 
+                            className="cursor-pointer"
+                        >
+                            {option.substring(0,1).toUpperCase() + option.substring(1)}
+                        </label>
                     </li>
                 ))}
             </ul>

@@ -1,15 +1,14 @@
 import React, {useContext, createContext} from "react";
 import { JobsContainer, SearchJobsContainer } from "../components";
-import customFetch from "../utils/customFetch";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { getCurrentUserJobs } from "../API";
 
 export const loader = async({request})=>{
     
     const params = Object.fromEntries(new URL(request.url).searchParams.entries())
     try {
-        const {data} = await customFetch.get("/jobs", {params:params})
+        const data = await getCurrentUserJobs(params)
         return {data, searchValues: params}
     } catch (error) {
         toast.error(error?.response?.data?.message)

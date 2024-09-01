@@ -1,12 +1,17 @@
 import React, {useState} from "react";
-import { MdEdit } from "react-icons/md";
-import { FaUniversity } from "react-icons/fa"
-import {ModalContainer} from '..'
-import EducationForm from "./EducationForm";
-import customFetch from "../../utils/customFetch";
+import {
+    ModalContainer,
+    DeleteEducationRecord,
+    EducationForm
+} from '../../components'
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import DeleteEducationRecord from "./DeleteEducationRecord";
+import { useProfileContext } from "../../pages/Profile";
+import { updateEducationRecord } from "../../API";
+import { 
+    UniversityIcon, 
+    EditIcon
+ } from "../../utils/Icons";
 
 
 export default function EducationInfo({
@@ -28,16 +33,19 @@ export default function EducationInfo({
     } = props
     
     const [editModal, setEditModal] = useState(false)
+    const {refetch} = useProfileContext()
+
     function handleEditModal(){
         setEditModal(!editModal)
     }
-    async function action(form){
+    async function editEducationAction(form){
         const ob = Object.fromEntries(form.entries())
         ob.currentlyStudying = ob.currentlyStudying === "on" ? true: false
         try {
-            await customFetch.patch(`/users/education/${_id}/update-record`, ob)
+            await updateEducationRecord(ob, _id)
             toast.success("Education record has been updated", {autoClose: 400})
             handleEditModal()
+            refetch()
             navigate("/dashboard/profile")
 
         } catch (error) {
@@ -48,7 +56,7 @@ export default function EducationInfo({
     return (
         <div className={`py-4 flex gap-2 ${className}`}>
         <div className="my-auto text-slate-600 dark:text-slate-300">
-            <FaUniversity size= "1.4rem" />
+            <UniversityIcon size= "1.6rem" />
         </div>
             <div className="w-full">
                 <h4 className="font-bold text-slate-800 dark:text-slate-200 text-base">{school}</h4>
@@ -67,7 +75,7 @@ export default function EducationInfo({
                         className="text-slate-700 dark:text-slate-300 dark:hover:text-blue-500"
                         onClick={handleEditModal}
                     >
-                        <MdEdit />
+                        <EditIcon />
                     </button>
                 </div>
             </div>
@@ -77,7 +85,7 @@ export default function EducationInfo({
                     <EducationForm 
                         title = "Edit Education"
                         record={props}
-                        action={action}
+                        action={editEducationAction}
                         handleEditModal={handleEditModal}
                     />
                     <DeleteEducationRecord recordId={_id}/>

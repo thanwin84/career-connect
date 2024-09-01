@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import {Input, Button} from "../../components"
-import { customFetch } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useFilePreview } from "../../hooks";
+import { registerUser, uploadPhoto } from "../../API";
 
 export default function AddProfilePhoto({className, goBack, user}){
     const [loading, setLoading] = useState(false)
@@ -14,15 +14,10 @@ export default function AddProfilePhoto({className, goBack, user}){
     async function handleFinish(){
         try {
             setLoading(true)
-            const {data} = await customFetch.post("/auth/register", user)
+            const {userId} = await registerUser(user)
             const formData = new FormData()
             formData.append("avatar", file)
-            await customFetch.patch(
-                `/users/${data.userId}/upload-profile-photo`, 
-                formData, 
-                {
-                    headers: {'Content-Type': 'multipart/form-data'}
-                })
+            await uploadPhoto(userId, formData)
             setLoading(false)
             toast.success("you account is created successfully")
             navigate("/login")

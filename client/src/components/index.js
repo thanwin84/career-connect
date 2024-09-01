@@ -62,6 +62,10 @@ import SingleOptionSelector from "./SingleOptionSelector";
 import JobCard from "./home/find_jobs/JobCard";
 import JobDetails from "./JobDetails";
 import Spinner from "./Spinner";
+// educations
+import DeleteEducationRecord from "./education/DeleteEducationRecord";
+import EducationForm from "./education/EducationForm";
+import DateSelector from "./education/DateSelector";
 
 export {
     Alert,
@@ -127,5 +131,8 @@ export {
     SingleOptionSelector,
     JobCard,
     JobDetails,
-    Spinner
+    Spinner,
+    DeleteEducationRecord,
+    EducationForm,
+    DateSelector
 }

@@ -4,18 +4,40 @@ import { FaAngleDown } from "react-icons/fa";
 import { FaAngleUp } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { CiDollar } from "react-icons/ci"
-import { TbCurrencyTaka } from "react-icons/tb"
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdOutlineFavorite } from "react-icons/md"
+import { FaGraduationCap } from "react-icons/fa"
+import { MdEdit } from "react-icons/md";
+import { FaUniversity } from "react-icons/fa"
+import { RxCross2 } from "react-icons/rx";
+import { FaCircle } from "react-icons/fa";
+import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
+import { IoBarChartSharp } from "react-icons/io5"
+import { MdQueryStats } from "react-icons/md"
+import { FaWpforms } from "react-icons/fa"
+import { ImProfile } from "react-icons/im"
+import { MdAdminPanelSettings } from "react-icons/md"
 
-export const icons = {
-    location: <CiLocationOn />,
-    search: <CiSearch />,
-    downArrow: <FaAngleDown/>,
-    upArrow: <FaAngleUp/>,
-    date: <MdDateRange/>,
-    dollar: <CiDollar/>,
-    taka: <TbCurrencyTaka/>,
-    love: <MdFavoriteBorder />,
-    loved: <MdOutlineFavorite/>
+export {
+    FaGraduationCap as GraduationCapIcon,
+    MdEdit as EditIcon,
+    FaUniversity as UniversityIcon,
+    RxCross2 as CrossIcon,
+    FaCircle as CircleIcon,
+    MdFavoriteBorder as LoveIcon,
+    MdOutlineFavorite as LovedIcon,
+    CiLocationOn as LocationIcon,
+    CiDollar as DollarIcon,
+    MdDateRange as DateRangeIcon,
+    CiSearch as SearchIcon,
+    FaLocationArrow as LocationArrowIcon,
+    FaBriefcase as BriefcaseIcon,
+    FaCalendarAlt as CalenderIcon,
+    FaAngleUp as AngleUpIcon,
+    FaAngleDown as AngleDownIcon,
+    IoBarChartSharp as BarChartIcon,
+    MdQueryStats as QueryStatsIcon,
+    FaWpforms as FormIcon,
+    ImProfile as ProfileIcon,
+    MdAdminPanelSettings as AdminSettingIcon
 }

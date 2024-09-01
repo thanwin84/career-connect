@@ -1,18 +1,21 @@
 
 import React from "react";
 import { toast } from "react-toastify";
-import customFetch from "../utils/customFetch";
 import { 
     useLoaderData, 
     redirect 
 } from "react-router-dom";
 import {  CreateJobForm } from "../components";
+import {
+    updateJob, 
+    getJob, 
+    getCountryList
+} from '../API'
 
 export const action = async({params, request})=>{
     const formData = await request.formData()
-    const data = Object.fromEntries(formData)
     const {company, position, jobStatus, country, jobLocation, jobType,experianceLevel, min, max} = Object.fromEntries(formData)
-    const ob = {
+    const jobData = {
         company,
         position,
         jobStatus,
@@ -24,8 +27,8 @@ export const action = async({params, request})=>{
     }
     
     try {
-        await customFetch.patch(`/jobs/${params.id}`, ob)
-        toast.success("Job is updated successfully")
+        await updateJob(params.id, jobData)
+        toast.success("Job is updated successfully", {autoClose: 500})
         return redirect("../all-jobs")
     } catch (error) {
         toast.error(error?.response?.data?.message)
@@ -35,15 +38,14 @@ export const action = async({params, request})=>{
 }
 
 export const loader = async({params})=>{
-    const id = params.id
     try {
-        const {data} = await customFetch.get(`/jobs/${id}`)
-        const {data:data2} = await customFetch.get('/records/countries')
-        const ob = {job: data.job, countries:data2.data}
+        const {data} = await getJob(params.id)
+        const countryList = await getCountryList()
+        const ob = {job: data.job, countries:countryList}
         
         return ob
     } catch (error) {
-        toast.error(error?.response?.data?.message)
+        toast.error(error?.response?.data?.message, {autoClose: 200})
         return error
     }
 }
@@ -53,7 +55,7 @@ export default function EditJob(){
     const {job, countries} = useLoaderData()
     
     return (
-        <main className="  p-6">
+        <main className="p-6">
           <CreateJobForm
             countries={countries}
             job={job}

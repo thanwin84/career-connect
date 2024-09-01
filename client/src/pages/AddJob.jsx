@@ -6,17 +6,14 @@ import {
     redirect,
     useLoaderData
 } from 'react-router-dom'
-
-import customFetch from "../utils/customFetch";
 import {toast} from 'react-toastify'
-
-
+import { createJob, getCountryList } from "../API";
 
 
 export const action = async({request})=>{
     const formData = await request.formData()
     const {company, position, jobStatus, country, jobLocation, jobType,experianceLevel, min, max} = Object.fromEntries(formData)
-    const ob = {
+    const jobData = {
         company,
         position,
         jobStatus,
@@ -28,7 +25,7 @@ export const action = async({request})=>{
     }
     
     try {
-        await customFetch.post("/jobs", ob)
+        await createJob(jobData)
         toast.success("Job Addes successfully", {autoClose: 2000})
         return redirect("all-jobs")
     } catch (error) {
@@ -41,9 +38,9 @@ export const action = async({request})=>{
 
 export const loader = async()=>{
     try {
-        const {data} = await customFetch.get('/records/countries')
+        const countryList = await getCountryList()
         
-        return data.data
+        return countryList
     } catch (error) {
         return error
     }

@@ -1,5 +1,11 @@
 import React from "react";
-import { icons } from "../../../utils/Icons";
+import { 
+    DateRangeIcon, 
+    DollarIcon, 
+    LocationIcon, 
+    LoveIcon, 
+    LovedIcon 
+} from "../../../utils/Icons";
 import Button from "../../Button";
 import { useFindJobsContext } from "../../../pages/FindJobs";
 
@@ -65,7 +71,9 @@ export default function JobCard({
     }
     
     return (
-        <article className={`w-full bg-white dark:bg-zinc-900 border rounded-md  hover:border-blue-400 hover:border-2 ${className} ${_id === currentJobDetails._id ? "border-2 border-blue-700": "border-gray-200"}`}>
+        <article 
+            className={`w-full bg-white dark:bg-zinc-900 border rounded-md  hover:border-blue-400 hover:border-2 ${className} ${_id === currentJobDetails._id ? "border-2 border-blue-700": "border-gray-200"}`}
+        >
             <header className="flex justify-between mx-4 py-2 border-b border-gray-300">
                 <div className="flex">
                     <div className="mr-4 bg-blue-700 text-white p-4 rounded-md">
@@ -80,23 +88,23 @@ export default function JobCard({
                     <button 
                         className={`outline-none cursor-pointer text-xl ${save ? "text-red-500": "text-red-500"}`}
                     >
-                        {save ? icons.loved: icons.love}
+                        {save ? <LovedIcon/>: <LoveIcon/>}
                     </button>
                 </div>
             </header>
             <div className="mx-4 py-3">
                 <p className="flex gap-4">
-                    <span className="my-auto dark:text-slate-200">{icons.location}</span>
+                    <span className="my-auto dark:text-slate-200"><LocationIcon/></span>
                     <span className="text-slate-700 dark:text-slate-300">{`${jobLocation}, ${country}`}</span>
                 </p>
                 <p className="flex gap-4">
-                    <span className="my-auto dark:text-slate-200">{icons.dollar}</span>
+                    <span className="my-auto dark:text-slate-200"><DollarIcon/></span>
                     <span className="text-slate-700 dark:text-slate-300">{`$${salary.min} - $${salary.max}`}</span>
                 </p>
             </div>
             <div className="py-3 flex  justify-between">
                 <p className="flex  gap-2 mx-4 text-sm text-gray-500">
-                    <span className="my-auto dark:text-slate-300">{icons.date}</span>
+                    <span className="my-auto dark:text-slate-300"><DateRangeIcon/></span>
                     <span className="my-auto dark:text-slate-400">{date}</span>
                 </p>
                 <div className="mr-4">

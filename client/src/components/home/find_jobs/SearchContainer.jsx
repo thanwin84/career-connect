@@ -1,7 +1,10 @@
 import React from "react";
 import {InputWithIcon, Button} from '../..'
 import { Form, useLocation, useSubmit } from "react-router-dom";
-import { icons } from "../../../utils/Icons";
+import { 
+    SearchIcon, 
+    LocationIcon 
+} from "../../../utils/Icons";
 
 export default function SearchContainer({
     className,
@@ -36,14 +39,14 @@ export default function SearchContainer({
             <div className="w-full flex flex-col lg:flex-row gap-4 px-4 py-6">
                 <InputWithIcon
                     name='search'
-                    icon={icons.search}
+                    icon={<SearchIcon />}
                     placeholder= "Enter job title, company name"
                     type="search"
                     defaultValue ={defaultSearch}
                 />
                 <InputWithIcon
                     name='location'
-                    icon={icons.location}
+                    icon={<LocationIcon />}
                     placeholder= "Enter country or city name"
                     type="search"
                     defaultValue={defaultLocation}

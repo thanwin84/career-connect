@@ -2,17 +2,15 @@ import React, {useState} from "react";
 import {
     Input,
     Checkbox,
-    SubmitForm
-} from ".."
-import DateSelector from "./DateSelector";
-import { RxCross2 } from "react-icons/rx";
-import { useEducationContainerContext } from "./EducationContainer";
+    SubmitForm,
+    DateSelector
+} from "../../components"
+import { useProfileContext } from "../../pages/Profile";
+import { CrossIcon } from "../../utils/Icons";
 
 
 export default function EducationForm({title, action, record, handleEditModal}){
-    const {
-        handleAddEducationModal
-    } = useEducationContainerContext()
+    const {toggleAddEducationModal} = useProfileContext()
     const [currentlyStudying, setCurrentlyStudying] = useState(false || record?.currentlyStudying)
     const [formObject, setFormObject] = useState({
         school: "" || record?.school,
@@ -34,10 +32,10 @@ export default function EducationForm({title, action, record, handleEditModal}){
            <div className="flex justify-between">
             <h2 className="text-xl mb-2 dark:text-slate-200">{title}</h2>
             <button
-                onClick={ editForm ? handleEditModal : handleAddEducationModal}
+                onClick={ editForm ? handleEditModal : toggleAddEducationModal}
                 className="text-xl dark:text-slate-100 font-bold hover:text-red-600 dark:hover:text-red-600 hover:text-2xl"
             >
-                <RxCross2 />
+                <CrossIcon />
             </button>
            </div>
            <form action={action} className="flex flex-col gap-2 p-4">

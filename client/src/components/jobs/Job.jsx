@@ -3,9 +3,13 @@ import day from "dayjs";
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 day.extend(advancedFormat);
 import JobInfo from "./JobInfor";
-import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
 import { Link, Form } from "react-router-dom";
 import Button from "../Button";
+import { 
+    LocationArrowIcon,
+    BriefcaseIcon,
+    CalenderIcon 
+} from "../../utils/Icons";
 
 export default function Job({
     _id,
@@ -35,15 +39,15 @@ export default function Job({
            </header>
            <div className="p-4 grid grid-cols-2 gap-y-3"> 
                 <JobInfo 
-                    icon={<FaLocationArrow className="text-blue-600"/>} 
+                    icon={<LocationArrowIcon className="text-blue-600"/>} 
                     text={jobLocation} 
                 />
                 <JobInfo 
-                    icon={<FaCalendarAlt className="text-blue-600"/>} 
+                    icon={<CalenderIcon className="text-blue-600"/>} 
                     text={date} 
                 />
                 <JobInfo 
-                    icon={<FaBriefcase className="text-blue-600"/>} 
+                    icon={<BriefcaseIcon className="text-blue-600"/>} 
                     text={jobType} 
                 />
                 <div className="">

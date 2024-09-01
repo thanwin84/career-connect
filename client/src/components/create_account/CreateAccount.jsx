@@ -4,8 +4,6 @@ import {
     Password,
     SubmitForm
 } from "..";
-import customFetch from '../../utils/customFetch'
-import {toast} from 'react-toastify'
 
 
 export default function CreateAccount({next, setUser}){
@@ -51,10 +49,10 @@ export default function CreateAccount({next, setUser}){
                     />
                     <Password className="mb-4" />
                     <div className="flex justify-end">
-                    <SubmitForm 
-                        buttonText={{default: "Next", pending: "Submitting..."}}
-                        className= "w-24"
-                    />
+                        <SubmitForm 
+                            buttonText={{default: "Next", pending: "Submitting..."}}
+                            className= "w-24"
+                        />
                     </div>
                     
                 </form>

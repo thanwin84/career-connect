@@ -1,10 +1,7 @@
 import React, {useState} from "react";
 import {
-    Button,
-    SubmitForm
+    Button
 } from "../../components"
-import { customFetch } from "../../utils";
-import { toast } from "react-toastify";
 
 export default function DescribeYourself({classname, next, goBack, setUser}){
     const options = [

@@ -10,8 +10,8 @@ import {
     useNavigate
 } from 'react-router-dom'
 import {toast} from 'react-toastify'
-import customFetch from "../utils/customFetch";
 import { useMainContext } from "../contexts/MainContext";
+import {login as loginUser} from '../API'
 
 
 export default function Login(){
@@ -21,8 +21,8 @@ export default function Login(){
     async function action (form){
         const formData = Object.fromEntries(form.entries())
         try {
-            const {data} = await customFetch.post("/auth/login", formData)
-            login(data.data)
+            const data = await loginUser(formData)
+            login(data)
             toast.success("Login is successfull", {autoClose: 2000})
             navigate("/home")
         } catch (error) {

@@ -1,23 +1,29 @@
-import React, { useState } from "react";
-import customFetch from "../../utils/customFetch";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import EducationForm from "./EducationForm";
-import { useEducationContainerContext } from "./EducationContainer";
+import { addEducationRecord } from "../../API";
+import { useProfileContext } from "../../pages/Profile";
 
 
 export default function AddEducation({}){
-    const {handleAddEducationModal} = useEducationContainerContext()
-    const navigate = useNavigate()
     
-    async function handleAction(form){
-        const ob = Object.fromEntries(form.entries())
-        ob.currentlyStudying = ob.currentlyStudying === "on" ? true: false
+    const navigate = useNavigate()
+    const {
+        refetch, 
+        toggleAddEducationModal:closeAddEducationModal
+    } = useProfileContext()
+    
+    async function addEducationAction(form){
+        const formData = Object.fromEntries(form.entries())
+        formData.currentlyStudying = formData.currentlyStudying === "on" ? true: false
         
         try {
-            await customFetch.patch("/users/add-education", ob)
-            handleAddEducationModal()
+            await addEducationRecord(formData)
+            refetch()
+            closeAddEducationModal()
             navigate("/dashboard/profile")
+            toast.success("Education record has been added successfully")
             
         } catch (error) {
             toast.error(error?.response?.data.message)
@@ -25,6 +31,6 @@ export default function AddEducation({}){
         
     }
     return (
-        <EducationForm  title="Add Education" action={handleAction} />
+        <EducationForm  title="Add Education" action={addEducationAction} />
     )
 }
