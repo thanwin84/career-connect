@@ -1,13 +1,12 @@
-import React, { createContext, useContext, useState } from "react";
+import React from "react";
 import {toast} from 'react-toastify'
 import customFetch from '../utils/customFetch'
 import {redirect, useLoaderData} from 'react-router-dom'
 import { FaSuitcaseRolling, FaCalendarCheck } from 'react-icons/fa';
 import {
-    StatItem,
-    UsersContainer
-} from "../components"
-
+    StatItem
+} from "../components/ui"
+import {UsersContainer} from '../components/admin'
 
 export const loader = async()=>{
     try {

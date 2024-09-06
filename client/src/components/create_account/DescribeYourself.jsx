@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {
     Button
-} from "../../components"
+} from "../ui"
 
 export default function DescribeYourself({classname, next, goBack, setUser}){
     const options = [

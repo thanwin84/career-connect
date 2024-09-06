@@ -1,6 +1,6 @@
 import React from "react";
 import customFetch from "../utils/customFetch";
-import { ChartsContainers, StatsContainer } from "../components";
+import { ChartsContainers, StatsContainer } from "../components/stats";
 import { useLoaderData } from "react-router-dom";
 
 

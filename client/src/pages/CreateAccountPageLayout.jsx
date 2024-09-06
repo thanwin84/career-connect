@@ -4,7 +4,7 @@ import {
     CreateAccount,
     DescribeYourself,
     AddProfilePhoto
-} from '../components'
+} from '../components/create_account'
 import useMultiStep from '../hooks/useMultiStep'
 
 

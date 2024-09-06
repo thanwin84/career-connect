@@ -4,15 +4,17 @@ import {
     Select,
     Button,
     SelectOptionsInput,
-    Location,
-    SalaryRange
-} from "../../components"
+} from "../ui"
+import {
+    SalaryRange,
+    Location
+} from '.'
 import { Form, useNavigation } from "react-router-dom";
 import {
     JOB_STATUS,
     JOB_TYPE,
     experianceLevel
-} from "../../../../utils/constants"
+} from '../../../../utils/constants'
 
 export default function CreateJobForm({countries, job, title, buttonText}){
     const [experiance, setExperiance] = useState(job?.experianceLevel || "")

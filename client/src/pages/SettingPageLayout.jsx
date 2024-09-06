@@ -1,5 +1,5 @@
 import React from "react";
-import { SettingLinks } from "../components";
+import { SettingLinks } from "../components/Setting";
 import { Outlet, useLoaderData } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 

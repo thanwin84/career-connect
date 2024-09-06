@@ -3,7 +3,7 @@ import {
     Button,
     Input,
     Alert
-} from "../../components"
+} from "../ui"
 import customFetch from "../../utils/customFetch";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";

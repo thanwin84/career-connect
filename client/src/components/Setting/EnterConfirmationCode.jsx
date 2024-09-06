@@ -3,7 +3,7 @@ import {
     Button, 
     Input, 
     SubmitForm
-} from "../../components"
+} from "../ui"
 import customFetch from "../../utils/customFetch";
 import { toast } from "react-toastify";
 import { useTwoStepAuthContext } from "./TwoStepAuthentication";

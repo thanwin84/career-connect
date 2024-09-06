@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Select} from '..'
+import {Select} from '../ui'
 
 const months = [
     "January", "February", "March", "April", "May", "June", 

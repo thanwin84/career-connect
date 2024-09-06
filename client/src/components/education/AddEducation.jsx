@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {EducationForm} from './'
-import ModalContainer from "../ModalContainer";
+import { ModalContainer } from "../ui";
 import { addEducationRecord } from "../../API";
 
 

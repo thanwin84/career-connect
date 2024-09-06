@@ -3,7 +3,7 @@ import {
     Input,
     Checkbox,
     SubmitForm
-} from "../../components"
+} from "../ui"
 import {DateSelector} from './'
 import { useProfileContext } from "../../pages/Profile";
 import { CrossIcon } from "../../utils/Icons";

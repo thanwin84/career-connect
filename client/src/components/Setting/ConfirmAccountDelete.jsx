@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Input, Button} from ".."
+import {Input, Button} from "../ui"
 import {useFormStatus} from "react-dom"
 
 

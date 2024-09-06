@@ -2,7 +2,7 @@ import React from "react";
 import {
     ChangePassword,
     TwoStepAuthentication
-} from "../components"
+} from "../components/Setting"
 
 export default function PasswordAndSecurity({className}){
     return (

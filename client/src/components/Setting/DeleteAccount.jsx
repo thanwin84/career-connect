@@ -1,12 +1,10 @@
 import React, {useState} from "react";
 import {
-    ReEnterPasswordForDelete, 
-    ConfirmAccountDelete,
-    ModalContainer, 
-    CloseModal
-} from "../../components"
+    ReEnterPasswordForDelete,
+    ConfirmAccountDelete
+} from '../Setting'
+import { ModalContainer, CloseModal } from "../ui";
 import { useOutletContext } from "react-router-dom";
-
 import useMultiStep from "../../hooks/useMultiStep";
 
 export default function DeleteAccount({className}){

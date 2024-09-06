@@ -1,5 +1,5 @@
 import React, {useContext, createContext} from "react";
-import { JobsContainer, SearchJobsContainer } from "../components";
+import { JobsContainer, SearchJobsContainer } from "../components/userCreatedJobs";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCurrentUserJobs } from "../API";

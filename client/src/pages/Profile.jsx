@@ -1,14 +1,12 @@
 import React, { 
     createContext, 
     useContext, 
-    useEffect, 
     useState 
 } from "react";
-import { 
-    PersonalInformation, 
-    EducationContainer,
-    Spinner 
-} from "../components";
+
+import PersonalInformation from "../components/user_information/PersonalInformation";
+import { EducationContainer } from "../components/education";
+import { Spinner } from "../components/ui";
 import { useQuery } from "../hooks";
 import { getUserInformation } from "../API";
 

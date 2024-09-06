@@ -4,7 +4,7 @@ import {
     Logo,
     Password,
     SubmitForm
-} from "../components";
+} from "../components/ui";
 import {
     Link,
     useNavigate

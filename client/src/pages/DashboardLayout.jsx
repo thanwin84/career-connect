@@ -11,10 +11,10 @@ import {
     } from 'react-router-dom'
 import { 
     BigSidebar, 
-    ModalContainer, 
     Navbar, 
     SmallSidebar 
-} from "../components";
+} from "../components/dashboardNavigations";
+import { ModalContainer } from "../components/ui";
 import customFetch from "../utils/customFetch";
 import { useWindowScreenSize } from "../hooks";
 

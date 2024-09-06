@@ -2,9 +2,9 @@ import React, { createContext, useEffect, useState } from "react";
 import { 
     FilterJobsContainer,
     SearchContainer,
-    FindJobsContainer,
-    JobDetails
- } from "../components";
+    FindJobsContainer
+ } from "../components/find_jobs";
+ import { JobDetails } from "../components/ui";
 import { customFetch } from "../utils";
 import { useLoaderData } from "react-router-dom";
 import { useContext } from "react";

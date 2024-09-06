@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import {SearchInput} from '..'
-
+import {SearchInput} from '../ui'
 
 export default function Location({
     countries, 

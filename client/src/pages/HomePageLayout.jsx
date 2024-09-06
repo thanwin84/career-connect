@@ -1,5 +1,5 @@
 import React from "react";
-import { HomeNavbar } from "../components";
+import  HomeNavbar  from "../components/home/HomeNavbar";
 import { Outlet } from "react-router-dom";
 import { useMainContext } from "../contexts/MainContext";
 

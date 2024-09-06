@@ -1,13 +1,14 @@
 import React, {useState} from "react";
-import {
-    NumberInput, 
-    SubmitForm, 
-    SelectCountry, 
-    ModalContainer
-} from "../../components"
-import { useTwoStepAuthContext } from "./TwoStepAuthentication";
-import customFetch from "../../utils/customFetch";
+import { 
+    NumberInput,
+    SubmitForm
+} from "../ui";
+import { 
+    SelectCountry
+} from "../Setting";
+import { customFetch } from "../../utils";
 import { toast } from "react-toastify";
+import { useTwoStepAuthContext } from "./TwoStepAuthentication";
 
 export default function AddPhoneNumber({moveToNextModal}){
     const [isOpen, setIsOpen] = useState(false)

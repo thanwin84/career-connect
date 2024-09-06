@@ -1,7 +1,7 @@
 import React from "react";
 import {
     ReEnterPasswordForm
-} from "../../components"
+} from "../ui"
 import { customFetch } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

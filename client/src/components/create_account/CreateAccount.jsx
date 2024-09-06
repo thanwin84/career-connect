@@ -1,10 +1,6 @@
 import React from "react";
-import { Input } from "..";
-import {
-    Password,
-    SubmitForm
-} from "..";
-
+import { Input } from "../ui";
+import {Password, SubmitForm} from "../ui";
 
 export default function CreateAccount({next, setUser}){
 

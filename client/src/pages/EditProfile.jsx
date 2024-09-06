@@ -3,7 +3,7 @@ import {
     Input, 
     Button,
     NumberInput
-} from '../components'
+} from '../components/ui'
 import { useOutletContext, Form, useNavigation, redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import { updateUser } from "../API";

@@ -1,7 +1,5 @@
 import React from "react";
-import {
-    DropDownContainer
-} from "../../components"
+import DropDownContainer from "../dashboardNavigations/DropDownContainer";
 import { Link } from "react-router-dom";
 import { useMainContext } from "../../contexts/MainContext";
 

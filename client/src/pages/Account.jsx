@@ -1,6 +1,8 @@
 import React from "react";
 import {useOutletContext} from 'react-router-dom'
-import { DeleteAccount } from "../components";
+import {
+    DeleteAccount
+} from '../components/Setting'
 
 
 export default function Account(){

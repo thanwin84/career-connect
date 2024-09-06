@@ -1,7 +1,7 @@
 import React from "react";
 import { 
     CreateJobForm
-} from "../components";
+} from "../components/create_job";
 import {
     redirect,
     useLoaderData

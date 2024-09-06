@@ -1,13 +1,15 @@
 import React, { createContext, useContext, useState } from "react";
-import {
-    TurnOn,
+import { 
     TurnOff,
-    ModalContainer,
-    EnterConfirmationCode,
-    ReEnterPassword,
+    TurnOn,
     CloseModal,
+    ModalContainer,
+    ReEnterPassword
+ } from "../ui";
+ import {
+    EnterConfirmationCode,
     AddPhoneNumber
-} from '../../components'
+ } from '../Setting'
 import { useOutletContext } from "react-router-dom";
 import useMultiStep from "../../hooks/useMultiStep";
 

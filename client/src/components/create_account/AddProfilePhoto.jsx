@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {Input, Button} from "../../components"
+import {Input, Button} from "../ui"
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useFilePreview } from "../../hooks";
-import { registerUser, uploadPhoto } from "../../API";
+import { registerUser, uploadPhoto } from "../../API"
 
 export default function AddProfilePhoto({className, goBack, user}){
     const [loading, setLoading] = useState(false)

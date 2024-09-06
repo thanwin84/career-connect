@@ -5,7 +5,7 @@ import {
     useLoaderData, 
     redirect 
 } from "react-router-dom";
-import {  CreateJobForm } from "../components";
+import {  CreateJobForm } from "../components/create_job";
 import {
     updateJob, 
     getJob, 

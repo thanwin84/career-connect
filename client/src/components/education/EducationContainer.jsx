@@ -1,12 +1,12 @@
 import React from "react";
-import ProfileInfo from "../personalInformation/ProfileInfo";
+import ProfileInfo from "../user_information/ProfileInfo";
 import {
     AddEducation,
     EducationRecordList,
     EditEducation
 } from './index'
-import { useProfileContext } from "../../pages/Profile";
 import { GraduationCapIcon } from "../../utils/Icons";
+import { useProfileContext } from "../../pages/Profile";
 
  
 export default function EducationContainer({

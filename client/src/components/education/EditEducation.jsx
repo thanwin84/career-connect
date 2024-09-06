@@ -1,7 +1,7 @@
 import React from "react";
 import {
     ModalContainer
-} from '../../components'
+} from '../ui'
 import {
     EducationForm,
     DeleteEducationRecord
