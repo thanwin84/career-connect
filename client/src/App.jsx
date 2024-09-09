@@ -38,7 +38,7 @@ import { loader as findJobsLoader} from './pages/FindJobs'
 import { CentralProvider } from './contexts/MainContext'
 
 // test
-
+import MyForm from './MyForm'
 
 
 
@@ -142,7 +142,7 @@ const router = createBrowserRouter([
   },
   {
     path: "testing",
-    element: <h2>testing</h2>
+    element: <MyForm/>
   },
   {
     path: "/home",

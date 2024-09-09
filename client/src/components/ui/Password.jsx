@@ -4,7 +4,11 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import {Input} from '../ui'
 
 
-export default function Password({className}){
+
+export default function Password({
+    className,
+    ...props
+}){
     const [showPassword, setShowPassword] = useState(false) 
     function handleClick(){
         setShowPassword(!showPassword)
@@ -16,12 +20,14 @@ export default function Password({className}){
                 type={showPassword ? "text": "password"}
                 label="Password"
                 placeholder= "Enter your password"
-                name = "password"
                 className=""
-                required
+                {...props}
+                aria-label="password"
+                
+                
             />
             <span
-                className=" absolute right-2 bottom-3 cursor-pointer dark:text-slate-300"
+                className=" absolute right-2 top-11 cursor-pointer dark:text-slate-300"
                 onClick={handleClick}
             >
                 {showPassword ? <FaRegEyeSlash/>: <FaEye/>}

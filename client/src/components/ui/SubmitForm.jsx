@@ -5,19 +5,21 @@ import {Spinner, Button} from '../ui'
 export default function SubmitForm({
     buttonText, 
     className,
-    category
+    category,
+    isLoading
 }){
     const {pending} = useFormStatus()
     
+    let loading = pending ||  isLoading
     return (
         <Button
             type="submit"
             category={category}
-            loading={pending}
+            loading={loading}
             loadingText={buttonText.pending}
             classname={className}
         >
-            {pending ? 
+            {loading ? 
             <span className="flex gap-4 justify-center">
                 <Spinner 
                     size='w-4 h-4' 

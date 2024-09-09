@@ -1,13 +1,20 @@
-import React, {useId} from "react";
+import React, {useId, useState} from "react";
+import ShowFormFieldError from "./ShowFormFieldError";
 
 const Input = function({
     type,
     label, 
-    placeholder, 
+    placeholder,
+    errorMessage,
     className="", 
     name,
-    ...props}){
+    ...props
+}){
+    const [touch, setTouch] = useState(false)
     const id = useId()
+    const style = "px-4 py-2 bg-slate-50 dark:bg-zinc-700 w-full text-back dark:text-slate-200 focus:outline-none border border-gray-200  focus:border-none rounded-md  "
+    const errorStyle = "border-red-400  focus:ring-2 focus:ring-red-300 dark:focus:ring-red-500"
+    const success = "border border-green-400 focus:ring-2 focus:ring-green-300"
     
     return (
         <div className={`w-full ${className}`}>
@@ -16,11 +23,17 @@ const Input = function({
                 type={type}
                 id = {id}
                 placeholder={placeholder}
-                className={`border border-gray-200 w-full px-4 py-2 rounded-lg bg-gray-50 dark:bg-zinc-700 text-black dark:text-slate-100 outline-none  focus:ring-1 dark:ring-slate-100 `}
+                className={`${style} ${errorMessage ? errorStyle: ""} ${(touch && errorMessage == "")?  success: ""} `}
                 name={name}
+                onFocus={()=>setTouch(true)}
                 {...props}
             />
-            
+            {errorMessage && (
+                <ShowFormFieldError 
+                    className="ml-2" 
+                    message={errorMessage}
+                />
+            )}
         </div>
     )
 }
