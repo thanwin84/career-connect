@@ -1,4 +1,4 @@
-import { EventHandler, useRef, useState} from "react"
+import { useRef, useState} from "react"
 import { validate } from "./validators.ts"
 import {
     FormObject,
@@ -15,9 +15,10 @@ export default function useForm(){
     const [isError, setIsError] = useState(false)
     const validatorsMap = {}
     const refs:Refs= {}
+    const [hasSubmmited, setHasSubmitted]  = useState(false)
     
     const [isLoading, setIsLoading] = useState(false)
-   
+    
     
     function onChangeHanlder<T extends HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(e:React.ChangeEvent<T>){
         const target = e.target
@@ -33,16 +34,20 @@ export default function useForm(){
             }
             else {
                 setFormObject(prev => ({...prev, [target.name]: target.value}))
-                const {errorMessage}= validate(validatorsMap[key], key, target.value)
-                setErrors(prev => ({...prev, [target.name]: errorMessage}))
+                if (hasSubmmited){
+                    const {errorMessage}= validate(validatorsMap[key], key, target.value)
+                    setErrors(prev => ({...prev, [target.name]: errorMessage}))
+                }
             }
         }
         else if (target instanceof HTMLSelectElement 
             || target instanceof HTMLTextAreaElement
         ){
             setFormObject(prev => ({...prev, [target.name]: target.value}))
-            const {errorMessage} = validate(validatorsMap[key], key, target.value)
-            setErrors(prev => ({...prev, [target.name]: errorMessage}))
+            if (hasSubmmited){
+                const {errorMessage} = validate(validatorsMap[key], key, target.value)
+                setErrors(prev => ({...prev, [target.name]: errorMessage}))
+            }
             
         }
         
@@ -62,6 +67,7 @@ export default function useForm(){
     
     
     async function handleSubmit(e:React.FormEvent,cb:(formData:Object)=>Promise<void>){
+        setHasSubmitted(true)
         setIsLoading(true)
         e.preventDefault()
         const errorsObject = {}

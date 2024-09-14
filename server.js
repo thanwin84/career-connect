@@ -33,8 +33,9 @@ import recordsRouter from './routes/records.route.js'
 // public
 import path, {dirname} from "path"
 import { fileURLToPath } from 'url'
-const __dirname = dirname(fileURLToPath(import.meta.url))
 
+const __dirname = dirname(fileURLToPath(import.meta.url))
+app.use(express.static(path.resolve(__dirname, "./public")))
 
 // routes declaration
 app.use("/api/v1/jobs", jobRouter)
@@ -42,8 +43,10 @@ app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/records", recordsRouter)
 
+app.get("*", (req, res)=>{
+    res.sendFile(path.resolve(__dirname, "./public", "index.html"))
+})
 
-app.use(express.static(path.resolve(__dirname, "./public")))
 
 app.use("*", (req, res)=>{
     res.status(404).json({msg: "Not Found"})
@@ -57,7 +60,7 @@ const port = process.env.PORT || 5100
 
 connectToDB()
 .then(()=>{
-    app.listen(process.env.PORT, (req, res)=>{
+    app.listen(port, (req, res)=>{
         console.log('Server is running on port ', port)
     })
 }).catch(error => console.log("mongodb connection failed error ", error))

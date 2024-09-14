@@ -1,5 +1,5 @@
 import React, {useId, useState} from "react";
-import ShowFormFieldError from "./ShowFormFieldError";
+import FormError from "./FormError";
 
 const Input = function({
     type,
@@ -28,12 +28,7 @@ const Input = function({
                 onFocus={()=>setTouch(true)}
                 {...props}
             />
-            {errorMessage && (
-                <ShowFormFieldError 
-                    className="ml-2" 
-                    message={errorMessage}
-                />
-            )}
+            {errorMessage && <FormError message={errorMessage} />}
         </div>
     )
 }

@@ -42,7 +42,10 @@ export default function Login(){
             }
         }
     }
-
+    const rules = {
+        password: [{required: true}, {minLength: 8}],
+        email: [{required: true},{isEmail: true}]
+    }
     return (
         <main className="h-screen bg-stone-50 dark:bg-zinc-900 py-8">
             <div className="bg-white p-8 w-4/6 lg:w-2/5 shadow-lg rounded-md mx-auto border-t-4 border-blue-500 dark:bg-zinc-800">
@@ -55,16 +58,13 @@ export default function Login(){
                         label="Email"
                         placeholder= "Enter your email"
                         className="mb-2"
-                        {...register('email', [
-                            {required: true},
-                            {isEmail: true}
-                        ])}
+                        {...register('email', rules.email)}
                         errorMessage={errors.email}
                     />
                     
                     <Password 
                         className="mb-6" 
-                        {...register('password',[{required: true}, {minLength: 8}])} 
+                        {...register('password', rules.password)} 
                         errorMessage={errors.password}
                     />
                     <SubmitForm 

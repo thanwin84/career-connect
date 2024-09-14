@@ -1,5 +1,4 @@
 import React, {useId, useState} from "react";
-import ShowFormFieldError from "./ShowFormFieldError";
 
 export default function Select({
     label,
@@ -40,13 +39,7 @@ export default function Select({
                 }
 
             </select>
-            {errorMessage && (
-                <ShowFormFieldError
-                className="ml-2"
-                message={errorMessage}
-                />
-            )}
-             
+            {errorMessage && <FormError message={errorMessage} />}
         </div>
     )
 }

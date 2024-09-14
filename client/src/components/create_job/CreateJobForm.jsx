@@ -15,13 +15,13 @@ import {
     JOB_TYPE,
     experianceLevel
 } from '../../../../utils/constants'
+import useForm from '../../hooks/FormCheck/useForm'
 
 export default function CreateJobForm({countries, job, title, buttonText}){
     const [experiance, setExperiance] = useState(job?.experianceLevel || "")
     const navigation = useNavigation()
     const isSubmitting = navigation.state === "submitting"
-    
-
+   
     const initialJobValues = {
         company: job?.company || "",
         position: job?.position || "",
@@ -45,7 +45,7 @@ export default function CreateJobForm({countries, job, title, buttonText}){
                     <div className="lg:flex gap-4">
                         <Input 
                             label="Position"
-                            name="position"
+                            
                             required={true}
                             className="mt-2"
                             defaultValue={initialJobValues.position}
