@@ -1,4 +1,3 @@
-import React from "react";
 import { FaAlignLeft } from "react-icons/fa";
 import {
     Logo,
@@ -20,7 +19,7 @@ export default function Navbar(){
     const isSmallSidebar = currentSize === 'sm'
    
     return (
-        <nav className="w-full flex justify-between px-4 py-6 shadow-sm bg-white dark:bg-zinc-900 border-b dark:border-none">
+        <nav className="w-full flex justify-between px-4 py-4 shadow-sm bg-white dark:bg-zinc-900 border-b dark:border-none">
             <button 
                 onClick={isSmallSidebar ?  toggleSmallSidebar: toggleBigSidebar}
                 className="text-blue-600 ml-4"
