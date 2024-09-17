@@ -1,4 +1,28 @@
-export const countries = [
+const JOB_STATUS = {
+    PENDING: 'pending',
+    INTERVIEW: 'interview',
+    DECLINED: 'declined'
+}
+const JOB_TYPE = {
+    FULL_TIME: 'full-time',
+    PART_TIME: 'part-time',
+    INTERNSHIP: 'internship',
+    REMORE: 'remote',
+    HYBRID: 'hybrid'
+}
+const JOB_SORT_BY = {
+    NEWEST_FIRST: 'newest',
+    OLDEST_FIRST: 'oldest',
+    ASCENDING: 'a-z',
+    DESCENDING: 'z-a'
+}
+const experianceLevel = {
+    ENTRY: 'entry',
+    MID: 'mid',
+    SENIOR: 'senior',
+    EXPERT: 'expert' 
+}
+const countries = [
     { name: "Afghanistan", code: "+93" },
     { name: "Albania", code: "+355" },
     { name: "Algeria", code: "+213" },
@@ -193,3 +217,11 @@ export const countries = [
     { name: "Zambia", code: "+260" },
     { name: "Zimbabwe", code: "+263" }
     ]
+
+export {
+    JOB_SORT_BY,
+    JOB_STATUS,
+    JOB_TYPE,
+    experianceLevel,
+    countries
+}
