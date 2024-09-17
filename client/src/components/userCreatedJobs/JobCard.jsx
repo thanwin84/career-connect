@@ -10,7 +10,7 @@ import {
     BriefcaseIcon,
     CalenderIcon 
 } from "../../utils/Icons";
-
+ 
 export default function JobCard({
     _id,
     position,

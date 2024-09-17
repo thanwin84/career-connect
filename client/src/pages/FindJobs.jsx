@@ -44,11 +44,11 @@ export default function FindJobs(){
     const [currentJobDetails, setCurrentJobDetails] = useState("")
     const [formState, setFormState] = useState(
         {
-            jobType: paramsObject.jobType || [],
-            experianceLevel: paramsObject.experianceLevel || [],
-            location: paramsObject.location || "",
-            search: paramsObject.search || "",
-            sort: paramsObject.sort || "newest"
+            jobType: paramsObject?.jobType || [],
+            experianceLevel: paramsObject?.experianceLevel || [],
+            location: paramsObject?.location || "",
+            search: paramsObject?.search || "",
+            sort: paramsObject?.sort || "newest"
         }
     )
 
