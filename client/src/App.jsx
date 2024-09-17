@@ -25,21 +25,16 @@ import {
 
 
 import {loader as dashboardLoader} from './pages/DashboardLayout'
-import { action as addjobAction, loader as addJobLoader} from './pages/AddJob'
+import { loader as addJobLoader} from './pages/AddJob'
 import { loader as allJobsLoader } from './pages/AllJobs'
-import { action as editJobAction, loader as editJobLoader } from './pages/EditJob'
+import {  loader as editJobLoader } from './pages/EditJob'
 import { action as deleteJobAction } from './pages/DeleteJob'
 import { loader as adminLoader } from './pages/Admin'
-import { action as EditProfileAction } from './pages/EditProfile'
 import { loader as statsLoader } from './pages/Stats'
 import {loader as settingPageLayoutLoader} from './pages/SettingPageLayout'
 import { loader as findJobsLoader} from './pages/FindJobs'
 
 import { CentralProvider } from './contexts/MainContext'
-
-// test
-import MyForm from './MyForm'
-
 
 
 const checkDefaultTheme = ()=>{
@@ -77,7 +72,6 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <AddJob />,
-            action: addjobAction,
             loader: addJobLoader
           },
           {
@@ -92,8 +86,7 @@ const router = createBrowserRouter([
           },
           {
             path: "profile/edit",
-            element: <EditProfile/>,
-            action: EditProfileAction
+            element: <EditProfile/>
           },
           {
             path: 'admin',
@@ -104,8 +97,7 @@ const router = createBrowserRouter([
 
             path: 'edit-job/:id',
             element: <EditJob />,
-            loader: editJobLoader,
-            action: editJobAction
+            loader: editJobLoader
           },
           {
             path: "delete-job/:id",
@@ -142,7 +134,7 @@ const router = createBrowserRouter([
   },
   {
     path: "testing",
-    element: <MyForm/>
+    element: <h2>testing</h2>
   },
   {
     path: "/home",

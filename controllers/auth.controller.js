@@ -19,7 +19,11 @@ const register = asyncHandler(async(req, res)=>{
     if (userExists){
         throw new BadRequestError("User is already registered")
     }
-    
+    const localFilePath = req?.file?.path 
+    if (localFilePath){
+        const uploadResponse = await uploadOnCloudinary(localFilePath)
+        req.body.avatar = [uploadResponse.url, uploadResponse.public_id]
+    }
     const user = (await User.create(req.body))
 
     res.status(statusCodes.CREATED).json({msg: "user is created successfully", userId: user._id})
