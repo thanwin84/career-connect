@@ -54,6 +54,9 @@ app.use(errorHandler)
 
 const port = process.env.PORT || 5100
 
+app.get("/health", (req, res)=>{
+    res.send({success:true})
+})
 
 connectToDB()
 .then(()=>{
