@@ -13,7 +13,7 @@ import {
     JOB_STATUS,
     JOB_TYPE,
     experianceLevel
-} from '../../../../utils/constants'
+} from "../../constant"
 import { useForm, FormProvider} from "react-hook-form"
 
 export default function CreateJobForm({

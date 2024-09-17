@@ -1,5 +1,5 @@
 
-import {countries} from '../../../../constants/countyCodes'
+import {countries} from "../../constant"
 import { IoIosArrowBack } from "react-icons/io";
 
 export default function SelectCountry({onSelect, selectedCountry, handleBackClick}){

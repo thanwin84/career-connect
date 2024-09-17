@@ -1,7 +1,7 @@
 import  {  useState} from "react";
 import {Select, Input} from '../ui'
 import { useAllJobsContext } from "../../pages/AllJobs";
-import { JOB_TYPE, JOB_STATUS, JOB_SORT_BY } from "../../../../utils/constants";
+import { JOB_TYPE, JOB_STATUS, JOB_SORT_BY } from "../../constant";
 import { Form, useSubmit} from "react-router-dom";
 import { useDebounce } from "../../hooks";
 
