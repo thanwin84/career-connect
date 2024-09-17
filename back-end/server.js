@@ -44,6 +44,10 @@ app.use("/api/v1/records", recordsRouter)
 
 
 app.use(express.static(path.resolve(__dirname, "./public")))
+app.get("/health", (req, res)=>{
+    res.send({success: "true"})
+})
+
 
 app.use("*", (req, res)=>{
     res.status(404).json({msg: "Not Found"})
