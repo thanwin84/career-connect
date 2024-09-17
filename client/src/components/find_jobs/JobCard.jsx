@@ -52,6 +52,7 @@ export default function JobCard({
         experianceLevel,
         _id
     } = props
+    console.log('run')
     const date = dateFormate(createdAt)
 
     function handleClick(){
