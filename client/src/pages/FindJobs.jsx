@@ -6,7 +6,7 @@ import {
  } from "../components/find_jobs";
  import { JobDetails, SlideOpen } from "../components/ui";
 import { customFetch } from "../utils";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import { useContext } from "react";
 
 export const loader = async({request})=>{
@@ -26,7 +26,15 @@ export const loader = async({request})=>{
         
         return {...data, paramsObject}
     } catch (error) {
-        return error
+        console.log(error)
+        return {
+            jobs: [],
+            totalPages: 0,
+            paramsObject: {},
+            jobsCount: 0,
+            page: 1,
+            error: error.message
+        }
     }
 }
 
@@ -42,6 +50,7 @@ export default function FindJobs(){
     } = useLoaderData()
     const [openDetails, setOpenDetails] = useState(false)
     const [currentJobDetails, setCurrentJobDetails] = useState("")
+    const state = useNavigation().state
     const [formState, setFormState] = useState(
         {
             jobType: paramsObject?.jobType || [],
@@ -51,7 +60,7 @@ export default function FindJobs(){
             sort: paramsObject?.sort || "newest"
         }
     )
-
+    
     function resetFormState(){
         setFormState(
             {
@@ -77,7 +86,7 @@ export default function FindJobs(){
         setCurrentJobDetails(job)
     }
     
-   
+   console.log(jobs)
     return (
         <section className="w-full  px-10">
             <findJobsContext.Provider value={{
