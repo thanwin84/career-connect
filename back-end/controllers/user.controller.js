@@ -6,6 +6,7 @@ import {deleteAsset, uploadOnCloudinary} from '../utils/cloudinary.js'
 import {BadRequestError} from '../errors/customErrors.js'
 
  const getCurrentUser = asyncHandler(async (req, res)=>{
+   console.log(req.user)
     const {userId} = req.user
     const user = await User.findById(userId).select("-password")
     res.status(statusCodes.OK).json(user)
@@ -27,14 +28,15 @@ import {BadRequestError} from '../errors/customErrors.js'
    const obj = {...req.body}
    delete obj.password
    const oldAvatarPublicId = user?.avatar[1]
-   if (oldAvatarPublicId){
-   await deleteAsset(oldAvatarPublicId)
    
-   }
    const localFilePath = req?.file?.path
    if (localFilePath){
-   const updatedAvatarPath = await uploadOnCloudinary(localFilePath)
-   obj.avatar = [updatedAvatarPath.url, updatedAvatarPath.public_id]
+      const updatedAvatarPath = await uploadOnCloudinary(localFilePath)
+      if (oldAvatarPublicId){
+         await deleteAsset(oldAvatarPublicId)
+      
+      }
+      obj.avatar = [updatedAvatarPath.url, updatedAvatarPath.public_id]
    }
     
    await User.findByIdAndUpdate(
