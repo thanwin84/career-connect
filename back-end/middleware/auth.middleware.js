@@ -3,6 +3,7 @@ import { verifyJWT } from "../utils/token.utils.js"
 
 export const authenticateUser = async (req, res, next)=>{
     const {token} = req.cookies
+    console.log("token",token)
     if (!token){
         return next(new UnauthenticatedError("authentication invalid"))
         
