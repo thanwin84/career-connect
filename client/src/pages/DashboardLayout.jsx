@@ -23,6 +23,7 @@ export const loader = async()=>{
        const response= await getUserInformationRequest()
        return response
     } catch (error) {
+        console.log(error)
         return redirect("/")
     }
 }

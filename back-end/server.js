@@ -21,7 +21,12 @@ app.use(express.json())
 //parse incoming URL-enconded data with extended options and limit of 16kb
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(cookieParser())
-app.use(cors())
+app.use(cors(
+    {
+        origin: process.env.FRONT_END_BASE_URL,  // Frontend URL
+        credentials: true,  // Allow credentials (cookies) to be sent
+    }
+))
 
 
 
