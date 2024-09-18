@@ -5,7 +5,7 @@ import morgan from 'morgan'
 import connectToDB from './db/index.js'
 import errorHandler from './middleware/errorHandler.js'
 import cookieParser from 'cookie-parser'
-
+import cors from 'cors'
 
 
 
@@ -21,6 +21,7 @@ app.use(express.json())
 //parse incoming URL-enconded data with extended options and limit of 16kb
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(cookieParser())
+app.use(cors())
 
 
 
