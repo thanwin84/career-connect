@@ -48,7 +48,7 @@ const login = asyncHandler(async(req, res)=>{
     const oneDay = 1000 * 60 * 60 * 24
     const options = {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
         expires: new Date(Date.now() + oneDay),
         SameSite:"None"
 
