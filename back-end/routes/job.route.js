@@ -26,7 +26,7 @@ router.route("/")
 router.route("/show-stats").get(showStats)
 
 router.route("/:id")
-.get(getJob)
+.get(validateIdParam,getJob)
 .patch(validateIdParam,ValidateJobInput,updateJob)
 .delete(validateIdParam,deleteJob)
 
