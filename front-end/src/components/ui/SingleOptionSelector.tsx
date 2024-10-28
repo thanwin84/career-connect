@@ -12,7 +12,7 @@ type Props = {
     onSelect: (value:string)=> void
 }
 
-export default function SingleOptionSelector<T>({
+export default function SingleOptionSelector({
     className,
     title,
     options,

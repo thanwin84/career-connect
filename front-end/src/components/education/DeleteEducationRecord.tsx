@@ -17,7 +17,7 @@ export default function DeleteEducationRecord({
         deleteEducationRecord, 
         isSuccess} = useDeleteEducationRecord()
     const {
-        profileStore: {state:profileState, actions: profileActions}, 
+        profileStore: {state:profileState}, 
         userStore: {actions:userActions}
     } = useAppContext()
     const {_id} = profileState.selectedEducationRecord as Education

@@ -316,7 +316,7 @@ export const useToggleAuthStatus = ()=>{
 }
 
 export const useAddPhoneNumber = ()=>{
-    const {userStore:{actions}} = useAppContext()
+    
     const {
         mutate: addPhoneNumber,
         isPending,
