@@ -68,8 +68,10 @@ export const validateLoginInput = withValidationError([
 
 export const validateUpdateInput = withValidationError([
     body('name').notEmpty().withMessage("name is required"),
+    body('email').notEmpty().withMessage("email is required").isEmail().withMessage("Email must be valid"),
     body('location').notEmpty().withMessage("location is required"),
-    body('lastName').notEmpty().withMessage("lastName is required")
+    body('lastName').notEmpty().withMessage("lastName is required"),
+    body('phoneNumber').notEmpty().withMessage("Phone number is required")
     
 ])
 

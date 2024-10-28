@@ -13,15 +13,7 @@ export const registerUserRequest = async(userData)=> {
     )
 }
 export const logoutUserRequest = async()=> await customFetch.get('/auth/logout')
-export const updateUserRequest = async(formData)=> {
-    await customFetch.patch(
-        "/users/update-user",
-        formData,
-        {
-            headers: {'Content-Type': 'multipart/form-data'}
-        }
-    )
-}
+export const updateUserRequest = async(formData)=> await customFetch.patch("/users/update-user", formData)
 export const uploadPhotoRequest = async(userId, formData)=> {
     await customFetch.patch(
         `/users/${userId}/upload-profile-photo`, 

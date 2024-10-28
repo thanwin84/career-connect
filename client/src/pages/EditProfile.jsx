@@ -6,14 +6,12 @@ import {
 import { useOutletContext } from "react-router-dom";
 import {useForm} from 'react-hook-form'
 import { useUpdateUser } from "../api/UserApi";
-import { useFilePreview } from '../hooks';
 
 export default function EditProfile(){
     const {user} = useOutletContext()
     const {isPending, updateUser} = useUpdateUser()
-    const {fileUrl, handleFileChange} = useFilePreview(user?.avatar[0])
 
-    
+    const url = user.avatar[0]
     const {register, handleSubmit, formState} = useForm({
         defaultValues: user
     })
@@ -32,22 +30,11 @@ export default function EditProfile(){
             }
         },
         name: {required: "Name is required"},
-        location: {required: "Location is required"}
+        location: {required: "Location is required"},
+        phoneNumber: {required: "Please provide a phone number"}
 
     }
 
-    function action(data){
-        const formData = new FormData()
-        const file = data.avatar[0]
-        if (file){
-            formData.append('avatar', file)
-        }
-        formData.append("name",data.name)
-        formData.append( "lastName",data.lastName)
-        formData.append("location" ,data?.location || "")
-        formData.append("phoneNumber",data?.phoneNumber || "")
-        updateUser(formData)
-    }
     
     return (
         <section className="p-4  ">
@@ -55,14 +42,14 @@ export default function EditProfile(){
                 <h3 id="formTitle" className="mb-4 text-2xl font-semibold dark:text-slate-200">Profile</h3>
                 
                 <form
-                    onSubmit={handleSubmit(action)}
+                    onSubmit={handleSubmit(updateUser)}
                     aria-describedby="formTitle"
                     className="bg-white dark:bg-zinc-900" 
                     method="post" encType="multipart/form-data"
                 >
                     
                     <div className="w-full flex gap-3">
-                        <img className="w-40 h-36 rounded-md" src={fileUrl} />
+                        <img className="w-40 h-36 rounded-md" src={url} />
                         <div className="flex flex-col self-start gap-8">
                             <h4 className="font-semibold text-xl dark:text-slate-200">Upload your profile Photo</h4>
                             <Input 
@@ -71,7 +58,6 @@ export default function EditProfile(){
                                 className=""
                                 accept="image/*"
                                 {...register('avatar', rules.avatar)}
-                                onChange={(e)=>handleFileChange(e)}
                                 errorMessage={errors?.avatar?.message}
                             /> 
                         </div>
@@ -105,7 +91,8 @@ export default function EditProfile(){
                         
                         <NumberInput
                             label="Phone Number"
-                            {...register("phoneNumber")}
+                            {...register("phoneNumber", rules.phoneNumber)}
+                            errorMessage={errors?.phoneNumber?.message}
                         />
                         
                     </div >

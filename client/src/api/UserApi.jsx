@@ -69,7 +69,6 @@ export const useUpdateUser = ()=>{
                 navigate('/dashboard/profile')
             },
             onError: (error)=>{
-                console.log(error)
                 toast.error(error?.response?.data.message)
             }
         }

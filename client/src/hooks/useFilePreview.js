@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-export default function useFilePreview(initialFileUrl = null){
+export default function useFilePreview(){
     const [file, setFile] = useState(null)
-    const [fileUrl, setFileUrl] = useState(initialFileUrl)
+    const [fileUrl, setFileUrl] = useState(null)
 
     function handleFileChange(e){
         const file = e.target.files[0]

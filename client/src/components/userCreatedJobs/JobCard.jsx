@@ -67,7 +67,7 @@ export default function JobCard({
                 <Button 
                     type="submit"
                     classname="text-sm"
-                    loading={navagation.state === "submitting"}
+                    loading={navagation.state === "loading"}
                     loadingText="loading"
                 >
                     Delete
