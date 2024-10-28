@@ -50,7 +50,7 @@ const login = asyncHandler(async(req, res)=>{
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         expires: new Date(Date.now() + oneDay),
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+        SameSite:"None"
 
     }
     user.password = null
