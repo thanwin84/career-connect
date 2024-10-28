@@ -15,13 +15,13 @@ import {
     SmallSidebar 
 } from "../components/dashboardNavigations";
 import { ModalContainer } from "../components/ui";
+import customFetch from "../utils/customFetch";
 import { useWindowScreenSize } from "../hooks";
-import { getUserInformationRequest } from "../apiRequest";
 
 export const loader = async()=>{
     try {
-       const response= await getUserInformationRequest()
-       return response
+       const {data}= await customFetch("/users/current-user")
+       return data
     } catch (error) {
         return redirect("/")
     }
