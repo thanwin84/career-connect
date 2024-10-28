@@ -6,7 +6,7 @@ import {deleteAsset, uploadOnCloudinary} from '../utils/cloudinary.js'
 import {BadRequestError} from '../errors/customErrors.js'
 
  const getCurrentUser = asyncHandler(async (req, res)=>{
-   console.log(req.user)
+   
     const {userId} = req.user
     const user = await User.findById(userId).select("-password")
     res.status(statusCodes.OK).json(user)
@@ -64,9 +64,13 @@ import {BadRequestError} from '../errors/customErrors.js'
    const userId = req.user.userId
    const updatedUser = await User.findOneAndUpdate(
       {_id: userId},
-      {$push: {educationRecords: req.body}}
+      {$push: {educationRecords: req.body}},
+      {$new: true}
    )
-   res.status(statusCodes.OK).json({msg: "education record is updated"})
+   
+   res.status(statusCodes.OK).json(
+      {data: updatedUser}
+   )
  })
  
  const deleteEducationEntry = asyncHandler(async (req, res)=>{

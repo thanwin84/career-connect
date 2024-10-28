@@ -156,7 +156,7 @@ const getJob = asyncHandler(async (req, res)=>{
     if (!job){
         throw new NotFoundError(`No job with id ${id}`)
     }
-    res.status(statusCodes.OK).json({job})
+    res.status(statusCodes.OK).json({job:job})
 })
 
 const updateJob = asyncHandler(async (req, res)=>{

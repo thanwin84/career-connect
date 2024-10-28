@@ -110,7 +110,9 @@ const toggleTwoStepAuthentication = asyncHandler(async (req, res)=>{
 
 const sendVerificationCode = asyncHandler(async (req, res)=>{
     const {phoneNumber, channel} = req.body
+    
     const response = await twilioService.sendVerificationToken(phoneNumber, channel)
+    
     res.status(statusCodes.OK).json({message: "Verification code has been sent"})
 })
 
