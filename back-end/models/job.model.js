@@ -25,7 +25,8 @@ const jobSchema = new mongoose.Schema(
             type: {
                 min: Number,
                 max: Number
-            }
+            },
+            default: {min: 0, max: 0}
         },
         experianceLevel: {
             type: String,
