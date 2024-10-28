@@ -1,4 +1,5 @@
 import React from "react"
+import {useFormStatus} from 'react-dom'
 import {Spinner, Button} from '../ui'
 
 export default function SubmitForm({
@@ -7,8 +8,9 @@ export default function SubmitForm({
     category,
     isLoading
 }){
+    const {pending} = useFormStatus()
     
-    let loading = isLoading
+    let loading = pending ||  isLoading
     return (
         <Button
             type="submit"
