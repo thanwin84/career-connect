@@ -2,7 +2,7 @@ import Button from "./Button";
 import Spinner from "./Spinner";
 import Input from "./Input";
 import Logo from "./Logo";
-import ComboBox from "./ComboBox";
+import SearchInput from "./SearchInput";
 import MultipleSelect from "./MultipleSelect";
 import SingleOptionSelector from "./SingleOptionSelector";
 import InputWithIcon from "./InputWithIcon";
@@ -24,15 +24,13 @@ import SelectCountry from "../Setting/SelectCountry";
 import SubmitForm from "./SubmitForm";
 import Select from './Select'
 import Password from "./Password";
-import FormGroup from "./FormGroup";
-import SlideOpen from "./SlideOpen";
 
 export {
     Button,
     Spinner,
     Input,
     Logo,
-    ComboBox,
+    SearchInput,
     MultipleSelect,
     SingleOptionSelector,
     InputWithIcon,
@@ -53,7 +51,5 @@ export {
     SelectCountry,
     SubmitForm,
     Select,
-    Password,
-    FormGroup,
-    SlideOpen
+    Password
 }

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import { 
     Input,
     Select,
@@ -9,85 +9,76 @@ import {
     SalaryRange,
     Location
 } from '.'
+import { Form, useNavigation } from "react-router-dom";
 import {
     JOB_STATUS,
     JOB_TYPE,
     experianceLevel
 } from '../../../../utils/constants'
-import { useForm, FormProvider} from "react-hook-form"
 
-export default function CreateJobForm({
-    countries, 
-    job, 
-    title,
-    buttonText,
-    onSave,
-    isLoading
-}){
-    
+export default function CreateJobForm({countries, job, title, buttonText}){
     const [experiance, setExperiance] = useState(job?.experianceLevel || "")
-    const methods = useForm({
-        defaultValues: {
-            company: job?.company || "SE",
-            position: job?.position || "astha it",
-            country: job?.country || "",
-            jobLocation: job?.jobLocation || "",
-            jobStatus: job?.jobStatus || JOB_STATUS.INTERVIEW,
-            jobType: job?.jobType || JOB_TYPE.FULL_TIME,
-            salary: {
-                min: 0 || job?.salary?.min,
-                max: 0 || job?.salary?.max
-            },
-            experianceLevel: job?.experianceLevel || null
-        }
-    })
-   
+    const navigation = useNavigation()
+    const isSubmitting = navigation.state === "submitting"
     
+
+    const initialJobValues = {
+        company: job?.company || "",
+        position: job?.position || "",
+        country: job?.country || "",
+        jobLocation: job?.jobLocation || "",
+        jobStatus: job?.jobStatus || JOB_STATUS.INTERVIEW,
+        jobType: job?.jobType || JOB_TYPE.FULL_TIME,
+        min: job?.salary.min || "",
+        max: job?.salary.max || "",
+        experianceLevel: job?.experianceLevel || null
+    }
     
     function handleSelect(level){
         setExperiance(level)
-        methods.setValue("experianceLevel", level)
     }
-    
     return (
-       <FormProvider {...methods}>
-         <form method="post" onSubmit={methods.handleSubmit(onSave)}>
+        <Form method="post">
             <div className="p-8 shadow-md bg-white  dark:bg-zinc-900 rounded-md">
                 <h2 className="text-2xl mb-6 text-gray-800 font-medium dark:text-slate-100">{title}</h2>
                 <div className="">
                     <div className="lg:flex gap-4">
                         <Input 
                             label="Position"
+                            name="position"
+                            required={true}
                             className="mt-2"
-                            {...methods.register("position", {required: "Position is required"})
-                            }
-                            errorMessage={methods.formState.errors.position?.message}
+                            defaultValue={initialJobValues.position}
                         />
                         <Input 
                             label="Company"
+                            name="company"
+                            required={true}
                             className="mt-2"
-                            {...methods.register("company", {required: "Company is required"})}
-                            errorMessage={methods.formState.errors.company?.message}
+                            defaultValue={initialJobValues.company}
                         />
                     </div>
                         <Location 
                             className="mt-2" 
                             countries={countries}
-                            country={methods.formState.defaultValues.country}
-                            jobLocation={methods.formState.defaultValues.jobLocation}
+                            country={initialJobValues.country}
+                            jobLocation={initialJobValues.jobLocation}
                         />
                         <div className="lg:flex gap-4">
                             <Select 
                                 options={Object.values(JOB_STATUS)}
                                 label="Job Status"
+                                name="jobStatus"
                                 className="flex-1 mt-2"
-                                {...methods.register("jobStatus")}
+                                defaultValue={initialJobValues.jobStatus}
+                                
                             />
                             <Select 
                                 options={Object.values(JOB_TYPE)}
                                 label="Job Type"
+                                name="jobType"
                                 className="flex-1 mt-2"
-                                {...methods.register("jobType")}
+                                defaultValue={initialJobValues.jobType}
                             />
                         </div>
                         <div className="mt-2">
@@ -101,15 +92,17 @@ export default function CreateJobForm({
                             />
                         </div>
                         <SalaryRange 
-                            className="mt-2"
+                            className="mt-2" 
+                            min={initialJobValues.min}
+                            max={initialJobValues.max}
                         />
                         
                         <div className="flex justify-end">
                             <Button
-                                category="success"
+                            category="success"
                                 type="submit"
                                 classname="mt-6"
-                                loading = {isLoading}
+                                loading = {isSubmitting}
                                 loadingText={"In progress..."}
                             >
                                     {buttonText}
@@ -119,7 +112,6 @@ export default function CreateJobForm({
                 
 
             </div>
-         </form>
-       </FormProvider>
+         </Form>
     )
 }

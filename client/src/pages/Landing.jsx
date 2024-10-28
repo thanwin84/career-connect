@@ -1,10 +1,11 @@
+import React from "react";
 import { Logo } from "../components/ui";
 import main from "../assets/images/main.svg"
 import { Link } from "react-router-dom";
 
 export default function Landing(){
     return (
-        <section className="h-screen bg-white dark:bg-zinc-900 w-full flex flex-col">
+        <section className="h-screen bg-stone-100 dark:bg-zinc-900 w-full flex flex-col">
             <nav className="px-6 pt-10 w-5/6">
                 <Logo className="w-72" />
             </nav>
@@ -27,16 +28,10 @@ export default function Landing(){
                          Register
                         </Link>
                         <Link 
-                            className="mr-3 px-8 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-sm"    
+                            className="px-8 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-sm"    
                             to="/login"
                         >
                          Login
-                        </Link>
-                        <Link 
-                            className="mr-3 px-8 py-2 text-white rounded-sm bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:bg-gradient-to-l"
-                            to="/home"
-                        >
-                         Explore First
                         </Link>
                     </div>
                    

@@ -1,4 +1,4 @@
-import  { useState, useId } from "react";
+import React, { useState, useId } from "react";
 
 
 export default function SearchInput({

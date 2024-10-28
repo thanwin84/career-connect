@@ -1,7 +1,7 @@
-import {forwardRef, useId, useState} from "react";
-import FormError from "./FormError";
+import React, {useId, useState} from "react";
+import ShowFormFieldError from "./ShowFormFieldError";
 
-const Input = forwardRef(function({
+const Input = function({
     type,
     label, 
     placeholder,
@@ -9,7 +9,7 @@ const Input = forwardRef(function({
     className="", 
     name,
     ...props
-}, ref){
+}){
     const [touch, setTouch] = useState(false)
     const id = useId()
     const style = "px-4 py-2 bg-slate-50 dark:bg-zinc-700 w-full text-back dark:text-slate-200 focus:outline-none border border-gray-200  focus:border-none rounded-md  "
@@ -26,14 +26,15 @@ const Input = forwardRef(function({
                 className={`${style} ${errorMessage ? errorStyle: ""} ${(touch && errorMessage == "")?  success: ""} `}
                 name={name}
                 onFocus={()=>setTouch(true)}
-                ref={ref}
-                aria-label={label}
-                aria-describedby={errorMessage ? `${id}Error`:undefined}
                 {...props}
-                
             />
-            {errorMessage && <FormError id={`${id}Error`} message={errorMessage} />}
+            {errorMessage && (
+                <ShowFormFieldError 
+                    className="ml-2" 
+                    message={errorMessage}
+                />
+            )}
         </div>
     )
-})
+}
 export default Input
