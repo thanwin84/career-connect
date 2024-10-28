@@ -29,7 +29,7 @@ export default function FindJobsContainer({
                     No Maching Jobs found
                 </p>
             )}
-         {jobs && jobs?.map((job, index) => (
+         {jobs?.map((job, index) => (
             <JobCard
                 key={job.company + index}
                 className="mb-2"
