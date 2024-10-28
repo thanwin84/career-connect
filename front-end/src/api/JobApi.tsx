@@ -5,6 +5,7 @@ import {
 import {toast} from 'react-toastify'
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "../hooks";
+import { FormData } from '../types';
 
 
 export const useCreateJob = ()=>{
@@ -36,9 +37,9 @@ export const useUpdateJob = ()=>{
         isPending,
         mutate: updateJob
     } = useMutation(
-        (formData)=>updateJobRequest(id, formData),
+        (formData:FormData)=>updateJobRequest(id as string, formData),
         {
-            onSuccess: (data)=>{
+            onSuccess: ()=>{
                 naviage("../all-jobs")
                 toast.success("Job is updated successfully")
             },
