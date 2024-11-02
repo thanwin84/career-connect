@@ -90,3 +90,12 @@ export const validateChangePasswordInput = withValidationError([
     body("newPassword").notEmpty().withMessage("new password is required").isLength({min: 8}).withMessage("password should be at least 8 characters long")
 
 ])
+
+// job application
+
+export const validateJobApplicationInput = withValidationError([
+    body('_id').notEmpty().withMessage("_id is required"),
+    body('candidateId').notEmpty().withMessage("candidateId is required"),
+    body('recruiterId').notEmpty().withMessage("recruiterId is required"),
+    body('recruiterId').notEmpty().withMessage("recruiterId is required")
+])

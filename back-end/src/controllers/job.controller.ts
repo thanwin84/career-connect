@@ -130,7 +130,7 @@ const getJobs = asyncHandler(async (req:Request, res:Response)=>{
     ]
     const jobs = await Job.aggregate(aggregationPipeline)
     const jobsCount = await Job.countDocuments(queryObject)
-    const totalPages = Math.ceil(jobsCount / Number(limit))
+    const totalPages = Math.ceil(jobsCount / Number(limit)) 
 
     
     res.status(statusCodes.OK).json({

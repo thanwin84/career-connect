@@ -35,6 +35,7 @@ import jobRouter from './routes/job.route'
 import authRouter from './routes/auth.route'
 import userRouter from './routes/user.route'
 import recordsRouter from './routes/records.route'
+import  jobApplicationRouter from './routes/jobApplication.route'
 
 // public
 // import path, {dirname} from "path"
@@ -47,6 +48,7 @@ app.use("/api/v1/jobs", jobRouter)
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/records", recordsRouter)
+app.use("/api/v1/job-applications", jobApplicationRouter)
 
 
 // app.use(express.static(path.resolve(__dirname, "./public")))
