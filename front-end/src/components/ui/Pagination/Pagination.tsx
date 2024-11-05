@@ -54,10 +54,11 @@ export default function Pagination({
         if (currentPage !== 1 && currentPage !== totalPages){
             pageButtons.push(
                 <PageButton 
-                activePage={true}
-                pageNumber={currentPage} 
-                handlePageChange={handlePageChange} 
-                key={3}
+                    activePage={true}
+                    pageNumber={currentPage} 
+                    handlePageChange={handlePageChange} 
+                    key={3}
+                
                 />
             )
         }
@@ -91,7 +92,7 @@ export default function Pagination({
     }
 
     return (
-        <div className={`py-6 px-2 w-full flex ${className} ${positions[position]}`}>
+        <div aria-label="Pagination controls" className={`py-6 px-2 w-full flex ${className} ${positions[position]}`}>
             {currentPage > 1 && (
                 <button
                     className="px-4 py-2 text-blue-700 dark:text-slate-100 bg-white dark:bg-zinc-900 shadow-lg rounded-md flex gap-2 items-center  hover:bg-blue-700 dark:hover:bg-blue-700  hover:text-white  mr-4"
@@ -99,6 +100,7 @@ export default function Pagination({
                         let pageNumber = currentPage - 1
                         handlePageChange(pageNumber)
                     }}
+                    aria-label={`Go to previous page`}
                 >
                     <HiChevronDoubleLeft />
                     Prev
@@ -113,6 +115,7 @@ export default function Pagination({
                     className="ml-2 px-4 py-2 text-blue-700 dark:text-slate-100 bg-white dark:bg-zinc-900 shadow-lg rounded-md flex gap-2 my-auto items-center hover:bg-blue-700 dark:hover:bg-blue-700 hover:text-white"
 
                     onClick={()=> handlePageChange(currentPage + 1)}
+                    aria-label={`Go to next page`}
                 >
                     Next
                     <HiChevronDoubleRight />

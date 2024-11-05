@@ -30,6 +30,7 @@ export default function EducationContainer({
                 <button
                     className="text-blue-600 hover:underline"
                     onClick={actions.toggleAddEducationModal}
+                    aria-label="Click to add Education record"
                 >
                     + Add Education
                 </button>

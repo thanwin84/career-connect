@@ -27,7 +27,7 @@ export default function Navbar(){
             </button>
             <div>
                 <Logo className="lg:hidden w-36" />
-                <h4 className="hidden lg:block text-2xl text-slate-800 dark:text-white">Dashboard</h4>
+                <h1 className="hidden lg:block text-2xl text-slate-800 dark:text-white">Dashboard</h1>
             </div>
             <div className="flex gap-4">
                 <ThemeToggle />

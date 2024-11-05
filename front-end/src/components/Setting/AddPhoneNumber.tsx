@@ -74,6 +74,7 @@ export default function AddPhoneNumber({moveToNextModal}:Props){
                     category="success"
                     classname="text-sm self-end"
                     loading={isPending}
+                    
                 >
                     Add Number
                 </Button>

@@ -20,7 +20,7 @@ export default function InputWithIcon({
 ){
     return (
         <div className={`relative w-full flex bg-gray-50 pl-2 rounded-md focus-within:border-blue-400  ${className}`} >
-            <span className="text-xl text-gray-400 dark:text-slate-100 my-auto">
+            <span aria-hidden={true} className="text-xl text-gray-400 dark:text-slate-100 my-auto">
                 {icon}
             </span>
             <Input

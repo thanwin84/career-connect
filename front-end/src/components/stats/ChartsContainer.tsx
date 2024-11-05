@@ -6,12 +6,13 @@ type Props = {
 export default function ChartsContainers({data}:Props){
     const [barChart, setBarChart] = useState(true)
     return (
-        <section className="bg-slate-100 dark:bg-zinc-800">
+        <section className="bg-slate-50 dark:bg-zinc-800">
             <div className="text-center">
-                <h4 className="text-xl dark:text-slate-200">Monthly Applications</h4>
+                <h2 className="text-xl font-bold text-slate-700 dark:text-slate-200">Monthly Applications</h2>
                 <button
-                    className="text-xl text-green-600"
+                    className="text-xl text-green-800 dark:text-green-200 font-semibold"
                     onClick={()=>setBarChart(!barChart)}
+                    aria-label={`Display monthly applications in ${barChart ? "Area Chart": "Bar Chart"}`}
                 >
                     {barChart ? "Area Chart": "Bar Chart"}
                 </button>

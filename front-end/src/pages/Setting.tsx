@@ -27,7 +27,7 @@ export default function SettingPageLayout(){
     
     return (
         <div className="w-full bg-white dark:bg-zinc-800">
-            <h3 className="text-2xl font-semibold px-2 py-4 text-slate-800 dark:text-slate-100 ml-4">Setting</h3>
+            <h2 className="text-2xl font-semibold px-2 py-4 text-slate-800 dark:text-slate-100 ml-4">Setting</h2>
             <Tabs
                 tabs={[tabs.account, tabs.passwrodAndSecurity]}
                 defaultTab={tabs.account}
@@ -40,7 +40,7 @@ export default function SettingPageLayout(){
                         <ChangePassword />
                         <TwoStepAuthentication  />
                     </TabContent>
-                </TabContentList>
+                </TabContentList> 
                 
             </Tabs>
             

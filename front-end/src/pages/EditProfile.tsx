@@ -55,7 +55,7 @@ export default function EditProfile(){
     return (
         <section className="p-4  ">
             <div className="bg-white  dark:bg-zinc-900 p-4 rounded-md shadow-md">
-                <h3 id="formTitle" className="mb-4 text-2xl font-semibold dark:text-slate-200">Profile</h3>
+                <h2 id="formTitle" className="mb-4 text-2xl font-semibold dark:text-slate-200">Profile</h2>
                 
                 <form
                     onSubmit={handleSubmit(action)}
@@ -67,7 +67,7 @@ export default function EditProfile(){
                     <div className="w-full flex gap-3">
                         <img className="w-40 h-36 rounded-md" src={fileUrl as string} />
                         <div className="flex flex-col self-start gap-8">
-                            <h4 className="font-semibold text-xl dark:text-slate-200">Upload your profile Photo</h4>
+                            <h3 className="font-semibold text-xl dark:text-slate-200">Upload your profile Photo</h3>
                             <Input 
                                 label="Select an image File (Max 0.5MB)"
                                 type="file"

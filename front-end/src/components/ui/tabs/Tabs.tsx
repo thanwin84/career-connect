@@ -24,22 +24,23 @@ const Tabs = ({
   return (
     <div className={`w-full p-5 ${className}`}>
         <tabContext.Provider value={{currentTab}}>
-        <ul 
+        <div 
             className="flex rounded-sm shadow-sm dark:bg-zinc-900"
-            role="tabList"
+            role="tablist"
         >
             {tabs?.map((tab, index)=>(
-                <li
-                    tabIndex={0}
+                <button
+                    role="tab"
                     aria-selected={currentTab === tab}
+                    aria-controls={`panel-${tab}`}
                     onClick={()=>setCurrentTab(tab)}
                     className={`flex-1 text-lg px-4 py-2 rounded-md text-center font-semibold m-1 cursor-pointer transition duration-200 ease-in-out ${currentTab === tab ? "bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-slate-300": "text-gray-500 dark:text-slate-300"}`}
                     key={index}
                 >
                     {tab}
-                </li>
+                </button>
             ))}
-        </ul>
+        </div>
         {children}
         </tabContext.Provider>
     </div>

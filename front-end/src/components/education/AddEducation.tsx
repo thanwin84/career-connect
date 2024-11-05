@@ -28,7 +28,10 @@ export default function AddEducation({
 
     }
     return (
-        <ModalContainer className="lg:w-3/6 w-5/6 my-6">
+        <ModalContainer 
+            className="lg:w-3/6 w-5/6 my-6"
+            titleId='add education'
+        >
             <EducationForm  
                 title="Add Education" 
                 submitButtonText="Create"

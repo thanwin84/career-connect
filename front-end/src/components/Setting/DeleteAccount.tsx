@@ -33,11 +33,12 @@ export default function DeleteAccount({
      
     return (
         <div className={`w-full px-2 py-4 dark:border-gray-500 border-gray-300 border-t border-b ${className}`} >
-            <h2 className="text-xl font-bold text-slate-700 pb-2 dark:text-slate-200">Delete Account</h2>
+            <h3 className="text-xl font-bold text-slate-700 pb-2 dark:text-slate-200">Delete Account</h3>
             <p className="font-roboto text-slate-500 dark:text-slate-400">Delete your account and all your information related to your account will be deleted parmanently. Please make sure before deleting your account</p>
             <button
                 className="bg-gray-300 px-4 py-2  rounded-md mt-4 text-slate-500 hover:bg-green-500 hover:text-white"
                 onClick={toggleOpenModal}
+                aria-label="Delete your account"
             >
                 Delete Account
             </button>

@@ -101,7 +101,6 @@ export default function DashboardLayout({defaultTheme}:Props){
                 toggleSmallSidebar
             }}>
             <div className="flex flex-row ">
-                
                 <aside className="dark:bg-zinc-900 h-screen fixed top-0 hidden lg:block md:block">
                     <BigSidebar className=""/> 
                 </aside>

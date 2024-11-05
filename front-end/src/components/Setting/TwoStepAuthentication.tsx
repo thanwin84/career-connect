@@ -55,7 +55,7 @@ export default function TwoStepAuthentication({
     }, [isSuccess])
     return (
         <div className="w-full">
-            <h4 className="text-xl text-slate-600 border-b py-2 dark:text-slate-200">Two Step Authentication</h4>
+            <h3 className="text-xl text-slate-600 border-b py-2 dark:text-slate-200">Two Step Authentication</h3>
             <div className="w-full mt-4 flex justify-between border px-4 py-2 rounded-md">
                 <span className="dark:text-slate-50">Turn on Two Factor Authentication</span>
                 <button

@@ -38,12 +38,17 @@ export default function MultipleSelect({
                 type="button"
                 className="text-gray-600 dark:text-gray-200 text-xl focus:outline-none"
                 onClick={()=>setOpen(!open)}
+
             >
                 {open ? <AngleUpIcon/>: <AngleDownIcon/>}
             </button>
         </div>
         {open && (
-            <ul className="px-6 text-gray-700 dark:text-slate-300 ">
+            <ul 
+                role="list" 
+                aria-label={`${title} options`} 
+                className="px-6 text-gray-700 dark:text-slate-300 "
+            >
                 {options?.map(option =>(
                     <li
                         key={option}
@@ -53,8 +58,10 @@ export default function MultipleSelect({
                             id={option} 
                             type="checkbox"
                             checked={selectedOptions.includes(option)}
+                            aria-checked={selectedOptions.includes(option)}
                             className="accent-green-500 cursor-pointer"
                             onChange={()=>onSelect(option)}
+                            role="checkbox"
                         />
                         <label 
                             htmlFor={option} 

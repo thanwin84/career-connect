@@ -28,6 +28,7 @@ export default function ToggleStatus({accessStatus, _id, handleToggle}:Props){
         <button
             type="submit"
             onClick={action}
+            aria-label={accessStatus ? "Turn off access status": "turn on access status" }
         >
             {accessStatus ? <TurnOn/>: <TurnOff/>}
         </button>

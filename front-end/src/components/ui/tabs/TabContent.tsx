@@ -16,7 +16,11 @@ export default function TabContent({
     return (
         <>
         {value === currentTab && (
-            <div className={`${className}`}>
+            <div 
+                role='tabpanel'
+                id={`panel-${value}`}
+                className={`${className}`}
+            >
                 {children}
             </div>)}
         </>

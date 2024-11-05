@@ -36,7 +36,7 @@ export default function EditEducation(){
     
     return (
         <ModalContainer
-            modelClassName= ""
+            titleId='edit-education-id'
             className="lg:w-3/6 w-5/6 dark:bg-zinc-900 bg-white my-6 rounded-md"
         >
             <EducationForm 
@@ -46,6 +46,7 @@ export default function EditEducation(){
                 closeModal={actions.toggleEditEducationModal}
                 onSave={handleOnsave}
                 submitButtonText="Save Changes"
+                id='edit-education-id'
             />
             <DeleteEducationRecord
                 closeModal={actions.toggleEditEducationModal}

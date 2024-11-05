@@ -28,13 +28,13 @@ export default function JobCard({
     const navagation = useNavigation()
     
     return (
-        <section className="p-4 rounded-md mb-2 shadow-md bg-white dark:bg-zinc-900">
+        <article role='listitem' aria-labelledby={`job-title-${job._id}`} className="p-4 rounded-md mb-2 shadow-md bg-white dark:bg-zinc-900">
            <header className="flex border-b border-b-slate-200 p-4">
             <div className="mr-4 bg-blue-700 text-white p-4 rounded-md">
                 {job.company.substring(0, 1).toUpperCase()}
             </div>
             <div className="">
-                <h4 className="text-xl dark:text-slate-100">{job.position}</h4>
+                <h3 id={`job-title-${job._id}`} className="text-xl dark:text-slate-100">{job.position}</h3>
                 <h4 className="text-slate-600  dark:text-slate-200">{job.company}</h4>
             </div>
            </header>
@@ -73,6 +73,6 @@ export default function JobCard({
                 </Button>
             </Form>
            </div>
-        </section>
+        </article>
     )
 }

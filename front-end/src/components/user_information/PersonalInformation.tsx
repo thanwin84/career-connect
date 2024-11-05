@@ -27,14 +27,15 @@ export default function PersonalInformation({
     phoneNumber
 } = user
     return (
-        <div className={`bg-white dark:bg-zinc-900 w-full rounded-md shadow-md px-8 py-6 ${className}`}>
+        <section  className={`bg-white dark:bg-zinc-900 w-full rounded-md shadow-md px-8 py-6 ${className}`}>
             <div className="flex justify-between mb-3">
                 <h2 className="text-xl font-bold text-slate-800 dark:text-slate-300">Personal Information</h2>
                 <Link
+                    aria-label="click to edit profile information"
                     to="../profile/edit"
                     className="my-auto text-xl dark:text-slate-200 hover:text-slate-900 font-bold"
                 >
-                <CiEdit/>
+                    <CiEdit/>
                 </Link>
             </div>
             {/* side */}
@@ -47,11 +48,11 @@ export default function PersonalInformation({
                             className="w-36 h-36 object-cover rounded-sm" 
                         />
                     )}
-                    <h4 
+                    <p 
                         className="text-base mt-2 text-center font-semibold text-gray-600 dark:text-slate-200 my-auto"
                     >
                         {name.slice(0,1).toUpperCase() + name.slice(1)} {lastName}
-                    </h4>
+                    </p>
                 </div>
                 <div className="space-y-2">
                     <ProfileInfo icon={<MdEmail/>} text={email} />
@@ -61,7 +62,7 @@ export default function PersonalInformation({
                 </div>
             </div>
            
-        </div>
+        </section>
     )
 }
 

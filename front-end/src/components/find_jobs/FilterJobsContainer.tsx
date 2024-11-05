@@ -55,13 +55,14 @@ export default function FilterJobsContainer({
     }
     
     return (
-        <Form className={`bg-white dark:bg-zinc-900  shadow-md  px-4 ${className}`}>
+        <Form aria-label="Filter buttons" className={`bg-white dark:bg-zinc-900  shadow-md  px-4 ${className}`}>
             <div className="flex justify-between px-3 py-3 border-b border-gray-300 dark:border-gray-500">
                 <span className="font-medium text-gray-700 dark:text-slate-300">Filter</span>
                 <button
                     type="button"
-                    className="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 "
+                    className="text-blue-600 font-semibold hover:text-blue-700 dark:hover:text-blue-400 "
                     onClick={handleClearFilter}
+                    aria-label="click to reset filter"
                 >
                     Clear All
 

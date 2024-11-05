@@ -11,6 +11,7 @@ export default function PageButton({pageNumber, activePage, handlePageChange}:Pr
             className={activePage ? activePageBtnStyle: pageBtnStyle}
             key={pageNumber}
             onClick={()=>handlePageChange(pageNumber)}
+            aria-label={`Go to ${pageNumber}`}
         >
             {pageNumber}
         </button>

@@ -30,20 +30,24 @@ export default function Admin({}:Props){
     return (
         
         <section>
-            <div className="p-6 flex gap-4">
-                <StatItem
-                    count={users}
-                    title="Current User"
-                    icon={<FaSuitcaseRolling/>}
-                    color="orange"
-                />
-                <StatItem
-                    count={jobs}
-                    title="Total Jobs"
-                    icon={<FaCalendarCheck />}
-                    color = "blue"
-                />
-            </div>
+            <ul className="p-6 flex gap-4">
+                <li className='w-full'>
+                    <StatItem
+                        count={users}
+                        title="Current User"
+                        icon={<FaSuitcaseRolling/>}
+                        color="orange"
+                    />
+                </li>
+                <li className='w-full'>
+                    <StatItem
+                        count={jobs}
+                        title="Total Jobs"
+                        icon={<FaCalendarCheck />}
+                        color = "blue"
+                    />
+                </li>
+            </ul>
             <UsersContainer className="p-6" />
         </section>
     )

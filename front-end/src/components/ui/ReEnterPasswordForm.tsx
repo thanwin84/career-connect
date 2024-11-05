@@ -25,7 +25,7 @@ export default function ReEnterPasswordForm({
     return (
         <div className={`w-full  p-10 bg-white dark:bg-zinc-900 flex items-center rounded-md ${className}`} >
             <div className="mx-auto">
-            <h1 className="text-xl mb-2 font-semibold dark:text-slate-100">{title}</h1>
+            <h4 className="text-xl mb-2 font-semibold dark:text-slate-100">{title}</h4>
             <p className="mb-2 dark:text-slate-200 text-slate-800">{description}</p>
             <form 
                 onSubmit={handleSubmit(action)} 

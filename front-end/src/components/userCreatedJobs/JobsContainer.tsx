@@ -13,17 +13,19 @@ export default function JobsContainer(){
         )
     }
     return (
-        <section>
-            <h4 className="font-bold text-slate-600 dark:text-slate-200 mb-2 px-6">{totalJobs} job{jobs.length > 1 ? "s": ""} found</h4>
-            <section className="grid lg:grid-cols-2 md:grid-cols-2 gap-4 px-4">
-            {jobs.map(job =>(
-                <JobCard key={job._id} job={job} />
-            ))}
-            
-        </section>
-        <div className="mr-2">
-        { totalPages> 1 && (<AllJobsPaginationContainer />)}
-        </div>
+        <section 
+            role="region"
+            aria-label="list of jobs created by you"
+        >
+            <h2 className="font-bold text-slate-600 dark:text-slate-200 mb-2 px-6">{totalJobs} job{jobs.length > 1 ? "s": ""} found</h2>
+            <section role='list' aria-label="job list created by you" className="grid lg:grid-cols-2 md:grid-cols-2 gap-4 px-4">
+                {jobs.map(job =>(
+                    <JobCard key={job._id} job={job}/>
+                ))}
+            </section>
+            <div className="mr-2">
+            { totalPages> 1 && (<AllJobsPaginationContainer />)}
+            </div>
         </section>
     )
-}
+} 

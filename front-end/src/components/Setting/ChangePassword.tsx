@@ -17,7 +17,7 @@ export default function ChangePassword(){
     
     return (
         <div className="w-full">
-            <h4 className="text-xl text-slate-600 border-b py-2 dark:text-slate-200">Password and Security</h4>
+            <h3 className="text-xl text-slate-600 border-b py-2 dark:text-slate-200">Password and Security</h3>
             <p className="py-2 text-slate-700 dark:text-slate-300">Enter your current password along with new one to change it. </p>
             <form className="py-4" onSubmit={handleSubmit(changePassword)} >
                 <Input

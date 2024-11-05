@@ -27,7 +27,7 @@ export default function EducationInfo({
             <UniversityIcon size= "1.6rem" />
         </div>
             <div className="w-full">
-                <h4 className="font-bold text-slate-800 dark:text-slate-200 text-base">{record.school}</h4>
+                <h3 className="font-bold text-slate-800 dark:text-slate-200 text-base">{record.school}</h3>
                 <div className="w-full flex justify-between">
                     <p className="text-sm text-slate-700 dark:text-slate-300">
                         <span >{record.department}</span>
@@ -42,6 +42,7 @@ export default function EducationInfo({
                     <button
                         className="text-slate-700 dark:text-slate-300 dark:hover:text-blue-500"
                         onClick={handleClick}
+                        aria-label={`click to edit ${record.school}`}
                     >
                         <EditIcon />
                     </button>
