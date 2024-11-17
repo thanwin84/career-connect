@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useDeleteEducationRecord } from "../../api/UserApi";
-import { useAppContext } from "../../contexts/AppProvider";
-import { Button } from "../ui";
-import { Education } from "../../types";
+import { useDeleteEducationRecord } from "../../../api/UserApi";
+import { useAppContext } from "../../../contexts/AppProvider";
+import { Button } from "../../ui";
+import { Education } from "../../../types";
 import { useForm } from "react-hook-form";
 
 type Props = {

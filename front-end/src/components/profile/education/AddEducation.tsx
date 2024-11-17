@@ -1,8 +1,8 @@
-import {EducationForm} from './'
-import { ModalContainer } from "../ui";
-import { useAddEducationRecord } from "../../api/UserApi";
-import { useAppContext } from '../../contexts/AppProvider';
-import { Education, FormData } from '../../types';
+import {EducationForm} from '.'
+import { ModalContainer } from "../../ui";
+import { useAddEducationRecord } from "../../../api/UserApi";
+import { useAppContext } from '../../../contexts/AppProvider';
+import { Education, FormData } from '../../../types';
 import { useEffect, useState } from 'react';
 import ObjectId from 'bson-objectid';
 

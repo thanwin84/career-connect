@@ -5,13 +5,15 @@ import { Education } from "../types"
 type ProfileStateType = {
     addEducationModal: boolean
     editEducationModal: boolean
-    selectedEducationRecord: Education | null
+    selectedEducationRecord: Education | null,
+    profilePhotoUploadModal: boolean
 }
 
 const profileInitialState:ProfileStateType = {
     addEducationModal: false,
     editEducationModal: false,
-    selectedEducationRecord: null
+    selectedEducationRecord: null,
+    profilePhotoUploadModal: false
 }
 
 export const useProfileStore = ()=>{
@@ -41,6 +43,11 @@ export const useProfileStore = ()=>{
                 resetSelectedEducationRecord: ()=>{
                     setState(produce(draft=>{
                         draft.selectedEducationRecord = null
+                    }))
+                },
+                toggleProfileUploadModal: ()=>{
+                    setState(produce(draft=>{
+                        draft.profilePhotoUploadModal = !draft.profilePhotoUploadModal
                     }))
                 }
             }

@@ -1,10 +1,10 @@
 
-import { useAppContext } from "../../contexts/AppProvider";
-import { Education } from "../../types";
+import { useAppContext } from "../../../contexts/AppProvider";
+import { Education } from "../../../types";
 import { 
     UniversityIcon, 
     EditIcon
- } from "../../utils/Icons";
+ } from "../../../utils/Icons";
 
 type Props = {
     record: Education

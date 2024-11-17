@@ -1,4 +1,4 @@
-import { useAppContext } from '../../contexts/AppProvider'
+import { useAppContext } from '../../../contexts/AppProvider'
 import {EducationInfo} from './index'
 
 type Props = {

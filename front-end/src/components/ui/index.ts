@@ -25,6 +25,7 @@ import Password from "./Password";
 import SlideOpen from "./SlideOpen";
 import LoadingButton from "./LoadingButton";
 import LoadingPage from "./LoadingPage";
+import ProgressBar from "./ProgressBar";
 export {
     Button,
     Spinner,
@@ -52,5 +53,6 @@ export {
     Password,
     SlideOpen,
     LoadingButton,
-    LoadingPage
+    LoadingPage,
+    ProgressBar
 }

@@ -40,6 +40,8 @@ const checkDefaultTheme = ()=>{
   return theme
 }
 const theme = checkDefaultTheme()
+// testing
+
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,10 @@ const router = createBrowserRouter([
     element: <HomeLayout />,
     errorElement: <Error/>,
     children: [
+      {
+        path: "testing",
+        
+      },
       {
         index: true,
         element: <Landing/>

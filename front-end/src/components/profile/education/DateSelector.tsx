@@ -1,5 +1,5 @@
 import  {useEffect, useState} from "react"
-import {Select} from '../ui'
+import {Select} from '../../ui'
 import { useFormContext } from "react-hook-form"
 
 const months = [

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useUpdateEducationRecord } from '../../api/UserApi'
-import { useAppContext } from '../../contexts/AppProvider'
-import { Education, FormData } from '../../types'
+import { useUpdateEducationRecord } from '../../../api/UserApi'
+import { useAppContext } from '../../../contexts/AppProvider'
+import { Education, FormData } from '../../../types'
 import {
     ModalContainer
-} from '../ui'
+} from '../../ui'
 import {
     EducationForm,
     DeleteEducationRecord

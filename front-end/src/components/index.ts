@@ -2,9 +2,9 @@ import ModalContainer from "./ui/ModalContainer";
 import AreaChart from "./stats/AreaChart";
 import BarChart from "./stats/BarChart";
 import StatsContainer from "./stats/StatsContainer";
-import PersonalInformation from "./user_information/PersonalInformation";
+import BasicInformation from "./profile/user_information/BasicInformation";
 import Checkbox from "./ui/CheckBox";
-import EducationContainer from "./education/EducationContainer";
+import EducationContainer from "./profile/education/EducationContainer";
 import SettingLinks from "./Setting/SettingLinks";
 import ChangePassword from "./Setting/ChangePassword";
 import TwoStepAuthentication from "./Setting/TwoStepAuthentication";
@@ -45,7 +45,7 @@ export {
     AreaChart,
     BarChart,
     StatsContainer,
-    PersonalInformation,
+    BasicInformation as PersonalInformation,
     Checkbox,
     EducationContainer,
     SettingLinks,

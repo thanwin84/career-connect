@@ -31,6 +31,7 @@ export default function Button({
     return (
         <button
             {...props}
+            
             disabled={loading}
             className={` ${classname} px-4 py-2 rounded-md ${loading ? loadingStyle: styles[category]} `}
         >

@@ -2,11 +2,11 @@ import {
     Input,
     Checkbox,
     Button
-} from "../ui"
-import {DateSelector} from './'
-import { CrossIcon } from "../../utils/Icons";
+} from "../../ui"
+import {DateSelector} from '.'
+import { CrossIcon } from "../../../utils/Icons";
 import {FormProvider, useForm} from 'react-hook-form'
-import { Education, FormData } from "../../types";
+import { Education, FormData } from "../../../types";
 
 
 type Props = {
