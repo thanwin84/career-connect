@@ -70,10 +70,15 @@ const login = asyncHandler(async(req:Request, res:Response)=>{
 })
 
 const logout = asyncHandler(async(req:Request, res:Response)=>{
-    const options = {
+    // const options = {
+    //     httpOnly: true,
+    //     secure: true
+    // }
+    const options: CookieOptions = {
         httpOnly: true,
-        secure: true
-    }
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      };
     res
     .status(statusCodes.OK)
     .clearCookie("token", options)

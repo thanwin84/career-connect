@@ -20,10 +20,10 @@ import upload from '../middleware/multer.middleware'
 
 const router = Router()
 
-router.route("/:userId/upload-profile-photo").patch(upload.single('avatar'), uploadPhoto)
+
 
 router.use(authenticateUser)
-
+router.route("/upload-profile-photo").patch(upload.single('avatar'), uploadPhoto)
 router.route("/toggle-access-status/:userId").patch(authorizePermissions("admin"), toggleAccessStatus)
 router.route("/get-users-list").get(authorizePermissions("admin"), getUsersList)
 

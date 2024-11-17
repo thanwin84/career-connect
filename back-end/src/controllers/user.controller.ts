@@ -49,15 +49,16 @@ import { Request, Response } from 'express'
  })
 
  const uploadPhoto = asyncHandler(async (req:Request, res:Response)=>{
-   const {userId} = req.params
    const localFilePath = req?.file?.path
-   const user = await User.findById(userId)
+   const user = await User.findById(req.user.userId)
    if (!user){
-      throw new NotFoundError(`User with id ${userId} is not found`)
+      throw new NotFoundError(`User with id ${req.user.userId} is not found`)
    }
    if (localFilePath){
       const uploadedPhoto = await uploadOnCloudinary(localFilePath)
+      const oldPhotoId = user.avatar[1]
       user.avatar = uploadedPhoto ? [uploadedPhoto.url, uploadedPhoto.public_id]: []
+      await deleteAsset(oldPhotoId)
    }
    await user.save()
    res.status(statusCodes.OK).json({message: "Photo has been updated", user})

@@ -47,6 +47,13 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: [String] //cloudinary url-avatar:[url, publicId]
     },
+    coverPhoto: {
+        type: [String] //cloudinary url-avatar:[url, publicId]
+    },
+    title: {
+        type:String,
+        trim: true,
+    },
     educationRecords: [educationSchema],
     // only admin can change this
     accessStatus: {
