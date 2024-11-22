@@ -18,6 +18,7 @@ export default function EducationInfo({
     const {profileStore: { actions}} = useAppContext()
     
     function handleClick(){
+        console.log("record", record)
         actions.handleSetEducationRecord(record)
         actions.toggleEditEducationModal()
     }

@@ -16,7 +16,8 @@ type Props = {
     isPending: boolean
     closeModal: ()=> void
     submitButtonText: string
-    id?: string
+    id?: string,
+    className?: string
 }
 
 export default function EducationForm({
@@ -26,7 +27,8 @@ export default function EducationForm({
     isPending,
     closeModal,
     submitButtonText,
-    id="id"
+    id="id",
+    className
 }:Props){ 
     const methods = useForm(
         {
@@ -47,7 +49,7 @@ export default function EducationForm({
     
     
     return (
-        <section className="bg-white dark:bg-zinc-900 px-6 py-6 rounded-lg">
+        <section className={`bg-white dark:bg-zinc-900 px-6 py-6 rounded-lg ${className}`}>
            <div className="flex justify-between">
             <h2 id={id} className="text-xl mb-2 dark:text-slate-200">{title}</h2>
             <button

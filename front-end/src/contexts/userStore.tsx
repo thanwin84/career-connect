@@ -68,6 +68,15 @@ export const useUserStore = ()=>{
                         draft.user.educationRecords = draft.user.educationRecords.filter(record=> record._id !== id)
                     }
                 }))
+            },
+            updateUserAvatar: (avatar: string[])=>{
+                setState(produce(draft=>{
+                    
+                    if (draft.user?.avatar){
+                        console.log("updated")
+                        draft.user.avatar = avatar
+                    }
+                }))
             }
         }
     })

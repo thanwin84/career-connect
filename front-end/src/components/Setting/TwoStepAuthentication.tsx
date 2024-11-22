@@ -2,9 +2,9 @@ import {  useEffect } from "react";
 import { 
     TurnOff,
     TurnOn,
-    CloseModal,
-    ModalContainer,
-    ReEnterPasswordForm
+    ReEnterPasswordForm,
+    Modal,
+    CrossButton
  } from "../ui";
  import {
     EnterConfirmationCode,
@@ -65,13 +65,18 @@ export default function TwoStepAuthentication({
                     
                 </button>
             </div>
-            {settingStore.state.openModal && (<ModalContainer className="w-5/6 md:w-[60%]">
-                <CloseModal 
-                    handleOpenModal={settingStore.actions.toggleOpenModal}
-                >
-                    {step}
-                </CloseModal>
-            </ModalContainer>)}
+            
+            <Modal 
+                isOpen={settingStore.state.openModal}
+            >
+                <div className="relative w-[90%] md:w-[60%] mx-auto max-w-[600px]">
+                        <CrossButton 
+                            className="absolute right-4 top-10" 
+                            action={settingStore.actions.toggleOpenModal}
+                         />
+                        {step}
+                </div>
+            </Modal>
         </div>
     )
 }

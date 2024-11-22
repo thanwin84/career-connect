@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react'
 import { useUpdateEducationRecord } from '../../../api/UserApi'
 import { useAppContext } from '../../../contexts/AppProvider'
 import { Education, FormData } from '../../../types'
-import {
-    ModalContainer
-} from '../../ui'
+
 import {
     EducationForm,
     DeleteEducationRecord
@@ -35,10 +33,7 @@ export default function EditEducation(){
     }
     
     return (
-        <ModalContainer
-            titleId='edit-education-id'
-            className="lg:w-3/6 w-5/6 dark:bg-zinc-900 bg-white my-6 rounded-md"
-        >
+        <div className='relative'>
             <EducationForm 
                 title = "Edit Education"
                 record={state.selectedEducationRecord as Education}
@@ -49,8 +44,9 @@ export default function EditEducation(){
                 id='edit-education-id'
             />
             <DeleteEducationRecord
+                className='absolute bottom-6 left-8'
                 closeModal={actions.toggleEditEducationModal}
             />
-        </ModalContainer>
+        </div>
     )
 }

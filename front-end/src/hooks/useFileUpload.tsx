@@ -1,11 +1,17 @@
 import { useState } from "react"
 import { customFetch } from "../utils"
-import { FormData } from "../types"
+import { FormData, User } from "../types"
 
-
+type Type = {
+    isLoading: boolean,
+    isSuccess: boolean,
+    data: User | null,
+    isError: boolean,
+    error: null
+}
 
 export default function useFileUpload(){
-    const [state, setState] = useState({
+    const [state, setState] = useState<Type>({
         isLoading: false,
         isSuccess: true,
         data: null,
@@ -36,10 +42,12 @@ export default function useFileUpload(){
                     }
                 }
             )
+            
+            
             setState({
                 isLoading: false,
                 isSuccess: true,
-                data: response.data,
+                data:  response.data.user as User,
                 isError: false,
                 error: null
             })
@@ -53,10 +61,20 @@ export default function useFileUpload(){
             })
         }
     }
+    function resetState(){
+        setState({
+            isLoading: false,
+            isSuccess: true,
+            data: null,
+            isError: false,
+            error: null
+        })
+    }
 
     return {
         uploadPhoto,
         ...state,
-        uploadParcentage
+        uploadParcentage,
+        resetState
     }
 }

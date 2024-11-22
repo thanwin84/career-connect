@@ -3,7 +3,7 @@ import {
     ReEnterPasswordForDelete,
     ConfirmAccountDelete
 } from '../Setting'
-import { ModalContainer, CloseModal } from "../ui";
+import { Modal, CrossButton } from "../ui";
 import useMultiStep from "../../hooks/useMultiStep";
 import { useAppContext } from "../../contexts/AppProvider";
 import { User } from "../../types";
@@ -42,12 +42,16 @@ export default function DeleteAccount({
             >
                 Delete Account
             </button>
-            {openModal && (
-                <ModalContainer className="p-6 lg:w-4/6">
-                    <CloseModal handleOpenModal={toggleOpenModal}>
+            {(
+                <Modal 
+                    titleId="delete-account"
+                    isOpen={openModal}
+                >
+                    <div className="relative w-[90%] md:w-[60%] mx-auto max-w-[600px]">
+                        <CrossButton className="absolute right-4 top-10" action={toggleOpenModal} />
                         {step}
-                    </CloseModal>
-                </ModalContainer>
+                    </div>
+                </Modal>
             )}
         </div>
     )

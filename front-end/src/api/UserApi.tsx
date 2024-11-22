@@ -211,14 +211,19 @@ export const useAddEducationRecord = ()=>{
 
 export const useUpdateEducationRecord = ()=>{
     const {profileStore: {state}} = useAppContext()
-    const {_id} = state.selectedEducationRecord as Education
+    let id = ""
+    const education = state.selectedEducationRecord
+    if (education !== null){
+        const {_id} = education
+        id = _id
+    }
     const {
         mutate:updateEducationRecord, 
         isPending, 
         isSuccess,
         resetState
     } = useMutation(
-            (formData:FormData)=>updateEducationRecordRequest(formData, _id),
+            (formData:FormData)=>updateEducationRecordRequest(formData, id),
             {
                 onSuccess: ()=>{
                     toast.success("Education record is updated successfully.")
@@ -238,14 +243,19 @@ export const useUpdateEducationRecord = ()=>{
 
 export const useDeleteEducationRecord = ()=>{
     const {profileStore: {state}} = useAppContext()
-    const {_id} = state.selectedEducationRecord as Education
+    let id = ""
+    const education = state.selectedEducationRecord
+    if (education !== null){
+        const {_id} = education
+        id = _id
+    }
     const {
         mutate: deleteEducationRecord,
         isPending,
         isSuccess,
         resetState
     } = useMutation(
-        ()=>deleteEducationRecordRequest(_id),
+        ()=>deleteEducationRecordRequest(id),
         {
             onSuccess: ()=>{
                 toast.success("Education is deleted successfully")

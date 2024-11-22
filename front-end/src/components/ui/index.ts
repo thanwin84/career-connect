@@ -26,6 +26,8 @@ import SlideOpen from "./SlideOpen";
 import LoadingButton from "./LoadingButton";
 import LoadingPage from "./LoadingPage";
 import ProgressBar from "./ProgressBar";
+import Modal from "./Modal";
+import CrossButton from "./CrossButton";
 export {
     Button,
     Spinner,
@@ -54,5 +56,7 @@ export {
     SlideOpen,
     LoadingButton,
     LoadingPage,
-    ProgressBar
+    ProgressBar,
+    Modal,
+    CrossButton
 }

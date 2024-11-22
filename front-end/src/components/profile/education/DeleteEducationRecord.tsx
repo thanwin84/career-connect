@@ -2,15 +2,16 @@ import { useEffect } from "react";
 import { useDeleteEducationRecord } from "../../../api/UserApi";
 import { useAppContext } from "../../../contexts/AppProvider";
 import { Button } from "../../ui";
-import { Education } from "../../../types";
 import { useForm } from "react-hook-form";
 
 type Props = {
     closeModal: ()=> void
+    className?: string
 }
 
 export default function DeleteEducationRecord({
-    closeModal
+    closeModal,
+    className
 }:Props){
     const {
         isPending, 
@@ -20,24 +21,29 @@ export default function DeleteEducationRecord({
         profileStore: {state:profileState}, 
         userStore: {actions:userActions}
     } = useAppContext()
-    const {_id} = profileState.selectedEducationRecord as Education
+    let id = ""
+    const educationRecord =  profileState.selectedEducationRecord
+    if (educationRecord){
+        const {_id} = educationRecord
+        id = _id
+    }
     const {handleSubmit} = useForm()
     
     useEffect(()=>{
         if (isSuccess){
             closeModal()
-            userActions.deleteEducationRecord(_id)
+            userActions.deleteEducationRecord(id)
         }
     },[isSuccess])
 
     
     return (
-        <form  onSubmit={handleSubmit(deleteEducationRecord)} className="flex">
+        <form className="" onSubmit={handleSubmit(deleteEducationRecord)} >
             <Button
                 category="lightDanger"
                 type="submit"
                 loading={isPending}
-                classname="mb-4 text-sm mx-auto px-6"
+                classname={`mb-4 text-sm mx-auto px-6 ${className}`}
             >
                 Delete
             </Button>

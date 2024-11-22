@@ -4,26 +4,37 @@ import { FormData as FormDataT, User } from "../../types";
 import { Button, Input, ProgressBar } from "../ui";
 import { IoMdPhotos as PhotoIcon } from "react-icons/io";
 import useFileUpload from "../../hooks/useFileUpload";
+import { useAppContext } from "../../contexts/AppProvider";
+import { useEffect } from "react";
 
 
 type Props = {
   className?: string;
-  user: User
 };
 
 export default function ProfileUpload({
-    className,
-    user
+    className
 }: Props) {
-    const {fileUrl, handleFileChange} = useFilePreview(user?.avatar?.[0])
+    
     const {handleSubmit, register, formState: {errors}} = useForm()
+    const {
+        profileStore: {actions}, userStore: {actions:userActions, state:userState}
+    } = useAppContext()
+    const {fileUrl, handleFileChange} = useFilePreview(userState.user?.avatar?.[0])
     const {
         uploadPhoto,
         uploadParcentage,
-        isLoading
+        isLoading,
+        isSuccess,
+        data,
     } = useFileUpload()
-
-    console.log("user", user)
+   
+    useEffect(()=>{
+        if (isSuccess){
+            actions.toggleProfileUploadModal()
+            userActions.updateUserAvatar(data?.avatar as string[])
+        }
+    }, [isSuccess])
     
     async function action(formdata:FormDataT){
         const data = new FormData()
@@ -34,7 +45,7 @@ export default function ProfileUpload({
         uploadPhoto(data)
     }
   return (
-    <div className={`dark:bg-zinc-800 bg-white p-8 ${className}`}>
+    <div className={`dark:bg-zinc-800 bg-white p-8 rounded-md ${className}`}>
         <h2 className="text-center text-2xl  text-slate-800 dark:text-slate-200 font-semibold mb-4">Upload your profile photo</h2>
         <div className="w-52 h-52 border-2 border-dashed border-gray-300 rounded-full bg-gray-50 mx-auto mb-4">
             <img className="w-full h-full object-cover rounded-full" src={fileUrl || ""} alt='uploaded photo' />
@@ -42,9 +53,9 @@ export default function ProfileUpload({
         <div className="w-full flex gap-6">
             <span className="my-auto text-gray-400">{<PhotoIcon size={22} />}</span>
             <div className="w-full flex flex-col gap-2">
-                <span className="font-semibold">File name</span>
+                <span className="font-semibold dark:text-slate-200 ">File name</span>
                 <ProgressBar parcentage={uploadParcentage} />
-                <p className="text-slate-700">{uploadParcentage}% done</p>
+                <p className="text-slate-700 dark:text-slate-300">{uploadParcentage}% done</p>
             </div>
         </div>
         <form 

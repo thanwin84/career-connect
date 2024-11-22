@@ -41,8 +41,7 @@ const checkDefaultTheme = ()=>{
 }
 const theme = checkDefaultTheme()
 // testing
-
-
+import Test from './components/Test'
 const router = createBrowserRouter([
   {
     
@@ -52,7 +51,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "testing",
-        
+        element: <Test />
       },
       {
         index: true,

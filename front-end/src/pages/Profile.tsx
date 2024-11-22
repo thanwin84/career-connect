@@ -2,7 +2,7 @@
 
 import BasicInformation from "../components/profile/user_information/BasicInformation";
 import { EducationContainer } from "../components/profile/education";
-import { CloseModal, LoadingPage, ModalContainer } from "../components/ui";
+import { CloseModal, CrossButton, LoadingPage, Modal, ModalContainer } from "../components/ui";
 import { useUserInformation } from "../api/UserApi";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import { useAppContext } from "../contexts/AppProvider";
@@ -28,13 +28,15 @@ export default function Profile(){
                 className= "mb-4 lg:w-4/6 w-5/6 mx-auto" 
              />
             <EducationContainer className= "lg:w-4/6 w-5/6 mx-auto"/>
-            {profileSate.profilePhotoUploadModal && (
-                <ModalContainer modelClassName="mx-auto">
-                    <CloseModal handleOpenModal={profileActions.toggleProfileUploadModal}>
-                        <ProfileUpload className="rounded-md w-[80%] md:w-[60%] lg:w-[40%] mx-auto" user={user} />
-                    </CloseModal>
-                </ModalContainer>
-            )}
+            <Modal isOpen={profileSate.profilePhotoUploadModal}>
+                <div className="relative w-[90%] md:w-[60%] mx-auto max-w-[500px]">
+                    <CrossButton 
+                        className="absolute right-4 top-10" 
+                        action={profileActions.toggleProfileUploadModal} 
+                    />
+                    <ProfileUpload  />
+                </div>
+            </Modal>
         </div>
     )
 }

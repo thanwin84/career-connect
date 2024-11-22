@@ -7,6 +7,7 @@ import {
 import { useAppContext } from "../../../contexts/AppProvider";
 import { Heading } from '../user_information';
 import { FaGraduationCap } from 'react-icons/fa';
+import { Modal } from '../../ui';
 
 type Props = {
     className?: string
@@ -36,11 +37,22 @@ export default function EducationContainer({
                 </div>
                 <EducationRecordList />
                 {/* adding education modal */}
-                {state.addEducationModal && <AddEducation />}
+                <Modal 
+                    isOpen={state.addEducationModal}
+                >
+                    <div className="w-[85%] mx-auto max-w-[600px] p-6">
+                        <AddEducation />
+                    </div>
+                </Modal>
                 {/* Edit education modal */}
-                {state.editEducationModal && (
-                    <EditEducation />
-                )}
+                <Modal 
+                    isOpen={state.editEducationModal}
+                >
+                    <div className="w-[85%] mx-auto max-w-[600px] p-6">
+                        <EditEducation />
+                    </div>
+                </Modal>
+                
         </section>
     )
 }
