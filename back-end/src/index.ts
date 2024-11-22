@@ -36,16 +36,17 @@ import authRouter from './routes/auth.route'
 import userRouter from './routes/user.route'
 import recordsRouter from './routes/records.route'
 import  jobApplicationRouter from './routes/jobApplication.route'
+import accoutSettingRouter from './routes/accountSetting.route'
+import verificationRouter from './routes/verification.route'
 
-// public
-// import path, {dirname} from "path"
-// import { fileURLToPath } from 'url'
-// const __dirname = dirname(fileURLToPath(import.meta.url))
+
 
 
 // routes declaration
-app.use("/api/v1/jobs", jobRouter)
 app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/account-setting", accoutSettingRouter)
+app.use('/api/v1/verification', verificationRouter)
+app.use("/api/v1/jobs", jobRouter)
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/records", recordsRouter)
 app.use("/api/v1/job-applications", jobApplicationRouter)

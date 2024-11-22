@@ -17,17 +17,16 @@ import { authenticateUser } from "../middleware/auth.middleware";
 const router = Router()
 
 router.route('/all-jobs').get(getJobs)
-router.use(authenticateUser)
 
 router.route("/")
-.get(getAllJobsCreatedByUser)
-.post(ValidateJobInput,createJob)
+.get(authenticateUser, getAllJobsCreatedByUser)
+.post(authenticateUser,ValidateJobInput,createJob)
 
-router.route("/show-stats").get(showStats)
+router.route("/show-stats").get(authenticateUser, showStats)
 
 router.route("/:id")
 .get(getJob)
-.patch(validateIdParam,ValidateJobInput,updateJob)
-.delete(validateIdParam,deleteJob)
+.patch(authenticateUser,validateIdParam,ValidateJobInput,updateJob)
+.delete(authenticateUser,validateIdParam,deleteJob)
 
 export default router

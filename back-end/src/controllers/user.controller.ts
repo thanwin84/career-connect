@@ -23,7 +23,7 @@ import { Request, Response } from 'express'
    
    const user = await User.findOne({email: req.body.email})
    if (user && user._id.toString() !== req.user.userId){
-      throw new BadRequestError("email already exists")
+      throw new BadRequestError("User does not exists")
    }
    const obj = {...req.body}
    delete obj.password

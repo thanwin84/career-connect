@@ -14,7 +14,7 @@ const statusCodes = {
     PRECONDITION_FAILED: 412, // Precondition failed
     INTERNAL_SERVER_ERROR: 500,
     NOT_IMPLEMENTED: 501, // Server does not support the functionality
-} as const
+} as const 
 
 const JOB_STATUS = {
     PENDING: 'pending',

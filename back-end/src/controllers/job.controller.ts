@@ -148,7 +148,7 @@ const createJob = asyncHandler(async (req:Request, res:Response)=>{
     const job = await Job.create(req.body)
 
     res.status(statusCodes.CREATED).json({job})
-})
+}) 
 
 const getJob = asyncHandler(async (req:Request, res:Response)=>{
     const {id} = req.params

@@ -1,6 +1,7 @@
 import {
     body,
     param,
+    query,
     ValidationChain,
     validationResult
 } from 'express-validator'
@@ -8,7 +9,7 @@ import {BadRequestError, UnauthorizedError} from '../errors/customErrors'
 import { JOB_STATUS, JOB_TYPE, experianceLevel } from '../utils/constants'
 import mongoose from 'mongoose'
 import { Job } from '../models/job.model'
-import { NextFunction, Request, RequestHandler, Response } from 'express'
+import { NextFunction,  Request, RequestHandler, Response } from 'express'
 
 const withValidationError = (validateValues:ValidationChain | ValidationChain[])=>{
     return [
@@ -98,4 +99,14 @@ export const validateJobApplicationInput = withValidationError([
     body('candidateId').notEmpty().withMessage("candidateId is required"),
     body('recruiterId').notEmpty().withMessage("recruiterId is required"),
     body('recruiterId').notEmpty().withMessage("recruiterId is required")
+])
+export const validateApplicationUpdateStatus = withValidationError([
+    body('status').notEmpty().withMessage("status is required"),
+    query('applicationIds')
+    .isArray({min: 1})
+    .bail()
+    .withMessage("applicationsIds must be array and it should have at least one item")
+    .custom(ids => ids.every((id:string)=> mongoose.Types.ObjectId.isValid(id) ))
+    .withMessage("id must be valid")
+
 ])

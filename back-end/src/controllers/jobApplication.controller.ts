@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import asyncHandler from "../utils/asyncHandler"
 import { JobApplication, JobApplicationT } from "../models/jobApplication.model"
-import { BadRequestError, NotFoundError, UnauthorizedError } from "../errors/customErrors"
+import { BadRequestError, ForbiddenError, NotFoundError, UnauthorizedError } from "../errors/customErrors"
 import { statusCodes } from "../utils/constants"
 import mongoose from "mongoose"
 import { ApiResponse } from "../utils/ApiResponse"
@@ -19,17 +19,19 @@ const apply = asyncHandler(async(req:Request, res:Response)=>{
         {jobApplication: newApplication}
     ))
 })
-//only for admin
+
 const updateApplicationStatus = asyncHandler(async (req:Request, res:Response)=>{
     const {applicationId} = req.params
-    const application = await JobApplication.findOneAndUpdate(
-        {_id: applicationId},
-        {$set: {status: req.body.status}},
-        {runValidators: true}
-    )
+    const application = await JobApplication.findById(applicationId)
     if (!application){
         throw new NotFoundError(`Application with id ${applicationId} does not exists`)
     }
+    // only recruiter can modify the application 
+    if (application.recruiterId.toString() !== req.user.userId){
+        throw new ForbiddenError("You are not allowed to modify the application status")
+    }
+    application.status = req.body.status
+    await application.save()
     
     res.status(statusCodes.OK).json(
         new ApiResponse(
@@ -40,6 +42,26 @@ const updateApplicationStatus = asyncHandler(async (req:Request, res:Response)=>
     )
 })
 
+const updateManyApplicationStatus = asyncHandler(async (req:Request, res:Response)=>{
+    const {applicationIds} = req.query
+    const {status} = req.body
+    
+    const queryObject:any = {}
+    if (applicationIds && Array.isArray(applicationIds)){
+        queryObject._id = {$in: applicationIds}
+    }
+    const {modifiedCount} = await JobApplication.updateMany(
+        queryObject, 
+        {$set: {status: status}}, 
+        {runValidators: true}
+    )
+    res.status(statusCodes.OK)
+    .json(new ApiResponse(
+        statusCodes.OK,
+        {},
+        `${modifiedCount} applications updated successfully`
+    ))
+})
 const getAllJobApplications = asyncHandler(async (req:Request, res:Response)=>{
     const {limit=10, page=1, status, candidateId, recruiterId, sort} = req.query
     const skips = (Number(page) -1) * Number(limit)
@@ -72,7 +94,7 @@ const getAllJobApplications = asyncHandler(async (req:Request, res:Response)=>{
     .json(
         new ApiResponse(
             statusCodes.OK,
-            {data: jobApplications, pages, total},
+            {jobApplications, pages, total},
             "All jobs are fetched successfully"
         )
     )
@@ -156,5 +178,6 @@ export {
     getAllJobApplications,
     getJobApplication,
     getMyApplications,
-    deleteJobApplication
+    deleteJobApplication,
+    updateManyApplicationStatus
 }
