@@ -1,5 +1,5 @@
 import {InputWithIcon, Button} from '../ui'
-import { Form, useLocation, useSubmit } from "react-router-dom";
+import { Form } from "react-router-dom";
 import { 
     SearchIcon, 
     LocationIcon 
@@ -9,39 +9,22 @@ import { FormEvent } from 'react';
 type Props = {
     className?: string
     defaultSearch?: string
-    defaultLocation?: string
+    defaultLocation?: string,
+    action?: (e:FormEvent<HTMLFormElement>)=> void
 
 }
 
-export default function SearchContainer({
+export default function SearchBar({
     className,
     defaultSearch,
-    defaultLocation
+    defaultLocation,
+    action
 }:Props){
-    const submit = useSubmit()
-    const {search} = useLocation()
     
-
-    function handleSubmit(e:FormEvent<HTMLFormElement>){
-        e.preventDefault()
-        let params = new URLSearchParams(search)
-        const formData = new FormData(e.currentTarget)
-        const location = formData.get('location') as string
-        const _search = formData.get('search') as string
-        params.delete('location')
-        params.delete('search')
-        if (location){
-            params.set('location', location)
-        }
-        if (_search){
-            params.set('search', _search)
-        }
-        submit(params)
-    }
     return (
         <Form 
-            className={`w-full  lg:flex bg-white dark:bg-zinc-900 px-4 ${className}`}
-            onSubmit={handleSubmit}
+            className={`lg:flex bg-white dark:bg-zinc-900 px-4 ${className}`}
+            onSubmit={action}
         >
             <div className="w-full flex flex-col lg:flex-row gap-4 px-4 py-6">
                 <InputWithIcon
@@ -62,7 +45,7 @@ export default function SearchContainer({
             <div className="my-auto flex justify-end">
                 <Button
                     type="submit"
-                    classname= "mb-4 w-20  lg:mb-0"
+                    classname= "mb-4 w-full  lg:mb-0"
                 >
                     Search
                 </Button>

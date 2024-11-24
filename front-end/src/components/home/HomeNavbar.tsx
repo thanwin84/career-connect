@@ -10,7 +10,7 @@ export default function HomeNavbar({
 }: Props){
     
     return (
-        <nav className="bg-white dark:bg-zinc-900  flex justify-between border-b border-gray-200 dark:border-none pt-4 px-8">
+        <nav className="bg-white dark:bg-zinc-900  flex justify-between border-b  border-gray-200 dark:border-none pt-4 px-8">
             <div className="hidden md:flex">
                 <p aria-label="career connect logo" className="font-bold text-blue-700 text-xl w-60 text-nowrap">Career Connect</p>
                 <HomeNavLinks 

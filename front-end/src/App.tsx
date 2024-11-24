@@ -1,12 +1,18 @@
 
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import { 
+  createBrowserRouter, 
+  createRoutesFromElements, 
+  Route, 
+  RouterProvider
+} from 'react-router-dom'
 
+import { 
+  HomePageLayout, 
+  DashboardLayout 
+} from './layout'
 import {
-  HomeLayout,
-  Landing,
   Login,
   Error,
-  DashboardLayout,
   AddJob,
   AllJobs,
   Admin,
@@ -14,15 +20,14 @@ import {
   EditJob,
   Profile,
   EditProfile,
-  AddEducation,
-  CreateAccountPageLayout,
-  HomePageLayout,
+  Register,
   FindJobs,
-  Setting
+  Setting,
+  HomePage
 } from './pages'
 
 
-import {loader as dashboardLoader} from './pages/DashboardLayout'
+// import {loader as dashboardLoader} from './layout/DashboardLayout'
 import { loader as addJobLoader} from './pages/AddJob'
 import { loader as allJobsLoader } from './pages/AllJobs'
 import {  loader as editJobLoader } from './pages/EditJob'
@@ -41,103 +46,36 @@ const checkDefaultTheme = ()=>{
 }
 const theme = checkDefaultTheme()
 // testing
-import Test from './components/Test'
-const router = createBrowserRouter([
-  {
-    
-    path: "/",
-    element: <HomeLayout />,
-    errorElement: <Error/>,
-    children: [
-      {
-        path: "testing",
-        element: <Test />
-      },
-      {
-        index: true,
-        element: <Landing/>
-      },
-      {
-        path: "register",
-        element: <CreateAccountPageLayout />
-      },
-      {
-        path: "login",
-        element: <Login />
-      },
-      {
-        path: "dashboard",
-        element: <DashboardLayout defaultTheme={theme} />,
-        loader: dashboardLoader,
-        children: [
-          {
-            index: true,
-            element: <AddJob />,
-            loader: addJobLoader
-          },
-          {
-            path: 'all-jobs',
-            element: <AllJobs />,
-            loader: allJobsLoader
-          },
-          {
-            path: 'profile',
-            element: <Profile/>,
-           
-          },
-          {
-            path: "profile/edit",
-            element: <EditProfile/>
-          },
-          {
-            path: 'admin',
-            element: <Admin />,
-            loader: adminLoader
-          },
-          {
+// import Test from './components/Test'
+import ProtectedRoute from './auth/ProtectedRoute'
 
-            path: 'edit-job/:id',
-            element: <EditJob />,
-            loader: editJobLoader
-          },
-          {
-            path: "delete-job/:id",
-            action: deleteJobAction
-          },
-          {
-            path: 'stats',
-            element: <Stats />,
-            loader: statsLoader
-          },
-          {
-            path: "testing",
-            element: <AddEducation/>
-          },
-          {
-            path: "setting",
-            element: <Setting />
-          }
-
-        ]
-      }
-    ]
-  },
-  {
-    path: "/home",
-    element: <HomePageLayout />,
-    children: [
-      {
-        index: true,
-        element: <FindJobs />,
-        loader: findJobsLoader
-      }
-    ]
-  }
-  
-])
 function App() {
   
-
+  const router = createBrowserRouter(createRoutesFromElements(
+    <Route>
+      <Route path="/" element={<HomePageLayout/>} errorElement={<Error/>} >
+      <Route index element={<HomePage />}  />
+      <Route element={<ProtectedRoute/>}>
+        <Route path='jobs' element={<FindJobs />} loader={findJobsLoader} />
+      </Route>
+      <Route path='register' element={<Register />}  />
+      <Route path='login' element={<Login />}  />
+    </Route>
+    <Route element={<ProtectedRoute/>}>
+      <Route path='dashboard' element={<DashboardLayout defaultTheme={theme} />}  >
+        <Route index element={<AddJob/>} loader={addJobLoader} />
+        <Route path='all-jobs' element={<AllJobs/>} loader={allJobsLoader} />
+        <Route path='profile' element={<Profile/>}  />
+        <Route path='profile/edit' element={<EditProfile/>}  />
+        <Route path='admin' element={<Admin/>}  loader={adminLoader} />
+        <Route path='edit-job/:id' element={<EditJob/>}  loader={editJobLoader} />
+        <Route path='delete-job/:id'   action={deleteJobAction} />
+        <Route path='stats' element={<Stats />}  loader={statsLoader} />
+        <Route path='setting' element={<Setting />}  />
+      </Route>
+    </Route>
+    </Route>
+  ))
   return (
     <RouterProvider router={router} />
   )

@@ -8,15 +8,21 @@ import {
 } from '../components/create_account'
 import useMultiStep from '../hooks/useMultiStep'
 import { User } from '../types'
+import { useAppContext } from '../contexts/AppProvider'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
     className?: string
 }
 
 
-export default function CreateAccountPageLayout({}:Props){
+export default function Register({}:Props){
     const [user, setUser] = useState<Partial<User>>({})
-    
+    const navigate = useNavigate()
+    const {userStore: {state}} = useAppContext()
+    if (state.user){
+        navigate("/")
+    }
     function handleUser(values:Partial<User>){
         setUser(prev => ({...prev, ...values}))
     }

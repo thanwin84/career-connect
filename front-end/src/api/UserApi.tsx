@@ -17,7 +17,7 @@ import {
 import { useMutation, useQuery } from "../hooks"
 import { toast } from "react-toastify"
 import { useAppContext } from "../contexts/AppProvider"
-import { Education, FormData, User } from "../types"
+import {  FormData, User } from "../types"
 
 
 export const useLoginUser = ()=>{
@@ -31,7 +31,7 @@ export const useLoginUser = ()=>{
                 userStore.actions.addUser(data)
                 
                 toast.success("Login is successfull")
-                navigate("/home", {replace: true})
+                navigate("/", {replace: true})
             },
             onError: (error:any)=>{
                 toast.error(error?.response?.data.message)

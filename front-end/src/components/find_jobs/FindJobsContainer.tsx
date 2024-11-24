@@ -1,5 +1,5 @@
 import {Pagination} from "../ui"
-import {JobCard} from "../find_jobs"
+import {JobCard} from "."
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFindJobsContext } from "../../pages/FindJobs";
 

@@ -2,7 +2,7 @@
 import  { createContext, useState } from "react";
 import { 
     FilterJobsContainer,
-    SearchContainer,
+    SearchBar,
     FindJobsContainer
  } from "../components/find_jobs";
  import { JobDetails, SlideOpen } from "../components/ui";
@@ -108,7 +108,7 @@ export default function FindJobs(){
                 currentJobDetails,
                 handleCurrentJobDetails
             }}>
-                <SearchContainer 
+                <SearchBar 
                     className="mt-4  mb-2 rounded-md "
                     defaultSearch={formState.search as string}
                     defaultLocation={formState.location as string}

@@ -15,7 +15,7 @@ export default function HomePageLayout(){
     return (
         <main className="w-full bg-slate-50  dark:bg-zinc-800 min-h-screen">
             <HomeNavbar isLoggedIn={isLoggedIn} />
-            <div className="">
+            <div>
                 <Outlet />
             </div>
         </main>

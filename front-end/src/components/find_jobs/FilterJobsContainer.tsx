@@ -51,7 +51,7 @@ export default function FilterJobsContainer({
     }
     function handleClearFilter(){
         resetFormState()
-        navigate('/home')
+        navigate('/jobs')
     }
     
     return (

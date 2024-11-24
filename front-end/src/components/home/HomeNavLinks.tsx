@@ -9,8 +9,8 @@ type Props = {
 export default function HomeNavLinks({className, isLoggedIn}: Props){
     
     const styles = {
-        active: "dark:text-slate-100 font-medium border-b-2 border-blue-700 dark:border-blue-500 pb-4",
-        normal: "dark:text-slate-200"
+        active: " dark:text-slate-100 font-medium border-b-2 border-blue-700 dark:border-blue-500 pb-6",
+        normal: " pb-6 dark:text-slate-200"
     }
     return (
         <div className={`w-full flex gap-6  ${className}`}>

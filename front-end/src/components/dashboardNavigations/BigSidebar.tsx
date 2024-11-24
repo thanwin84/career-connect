@@ -1,7 +1,7 @@
 import { Logo } from "../ui";
 import NavLinks from "./NavLinks";
 import { Link } from "react-router-dom";
-import { useDashboardContext } from "../../pages/DashboardLayout";
+import { useDashboardContext } from "../../layout/DashboardLayout";
 
 type Props = {
     className?: string
@@ -20,7 +20,7 @@ function SideBar({className}: {className?: string}){
     return (
         <section className={`w-full p-4  dark:border-none  h-screen ${className}`}>
             <Link
-                to="../home"
+                to="../"
             >
             <Logo className="w-44 pb-14 pt-4" />
             </Link>

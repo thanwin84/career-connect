@@ -27,6 +27,9 @@ export default function Modal({
     };
   }, [isOpen]);
 
+  if (!isOpen){
+    return null
+  }
 
   return (
     <div 

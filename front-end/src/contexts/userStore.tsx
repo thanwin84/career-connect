@@ -20,6 +20,7 @@ export const useUserStore = ()=>{
     return createStore(initialUserState, (setState)=>{
         return {
             addUser: (user:User)=>{
+                console.log("add user called")
                 setState(produce((draft)=>{
                     draft.user = user
                     draft.isLoggedIn = true
@@ -70,9 +71,9 @@ export const useUserStore = ()=>{
                 }))
             },
             updateUserAvatar: (avatar: string[])=>{
+                console.log("updateUserAvatar called")
                 setState(produce(draft=>{
-                    
-                    if (draft.user?.avatar){
+                    if (draft.user){
                         console.log("updated")
                         draft.user.avatar = avatar
                     }

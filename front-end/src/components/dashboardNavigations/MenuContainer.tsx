@@ -10,7 +10,7 @@ type Props = {
     className?: string
 }
 
-export default function DropDownContainer({
+export default function MenuContainer({
     showSmallSidebar,
     className
 }:Props){

@@ -3,9 +3,9 @@ import {
     Logo,
     ThemeToggle
 } from '../ui'
-import DropDownContainer from "./DropDownContainer";
+import MenuContainer from "./MenuContainer";
 import {useWindowScreenSize} from '../../hooks'
-import { useDashboardContext } from "../../pages/DashboardLayout";
+import { useDashboardContext } from "../../layout/DashboardLayout";
 
 
 export default function Navbar(){
@@ -31,7 +31,7 @@ export default function Navbar(){
             </div>
             <div className="flex gap-4">
                 <ThemeToggle />
-                <DropDownContainer
+                <MenuContainer
                  showSmallSidebar={showSmallSidebar}
                 />
             </div>

@@ -30,7 +30,9 @@ export default function ProfileUpload({
     } = useFileUpload()
    
     useEffect(()=>{
+        console.log("success", isSuccess)
         if (isSuccess){
+            console.log('done')
             actions.toggleProfileUploadModal()
             userActions.updateUserAvatar(data?.avatar as string[])
         }

@@ -6,9 +6,7 @@ import  {
     useEffect
 } from "react";
 import {
-    Outlet, 
-    redirect, 
-    useLoaderData,
+    Outlet
     } from 'react-router-dom'
 import { 
     BigSidebar, 
@@ -17,18 +15,10 @@ import {
 } from "../components/dashboardNavigations";
 import { ModalContainer } from "../components/ui";
 import { useWindowScreenSize } from "../hooks";
-import { getUserInformationRequest } from "../apiRequest";
 import { useAppContext } from "../contexts/AppProvider";
 import { User } from "../types";
 
-export const loader = async()=>{
-    try {
-       const response= await getUserInformationRequest()
-       return response
-    } catch (error) {
-        return redirect("/")
-    }
-}
+
 
 type DashboardContextT = {
     user:User
@@ -51,8 +41,8 @@ type Props = {
 
 export default function DashboardLayout({defaultTheme}:Props){
     
-    const user = useLoaderData() as User
     const {userStore} = useAppContext()
+    const user = userStore.state.user as User
     const currentSize = useWindowScreenSize()
     const [theme, setTheme] = useState(defaultTheme)
     const [showBigSidebar, setShowBigSidebar] = useState(true)

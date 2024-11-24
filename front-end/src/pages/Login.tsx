@@ -6,15 +6,21 @@ import {
     Password
 } from "../components/ui";
 import {
-    Link
+    Link,
+    useNavigate
 } from 'react-router-dom'
 import {useForm} from  'react-hook-form'
 import { useLoginUser } from "../api/UserApi";
+import { useAppContext } from "../contexts/AppProvider";
 
 export default function Login(){
     const {register, handleSubmit, formState: {errors}} = useForm()
     const {isPending, loginUser} = useLoginUser()
-    
+    const navigate = useNavigate()
+    const {userStore: {state}} = useAppContext()
+    if (state.user){
+        navigate("/")
+    }
     
     return (
         <main className="h-screen bg-stone-50 dark:bg-zinc-900 py-8">

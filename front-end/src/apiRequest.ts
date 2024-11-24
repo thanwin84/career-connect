@@ -23,8 +23,9 @@ export const registerUserRequest = async(userData:FormData)=> {
     )
 }
 export const logoutUserRequest = async()=> await customFetch.get('/auth/logout')
-export const reEnterPasswordRequest = async(formData:FormData)=> await customFetch.post('/auth/re-enter-password', formData)
-export const deleteAccountRequest = async()=> await customFetch.delete("/auth/delete-account")
+
+export const reEnterPasswordRequest = async(formData:FormData)=> await customFetch.post('/account-setting/re-enter-password', formData)
+export const deleteAccountRequest = async()=> await customFetch.delete("/account-setting/delete-account")
 export const updateUserRequest = async(formData:FormData)=> {
     await customFetch.patch(
         "/users/update-user",
@@ -45,7 +46,7 @@ export const uploadPhotoRequest = async(userId:string, formData:FormData)=> {
 export const changePasswordRequest = async(formData:FormData)=>{
     try {
         await customFetch.patch(
-            '/auth/change-password',
+            '/account-setting/change-password',
             formData
         )
     } catch (error) {
@@ -54,8 +55,8 @@ export const changePasswordRequest = async(formData:FormData)=>{
 }
 export const toggleTwoStepAuthRequest = async(formData:FormData)=>{
     try {
-        await customFetch.post("/auth/re-enter-password", formData)
-        await customFetch.patch("/auth/toggle-two-step-authentication")
+        await customFetch.post("/account-setting/re-enter-password", formData)
+        await customFetch.patch("/account-setting/toggle-two-step-authentication")
     } catch (error) {
         throw error
     }
@@ -102,7 +103,7 @@ export const getCurrentUserJobsRequest = (params:UserJobSearchParams):Promise<Ge
 export const sendCodeRequest = async(formData:FormData)=> {
     
     try {
-        const response = await customFetch.post(`/auth/send-verification-code`, formData)
+        const response = await customFetch.post(`/verification/send-verification-code`, formData)
         return response.data
     } catch (error) {
         throw error
@@ -110,7 +111,7 @@ export const sendCodeRequest = async(formData:FormData)=> {
 }
 export const verifyCodeRequest = async(formData:FormData)=>{
    try {
-    const response = await customFetch.post("/auth/verify-code", formData)
+    const response = await customFetch.post("/verification/verify-code", formData)
     return response.data.data
 
    } catch (error) {

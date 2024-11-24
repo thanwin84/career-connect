@@ -13,7 +13,7 @@ type Type = {
 export default function useFileUpload(){
     const [state, setState] = useState<Type>({
         isLoading: false,
-        isSuccess: true,
+        isSuccess: false,
         data: null,
         isError: false,
         error: null
@@ -64,7 +64,7 @@ export default function useFileUpload(){
     function resetState(){
         setState({
             isLoading: false,
-            isSuccess: true,
+            isSuccess: false,
             data: null,
             isError: false,
             error: null

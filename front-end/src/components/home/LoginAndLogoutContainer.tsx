@@ -1,6 +1,6 @@
 
 import { useAppContext } from "../../contexts/AppProvider";
-import DropDownContainer from "../dashboardNavigations/DropDownContainer";
+import MenuContainer from "../dashboardNavigations/MenuContainer";
 import { Link } from "react-router-dom";
 
 type Props = {
@@ -16,7 +16,7 @@ export default function LoginAndLogoutContainer({
     return (
         <div className={` ${className}`}>
             {isLoggedIn ? (
-                <DropDownContainer
+                <MenuContainer
                     className="pb-2"
                  />
 

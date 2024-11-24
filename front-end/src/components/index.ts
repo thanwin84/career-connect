@@ -33,7 +33,7 @@ import HomeNavbar from "./home/HomeNavbar";
 import FilterJobsContainer from "./find_jobs/FilterJobsContainer";
 import FindJobsContainer from "./find_jobs/FindJobsContainer";
 import InputWithIcon from "./ui/InputWithIcon";
-import SearchContainer from "./find_jobs/SearchContainer";
+import SearchBar from "./find_jobs/SearchBar";
 import JobCard from "./find_jobs/JobCard";
 import JobDetails from "./ui/JobDetails";
 // educations
@@ -74,7 +74,7 @@ export {
     HomeNavbar,
     FindJobsContainer,
     InputWithIcon,
-    SearchContainer,
+    SearchBar as SearchContainer,
     FilterJobsContainer,
     JobCard,
     JobDetails
