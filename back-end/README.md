@@ -1,5 +1,4 @@
 ## To Do
-- [ ] Fix small sidebar when using Add Job and Edit Job.
 
 ## Feature Enhancements To-Do for Job Application
 - [ ] **Application Withdrawal**: Allow candidates to withdraw applications with a reason.

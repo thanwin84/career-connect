@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useFilePreview } from "../../hooks";
-import { FormData as FormDataT, User } from "../../types";
+import { FormData as FormDataT } from "../../types";
 import { Button, Input, ProgressBar } from "../ui";
 import { IoMdPhotos as PhotoIcon } from "react-icons/io";
 import useFileUpload from "../../hooks/useFileUpload";
