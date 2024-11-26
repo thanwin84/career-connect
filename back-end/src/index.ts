@@ -6,7 +6,7 @@ import connectToDB from './db/index'
 import errorHandler from './middleware/errorHandler'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-
+import { corsOptions } from './config/corsOption'
 
 
 const app = express()
@@ -21,12 +21,7 @@ app.use(express.json())
 //parse incoming URL-enconded data with extended options and limit of 16kb
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(cookieParser())
-app.use(cors(
-    {
-        origin: process.env.FRONT_END_BASE_URL,  // Frontend URL
-        credentials: true,  // Allow credentials (cookies) to be sent
-    }
-))
+app.use(cors(corsOptions))
 
 
 
@@ -38,6 +33,7 @@ import recordsRouter from './routes/records.route'
 import  jobApplicationRouter from './routes/jobApplication.route'
 import accoutSettingRouter from './routes/accountSetting.route'
 import verificationRouter from './routes/verification.route'
+
 
 
 
