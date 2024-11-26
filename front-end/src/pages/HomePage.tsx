@@ -25,7 +25,9 @@ export default function HomePage({}: Props) {
         if (_search){
             params.set('search', _search)
         }
-        navigate(`/jobs?${params}`)
+        if (location || _search){
+          navigate(`/jobs?${params}`)
+        }
     }
   return (
     <main className="mt-8">

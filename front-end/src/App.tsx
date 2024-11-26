@@ -5,36 +5,34 @@ import {
   Route, 
   RouterProvider
 } from 'react-router-dom'
-
+import { lazy, Suspense } from 'react'
 import { 
-  HomePageLayout, 
-  DashboardLayout 
+  HomePageLayout,
 } from './layout'
+
 import {
   Login,
   Error,
-  AddJob,
-  AllJobs,
-  Admin,
-  Stats,
-  EditJob,
-  Profile,
-  EditProfile,
-  Register,
-  FindJobs,
-  Setting,
   HomePage
 } from './pages'
 
 
-// import {loader as dashboardLoader} from './layout/DashboardLayout'
-import { loader as addJobLoader} from './pages/AddJob'
-import { loader as allJobsLoader } from './pages/AllJobs'
-import {  loader as editJobLoader } from './pages/EditJob'
+
 import { action as deleteJobAction } from './pages/DeleteJob'
-import { loader as adminLoader } from './pages/Admin'
-import { loader as statsLoader } from './pages/Stats'
-import { loader as findJobsLoader} from './pages/FindJobs'
+
+
+const FindJobs = lazy(()=> import('./pages/FindJobs'))
+const Register = lazy(()=> import("./pages/Register"))
+const AllJobs = lazy(()=> import("./pages/AllJobs"))
+const AddJob = lazy(()=> import("./pages/AddJob"))
+const EditJob = lazy(()=> import("./pages/EditJob"))
+const Profile = lazy(()=> import("./pages/Profile"))
+const EditProfile = lazy(()=> import("./pages/EditProfile"))
+const Setting = lazy(()=> import("./pages/Setting"))
+const Admin = lazy(()=> import("./pages/Admin"))
+const Stats = lazy(()=> import("./pages/Stats"))
+const DashboardLayout = lazy(()=> import("./layout/DashboardLayout"))
+
 const checkDefaultTheme = ()=>{
   const theme = localStorage.getItem('themeMode') as string
   const html = document.querySelector('html')
@@ -49,6 +47,7 @@ const theme = checkDefaultTheme()
 // import Test from './components/Test'
 import ProtectedRoute from './auth/ProtectedRoute'
 
+
 function App() {
   
   const router = createBrowserRouter(createRoutesFromElements(
@@ -56,22 +55,117 @@ function App() {
       <Route path="/" element={<HomePageLayout/>} errorElement={<Error/>} >
       <Route index element={<HomePage />}  />
       <Route element={<ProtectedRoute/>}>
-        <Route path='jobs' element={<FindJobs />} loader={findJobsLoader} />
+        <Route 
+          path='jobs' 
+          element={
+          <Suspense fallback={<div>Loading..</div>}>
+            <FindJobs />
+          </Suspense>} 
+          loader={async(args)=>{
+            const {loader} = await import("./pages/FindJobs")
+            return loader(args);
+        }} />
       </Route>
-      <Route path='register' element={<Register />}  />
+      <Route 
+        path='register' 
+        element={
+          <Suspense>
+            <Register />
+          </Suspense>
+        }  
+      />
       <Route path='login' element={<Login />}  />
     </Route>
     <Route element={<ProtectedRoute/>}>
-      <Route path='dashboard' element={<DashboardLayout defaultTheme={theme} />}  >
-        <Route index element={<AddJob/>} loader={addJobLoader} />
-        <Route path='all-jobs' element={<AllJobs/>} loader={allJobsLoader} />
-        <Route path='profile' element={<Profile/>}  />
-        <Route path='profile/edit' element={<EditProfile/>}  />
-        <Route path='admin' element={<Admin/>}  loader={adminLoader} />
-        <Route path='edit-job/:id' element={<EditJob/>}  loader={editJobLoader} />
+      <Route 
+        path='dashboard' 
+        element={
+          <Suspense>
+            <DashboardLayout defaultTheme={theme} />
+          </Suspense>
+        }  
+      >
+        <Route 
+          index 
+          element={
+            <Suspense>
+              <AddJob/>
+            </Suspense>
+          } 
+          loader={async ()=>{
+            const {loader} = await import("./pages/AddJob")
+            return loader({})
+          }} 
+        />
+        <Route 
+          path='all-jobs' 
+          element={
+            <Suspense>
+              <AllJobs/>
+            </Suspense>
+          } 
+          loader={async(args)=>{
+            const {loader} = await import("./pages/AllJobs")
+            return loader(args)
+          }} 
+        />
+        <Route 
+          path='profile' 
+          element={
+            <Suspense>
+              <Profile/>
+            </Suspense>
+          }  
+        />
+        <Route 
+          path='profile/edit' 
+          element={
+            <Suspense>
+              <EditProfile/>
+            </Suspense>
+          }  
+        />
+        <Route 
+          path='admin' 
+          element={<Admin/>}  
+          loader={async()=>{
+            const {loader} = await import('./pages/Admin')
+            return loader()
+          }} 
+        />
+        <Route 
+          path='edit-job/:id' 
+          element={
+            <Suspense>
+              <EditJob/>
+            </Suspense>
+          }  
+          loader={async (args)=>{
+            const {loader} = await import("./pages/EditJob")
+            return loader(args)
+          }} 
+        />
         <Route path='delete-job/:id'   action={deleteJobAction} />
-        <Route path='stats' element={<Stats />}  loader={statsLoader} />
-        <Route path='setting' element={<Setting />}  />
+        <Route 
+          path='stats' 
+          element={
+            <Suspense>
+              <Stats />
+            </Suspense>
+          }  
+          loader={async()=>{
+            const {loader} = await import("./pages/Stats")
+            return loader()
+          }} 
+        />
+        <Route 
+          path='setting' 
+          element={
+            <Suspense>
+              <Setting />
+            </Suspense>
+          }  
+          />
       </Route>
     </Route>
     </Route>
