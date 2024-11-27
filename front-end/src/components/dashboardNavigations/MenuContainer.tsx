@@ -19,6 +19,9 @@ export default function MenuContainer({
     const navigate = useNavigate()
     const {userStore} = useAppContext()
     async function handleLogout(){
+        const broadcast = new BroadcastChannel("auth")
+        broadcast.postMessage('logout')
+        broadcast.close()
         logout({})
         navigate("/")
     }

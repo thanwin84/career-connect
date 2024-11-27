@@ -7,18 +7,26 @@ import {
 
 import DashboardRoutes from './routes/DashbooardRoutes'
 import HomeRoutes from './routes/HomeRoutes'
+import AuthBroadcast from './auth/AuthBroadCast'
+
 
 
 function App() {
   
   const router = createBrowserRouter(createRoutesFromElements(
     <>
-    {HomeRoutes}
-    {DashboardRoutes}
+      {HomeRoutes}
+      {DashboardRoutes}
     </>
   ))
+
+  
+
   return (
+    <>
     <RouterProvider router={router} />
+    <AuthBroadcast/>
+    </>
   )
 }
 
