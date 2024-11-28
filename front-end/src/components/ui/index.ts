@@ -16,7 +16,6 @@ import ThemeToggle from "./ThemeToggle";
 import StatItem from "./StatItem";
 import Pagination from "./Pagination/Pagination";
 import Alert from "./Alert";
-import JobDetails from "./JobDetails";
 import ReEnterPassword from "./ReEnterPassword";
 import ReEnterPasswordForm from "./ReEnterPasswordForm";
 import SelectCountry from "../Setting/SelectCountry";
@@ -47,7 +46,6 @@ export {
     StatItem,
     Pagination,
     Alert,
-    JobDetails,
     ReEnterPassword,
     ReEnterPasswordForm,
     SelectCountry,

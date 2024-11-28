@@ -92,21 +92,24 @@ export default function JobCard({
                     <span className="text-slate-700 dark:text-slate-300">{`$${job?.salary?.min} - $${job?.salary?.max}`}</span>
                 </p>
             </div>
-            <div className="py-3 flex  justify-between">
+            <div className="py-3 flex  justify-between px-4">
                 <p className="flex  gap-2 mx-4 text-sm text-gray-500">
                     <span className="my-auto dark:text-slate-300" aria-hidden={true}><DateRangeIcon/></span>
                     <span className="my-auto dark:text-slate-400" >{date}</span>
                 </p>
-                <div className="mr-4">
+                {job.isApplied && (
+                    <span className="px-4 py-2 rounded-md text-green-800 bg-green-100">
+                        Applied
+                    </span>
+                )}
                 <Button
-                    category="success"
-                    classname=""
-                    onClick={handleClick}
-                    aria-label={`See details of ${job.position} at ${job.company}`}
-                >
-                    See Details
+                        category="success"
+                        classname=""
+                        onClick={handleClick}
+                        aria-label={`See details of ${job.position} at ${job.company}`}
+                    >
+                        See Details
                 </Button>
-                </div>
             </div>
         </article>
     )

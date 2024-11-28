@@ -55,7 +55,8 @@ export type Job = {
     openRoles?: number
     createdBy: string
     createdAt: Date
-    updatedAt: Date
+    updatedAt: Date,
+    isApplied?: boolean 
 }
 
 export type Jobs = Job[]
@@ -110,4 +111,20 @@ export type GetJobsApiResponse = {
 export type GetApplicationStatsResponse = {
     users: number
     jobs: number
+}
+
+
+export type JobApplication = {
+    _id: string,
+    candidateId: string,
+    recruiterId: string,
+    jobId: string,
+    interviewDate: string,
+    createdAt: string,
+    updatedAt: string
+}
+export type GetMyApplicationResponse = {
+    data: JobApplication[],
+    pages: number
+    total: number
 }

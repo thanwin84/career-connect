@@ -1,4 +1,4 @@
-import { CountryList, GetUserJobsApiResponse, UserJobSearchParams, Job, User, GetApplicationStatsResponse, FormData, GetJobsApiResponse } from "./types";
+import { CountryList, GetUserJobsApiResponse, UserJobSearchParams, Job, User, GetApplicationStatsResponse, FormData, GetJobsApiResponse, GetMyApplicationResponse } from "./types";
 import { customFetch } from "./utils";
 
 // user
@@ -118,3 +118,7 @@ export const verifyCodeRequest = async(formData:FormData)=>{
     throw error
    }
 }
+
+// job applications
+export const createJobApplicationRequest = (formData:FormData)=> customFetch.post("/job-applications", formData).then(response=>response.data)
+export const getMyApplicationRequest = ():Promise<GetMyApplicationResponse>=> customFetch.get('/job-applications/my-applications').then(res => res.data)

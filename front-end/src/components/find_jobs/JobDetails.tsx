@@ -2,19 +2,23 @@ import { LovedIcon, LoveIcon } from "../../utils/Icons";
 import {Button} from "../ui"
 import { useFindJobsContext } from "../../pages/FindJobs";
 import { IoMdArrowRoundBack } from "react-icons/io"
+import { useForm } from "react-hook-form";
+import {  Job } from "../../types";
+import { useAppContext } from "../../contexts/AppProvider";
+import { useCreateJobApplication } from "../../api/JobApplication";
+import ObjectID from "bson-objectid";
+
 
 type Props = {
-    className?: string
+    className?: string,
 }
 
 export default function JobDetails({
-    className
+    className,
 }:Props){
 
     const {currentJobDetails, toggleOpenDetails} = useFindJobsContext()
-   if (!currentJobDetails){
-    return null
-   }
+   
     const {
         company,
         position,
@@ -23,9 +27,25 @@ export default function JobDetails({
         country,
         salary,
         experianceLevel,
-        } = currentJobDetails
+        isApplied,
+        _id
+        } = currentJobDetails as Job
         let loved = false
-        
+    const {handleSubmit} = useForm()
+    const {userStore: {state:userState}} = useAppContext()
+    const {createJobApplication, isPending, isSuccess} = useCreateJobApplication()
+    const {addAppliedId} = useFindJobsContext()
+    function onHandleSubmit(){
+        const ob = {
+            id: new ObjectID().toHexString(),
+            candidateId: userState.user?._id,
+            recruiterId: currentJobDetails?.createdBy,
+            jobId: currentJobDetails?._id,
+        }
+        createJobApplication(ob)
+    }
+
+    
     return (
         <section className={`px-4 py-6 w-full min-h-screen bg-white dark:bg-zinc-900 ${className}`}>
             <button 
@@ -62,14 +82,20 @@ export default function JobDetails({
             </div>
             <DetailsInfo />
             <div className="flex gap-6 justify-center mt-4">
-                <div>
-                    <Button
-                        category="success"
-                        classname= ""
-                    >
-                        Apply Now
-                    </Button>
-                </div>
+                {(isSuccess || isApplied) ? <span className="px-6 py-2 border bg-green-300 text-green-900">Applied</span>: (
+                    <form onSubmit={handleSubmit(onHandleSubmit)}>
+                        <Button
+                            category="success"
+                            classname= ""
+                            type="submit"
+                            loading={isPending}
+                            onClick={()=>addAppliedId(_id)}
+                        >
+                            Apply Now
+                        </Button>
+                </form>
+                )}
+                
                 <span className="text-2xl text-red-500 my-auto">
                     {loved ? <LovedIcon/>: <LoveIcon/>}
                 </span>

@@ -35,7 +35,7 @@ import FindJobsContainer from "./find_jobs/FindJobsContainer";
 import InputWithIcon from "./ui/InputWithIcon";
 import SearchBar from "./find_jobs/SearchBar";
 import JobCard from "./find_jobs/JobCard";
-import JobDetails from "./ui/JobDetails";
+import JobDetails from "./find_jobs/JobDetails";
 // educations
 
 
