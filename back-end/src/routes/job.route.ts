@@ -16,7 +16,7 @@ import { authenticateUser } from "../middleware/auth.middleware";
 
 const router = Router()
 
-router.route('/all-jobs').get(getJobs)
+router.route('/all-jobs').get(authenticateUser, getJobs)
 
 router.route("/")
 .get(authenticateUser, getAllJobsCreatedByUser)

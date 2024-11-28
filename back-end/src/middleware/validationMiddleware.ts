@@ -95,7 +95,6 @@ export const validateChangePasswordInput = withValidationError([
 // job application
 
 export const validateJobApplicationInput = withValidationError([
-    body('_id').notEmpty().withMessage("_id is required"),
     body('candidateId').notEmpty().withMessage("candidateId is required"),
     body('recruiterId').notEmpty().withMessage("recruiterId is required"),
     body('recruiterId').notEmpty().withMessage("recruiterId is required")

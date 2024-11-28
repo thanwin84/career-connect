@@ -9,6 +9,7 @@ import mongoose from 'mongoose'
 import day from "dayjs"
 import { Request, Response} from 'express'
 import { Stats } from '../types'
+import { JobApplication } from '../models/jobApplication.model'
 
 const getAllJobsCreatedByUser = asyncHandler(async (req:Request, res:Response)=>{
     const {limit=10, page=1, search, jobStatus, jobType, sort} = req.query
@@ -71,7 +72,6 @@ const getJobs = asyncHandler(async (req:Request, res:Response)=>{
         maxSalary,
         experianceLevel
     } = req.query
-   
     const skips = (Number(page) - 1) * (Number(limit))
     const queryObject:any = {}
 
@@ -114,6 +114,10 @@ const getJobs = asyncHandler(async (req:Request, res:Response)=>{
     }
     if (experianceLevel && Array.isArray(experianceLevel)){
         queryObject.experianceLevel = {$in: experianceLevel}
+    }
+    if (req.user.userId){
+        const applicationIds = (await JobApplication.find({candidateId: req.user.userId})).map(application=> application.jobId)
+        queryObject._id = {$nin: applicationIds }
     }
     
     const aggregationPipeline:any = [
