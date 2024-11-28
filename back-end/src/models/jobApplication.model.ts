@@ -20,7 +20,7 @@ const jobApplicationSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: Object.values(JOB_STATUS),
-        default: JOB_STATUS.PENDING,
+        default: JOB_STATUS.APPLIED,
         validate: {
             validator: function (this: any, status: string){
                 if (status === JOB_STATUS.INTERVIEW && !this.interviewDate){
@@ -31,11 +31,30 @@ const jobApplicationSchema = new mongoose.Schema({
             message: "You must provide interview data when status is set to interview"
         }
     },
+    statusHistory: [
+        {
+            status: {
+                type: String,
+                enum: Object.values(JOB_STATUS),
+                default: JOB_STATUS.APPLIED,
+                required: true
+            },
+            updatedBy: {
+                type: mongoose.Types.ObjectId,
+                ref: "User",
+                required: true
+            },
+            updatedAt: {
+                type: Date,
+                default: Date.now()
+            }
+        }
+    ],
     interviewDate: {
         type: Date,
         validate: {
             validator: function (value:Date){
-                return !value || value > new Date()
+                return !value || value >= new Date()
             },
             message: "Interview date must be in the future"
         }
@@ -51,7 +70,7 @@ const jobApplicationSchema = new mongoose.Schema({
 jobApplicationSchema.pre("save", async function(next){
     if (this.isModified('status')){
         if (this.status === JOB_STATUS.INTERVIEW && !this.interviewDate){
-            next(new Error("Interview data is required when status is set to interview"))
+            next(new Error("Interview date is required when status is set to interview"))
         }
     }
     return next()
