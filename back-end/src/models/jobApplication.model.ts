@@ -46,7 +46,8 @@ const jobApplicationSchema = new mongoose.Schema({
             },
             updatedAt: {
                 type: Date,
-                default: Date.now()
+                default: new Date(),
+                required: true
             }
         }
     ],

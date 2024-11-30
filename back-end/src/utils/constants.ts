@@ -17,9 +17,11 @@ const statusCodes = {
 } as const 
 
 const JOB_STATUS = {
-    PENDING: 'pending',
     INTERVIEW: 'interview',
-    DECLINED: 'declined'
+    DECLINED: 'declined',
+    SHORTLISTED: "shortListed",
+    APPLIED: "applied",
+    HIRED: "hired"
 } as const
 const JOB_TYPE = {
     FULL_TIME: 'full-time',

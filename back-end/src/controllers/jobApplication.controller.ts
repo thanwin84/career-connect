@@ -7,10 +7,13 @@ import mongoose from "mongoose"
 import { ApiResponse } from "../utils/ApiResponse"
 
 const apply = asyncHandler(async(req:Request, res:Response)=>{
-    const {_id} = req.body
+    const {_id, candidateId} = req.body
     const appliction = await JobApplication.findById(_id)
     if (appliction){
         throw new BadRequestError(`Application with id ${_id} already exists`)
+    }
+    if (candidateId !== req.user.userId){
+        throw new ForbiddenError("You are not allowed to do this operation")
     }
     const newApplication = await JobApplication.create(req.body)
     res.status(statusCodes.CREATED)
@@ -31,6 +34,11 @@ const updateApplicationStatus = asyncHandler(async (req:Request, res:Response)=>
         throw new ForbiddenError("You are not allowed to modify the application status")
     }
     application.status = req.body.status
+    application.statusHistory.push({
+        status: req.body.status,
+        updatedBy: req.body.updatedBy,
+        updatedAt: new Date()
+    })
     await application.save()
     
     res.status(statusCodes.OK).json(
@@ -70,7 +78,7 @@ const getAllJobApplications = asyncHandler(async (req:Request, res:Response)=>{
         latest: {createdAt: -1},
         old: {createdAt: 1}
     } as const
-    if (status) queryObject.status = status
+    if (status && status !== 'all') queryObject.status = status
     if (candidateId) queryObject.candidateId = new mongoose.Types.ObjectId(candidateId as string)
     if (recruiterId) queryObject.recruiterId = new mongoose.Types.ObjectId(recruiterId as string)
     
@@ -103,33 +111,66 @@ const getAllJobApplications = asyncHandler(async (req:Request, res:Response)=>{
 const getMyApplications = asyncHandler(async (req:Request, res:Response)=>{
     const {limit=10, page=1, sort, status} = req.query
     const skips = (Number(page) -1) * Number(limit)
+    
     const queryObject:any = {candidateId: new mongoose.Types.ObjectId(req.user.userId)}
-    if (status) queryObject.status = status
+    if (status && status !== 'all') queryObject.status = status
     const sortOptions = {
         latest: {createdAt: -1},
         old: {createdAt: 1}
     } as const
-    const jobApplications:JobApplicationT[] = await JobApplication.aggregate([
-        {
-            $match: queryObject
-        },
-        {
-            $sort: sortOptions[sort as keyof typeof sortOptions] || sortOptions['latest']
-        },
-        {
-            $skip: skips
-        },
-        {
-            $limit: Number(limit)
-        }
-    ])
+    const jobApplications:JobApplicationT[] = await JobApplication.aggregate(
+        [
+            {
+                $match: queryObject
+            },
+            {
+                $sort: sortOptions[sort as keyof typeof sortOptions] || sortOptions['latest']
+            },
+            {
+                $skip: skips
+            },
+            {
+                $limit: Number(limit)
+            },
+            {
+              $lookup: {
+                from: "jobs",
+                localField: "jobId",
+                foreignField: "_id",
+                as: "job"
+              }
+            },
+            {
+              $addFields: {
+                "job": {$arrayElemAt: ["$job", 0]}
+              }
+            },
+            {
+              $lookup: {
+                from: "users",
+                localField: "recruiterId",
+                foreignField: "_id",
+                as: 'recruiter'
+              }
+            },
+            {
+              $addFields: {
+                "recruiter": {$arrayElemAt: ["$recruiter", 0]}
+              }
+            },
+            {
+              $unset: ['recruiterId', 'candidateId', "jobId"]
+            }
+          ]
+    )
+    
     const total = await JobApplication.countDocuments(queryObject)
     const pages = Math.ceil(total / Number(limit))
     res.status(statusCodes.OK)
     .json(
         new ApiResponse(
             statusCodes.OK,
-            {data: jobApplications, pages, total},
+            {jobApplications, pages, total, page:Number(page)},
             "All your applications are fetched successfully"
         )
     )
