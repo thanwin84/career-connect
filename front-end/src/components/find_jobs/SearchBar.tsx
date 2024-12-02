@@ -23,7 +23,7 @@ export default function SearchBar({
     
     return (
         <Form 
-            className={`lg:flex bg-white dark:bg-zinc-900 px-4 ${className}`}
+            className={`lg:flex bg-white dark:bg-zinc-800 px-4 py-6 rounded-md ${className}`}
             onSubmit={action}
         >
             <div className="w-full flex flex-col lg:flex-row gap-4 px-4 py-6">

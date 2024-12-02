@@ -7,6 +7,7 @@ import {  Job } from "../../types";
 import { useAppContext } from "../../contexts/AppProvider";
 import { useCreateJobApplication } from "../../api/JobApplication";
 import ObjectID from "bson-objectid";
+import { JOB_STATUS } from "../../constant";
 
 
 type Props = {
@@ -41,6 +42,10 @@ export default function JobDetails({
             candidateId: userState.user?._id,
             recruiterId: currentJobDetails?.createdBy,
             jobId: currentJobDetails?._id,
+            statusHistory: {
+                status: JOB_STATUS.APPLIED,
+                updatedBy: userState.user?._id
+            }
         }
         createJobApplication(ob)
     }

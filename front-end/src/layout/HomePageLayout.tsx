@@ -13,7 +13,7 @@ export default function HomePageLayout(){
         return <LoadingPage/>
     }
     return (
-        <main className="w-full bg-slate-50  dark:bg-zinc-800 min-h-screen">
+        <main className="w-full bg-slate-50  dark:bg-zinc-700 min-h-screen">
             <HomeNavbar isLoggedIn={isLoggedIn} />
             <div>
                 <Outlet />

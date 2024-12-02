@@ -91,7 +91,7 @@ export default function DashboardLayout({defaultTheme}:Props){
                 toggleSmallSidebar
             }}>
             <div className="flex flex-row ">
-                <aside className="dark:bg-zinc-900 h-screen fixed top-0 hidden lg:block md:block">
+                <aside className="dark:bg-zinc-800 h-screen fixed top-0 hidden lg:block md:block">
                     <BigSidebar className=""/> 
                 </aside>
 
@@ -99,7 +99,7 @@ export default function DashboardLayout({defaultTheme}:Props){
                     <header>
                         <Navbar />
                     </header>
-                    <main className="bg-slate-50 dark:bg-zinc-800 min-h-screen">
+                    <main className="bg-slate-50 dark:bg-zinc-700 min-h-screen">
                         <Outlet context={{user}}/>
                     </main>
                 </div>

@@ -30,11 +30,11 @@ export default function HomePage({}: Props) {
         }
     }
   return (
-    <main className="mt-8">
+    <main className="mt-8 dark:bg-zinc-700">
       <div className="w-[90%] md:w-[80%] mx-auto space-y-6">
         <div className="text-center">
-          <h2 className=" text-slate-700 font-extrabold tracking-wide text-4xl">Find Your Dream Job</h2>
-          <p className="mt-2 text-xl font-semibold text-slate-600">11,000+ Active Vacancies, Available Right Now!</p>
+          <h2 className=" text-slate-700 font-extrabold tracking-wide text-4xl dark:text-blue-500">Find Your Dream Job</h2>
+          <p className="mt-2 text-xl font-semibold text-slate-600 dark:text-slate-300">11,000+ Active Vacancies, Available Right Now!</p>
         </div>
         <SearchBar action={handleSearchAction}  />
       </div>

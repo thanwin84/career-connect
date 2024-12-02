@@ -2,12 +2,14 @@
 import { 
   createBrowserRouter, 
   createRoutesFromElements, 
+  Route, 
   RouterProvider
 } from 'react-router-dom'
 
 import DashboardRoutes from './routes/DashbooardRoutes'
 import HomeRoutes from './routes/HomeRoutes'
 import AuthBroadcast from './auth/AuthBroadCast'
+import Test from './components/Test'
 
 
 
@@ -17,6 +19,7 @@ function App() {
     <>
       {HomeRoutes}
       {DashboardRoutes}
+      <Route path="/test" element={<Test/>} />
     </>
   ))
 

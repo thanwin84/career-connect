@@ -17,9 +17,10 @@ import { MdQueryStats } from "react-icons/md"
 import { FaWpforms } from "react-icons/fa"
 import { ImProfile } from "react-icons/im"
 import { MdAdminPanelSettings } from "react-icons/md"
-
-
-
+import { LuCheckCircle2 } from "react-icons/lu";
+import { LuCheckSquare } from "react-icons/lu";
+import { RxCrossCircled } from "react-icons/rx";
+import { FaRegGrinStars } from "react-icons/fa";
 export {
     FaGraduationCap as GraduationCapIcon,
     MdEdit as EditIcon,
@@ -41,5 +42,9 @@ export {
     MdQueryStats as QueryStatsIcon,
     FaWpforms as FormIcon,
     ImProfile as ProfileIcon,
-    MdAdminPanelSettings as AdminSettingIcon
+    MdAdminPanelSettings as AdminSettingIcon,
+    LuCheckCircle2 as SuccessIcon,
+    LuCheckSquare as ShortListIcon,
+    RxCrossCircled as RejectedIcon,
+    FaRegGrinStars as HiredIcon
 }

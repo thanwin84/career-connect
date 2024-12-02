@@ -8,29 +8,9 @@ import {
 import Button from "../ui/Button"
 import { useFindJobsContext } from "../../pages/FindJobs"
 import { Job } from "../../types";
+import { formatDate } from "../../utils";
 
-function dateFormate(date:Date){
-    const months = [
-        "January", 
-        "February", 
-        "March", 
-        "April", 
-        "May", 
-        "June", 
-        "July", 
-        "August", 
-        "September", 
-        "October", 
-        "November", 
-        "December"
-      ];
-      
-    const dateObject = new Date(date)
-    const day = dateObject.getDay()
-    const month = dateObject.getMonth()
-    const year = dateObject.getFullYear()
-    return `${day+1}th ${months[month]}, ${year}`
-}
+
 type Props = {
     className?: string
     job: Job
@@ -48,7 +28,7 @@ export default function JobCard({
     } = useFindJobsContext()
     
     
-    const date = dateFormate(job.createdAt)
+    const date = formatDate(job.createdAt.toString())
 
     function handleClick(){
         handleCurrentJobDetails(job)
@@ -95,7 +75,7 @@ export default function JobCard({
             <div className="py-3 flex  justify-between px-4">
                 <p className="flex  gap-2 mx-4 text-sm text-gray-500">
                     <span className="my-auto dark:text-slate-300" aria-hidden={true}><DateRangeIcon/></span>
-                    <span className="my-auto dark:text-slate-400" >{date}</span>
+                    <span className="my-auto dark:text-slate-400" >Posted {date}</span>
                 </p>
                 {job.isApplied && (
                     <span className="px-4 py-2 rounded-md text-green-800 bg-green-100">

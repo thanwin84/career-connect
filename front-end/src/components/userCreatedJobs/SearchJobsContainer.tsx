@@ -31,7 +31,7 @@ export default function SearchJobsContainer(){
 
     return (
         <Form className="p-6">
-            <div className="px-4 py-6 bg-white dark:bg-zinc-900 rounded-md shadow-md">
+            <div className="px-4 py-6 bg-white dark:bg-zinc-800 rounded-md shadow-md">
                 <h2 className="text-xl text-slate-800 dark:text-slate-200 mb-4 font-semibold">Search Form</h2>
                 <div className="grid lg:grid-cols-3 gap-4">
                     <Input 

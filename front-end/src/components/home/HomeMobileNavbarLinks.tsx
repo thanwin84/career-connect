@@ -17,12 +17,12 @@ export default function HomeMobileNavbarLinks({
         normal: "dark:text-slate-200"
     }
     return (
-        <nav className="px-4 h-screen">
+        <nav className="dark:bg-zinc-800 px-4 h-screen">
             <div className="flex justify-between">
                 <Logo className="w-36 mt-5" />
                 <button
                     onClick={closeFn}
-                    className="self-end  text-gray-400 hover:text-gray-600 text-xl"
+                    className="self-end  text-gray-400 hover:text-gray-300 hover:text-2xl text-xl"
                 >
                     <CrossIcon/>
                 </button>

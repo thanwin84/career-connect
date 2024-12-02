@@ -30,7 +30,7 @@ export default function SelectOptionsInput<T>({
                     name={name}
                 />
                 <label
-                    className={`px-4 py-2 bg-blue-100 rounded-md text-sm cursor-pointer ${selectedOption.toLowerCase() === option.toLowerCase() ? "bg-blue-600 text-slate-100": ""}`}
+                    className={`px-4 py-2 border  rounded-md text-sm cursor-pointer  hover:border-slate-500 dark:hover:border-blue-400  ${selectedOption.toLowerCase() === option.toLowerCase() ? "bg-blue-600 text-slate-100": ""}`}
                     htmlFor={option}
                 >
                     {option.toUpperCase()}

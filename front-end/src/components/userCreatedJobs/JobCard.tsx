@@ -19,16 +19,16 @@ type Props = {
 export default function JobCard({
     job
 }:Props){
-    const styles = {
-        interview: "bg-green-100 text-green-500",
-        pending: "bg-orange-100 text-orange-500",
-        declined: "bg-red-100 text-red-500"
-    }
+    // const styles = {
+    //     interview: "bg-green-100 text-green-500",
+    //     pending: "bg-orange-100 text-orange-500",
+    //     declined: "bg-red-100 text-red-500"
+    // }
     const date = day(job.createdAt).format('MMM Do, YYYY')
     const navagation = useNavigation()
     
     return (
-        <article role='listitem' aria-labelledby={`job-title-${job._id}`} className="p-4 rounded-md mb-2 shadow-md bg-white dark:bg-zinc-900">
+        <article role='listitem' aria-labelledby={`job-title-${job._id}`} className="p-4 rounded-md mb-2 shadow-md bg-white dark:bg-zinc-800">
            <header className="flex border-b border-b-slate-200 p-4">
             <div className="mr-4 bg-blue-700 text-white p-4 rounded-md">
                 {job.company.substring(0, 1).toUpperCase()}
@@ -52,7 +52,7 @@ export default function JobCard({
                     text={job.jobType} 
                 />
                 <div className="">
-                    <span className={`px-4 py-1  rounded-sm ${styles[job.jobStatus]}`}>{job.jobStatus.substring(0, 1).toUpperCase()+ job.jobStatus.substring(1)}</span>
+                    <span className={`px-4 py-1  rounded-sm`}>{job.jobStatus.substring(0, 1).toUpperCase()+ job.jobStatus.substring(1)}</span>
                 </div>
            </div>
            <div className="flex gap-2 px-4">

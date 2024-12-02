@@ -40,8 +40,7 @@ export default function SettingPageLayout(){
                         <ChangePassword />
                         <TwoStepAuthentication  />
                     </TabContent>
-                </TabContentList> 
-                
+                </TabContentList>  
             </Tabs>
             
         </div>

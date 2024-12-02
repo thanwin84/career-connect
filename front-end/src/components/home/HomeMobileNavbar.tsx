@@ -14,7 +14,7 @@ export default function HomeMobileNavbar({
     }
     
     return (
-        <div className={` ${className}`}>
+        <div className={`dark:bg-zinc-800 ${className}`}>
             <button
                 onClick={toggleMobileSideBar}
                 className="my-auto text-3xl text-blue-500"

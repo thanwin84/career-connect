@@ -3,7 +3,8 @@ import {
     QueryStatsIcon,
     FormIcon,
     ProfileIcon,
-    AdminSettingIcon
+    AdminSettingIcon,
+    CalenderIcon
  } from "./Icons"
 
 const links  = [
@@ -16,6 +17,11 @@ const links  = [
         text: 'all jobs', 
         path: "all-jobs", 
         icon: <QueryStatsIcon />
+    },
+    {
+        text: "My Jobs",
+        path: "my-jobs",
+        icon: <CalenderIcon />
     },
     {
         text: 'stats', 

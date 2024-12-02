@@ -54,13 +54,12 @@ export default function EditProfile(){
     
     return (
         <section className="p-4  ">
-            <div className="bg-white  dark:bg-zinc-900 p-4 rounded-md shadow-md">
+            <div className="bg-white  dark:bg-zinc-800 p-4 rounded-md shadow-md">
                 <h2 id="formTitle" className="mb-4 text-2xl font-semibold dark:text-slate-200">Profile</h2>
                 
                 <form
                     onSubmit={handleSubmit(action)}
                     aria-describedby="formTitle"
-                    className="bg-white dark:bg-zinc-900" 
                     method="post" encType="multipart/form-data"
                 >
                     

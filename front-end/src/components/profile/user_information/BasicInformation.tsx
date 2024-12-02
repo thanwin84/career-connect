@@ -21,7 +21,7 @@ export default function BasicInformation({
     phoneNumber
 } = user
     return (
-        <section  className={`bg-white dark:bg-zinc-900 w-full rounded-md shadow-md px-8 py-6 ${className}`}>
+        <section  className={`bg-white dark:bg-zinc-800 w-full rounded-md shadow-md px-8 py-6 ${className}`}>
             <div className="flex justify-between mb-4">
                 <Heading
                     icon={<CgProfile/>}

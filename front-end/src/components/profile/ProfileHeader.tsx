@@ -13,7 +13,7 @@ export default function ProfileHeader({user, className}: Props) {
         <img className="mx-auto rounded-md" src={url} alt='cover photo' />
         <div className="flex absolute gap-4 left-2 md:left-8 -bottom-14">
             <div className="relative">
-                <img className="w-28 h-28  rounded-full" src={user?.avatar?.[0]} alt="" />
+                <img className="w-28 h-28 object-cover rounded-full" src={user?.avatar?.[0]} alt="" />
                 <button
                     onClick={profileActions.toggleProfileUploadModal}
                     className= "text-lg p-1 rounded-full absolute bottom-1 left-1/2 transform -translate-x-1/2 text-slate-700 bg-slate-200 hover:text-blue-600"

@@ -21,7 +21,7 @@ export default function EducationContainer({
     
     
     return (
-        <section className={`bg-white dark:bg-zinc-900 w-full rounded-md shadow-md py-4 ${className}`}>
+        <section className={`bg-white dark:bg-zinc-800 w-full rounded-md shadow-md py-4 ${className}`}>
             <div className="px-6 py-2 flex justify-between">
                 <Heading
                     icon={<FaGraduationCap/>}

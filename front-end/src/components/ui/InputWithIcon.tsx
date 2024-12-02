@@ -19,7 +19,7 @@ export default function InputWithIcon({
 }:Props
 ){
     return (
-        <div className={`relative w-full flex bg-gray-50 pl-2 rounded-md focus-within:border-blue-400  ${className}`} >
+        <div className={`relative w-full flex bg-gray-50 dark:bg-zinc-700 pl-2 rounded-md focus-within:border-blue-400  ${className}`} >
             <span aria-hidden={true} className="text-xl text-gray-400 dark:text-slate-100 my-auto">
                 {icon}
             </span>

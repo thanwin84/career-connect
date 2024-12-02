@@ -37,7 +37,7 @@ export default function AllJobs({}:Props){
             searchValues,
             data
             }}>
-            <section className="dark:bg-zinc-800">
+            <section className="dark:bg-zinc-700">
                 <SearchJobsContainer />
                 <JobsContainer />
             </section>
