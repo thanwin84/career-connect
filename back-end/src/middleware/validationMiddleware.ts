@@ -98,20 +98,6 @@ export const validateUserUpdateInput = withValidationError([
   body("firstName").notEmpty().withMessage("name is required"),
   body("location").notEmpty().withMessage("location is required"),
   body("lastName").notEmpty().withMessage("lastName is required"),
-  body("email").custom(async (value, { req }) => {
-    if (!value) {
-      return true;
-    }
-    const user = await User.findById(req.user.userId);
-    req.body.userFromDb = user;
-    if (!user) {
-      throw new NotFoundError("User does not exist");
-    }
-    if (user.email !== value) {
-      throw new ForbiddenError("You can not update email");
-    }
-    return true;
-  }),
 ]);
 
 export const validateAddEducationInput = withValidationError([
@@ -146,24 +132,22 @@ export const validateAddEducationInput = withValidationError([
     .notEmpty()
     .withMessage("End year is required"),
 ]);
-export const validateUpdateEducationEntry = withValidationError([
-  body().custom((_value, { req }) => {
-    const fields = [
-      "school",
-      "degree",
-      "department",
-      "startMonth",
-      "startYear",
-      "endMonth",
-      "endMonth",
-    ];
-    const fieldExists = fields.some((field) => req.body[field] !== undefined);
-    if (!fieldExists) {
-      throw new BadRequestError("At least one field is required to udpate");
-    }
-    return true;
-  }),
+export const validateupdateAddEducationInput = withValidationError([
+  body("school").notEmpty().withMessage("name is required"),
+  body("degree").notEmpty().withMessage("degree is required"),
+  body("department").notEmpty().withMessage("department is required"),
+  body("startMonth").notEmpty().withMessage("starting month is required"),
+  body("startYear").notEmpty().withMessage("starting year is required"),
+  body("endMonth")
+    .if((value, { req }) => req.body.currentlyStudying === "false")
+    .notEmpty()
+    .withMessage("End month is required"),
+  body("endYear")
+    .if((value, { req }) => req.body.currentlyStudying === "false")
+    .notEmpty()
+    .withMessage("End year is required"),
 ]);
+
 export const validateChangePasswordInput = withValidationError([
   body("oldPassword")
     .notEmpty()

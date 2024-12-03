@@ -18,7 +18,7 @@ import {
 import {
   validateUserUpdateInput,
   validateAddEducationInput,
-  validateUpdateEducationEntry,
+  validateupdateAddEducationInput,
 } from "../middleware/validationMiddleware";
 import upload from "../middleware/multer.middleware";
 
@@ -47,6 +47,6 @@ router.route("/add-education").patch(validateAddEducationInput, addEducation);
 router.route("/education/:recordId").patch(deleteEducationEntry);
 router
   .route("/education/:recordId/update-record")
-  .patch(validateUpdateEducationEntry, updateEducationEntry);
+  .patch(validateupdateAddEducationInput, updateEducationEntry);
 
 export default router;
