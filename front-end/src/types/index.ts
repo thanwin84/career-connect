@@ -3,6 +3,7 @@ import {
   JOB_SORT_BY,
   JOB_TYPE,
   experianceLevel,
+  UserRoles,
 } from "../constant";
 
 export type Education = {
@@ -17,24 +18,30 @@ export type Education = {
   currentlyStudying: boolean;
 };
 
-export type UserRole = "user" | "admin";
+export type UserRole = (typeof UserRoles)[keyof typeof UserRoles];
 export type UserType = "recruiter" | "user" | null;
 
 export type User = {
-  _id: string;
-  name: string;
+  _id?: string;
+  firstName: string;
   email: string;
-  lastName?: string;
+  lastName: string;
   location?: string;
   role?: UserRole;
   educationRecords?: Education[];
-  avatar?: string[];
+  avatar?: {
+    url: string;
+    publicId: string;
+  };
+  coverPhoto?: {
+    url: string;
+    publicId: string;
+  };
   accessStatus?: boolean;
   twoStepAuthentication?: boolean;
   phoneNumber?: string;
-  userType: UserType;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type Users = User[];
@@ -57,11 +64,12 @@ export type Job = {
     max: number;
   };
   experianceLevel: ExperianceLevel;
-  openRoles?: number;
+  openRoles: number;
   createdBy: string;
   createdAt: Date;
   updatedAt: Date;
-  isApplied?: boolean;
+  applicationDeadline: Date;
+  numberOfApplicants: number;
 };
 
 export type Jobs = Job[];
@@ -106,18 +114,6 @@ export type GetUserJobsApiResponse = {
   jobs: Job[];
 };
 
-export type GetJobsApiResponse = {
-  jobs: Job[];
-  jobsCount: number;
-  totalPages: number;
-  page: number;
-};
-
-export type GetApplicationStatsResponse = {
-  users: number;
-  jobs: number;
-};
-
 export type JobApplication = {
   _id: string;
   candidateId: string;
@@ -146,3 +142,34 @@ export type GetMyApplicationResponse = {
     page: number;
   };
 };
+
+export type Pagination = {
+  totalPages: number;
+  currentPage: number;
+  totalItems: number;
+};
+
+// Api response
+export type UserList = {
+  users: User[];
+  pagination: Pagination;
+};
+export type ApplicationStatsResponse = {
+  users: number;
+  jobs: number;
+};
+
+interface ApiResponse<T = any> {
+  statusCode: number;
+  message: string;
+  success: boolean;
+  data: T;
+}
+export type JobList = {
+  jobs: Job[];
+  pagination: Pagination;
+};
+
+export interface CurrentUserResponse extends ApiResponse<User> {}
+export interface UserListResponse extends ApiResponse<UserList> {}
+export interface JobListResponse extends ApiResponse<JobList> {}

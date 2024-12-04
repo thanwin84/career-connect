@@ -1,155 +1,158 @@
-
-import  { createContext, useState } from "react";
-import { 
-    FilterJobsContainer,
-    SearchBar,
-    FindJobsContainer
- } from "../components/find_jobs";
- import {  SlideOpen } from "../components/ui";
+import { createContext, useState } from "react";
+import {
+  FilterJobsContainer,
+  SearchBar,
+  FindJobsContainer,
+} from "../components/find_jobs";
+import { SlideOpen } from "../components/ui";
 import { useLoaderData } from "react-router-dom";
 import { useContext } from "react";
-import { ExperianceLevel, GetJobsApiResponse, Job, JobSortBy, JobType, PublicJobsSearchParams } from "../types";
+import {
+  ExperianceLevel,
+  JobList,
+  Job,
+  JobSortBy,
+  JobType,
+  PublicJobsSearchParams,
+} from "../types";
 import { getJobsRequest } from "../apiRequest";
 import { JobDetails } from "../components";
 
 type Loader = {
-    data: GetJobsApiResponse
-    paramsObject: Partial<PublicJobsSearchParams>
-}
+  data: JobList;
+  paramsObject: Partial<PublicJobsSearchParams>;
+};
 export type FormState = {
-    jobType: JobType[]
-    experianceLevel: ExperianceLevel[]
-    location: string
-    search: string
-    sort: JobSortBy
-}
+  jobType: JobType[];
+  experianceLevel: ExperianceLevel[];
+  location: string;
+  search: string;
+  sort: JobSortBy;
+};
 type ContextT = {
-    data: GetJobsApiResponse
-    paramsObject: Partial<PublicJobsSearchParams>
-    resetFormState: ()=> void
-    updateFormState: (updates: Partial<FormState>)=>void
-    toggleOpenDetails: ()=> void
-    formState: FormState
-    currentJobDetails: Job | undefined
-    handleCurrentJobDetails: (job:Job)=> void
-    addAppliedId: (id: string)=> void
-}
-export const loader = async({request}:any)=>{
-    const url = new URL(request.url)
-    const params = new URLSearchParams(url.search)
-    const paramsObject:FormState = {
-        jobType: params.getAll('jobType[]') as JobType[],
-        experianceLevel: params.getAll('experianceLevel[]') as ExperianceLevel[],
-        location: params.get('location') as string,
-        search: params.get('search') as string,
-        sort: params.get('sort') as JobSortBy
-    }
-    
-    
-    try {
-        const data = await getJobsRequest(url.search)
-        
-        return {data, paramsObject}
-    } catch (error:any) {
-        throw error
-    }
+  data: JobList;
+  paramsObject: Partial<PublicJobsSearchParams>;
+  resetFormState: () => void;
+  updateFormState: (updates: Partial<FormState>) => void;
+  toggleOpenDetails: () => void;
+  formState: FormState;
+  currentJobDetails: Job | undefined;
+  handleCurrentJobDetails: (job: Job) => void;
+  addAppliedId: (id: string) => void;
+};
+export const loader = async ({ request }: any) => {
+  const url = new URL(request.url);
+  const params = new URLSearchParams(url.search);
+  const paramsObject: FormState = {
+    jobType: params.getAll("jobType[]") as JobType[],
+    experianceLevel: params.getAll("experianceLevel[]") as ExperianceLevel[],
+    location: params.get("location") as string,
+    search: params.get("search") as string,
+    sort: params.get("sort") as JobSortBy,
+  };
+
+  try {
+    const data = await getJobsRequest(url.search);
+
+    return { data, paramsObject };
+  } catch (error: any) {
+    throw error;
+  }
+};
+
+const findJobsContext = createContext<ContextT | undefined>(undefined);
+
+export default function FindJobs() {
+  const { data: jobs, paramsObject } = useLoaderData() as Loader;
+  const [openDetails, setOpenDetails] = useState(false);
+  const [currentJobDetails, setCurrentJobDetails] = useState<Job>();
+  const [formState, setFormState] = useState<FormState>({
+    jobType: paramsObject?.jobType || [],
+    experianceLevel: paramsObject?.experianceLevel || [],
+    location: paramsObject?.location || "",
+    search: paramsObject?.search || "",
+    sort: paramsObject?.sort || "newest",
+  });
+  const [appliedIds, setAppliedIds] = useState<string[]>([]);
+
+  const data = {
+    jobs: jobs.jobs.map((item) =>
+      appliedIds.includes(item._id)
+        ? { ...item, isApplied: true }
+        : { ...item, isApplied: false }
+    ),
+    page: jobs.page,
+    totalPages: jobs.totalPages,
+    jobsCount: jobs.jobsCount,
+  };
+
+  function handleCurrentJobDetails(job: Job) {
+    setCurrentJobDetails(job);
+  }
+  function resetFormState() {
+    setFormState({
+      jobType: [],
+      experianceLevel: [],
+      location: "",
+      search: "",
+      sort: "newest",
+    });
+  }
+  function addAppliedId(id: string) {
+    setAppliedIds((prev) => [...prev, id]);
+  }
+
+  function updateFormState(updates: Partial<FormState>) {
+    setFormState((prev) => ({ ...prev, ...updates }));
+  }
+
+  function toggleOpenDetails() {
+    setOpenDetails(!openDetails);
+  }
+
+  return (
+    <section className="w-full  px-10">
+      <findJobsContext.Provider
+        value={{
+          toggleOpenDetails,
+          paramsObject,
+          data,
+          formState,
+          resetFormState,
+          updateFormState,
+          currentJobDetails,
+          handleCurrentJobDetails,
+          addAppliedId,
+        }}
+      >
+        <SearchBar
+          className="mt-4  mb-2 rounded-md "
+          defaultSearch={formState.search as string}
+          defaultLocation={formState.location as string}
+        />
+        <div className="w-full lg:w-5/6  flex flex-col md:flex-row gap-10 mt-4 relative">
+          <FilterJobsContainer className="w-full mx-auto md:w-[280px] md:sticky md:top-0 md:self-start flex-none" />
+          <FindJobsContainer className="w-2/6 flex-grow" />
+        </div>
+
+        <SlideOpen
+          isOpen={openDetails}
+          className="overflow-y-scroll"
+          closeFn={toggleOpenDetails}
+        >
+          {openDetails && <JobDetails />}
+        </SlideOpen>
+      </findJobsContext.Provider>
+    </section>
+  );
 }
 
-const findJobsContext = createContext<ContextT | undefined>(undefined)
-
-export default function FindJobs(){
-    const {
-        data:jobs,
-        paramsObject
-    } = useLoaderData()  as Loader
-    const [openDetails, setOpenDetails] = useState(false)
-    const [currentJobDetails, setCurrentJobDetails] = useState<Job>()
-    const [formState, setFormState] = useState<FormState>(
-        {
-            jobType: paramsObject?.jobType || [],
-            experianceLevel: paramsObject?.experianceLevel || [],
-            location: paramsObject?.location || "",
-            search: paramsObject?.search || "",
-            sort: paramsObject?.sort || "newest"
-        }
-    )
-    const [appliedIds, setAppliedIds] = useState<string[]>([])
-    
-    const data = {
-        jobs: jobs.jobs.map(item => appliedIds.includes(item._id) ? {...item, isApplied: true}: {...item, isApplied: false}),
-        page: jobs.page,
-        totalPages: jobs.totalPages,
-        jobsCount: jobs.jobsCount
-    }
-    
-    function handleCurrentJobDetails(job:Job){
-        setCurrentJobDetails(job)
-    }
-    function resetFormState(){
-        setFormState(
-            {
-                jobType: [],
-                experianceLevel: [],
-                location: "",
-                search: "",
-                sort: "newest"
-            }
-        )
-    }
-    function addAppliedId(id:string){
-        setAppliedIds(prev => [...prev, id])
-    }
-    
-    function updateFormState(updates:Partial<FormState>){
-        setFormState(prev => ({...prev, ...updates}))
-    }
-    
-    
-    function toggleOpenDetails(){
-        setOpenDetails(!openDetails)
-    }
-    
-    
-    return (
-        <section className="w-full  px-10">
-            <findJobsContext.Provider value={{
-                toggleOpenDetails,
-                paramsObject,
-                data,
-                formState,
-                resetFormState,
-                updateFormState,
-                currentJobDetails,
-                handleCurrentJobDetails,
-                addAppliedId
-            }}>
-                <SearchBar 
-                    className="mt-4  mb-2 rounded-md "
-                    defaultSearch={formState.search as string}
-                    defaultLocation={formState.location as string}
-                />
-                <div className="w-full lg:w-5/6  flex flex-col md:flex-row gap-10 mt-4 relative">
-                    <FilterJobsContainer className="w-full mx-auto md:w-[280px] md:sticky md:top-0 md:self-start flex-none" />
-                    <FindJobsContainer className="w-2/6 flex-grow"/>
-                </div>
-                
-                <SlideOpen 
-                    isOpen={openDetails} 
-                    className="overflow-y-scroll"
-                    closeFn={toggleOpenDetails}
-                >
-                        {openDetails && <JobDetails  /> }
-                </SlideOpen>
-                
-            </findJobsContext.Provider>
-        </section>
-    )
-}
-
-export const useFindJobsContext = ()=>{
-    const context = useContext(findJobsContext)
-    if (!context){
-        throw new Error("useFindJobsContext must be used within a FindJobsContext.Provider")
-    }
-    return context
-}
+export const useFindJobsContext = () => {
+  const context = useContext(findJobsContext);
+  if (!context) {
+    throw new Error(
+      "useFindJobsContext must be used within a FindJobsContext.Provider"
+    );
+  }
+  return context;
+};

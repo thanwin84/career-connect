@@ -4,9 +4,9 @@ import {
   UserJobSearchParams,
   Job,
   User,
-  GetApplicationStatsResponse,
+  ApplicationStatsResponse,
   FormData,
-  GetJobsApiResponse,
+  JobList,
   GetMyApplicationResponse,
 } from "./types";
 import { customFetch } from "./utils";
@@ -73,7 +73,7 @@ export const addPhoneNumberRequest = async (formData: FormData) => {
 };
 //admin
 export const getApplicationStatsRequest =
-  async (): Promise<GetApplicationStatsResponse> => {
+  async (): Promise<ApplicationStatsResponse> => {
     try {
       const { data } = await customFetch.get("/users/admin/app-stats");
       return data;
@@ -103,7 +103,7 @@ export const getJobRequest = (jobId: string): Promise<Job> =>
   customFetch.get(`/jobs/${jobId}`).then((res) => res.data);
 export const getJobsRequest = async (
   searchParams: string
-): Promise<GetJobsApiResponse> => {
+): Promise<JobList> => {
   try {
     const response = await customFetch.get(`/jobs/all-jobs${searchParams}`);
     return response.data;
