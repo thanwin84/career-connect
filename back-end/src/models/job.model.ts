@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { InferSchemaType } from "mongoose";
 import { JOB_STATUS, JOB_TYPE, experianceLevel } from "../utils/constants";
 const jobSchema = new mongoose.Schema(
   {
@@ -58,5 +58,5 @@ const jobSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
+export type JobT = InferSchemaType<typeof jobSchema>;
 export const Job = mongoose.model("Job", jobSchema);

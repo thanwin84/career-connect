@@ -11,7 +11,12 @@ import {
   NotFoundError,
   UnauthorizedError,
 } from "../errors/customErrors";
-import { JOB_STATUS, JOB_TYPE, experianceLevel } from "../utils/constants";
+import {
+  JOB_SORT_BY,
+  JOB_STATUS,
+  JOB_TYPE,
+  experianceLevel,
+} from "../utils/constants";
 import mongoose from "mongoose";
 import { Job } from "../models/job.model";
 import { NextFunction, Request, RequestHandler, Response } from "express";
@@ -43,10 +48,24 @@ export const ValidateJobInput = withValidationError([
   body("company").notEmpty().withMessage("company is required"),
   body("position").notEmpty().withMessage("position is required"),
   body("jobLocation").notEmpty().withMessage("jobLocation is required"),
-  body("jobStatus")
-    .isIn(Object.values(JOB_STATUS))
-    .withMessage("Invalid job status"),
-  body("jobType").isIn(Object.values(JOB_TYPE)).withMessage("invalid job type"),
+  body("jobStatus").if((value) => {
+    const exist = Object.values(JOB_STATUS).includes(value);
+    if (!exist) {
+      throw new BadRequestError("Invalid job status");
+    }
+  }),
+  body("jobType").if((value) => {
+    const exist = Object.values(JOB_TYPE).includes(value);
+    if (!exist) {
+      throw new BadRequestError("Invalid job Type");
+    }
+  }),
+  body("sort").if((value) => {
+    const exist = Object.values(JOB_SORT_BY).includes(value);
+    if (!exist) {
+      throw new BadRequestError("Invalid sort type");
+    }
+  }),
   body("country").notEmpty().withMessage("Country is missing"),
   body("experianceLevel")
     .isIn(Object.values(experianceLevel))
@@ -170,7 +189,6 @@ export const validateJobApplicationInput = withValidationError([
 ]);
 export const validateApplicationUpdateStatus = withValidationError([
   body("status").notEmpty().withMessage("status is required"),
-  body("updatedBy").notEmpty().withMessage("Updatedby is required"),
   query("applicationIds")
     .isArray({ min: 1 })
     .bail()

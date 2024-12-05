@@ -22,6 +22,7 @@ export const JOB_STATUS = {
   SHORTLISTED: "shortListed",
   APPLIED: "applied",
   HIRED: "hired",
+  ALL: "all",
 } as const;
 export const JOB_TYPE = {
   FULL_TIME: "full-time",
@@ -29,6 +30,7 @@ export const JOB_TYPE = {
   INTERNSHIP: "internship",
   REMORE: "remote",
   HYBRID: "hybrid",
+  ALL: "all",
 } as const;
 export const JOB_SORT_BY = {
   NEWEST_FIRST: "newest",
