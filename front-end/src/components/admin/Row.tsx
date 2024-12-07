@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function Row({ handleToggle, user }: Props) {
-  const { accessStatus, firstName, createdAt, role, _id } = user;
+  const { accessStatus, firstName, createdAt, role } = user;
   return (
     <tr className="border-b last:border-none">
       <td className="p-4">

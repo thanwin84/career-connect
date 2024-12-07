@@ -4,7 +4,7 @@ import {
   JOB_TYPE,
   experianceLevel,
   UserRoles,
-} from "../constant";
+} from "../constants/constant";
 
 export type Education = {
   _id: string;

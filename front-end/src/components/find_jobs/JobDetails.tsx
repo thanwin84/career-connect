@@ -7,7 +7,7 @@ import { Job } from "../../types";
 import { useAppContext } from "../../contexts/AppProvider";
 import { useCreateJobApplication } from "../../api/JobApplication";
 import ObjectID from "bson-objectid";
-import { JOB_STATUS } from "../../constant";
+import { JOB_STATUS } from "../../constants/constant";
 
 type Props = {
   className?: string;

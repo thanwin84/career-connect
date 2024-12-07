@@ -1,6 +1,6 @@
 import MyJobsContainer from "../components/myjobs/MyJobsContainer";
 import { TabContent, TabContentList, Tabs } from "../components/ui/tabs";
-import { JOB_STATUS } from "../constant";
+import { JOB_STATUS } from "../constants/constant";
 
 type Props = {
   className?: string;
