@@ -114,7 +114,7 @@ export const validateLoginInput = withValidationError([
 ]);
 
 export const validateUserUpdateInput = withValidationError([
-  body("firstName").notEmpty().withMessage("name is required"),
+  body("firstName").notEmpty().withMessage("First name is required"),
   body("location").notEmpty().withMessage("location is required"),
   body("lastName").notEmpty().withMessage("lastName is required"),
 ]);
