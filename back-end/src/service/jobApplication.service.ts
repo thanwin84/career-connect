@@ -14,7 +14,7 @@ export const jobApplicationStatsService = async (userId: string) => {
   const stats = await JobApplication.aggregate([
     {
       $match: {
-        candidateId: userId,
+        candidateId: new mongoose.Types.ObjectId(userId),
       },
     },
     {
@@ -42,7 +42,7 @@ export const jobApplicationStatsService = async (userId: string) => {
   let monthlyApplications = await JobApplication.aggregate([
     {
       $match: {
-        candidateId: "674e1631353b2e27f0299c2b",
+        candidateId: new mongoose.Types.ObjectId(userId),
       },
     },
     {
@@ -253,4 +253,11 @@ export const deleteJobApplicationService = async (
   } else {
     throw new UnauthorizedError("you are not allowed to perform to delete");
   }
+};
+
+export const getAppliedJobIdsService = async (userId: string) => {
+  const result = await JobApplication.find({ candidateId: userId }).select(
+    "jobId -_id"
+  );
+  return result;
 };

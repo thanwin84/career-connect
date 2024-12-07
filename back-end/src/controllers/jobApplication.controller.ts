@@ -8,6 +8,7 @@ import { ApiResponse } from "../utils/ApiResponse";
 import {
   createJobApplicationService,
   deleteJobApplicationService,
+  getAppliedJobIdsService,
   getMyApplicationsService,
   jobApplicationStatsService,
   updateJobApplicationStatusService,
@@ -207,6 +208,21 @@ const getJobApplicationStats = asyncHandler(
           statusCodes.OK,
           { defaultStats, monthlyApplications },
           "Job application stats have been fetched successfully"
+        )
+      );
+  }
+);
+
+export const getAppliedIdList = asyncHandler(
+  async (req: Request, res: Response) => {
+    const idList = await getAppliedJobIdsService(req.user.userId);
+    res
+      .status(statusCodes.OK)
+      .json(
+        new ApiResponse(
+          statusCodes.OK,
+          idList,
+          "Applied id list is feched successfully"
         )
       );
   }

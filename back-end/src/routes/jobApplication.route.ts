@@ -7,6 +7,7 @@ import {
   apply,
   deleteJobApplication,
   getAllJobApplications,
+  getAppliedIdList,
   getJobApplication,
   getJobApplicationStats,
   getMyApplications,
@@ -24,6 +25,8 @@ router
   .route("/")
   .post(authenticateUser, validateJobApplicationInput, apply)
   .get(authenticateUser, authorizePermissions("admin"), getAllJobApplications);
+
+router.route("/applied").get(authenticateUser, getAppliedIdList);
 
 router
   .route("/job-application-stats")
