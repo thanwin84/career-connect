@@ -1,22 +1,20 @@
-import { ReactNode } from "react"
+import { ReactNode } from "react";
 
 type Props = {
-    className?: string
-    id: string
-    children: ReactNode
-}
+  className?: string;
+  id: string;
+  children: ReactNode;
+};
 
-const ComboDropDownList= ({className="", id, children}:Props)=>{
-    return (
-        <ul 
-            id ={id} 
-            role="listbox" 
-            className={`mt-2 pt-4 px-1 pb-4  max-h-56 overflow-y-auto  border border-gray-200 dark:bg-zinc-700 rounded-md absolute bg-white w-full ${className}`}
-        >
-            {children}
-            
-        </ul>
-    )
-}
-export default ComboDropDownList
-
+const ComboDropDownList = ({ className = "", id, children }: Props) => {
+  return (
+    <ul
+      id={id}
+      role="listbox"
+      className={`mt-2 pt-4 px-1 pb-4  max-h-56 overflow-y-auto  border border-gray-200 dark:bg-zinc-700 rounded-md absolute bg-white w-full ${className}`}
+    >
+      {children}
+    </ul>
+  );
+};
+export default ComboDropDownList;

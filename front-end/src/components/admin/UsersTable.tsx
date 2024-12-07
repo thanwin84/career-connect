@@ -1,13 +1,15 @@
+import { useEffect, useState } from "react";
 import { Users } from "../../types";
 import Row from "./Row";
+import { useUserToggleAccessStatus } from "../../api/adminApi";
+import { toast } from "react-toastify";
 
 type Props = {
   className?: string;
-  handleToggle: (id: string) => void;
   users: Users;
 };
 
-export default function UsersTable({ handleToggle, users }: Props) {
+export default function UsersTable({ users }: Props) {
   const headers = [
     "Ban",
     "Access Status",
@@ -15,6 +17,28 @@ export default function UsersTable({ handleToggle, users }: Props) {
     "Joined Date",
     "Role",
   ];
+  const [userList, setUserList] = useState<Users>(users);
+  const [originalUserList, setOrinalUserList] = useState<Users>([]);
+  const { toggleUserAccessStatus, isError } = useUserToggleAccessStatus();
+
+  function handleToggle(userId: string) {
+    setOrinalUserList(userList);
+    setUserList((prevList) =>
+      prevList.map((user) =>
+        user._id === userId
+          ? { ...user, accessStatus: !user.accessStatus }
+          : user
+      )
+    );
+    toggleUserAccessStatus(userId);
+  }
+
+  useEffect(() => {
+    if (isError) {
+      setUserList(originalUserList);
+      toast.error("Something went wrong. Could't not update access status");
+    }
+  }, [isError]);
   return (
     <table className="table-auto w-full bg-white dark:bg-zinc-900 shadow-md rounded-md">
       <thead>
@@ -27,8 +51,12 @@ export default function UsersTable({ handleToggle, users }: Props) {
         </tr>
       </thead>
       <tbody>
-        {users?.map((user) => (
-          <Row key={user._id} user={user} handleToggle={handleToggle} />
+        {userList?.map((user) => (
+          <Row
+            key={user._id}
+            user={user}
+            handleToggle={() => handleToggle(user._id as string)}
+          />
         ))}
       </tbody>
     </table>

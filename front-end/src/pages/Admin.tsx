@@ -21,8 +21,9 @@ type Props = {
 };
 
 export default function Admin({}: Props) {
-  const { users, jobs } = useLoaderData() as ApplicationStatsResponse;
-
+  const {
+    data: { jobs, users },
+  } = useLoaderData() as ApplicationStatsResponse;
   return (
     <section>
       <ul className="p-6 flex gap-4">

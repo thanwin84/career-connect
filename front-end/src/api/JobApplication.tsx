@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import {
   createJobApplicationRequest,
+  getJobApplicationStatsRequest,
   getMyApplicationRequest,
 } from "../apiRequest";
 import { useMutation, useQuery } from "../hooks";
@@ -18,8 +19,7 @@ export const useCreateJobApplication = () => {
     isError,
     error,
   } = useMutation(createJobApplicationRequest, {
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       toast.success("You've applied successfully");
     },
     onError: (error: any) => {
@@ -69,5 +69,19 @@ export const useGetMyApplications = (status: JobStatus) => {
     isLoading,
     isError,
     isSuccess,
+  };
+};
+
+export const useJobApplicationStats = () => {
+  const { data, isError, isLoading, isSuccess, refetch } = useQuery(
+    getJobApplicationStatsRequest
+  );
+
+  return {
+    data,
+    isError,
+    isLoading,
+    isSuccess,
+    refetch,
   };
 };

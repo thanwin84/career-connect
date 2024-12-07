@@ -1,5 +1,3 @@
 import UsersContainer from "./UsersContainer";
 
-export {
-    UsersContainer
-}
+export { UsersContainer };

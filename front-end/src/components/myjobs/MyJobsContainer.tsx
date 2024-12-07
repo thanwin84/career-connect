@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetMyApplications } from "../../api/JobApplication";
-import { JobStatus, ModifiedJobApplication } from "../../types";
+import { JobStatus, MyJobApplication } from "../../types";
 import { LoadingPage, Pagination } from "../ui";
 import JobCard from "./JobCard";
 import NotAvailable from "./NotAvailable";
@@ -27,21 +27,22 @@ export default function MyJobsContainer({ type = "all" }: Props) {
   if (isLoading) {
     return <LoadingPage />;
   }
-  if (!data || data.data.jobApplications?.length === 0) {
+  if (!data || data.data.jobApplications.length === 0) {
     return <NotAvailable />;
   }
 
-  const { jobApplications, pages, page } = data.data;
+  const { jobApplications, pagination } = data.data;
   function handlePageChage(pageNumber: number) {
     searchParams.set("page", String(pageNumber));
     setSearchParams(searchParams);
   }
-  function handleClick(job: ModifiedJobApplication) {
+  function handleClick(job: MyJobApplication) {
     actions.selectMyJob(job);
     if (breakPoint === "sm") {
       navigate(`/dashboard/my-jobs/${job._id}`);
     }
   }
+
   return (
     <section className="flex  gap-6">
       <ul className="space-y-4 mt-4 w-[90%] md:w-[40%]">
@@ -61,10 +62,10 @@ export default function MyJobsContainer({ type = "all" }: Props) {
             </li>
           );
         })}
-        {pages > 1 && (
+        {pagination.totalPages > 1 && (
           <Pagination
-            totalPages={pages}
-            currentPage={page}
+            totalPages={pagination.totalPages}
+            currentPage={pagination.currentPage}
             handlePageChange={handlePageChage}
           />
         )}

@@ -6,20 +6,24 @@ import {
   User,
   ApplicationStatsResponse,
   FormData,
-  JobList,
-  GetMyApplicationResponse,
+  JobListResponse,
+  CurrentUserResponse,
+  GetMyJobApplicationResponse,
+  JobApplicationStatsResponse,
+  UserListResponse,
 } from "./types";
 import { customFetch } from "./utils";
 
 // user
-export const getUserInformationRequest = async (): Promise<User> => {
-  try {
-    const response = await customFetch.get("/users/current-user");
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+export const getUserInformationRequest =
+  async (): Promise<CurrentUserResponse> => {
+    try {
+      const response = await customFetch.get("/users/current-user");
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
 export const loginRequest = (formData: FormData): Promise<User> =>
   customFetch.post("/auth/login", formData).then((res) => res.data.data);
 
@@ -73,14 +77,14 @@ export const addPhoneNumberRequest = async (formData: FormData) => {
 };
 //admin
 export const getApplicationStatsRequest =
-  async (): Promise<ApplicationStatsResponse> => {
-    try {
-      const { data } = await customFetch.get("/users/admin/app-stats");
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  };
+  (): Promise<ApplicationStatsResponse> =>
+    customFetch.get("/users/admin/app-stats").then((res) => res.data);
+
+export const getUserListRequest = (params: string): Promise<UserListResponse> =>
+  customFetch.get(`/users/get-users-list?${params}`).then((res) => res.data);
+
+export const toggleAccessStatusRequest = (userId: string) =>
+  customFetch.patch(`/users/toggle-access-status/${userId}`);
 // education
 export const addEducationRecordRequest = async (formData: FormData) =>
   await customFetch.patch("/users/add-education", formData);
@@ -103,7 +107,7 @@ export const getJobRequest = (jobId: string): Promise<Job> =>
   customFetch.get(`/jobs/${jobId}`).then((res) => res.data);
 export const getJobsRequest = async (
   searchParams: string
-): Promise<JobList> => {
+): Promise<JobListResponse> => {
   try {
     const response = await customFetch.get(`/jobs/all-jobs${searchParams}`);
     return response.data;
@@ -147,7 +151,14 @@ export const createJobApplicationRequest = (formData: FormData) =>
   customFetch
     .post("/job-applications", formData)
     .then((response) => response.data);
+
 export const getMyApplicationRequest = (
   url: string
-): Promise<GetMyApplicationResponse> =>
+): Promise<GetMyJobApplicationResponse> =>
   customFetch.get(url).then((res) => res.data);
+
+export const getJobApplicationStatsRequest =
+  (): Promise<JobApplicationStatsResponse> =>
+    customFetch
+      .get("/job-applications/job-application-stats")
+      .then((res) => res.data);

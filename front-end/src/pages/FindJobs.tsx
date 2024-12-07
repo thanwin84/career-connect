@@ -9,17 +9,17 @@ import { useLoaderData } from "react-router-dom";
 import { useContext } from "react";
 import {
   ExperianceLevel,
-  JobList,
   Job,
   JobSortBy,
   JobType,
   PublicJobsSearchParams,
+  JobListResponse,
 } from "../types";
 import { getJobsRequest } from "../apiRequest";
 import { JobDetails } from "../components";
 
 type Loader = {
-  data: JobList;
+  data: JobListResponse;
   paramsObject: Partial<PublicJobsSearchParams>;
 };
 export type FormState = {
@@ -30,7 +30,7 @@ export type FormState = {
   sort: JobSortBy;
 };
 type ContextT = {
-  data: JobList;
+  data: JobListResponse;
   paramsObject: Partial<PublicJobsSearchParams>;
   resetFormState: () => void;
   updateFormState: (updates: Partial<FormState>) => void;
@@ -38,11 +38,12 @@ type ContextT = {
   formState: FormState;
   currentJobDetails: Job | undefined;
   handleCurrentJobDetails: (job: Job) => void;
-  addAppliedId: (id: string) => void;
+  addAppliedId?: (id: string) => void;
 };
 export const loader = async ({ request }: any) => {
   const url = new URL(request.url);
   const params = new URLSearchParams(url.search);
+
   const paramsObject: FormState = {
     jobType: params.getAll("jobType[]") as JobType[],
     experianceLevel: params.getAll("experianceLevel[]") as ExperianceLevel[],
@@ -63,7 +64,7 @@ export const loader = async ({ request }: any) => {
 const findJobsContext = createContext<ContextT | undefined>(undefined);
 
 export default function FindJobs() {
-  const { data: jobs, paramsObject } = useLoaderData() as Loader;
+  const { data, paramsObject } = useLoaderData() as Loader;
   const [openDetails, setOpenDetails] = useState(false);
   const [currentJobDetails, setCurrentJobDetails] = useState<Job>();
   const [formState, setFormState] = useState<FormState>({
@@ -73,18 +74,6 @@ export default function FindJobs() {
     search: paramsObject?.search || "",
     sort: paramsObject?.sort || "newest",
   });
-  const [appliedIds, setAppliedIds] = useState<string[]>([]);
-
-  const data = {
-    jobs: jobs.jobs.map((item) =>
-      appliedIds.includes(item._id)
-        ? { ...item, isApplied: true }
-        : { ...item, isApplied: false }
-    ),
-    page: jobs.page,
-    totalPages: jobs.totalPages,
-    jobsCount: jobs.jobsCount,
-  };
 
   function handleCurrentJobDetails(job: Job) {
     setCurrentJobDetails(job);
@@ -97,9 +86,6 @@ export default function FindJobs() {
       search: "",
       sort: "newest",
     });
-  }
-  function addAppliedId(id: string) {
-    setAppliedIds((prev) => [...prev, id]);
   }
 
   function updateFormState(updates: Partial<FormState>) {
@@ -122,7 +108,6 @@ export default function FindJobs() {
           updateFormState,
           currentJobDetails,
           handleCurrentJobDetails,
-          addAppliedId,
         }}
       >
         <SearchBar

@@ -4,18 +4,17 @@ import { User } from "../../types";
 
 type Props = {
   user: User;
-  handleToggle: (id: string) => void;
+  handleToggle: () => void;
 };
 
 export default function Row({ handleToggle, user }: Props) {
-  const { accessStatus, name, createdAt, role, _id } = user;
+  const { accessStatus, firstName, createdAt, role, _id } = user;
   return (
     <tr className="border-b last:border-none">
       <td className="p-4">
         <ToggleStatus
           accessStatus={accessStatus as boolean}
-          handleToggle={handleToggle}
-          _id={_id}
+          onToggleClick={handleToggle}
         />
       </td>
       <td className="p-4">
@@ -29,9 +28,9 @@ export default function Row({ handleToggle, user }: Props) {
           </span>
         )}
       </td>
-      <td className="p-4 text-center dark:text-slate-300">{name}</td>
+      <td className="p-4 text-center dark:text-slate-300">{firstName}</td>
       <td className="p-4  text-center dark:text-slate-300">
-        {formatDate(createdAt.toString())}
+        {formatDate(createdAt?.toString() as string)}
       </td>
       <td
         className={`p-4 text-center dark:text-slate-300 ${

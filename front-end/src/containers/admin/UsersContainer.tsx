@@ -1,59 +1,40 @@
-import  { useEffect, useState } from "react";
-import { customFetch } from "../../utils";
-import { Pagination } from "../../components/ui";
+import { LoadingPage, Pagination } from "../../components/ui";
 import UsersTable from "../../components/admin/UsersTable";
-import { Users } from "../../types";
+import { useGetUserList } from "../../api/adminApi";
+import { useSearchParams } from "react-router-dom";
 
 type Props = {
-    className?: string
-}
+  className?: string;
+};
 
-export default function UsersContainer({className}:Props){
-    const [users, setUsers] = useState<Users>([])
-    const [totalPages, setTotalPages] = useState(0)
-    const [currentPage, setCurrentPage] = useState(1)
-   
+export default function UsersContainer({ className }: Props) {
+  const { isLoading, data } = useGetUserList();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-    function handlePageChange(pageNumber:number){
-        setCurrentPage(pageNumber)
-    }
-    function handleToggle(userId:string){
-        setUsers(prevList => {
-            return prevList.map(user => (
-                user._id === userId ? {...user, accessStatus: !user.accessStatus}: user
-            ))
-        })
-        
-    }
-    
-    useEffect(()=>{
-        const fetchData = async()=>{
-            try {
-                const {data} = await customFetch.get(`/users/get-users-list?page=${currentPage}`)
-                setUsers(data.users)
-                setTotalPages(data.totalPages)
-            } catch (error) {
-                
-            }
-        }
-        fetchData()
-    }, [currentPage])
+  if (isLoading || !data) {
+    return <LoadingPage />;
+  }
+  const { users, pagination } = data.data;
 
-    return (
-        <div className={`w-full ${className}`}>
-            <h2 className="mb-4 text-center text-xl text-slate-700 dark:text-slate-200 font-bold">Manage Users</h2>
-            <UsersTable 
-                handleToggle={handleToggle} 
-                users={users} 
-            />
-            {totalPages > 1 && (
-                <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    handlePageChange={handlePageChange}
-                    className="justify-end"
-                />
-            )}
-        </div>
-    )
+  function handlePageChange(pageNumber: number) {
+    searchParams.set("page", String(pageNumber));
+    setSearchParams(searchParams);
+  }
+
+  return (
+    <div className={`w-full ${className}`}>
+      <h2 className="mb-4 text-center text-xl text-slate-700 dark:text-slate-200 font-bold">
+        Manage Users
+      </h2>
+      <UsersTable users={users || []} />
+      {pagination.totalPages > 1 && (
+        <Pagination
+          currentPage={pagination.currentPage}
+          totalPages={pagination.totalPages}
+          handlePageChange={handlePageChange}
+          className="justify-end"
+        />
+      )}
+    </div>
+  );
 }
