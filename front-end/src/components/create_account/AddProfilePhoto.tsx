@@ -1,33 +1,55 @@
 import { Input, Button } from "../ui";
 import { useFilePreview } from "../../hooks";
 import { useCreateUser } from "../../api/UserApi";
-import { User } from "../../types";
+import { useForm } from "react-hook-form";
+import {
+  addProfilePhotoSchema,
+  AddProfileType,
+  CreateUser as CreateUserT,
+} from "../../form-validation";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props = {
   className?: string;
   goBack: () => void;
-  user: Partial<User>;
+  user: Partial<CreateUserT>;
 };
 
 export default function AddProfilePhoto({ className, goBack, user }: Props) {
   const { file, fileUrl, handleFileChange } = useFilePreview();
   const { createUser, isPending } = useCreateUser();
+  const {
+    register,
+    handleSubmit,
+    formState: {
+      errors: { avatar },
+    },
+  } = useForm<AddProfileType>({
+    resolver: zodResolver(addProfilePhotoSchema),
+  });
 
   async function handleFinish() {
     const formData = new FormData();
     Object.keys(user).forEach((key) => {
-      formData.append(key, user[key as keyof User] as string);
+      formData.append(key, user[key as keyof CreateUserT] as string);
     });
     if (file) {
       formData.append("avatar", file);
     }
+    if (avatar && avatar.message) {
+      return;
+    }
+
     await createUser(formData);
   }
   function handleBack() {
     goBack();
   }
   return (
-    <section className={`h-screen ${className}`}>
+    <form
+      onSubmit={handleSubmit(handleFinish)}
+      className={`h-screen ${className}`}
+    >
       <h2 className="dark:text-slate-200 text-xl mb-6">
         Add Your Profile Photo or Skip it to upload later.
       </h2>
@@ -37,21 +59,26 @@ export default function AddProfilePhoto({ className, goBack, user }: Props) {
         </div>
       </div>
       <div className="flex gap-2 lg:w-3/6 mx-auto">
-        <Input type="file" name="avatar" onChange={handleFileChange} />
+        <Input
+          type="file"
+          {...register("avatar")}
+          onChange={handleFileChange}
+          errorMessage={avatar?.message}
+        />
       </div>
       <div className="flex gap-4 justify-between mt-4">
         <Button classname="w-24" category="normal" onClick={handleBack}>
           Back
         </Button>
         <Button
-          classname="w-24"
+          classname=""
           category="success"
-          onClick={handleFinish}
+          type="submit"
           disabled={isPending}
         >
           {isPending ? "In progess..." : "Finish"}
         </Button>
       </div>
-    </section>
+    </form>
   );
 }

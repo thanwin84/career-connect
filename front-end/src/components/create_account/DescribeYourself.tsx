@@ -1,49 +1,45 @@
-import { useEffect, useState } from "react";
 import { Button } from "../ui";
 import { useForm } from "react-hook-form";
 import FormError from "../ui/FormError";
-import { UserRole } from "../../types";
+import { FormData, UserRole } from "../../types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  DescribeYourself as DescribeT,
+  describeYourselfSchema,
+  CreateUser as CreateUserT,
+} from "../../form-validation";
+import { useState } from "react";
 
 type Props = {
   className?: string;
   next: () => void;
   goBack: () => void;
   setUser: (values: { role: UserRole }) => void;
+  user: Partial<CreateUserT>;
 };
+const options = [
+  { text: "I'm a recruiter", value: "recruiter" },
+  { text: "I'm a job seeker", value: "user" },
+];
 
 export default function DescribeYourself({
   className,
   next,
   goBack,
   setUser,
+  user,
 }: Props) {
-  const options = [
-    { text: "I'm a recruiter", value: "recruiter" },
-    { text: "I'm a job seeker", value: "user" },
-  ];
-  const [whoAmI, setWhoAmI] = useState<UserRole | null>(null);
-  const canSubmit = whoAmI !== null;
-  const { setValue, register, handleSubmit, trigger, formState } = useForm();
+  const { handleSubmit, formState, register } = useForm<DescribeT>({
+    resolver: zodResolver(describeYourselfSchema),
+    defaultValues: user,
+  });
+  const [selected, setSelected] = useState<UserRole>(user.role as UserRole);
 
-  async function action() {
-    if (whoAmI) {
-      setUser({ role: whoAmI });
-      setValue("rolo", whoAmI);
-      trigger("role");
-    }
+  async function action(form: FormData) {
     next();
+    setUser({ role: form.role });
   }
-  function handleBack() {
-    goBack();
-  }
-  function handleClick(value: UserRole) {
-    setWhoAmI(value);
-    setValue("role", value);
-    trigger("role");
-  }
-  useEffect(() => {
-    register("userType", { required: "Please select an option" });
-  }, []);
+
   return (
     <form
       onSubmit={handleSubmit(action)}
@@ -52,23 +48,30 @@ export default function DescribeYourself({
       <h2 className="text-xl dark:text-slate-300 mb-6">
         What brings to Career Connect?
       </h2>
-      <ul className="mb-1">
+      <ul className="mb-1 flex flex-col">
         {options.map(({ text, value }) => (
-          <li
-            key={value}
-            onClick={() => handleClick(value as UserRole)}
-            className={`text-xl dark:text-slate-300 p-4 border mb-4 cursor-pointer ${
-              value === whoAmI ? "border-2 border-blue-500" : ""
-            }`}
+          <label
+            className={`py-2 px-4 text-lg border mb-4 rounded-md bg-white hover:border-1 hover:border-blue-300 cursor-pointer ${
+              selected === value ? "border-2 border-blue-500" : ""
+            } `}
+            key={text}
           >
+            <input
+              value={value}
+              {...register("role")}
+              type="radio"
+              className="hidden"
+              onChange={() => setSelected(value as UserRole)}
+            />
             {text}
-          </li>
+          </label>
         ))}
       </ul>
-      {formState.errors.userType?.message && (
+
+      {formState.errors.role?.message && (
         <FormError
           className="ml-2 text-base"
-          message={formState.errors.userType?.message as string}
+          message={formState.errors.role?.message}
           id="user-type-error"
         />
       )}
@@ -76,17 +79,12 @@ export default function DescribeYourself({
         <Button
           type="button"
           classname="w-24"
-          onClick={handleBack}
+          onClick={goBack}
           category="normal"
         >
           Back
         </Button>
-        <Button
-          type="submit"
-          disabled={!canSubmit}
-          classname="w-24"
-          category={canSubmit ? "primary" : "normal"}
-        >
+        <Button disabled={!selected} type="submit" classname="w-24">
           Next
         </Button>
       </div>

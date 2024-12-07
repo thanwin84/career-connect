@@ -1,21 +1,38 @@
-import { FormData, User } from "../../types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormData } from "../../types";
 import { Button, Input } from "../ui";
 import { Password } from "../ui";
 import { useForm } from "react-hook-form";
+import {
+  CreateUser as CreateUserT,
+  PersonalInfo,
+  personalInfoSchema,
+} from "../../form-validation";
 
 type Props = {
   className?: string;
   next: () => void;
-  setUser: (data: User) => void;
+  setUser: (data: PersonalInfo) => void;
+  user: Partial<CreateUserT>;
 };
 
-export default function CreateAccount({ next, setUser, className }: Props) {
+export default function CreateAccount({
+  next,
+  setUser,
+  className,
+  user,
+}: Props) {
   async function action(formData: FormData) {
-    setUser(formData as User);
+    setUser(formData as PersonalInfo);
     next();
   }
 
-  const { handleSubmit, formState, register } = useForm();
+  console.log(user);
+
+  const { handleSubmit, formState, register } = useForm<PersonalInfo>({
+    resolver: zodResolver(personalInfoSchema),
+    defaultValues: user,
+  });
   return (
     <div
       className={`w-full   dark:bg-zinc-900  bg-white px-6 py-4 rounded-md mx-auto ${className}`}
@@ -32,34 +49,35 @@ export default function CreateAccount({ next, setUser, className }: Props) {
             label="First Name"
             placeholder="Enter your first Name"
             aria-required="true"
-            {...register("firstName", { required: "Name is required" })}
-            errorMessage={formState.errors?.firstName?.message as string}
+            {...register("firstName")}
+            errorMessage={formState.errors?.firstName?.message}
           />
           <Input
             label="Last Name"
             placeholder="Enter your last name"
             aria-required="true"
-            {...register("lastName", { required: "Last name is required" })}
-            errorMessage={formState.errors?.lastName?.message as string}
+            {...register("lastName")}
+            errorMessage={formState.errors?.lastName?.message}
           />
           <Input
             label="Location"
             placeholder="Enter your location"
-            {...register("location", { required: "Location is required" })}
+            {...register("location")}
+            errorMessage={formState.errors?.location?.message}
           />
           <Input
             type="email"
             label="Email"
             placeholder="Enter your email"
             aria-required="true"
-            {...register("email", { required: "Email is required" })}
-            errorMessage={formState.errors?.email?.message as string}
+            {...register("email")}
+            errorMessage={formState.errors?.email?.message}
           />
           <Password
             className="mb-4"
-            errorMessage={formState.errors?.password?.message as string}
+            errorMessage={formState.errors?.password?.message}
             aria-required="true"
-            {...register("password", { required: "Password is required" })}
+            {...register("password")}
           />
           <Button classname="self-end">Next</Button>
         </div>
