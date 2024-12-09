@@ -4,7 +4,7 @@ import { Button, Input } from "../ui";
 import { Password } from "../ui";
 import { useForm } from "react-hook-form";
 import {
-  CreateUser as CreateUserT,
+  CreateUserForm as CreateUserT,
   PersonalInfo,
   personalInfoSchema,
 } from "../../form-validation";

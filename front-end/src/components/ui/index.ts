@@ -6,7 +6,7 @@ import ComboBox from "./combobox/ComboBox";
 import MultipleSelect from "./MultipleSelect";
 import SingleOptionSelector from "./SingleOptionSelector";
 import InputWithIcon from "./InputWithIcon";
-import SelectOptionsInput from "./SelectOptionsInput";
+import SelectSingleOptionBox from "./SelectSingleOptionBox";
 import Checkbox from "./CheckBox";
 import TurnOff from "./TurnOff";
 import TurnOn from "./TurnOn";
@@ -37,7 +37,7 @@ export {
   MultipleSelect,
   SingleOptionSelector,
   InputWithIcon,
-  SelectOptionsInput,
+  SelectSingleOptionBox,
   Checkbox,
   TurnOff,
   TurnOn,

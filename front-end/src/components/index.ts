@@ -25,7 +25,7 @@ import CompleteSteps from "./create_account/CompleteSteps";
 import CreateAccount from "./create_account/CreateAccount";
 import DescribeYourself from "./create_account/DescribeYourself";
 import AddProfilePhoto from "./create_account/AddProfilePhoto";
-import SelectOptionsInput from "./ui/SelectOptionsInput";
+import SelectSingleOptionBox from "./ui/SelectSingleOptionBox";
 import Location from "./create_job/Location";
 import CreateJobForm from "./create_job/CreateJobForm";
 import SalaryRange from "./create_job/SalaryRange";
@@ -38,44 +38,43 @@ import JobCard from "./find_jobs/JobCard";
 import JobDetails from "./find_jobs/JobDetails";
 // educations
 
-
 export {
-    Alert,
-    ModalContainer,
-    AreaChart,
-    BarChart,
-    StatsContainer,
-    BasicInformation as PersonalInformation,
-    Checkbox,
-    EducationContainer,
-    SettingLinks,
-    ChangePassword,
-    TwoStepAuthentication,
-    Password,
-    TurnOff,
-    TurnOn,
-    EnterConfirmationCode,
-    CloseModal,
-    AddPhoneNumber,
-    StatItem,
-    Pagination,
-    DeleteAccount,
-    ReEnterPasswordForm,
-    ReEnterPasswordForDelete,
-    ConfirmAccountDelete,
-    CompleteSteps,
-    CreateAccount,
-    DescribeYourself,
-    AddProfilePhoto,
-    SelectOptionsInput,
-    Location,
-    CreateJobForm,
-    SalaryRange,
-    HomeNavbar,
-    FindJobsContainer,
-    InputWithIcon,
-    SearchBar as SearchContainer,
-    FilterJobsContainer,
-    JobCard,
-    JobDetails
-}
+  Alert,
+  ModalContainer,
+  AreaChart,
+  BarChart,
+  StatsContainer,
+  BasicInformation as PersonalInformation,
+  Checkbox,
+  EducationContainer,
+  SettingLinks,
+  ChangePassword,
+  TwoStepAuthentication,
+  Password,
+  TurnOff,
+  TurnOn,
+  EnterConfirmationCode,
+  CloseModal,
+  AddPhoneNumber,
+  StatItem,
+  Pagination,
+  DeleteAccount,
+  ReEnterPasswordForm,
+  ReEnterPasswordForDelete,
+  ConfirmAccountDelete,
+  CompleteSteps,
+  CreateAccount,
+  DescribeYourself,
+  AddProfilePhoto,
+  SelectSingleOptionBox as SelectOptionsInput,
+  Location,
+  CreateJobForm,
+  SalaryRange,
+  HomeNavbar,
+  FindJobsContainer,
+  InputWithIcon,
+  SearchBar as SearchContainer,
+  FilterJobsContainer,
+  JobCard,
+  JobDetails,
+};

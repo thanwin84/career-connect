@@ -2,7 +2,6 @@ import {
   CountryList,
   GetUserJobsApiResponse,
   UserJobSearchParams,
-  Job,
   User,
   ApplicationStatsResponse,
   FormData,
@@ -11,6 +10,7 @@ import {
   GetMyJobApplicationResponse,
   JobApplicationStatsResponse,
   UserListResponse,
+  GetJobApiResponse,
 } from "./types";
 import { customFetch } from "./utils";
 
@@ -103,7 +103,7 @@ export const createJobRequest = async (formData: FormData) =>
   await customFetch.post("/jobs", formData);
 export const updateJobRequest = async (paramId: string, jobData: FormData) =>
   await customFetch.patch(`/jobs/${paramId}`, jobData);
-export const getJobRequest = (jobId: string): Promise<Job> =>
+export const getJobRequest = (jobId: string): Promise<GetJobApiResponse> =>
   customFetch.get(`/jobs/${jobId}`).then((res) => res.data);
 export const getJobsRequest = async (
   searchParams: string

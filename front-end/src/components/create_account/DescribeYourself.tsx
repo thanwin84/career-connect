@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   DescribeYourself as DescribeT,
   describeYourselfSchema,
-  CreateUser as CreateUserT,
+  CreateUserForm as CreateUserT,
 } from "../../form-validation";
 import { useState } from "react";
 

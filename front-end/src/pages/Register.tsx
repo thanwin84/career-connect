@@ -8,14 +8,14 @@ import {
 import useMultiStep from "../hooks/useMultiStep";
 import { useAppContext } from "../contexts/AppProvider";
 import { useNavigate } from "react-router-dom";
-import { CreateUser } from "../form-validation";
+import { CreateUserForm } from "../form-validation";
 
 type Props = {
   className?: string;
 };
 
 export default function Register({}: Props) {
-  const [user, setUser] = useState<Partial<CreateUser>>({});
+  const [user, setUser] = useState<Partial<CreateUserForm>>({});
   const navigate = useNavigate();
   const {
     userStore: { state },
@@ -23,7 +23,7 @@ export default function Register({}: Props) {
   if (state.user) {
     navigate("/");
   }
-  function updateUser(values: Partial<CreateUser>) {
+  function updateUser(values: Partial<CreateUserForm>) {
     setUser((prev) => ({ ...prev, ...values }));
   }
   console.log(user);

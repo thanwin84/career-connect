@@ -180,7 +180,10 @@ export type GetMyJobApplication = {
   jobApplications: MyJobApplication[];
   pagination: Pagination;
 };
-
+export type GetSingleJob = {
+  job: Job;
+};
+export interface GetJobApiResponse extends ApiResponse<GetSingleJob> {}
 export interface CurrentUserResponse extends ApiResponse<User> {}
 export interface JobListResponse extends ApiResponse<JobList> {}
 export interface JobApplicationStatsResponse

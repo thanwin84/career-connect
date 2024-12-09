@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import {
   addProfilePhotoSchema,
   AddProfileType,
-  CreateUser as CreateUserT,
+  CreateUserForm as CreateUserT,
 } from "../../form-validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
