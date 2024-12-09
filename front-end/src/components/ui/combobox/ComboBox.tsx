@@ -87,7 +87,6 @@ export default function ComboBox({
           aria-expanded={isDropDownOpen}
           aria-autocomplete="list"
           role="combobox"
-          autoComplete="off"
           errorMessage={errorMessage}
         />
         {isDropDownOpen && (

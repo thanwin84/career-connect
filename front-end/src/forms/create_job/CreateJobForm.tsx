@@ -1,4 +1,4 @@
-import { Input, Select, Button, SelectSingleOptionBox } from "../ui";
+import { Button, SelectSingleOptionBox } from "../../components/ui";
 import { SalaryRange, Location } from ".";
 import {
   JOB_STATUS,
@@ -9,6 +9,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import { CountryList, FormData, Job } from "../../types";
 import { createJobFormSchema, JobCreationForm } from "../../form-validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import FormInput from "../FormInput";
+import FormSelect from "../FormSelect";
 
 type Props = {
   countries: CountryList;
@@ -36,7 +38,6 @@ export default function CreateJobForm({
         .split("T")[0],
     },
   });
-
   return (
     <FormProvider {...methods}>
       <form method="post" onSubmit={methods.handleSubmit(onSave)}>
@@ -46,16 +47,8 @@ export default function CreateJobForm({
           </h2>
           <div className="space-y-4">
             <div className="lg:flex gap-4">
-              <Input
-                label="Position"
-                {...methods.register("position")}
-                errorMessage={methods.formState.errors.position?.message}
-              />
-              <Input
-                label="Company"
-                {...methods.register("company")}
-                errorMessage={methods.formState.errors.company?.message}
-              />
+              <FormInput label="Position" name="position" />
+              <FormInput label="Company" name="company" />
             </div>
             <Location
               countryList={countries}
@@ -65,17 +58,21 @@ export default function CreateJobForm({
               }
             />
             <div className="lg:flex gap-4">
-              <Select
-                options={Object.values(JOB_STATUS)}
-                label="Job Status"
-                className="flex-1"
-                {...methods.register("jobStatus")}
-              />
-              <Select
+              {title.toLocaleLowerCase() !== "add job" && (
+                <FormSelect
+                  options={Object.values(JOB_STATUS)}
+                  name="jobStatus"
+                  label="Job Status"
+                  className="flex-1"
+                  placeholder="Select Job Status"
+                />
+              )}
+              <FormSelect
                 options={Object.values(JOB_TYPE)}
                 label="Job Type"
                 className="flex-1"
-                {...methods.register("jobType")}
+                name="jobType"
+                placeholder="Select Job Type"
               />
             </div>
             <SelectSingleOptionBox
@@ -84,16 +81,15 @@ export default function CreateJobForm({
               title="Select Experiance Level"
             />
             <div className="flex flex-col md:flex-row md:gap-4">
-              <Input
-                {...methods.register("applicationDeadline")}
+              <FormInput
                 label="Application Deadline"
                 type="date"
+                name="applicationDeadline"
               />
-              <Input
+              <FormInput
                 label="Number of openning roles"
                 type="number"
-                {...methods.register("openRoles")}
-                errorMessage={methods.formState.errors.openRoles?.message}
+                name="openRoles"
               />
             </div>
             <SalaryRange />

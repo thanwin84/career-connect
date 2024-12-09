@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
-import { CreateJobForm } from "../components/create_job";
+import { CreateJobForm } from "../forms/create_job";
 import { getJobRequest, getCountryListRequest } from "../apiRequest";
 import { useUpdateJob } from "../api/JobApi";
 import { CountryList, GetJobApiResponse } from "../types";

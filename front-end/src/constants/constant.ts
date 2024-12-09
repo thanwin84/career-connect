@@ -220,6 +220,20 @@ const countries: { name: string; code: string }[] = [
   { name: "Zambia", code: "+260" },
   { name: "Zimbabwe", code: "+263" },
 ];
+export const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 export const UserRoles = {
   GUEST: "guest",
   RECRUITER: "recruiter",
