@@ -1,15 +1,6 @@
 import { createContext, ReactNode, useContext } from "react";
-import { useUserStore } from "./userStore";
-import { useSettingStore } from "./SettingStore";
-import { useProfileStore } from "./ProfileStore";
-import { useMyJobsStore } from "./MyJobsStore";
 
-type AppContextType = {
-  userStore: ReturnType<typeof useUserStore>;
-  settingStore: ReturnType<typeof useSettingStore>;
-  profileStore: ReturnType<typeof useProfileStore>;
-  myJobStore: ReturnType<typeof useMyJobsStore>;
-};
+type AppContextType = {};
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
@@ -18,18 +9,8 @@ type Props = {
 };
 
 export const AppProvider = ({ children }: Props) => {
-  const user = useUserStore();
-  const setting = useSettingStore();
-  const profile = useProfileStore();
-  const myJobs = useMyJobsStore();
+  const store: AppContextType = {};
 
-  const store: AppContextType = {
-    userStore: user,
-    settingStore: setting,
-    profileStore: profile,
-    myJobStore: myJobs,
-  };
-  console.log(store);
   return (
     <AppContext.Provider value={{ ...store }}>{children}</AppContext.Provider>
   );

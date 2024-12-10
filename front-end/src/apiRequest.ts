@@ -11,6 +11,7 @@ import {
   JobApplicationStatsResponse,
   UserListResponse,
   GetJobApiResponse,
+  GetJAppliedJobIdListResponse,
 } from "./types";
 import { customFetch } from "./utils";
 
@@ -162,3 +163,6 @@ export const getJobApplicationStatsRequest =
     customFetch
       .get("/job-applications/job-application-stats")
       .then((res) => res.data);
+
+export const getAppliedIdListRequest: Promise<GetJAppliedJobIdListResponse> =
+  customFetch.get("/job-applications/applied").then((res) => res.data);

@@ -5,9 +5,9 @@ import { LoadingPage, Pagination } from "../ui";
 import JobCard from "./JobCard";
 import NotAvailable from "./NotAvailable";
 import JobDescription from "./JobDescription";
-import { useAppContext } from "../../contexts/AppProvider";
 import { getLastStatusUpdatedDate } from "../../utils";
 import { useWindowScreenSize } from "../../hooks";
+import { useMyJobStore } from "../../store/MyJobsStore";
 
 type Props = {
   className?: string;
@@ -20,10 +20,7 @@ export default function MyJobsContainer({ type = "all" }: Props) {
   const breakPoint = useWindowScreenSize();
   const navigate = useNavigate();
 
-  const {
-    myJobStore: { actions },
-  } = useAppContext();
-
+  const myJobStore = useMyJobStore();
   if (isLoading) {
     return <LoadingPage />;
   }
@@ -37,7 +34,7 @@ export default function MyJobsContainer({ type = "all" }: Props) {
     setSearchParams(searchParams);
   }
   function handleClick(job: MyJobApplication) {
-    actions.selectMyJob(job);
+    myJobStore.selectMyJob(job);
     if (breakPoint === "sm") {
       navigate(`/dashboard/my-jobs/${job._id}`);
     }

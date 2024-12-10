@@ -1,4 +1,4 @@
-import { useAppContext } from "../../contexts/AppProvider";
+import { useMyJobStore } from "../../store/MyJobsStore";
 import { getLastStatusUpdatedDate } from "../../utils";
 import { UserCard } from "../ui";
 import JobHeader from "./JobHeader";
@@ -9,20 +9,15 @@ type Props = {
 };
 
 export default function JobDescription({ className }: Props) {
-  const {
-    myJobStore: {
-      state: { selectedMyJob },
-    },
-  } = useAppContext();
-
-  if (!selectedMyJob) {
+  const myJobStore = useMyJobStore();
+  if (!myJobStore.selectedMyJob) {
     return null;
   }
   const statusUpdatedDate = getLastStatusUpdatedDate(
-    selectedMyJob.statusHistory
+    myJobStore.selectedMyJob.statusHistory
   );
   const { company, position, jobLocation, country, createdAt } =
-    selectedMyJob.job;
+    myJobStore.selectedMyJob.job;
   return (
     <article
       className={`py-6 px-4 bg-white dark:bg-zinc-800 rounded-md ${className}`}
@@ -35,11 +30,11 @@ export default function JobDescription({ className }: Props) {
         jobCreatedDate={createdAt.toString()}
       />
       <JobStatusBadge
-        statusLabel={selectedMyJob.status}
+        statusLabel={myJobStore.selectedMyJob.status}
         date={statusUpdatedDate}
         className="mt-4"
       />
-      <UserCard user={selectedMyJob.recruiter} className="mt-4" />
+      <UserCard user={myJobStore.selectedMyJob.recruiter} className="mt-4" />
     </article>
   );
 }

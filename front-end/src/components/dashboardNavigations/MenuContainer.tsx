@@ -2,8 +2,8 @@ import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { FaCaretDown } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppContext } from "../../contexts/AppProvider";
 import { useLogout } from "../../api/UserApi";
+import { useUserStore } from "../../store/userStore";
 
 type Props = {
   showSmallSidebar?: boolean;
@@ -14,7 +14,7 @@ export default function MenuContainer({ showSmallSidebar, className }: Props) {
   const [showDropDown, setShowDropDown] = useState(false);
   const { logout } = useLogout();
   const navigate = useNavigate();
-  const { userStore } = useAppContext();
+  const userStore = useUserStore();
   async function handleLogout() {
     const broadcast = new BroadcastChannel("auth");
     broadcast.postMessage("logout");
@@ -43,9 +43,9 @@ export default function MenuContainer({ showSmallSidebar, className }: Props) {
         aria-controls="dropdown-menu"
       >
         <span className="my-auto">
-          {userStore.state.user && userStore.state.user.avatar ? (
+          {userStore.user && userStore.user.avatar ? (
             <img
-              src={userStore.state.user.avatar.url}
+              src={userStore.user.avatar.url}
               alt="avatar"
               className="w-8 h-8 rounded-full"
             />
@@ -54,7 +54,7 @@ export default function MenuContainer({ showSmallSidebar, className }: Props) {
           )}
         </span>
 
-        <span className="my-auto">{userStore.state.user?.firstName}</span>
+        <span className="my-auto">{userStore.user?.firstName}</span>
 
         <span className="my-auto">
           <FaCaretDown />

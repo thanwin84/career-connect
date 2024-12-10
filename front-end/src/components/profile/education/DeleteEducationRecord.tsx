@@ -1,53 +1,48 @@
 import { useEffect } from "react";
 import { useDeleteEducationRecord } from "../../../api/UserApi";
-import { useAppContext } from "../../../contexts/AppProvider";
 import { Button } from "../../ui";
 import { useForm } from "react-hook-form";
+import { useProfileStore } from "../../../store/ProfileStore";
+import { useUserStore } from "../../../store/userStore";
 
 type Props = {
-    closeModal: ()=> void
-    className?: string
-}
+  closeModal: () => void;
+  className?: string;
+};
 
 export default function DeleteEducationRecord({
-    closeModal,
-    className
-}:Props){
-    const {
-        isPending, 
-        deleteEducationRecord, 
-        isSuccess} = useDeleteEducationRecord()
-    const {
-        profileStore: {state:profileState}, 
-        userStore: {actions:userActions}
-    } = useAppContext()
-    let id = ""
-    const educationRecord =  profileState.selectedEducationRecord
-    if (educationRecord){
-        const {_id} = educationRecord
-        id = _id
+  closeModal,
+  className,
+}: Props) {
+  const { isPending, deleteEducationRecord, isSuccess } =
+    useDeleteEducationRecord();
+  const profileStore = useProfileStore();
+  const userStore = useUserStore();
+  let id = "";
+  const educationRecord = profileStore.selectedEducationRecord;
+  if (educationRecord) {
+    const { _id } = educationRecord;
+    id = _id;
+  }
+  const { handleSubmit } = useForm();
+
+  useEffect(() => {
+    if (isSuccess) {
+      closeModal();
+      userStore.deleteEducationRecord(id);
     }
-    const {handleSubmit} = useForm()
-    
-    useEffect(()=>{
-        if (isSuccess){
-            closeModal()
-            userActions.deleteEducationRecord(id)
-        }
-    },[isSuccess])
+  }, [isSuccess]);
 
-    
-    return (
-        <form className="" onSubmit={handleSubmit(deleteEducationRecord)} >
-            <Button
-                category="lightDanger"
-                type="submit"
-                loading={isPending}
-                classname={`mb-4 text-sm mx-auto px-6 ${className}`}
-            >
-                Delete
-            </Button>
-        </form>
-    )
+  return (
+    <form className="" onSubmit={handleSubmit(deleteEducationRecord)}>
+      <Button
+        category="lightDanger"
+        type="submit"
+        loading={isPending}
+        classname={`mb-4 text-sm mx-auto px-6 ${className}`}
+      >
+        Delete
+      </Button>
+    </form>
+  );
 }
-

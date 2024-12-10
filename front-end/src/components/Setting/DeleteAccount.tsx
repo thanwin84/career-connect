@@ -1,58 +1,62 @@
-import  {useState} from "react";
-import {
-    ReEnterPasswordForDelete,
-    ConfirmAccountDelete
-} from '../Setting'
+import { useState } from "react";
+import { ReEnterPasswordForDelete, ConfirmAccountDelete } from "../Setting";
 import { Modal, CrossButton } from "../ui";
 import useMultiStep from "../../hooks/useMultiStep";
 import { useAppContext } from "../../contexts/AppProvider";
 import { User } from "../../types";
+import { useUserStore } from "../../store/userStore";
 
 type Props = {
-    className?: string
-}
+  className?: string;
+};
 
-export default function DeleteAccount({
-    className
-}:Props){
-    const {userStore: {state:userState}} = useAppContext()
-    
-    const {step, next, goTo} = useMultiStep([
-        <ConfirmAccountDelete 
-            userData={userState.user as User}
-            moveToNextModal={()=>next()}
-        />, 
-        <ReEnterPasswordForDelete />
-    ])
-    const [openModal, setOpenModal] = useState(false)
+export default function DeleteAccount({ className }: Props) {
+  const userStore = useUserStore();
 
-    function toggleOpenModal(){
-        setOpenModal(!openModal)
-        goTo(0)
-    }
-     
-    return (
-        <div className={`w-full px-2 py-4 dark:border-gray-500 border-gray-300 border-t border-b ${className}`} >
-            <h3 className="text-xl font-bold text-slate-700 pb-2 dark:text-slate-200">Delete Account</h3>
-            <p className="font-roboto text-slate-500 dark:text-slate-400">Delete your account and all your information related to your account will be deleted parmanently. Please make sure before deleting your account</p>
-            <button
-                className="bg-gray-300 px-4 py-2  rounded-md mt-4 text-slate-500 hover:bg-green-500 hover:text-white"
-                onClick={toggleOpenModal}
-                aria-label="Delete your account"
-            >
-                Delete Account
-            </button>
-            {(
-                <Modal 
-                    titleId="delete-account"
-                    isOpen={openModal}
-                >
-                    <div className="relative w-[90%] md:w-[60%] mx-auto max-w-[600px]">
-                        <CrossButton className="absolute right-4 top-10" action={toggleOpenModal} />
-                        {step}
-                    </div>
-                </Modal>
-            )}
-        </div>
-    )
+  const { step, next, goTo } = useMultiStep([
+    <ConfirmAccountDelete
+      userData={userStore.user as User}
+      moveToNextModal={() => next()}
+    />,
+    <ReEnterPasswordForDelete />,
+  ]);
+  const [openModal, setOpenModal] = useState(false);
+
+  function toggleOpenModal() {
+    setOpenModal(!openModal);
+    goTo(0);
+  }
+
+  return (
+    <div
+      className={`w-full px-2 py-4 dark:border-gray-500 border-gray-300 border-t border-b ${className}`}
+    >
+      <h3 className="text-xl font-bold text-slate-700 pb-2 dark:text-slate-200">
+        Delete Account
+      </h3>
+      <p className="font-roboto text-slate-500 dark:text-slate-400">
+        Delete your account and all your information related to your account
+        will be deleted parmanently. Please make sure before deleting your
+        account
+      </p>
+      <button
+        className="bg-gray-300 px-4 py-2  rounded-md mt-4 text-slate-500 hover:bg-green-500 hover:text-white"
+        onClick={toggleOpenModal}
+        aria-label="Delete your account"
+      >
+        Delete Account
+      </button>
+      {
+        <Modal titleId="delete-account" isOpen={openModal}>
+          <div className="relative w-[90%] md:w-[60%] mx-auto max-w-[600px]">
+            <CrossButton
+              className="absolute right-4 top-10"
+              action={toggleOpenModal}
+            />
+            {step}
+          </div>
+        </Modal>
+      }
+    </div>
+  );
 }

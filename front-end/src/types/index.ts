@@ -183,6 +183,9 @@ export type GetMyJobApplication = {
 export type GetSingleJob = {
   job: Job;
 };
+export type AppliedJobIdList = {
+  ids: string[];
+};
 export interface GetJobApiResponse extends ApiResponse<GetSingleJob> {}
 export interface CurrentUserResponse extends ApiResponse<User> {}
 export interface JobListResponse extends ApiResponse<JobList> {}
@@ -192,6 +195,8 @@ export interface JobApplicationStatsResponse
 export interface GetMyJobApplicationResponse
   extends ApiResponse<GetMyJobApplication> {}
 export interface GetUserJobsApiResponse extends ApiResponse<UserJobs> {}
+export interface GetJAppliedJobIdListResponse
+  extends ApiResponse<AppliedJobIdList> {}
 
 // admin
 export type UserList = {

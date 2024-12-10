@@ -18,16 +18,16 @@ import { useMutation, useQuery } from "../hooks";
 import { toast } from "react-toastify";
 import { useAppContext } from "../contexts/AppProvider";
 import { FormData } from "../types";
+import { useUserStore } from "../store/userStore";
+import { useProfileStore } from "../store/ProfileStore";
 
 export const useLoginUser = () => {
   const navigate = useNavigate();
-  const { userStore } = useAppContext();
+  const userStore = useUserStore();
 
   const { mutate: loginUser, isPending } = useMutation(loginRequest, {
     onSuccess: (data) => {
-      console.log(data);
-      userStore.actions.addUser(data);
-
+      userStore.addUser(data);
       toast.success("Login is successfull");
       navigate("/", { replace: true });
     },
@@ -42,12 +42,10 @@ export const useLoginUser = () => {
 };
 
 export const useLogout = () => {
-  const {
-    userStore: { actions },
-  } = useAppContext();
+  const userStore = useUserStore();
   const { mutate: logout, isPending } = useMutation(() => logoutUserRequest(), {
     onSuccess: () => {
-      actions.logoutUser();
+      userStore.logoutUser();
       toast.success("You are logged out successfully");
     },
     onError: () => {
@@ -178,11 +176,9 @@ export const useAddEducationRecord = () => {
 };
 
 export const useUpdateEducationRecord = () => {
-  const {
-    profileStore: { state },
-  } = useAppContext();
+  const profileStore = useProfileStore();
   let id = "";
-  const education = state.selectedEducationRecord;
+  const education = profileStore.selectedEducationRecord;
   if (education !== null) {
     const { _id } = education;
     id = _id;
@@ -212,11 +208,9 @@ export const useUpdateEducationRecord = () => {
 };
 
 export const useDeleteEducationRecord = () => {
-  const {
-    profileStore: { state },
-  } = useAppContext();
+  const profileStore = useProfileStore();
   let id = "";
-  const education = state.selectedEducationRecord;
+  const education = profileStore.selectedEducationRecord;
   if (education !== null) {
     const { _id } = education;
     id = _id;
@@ -243,11 +237,11 @@ export const useDeleteEducationRecord = () => {
 };
 
 export const useUserInformation = () => {
-  const { userStore } = useAppContext();
+  const userStore = useUserStore();
 
   const { data: user, isLoading } = useQuery(getUserInformationRequest, {
     onSuccess: (data) => {
-      userStore.actions.addUser(data.data);
+      userStore.addUser(data.data);
     },
     onError: () => {},
   });
@@ -259,7 +253,7 @@ export const useUserInformation = () => {
 };
 
 export const useToggleAuthStatus = () => {
-  const { userStore } = useAppContext();
+  const userStore = useUserStore();
   const {
     mutate: updateTwoStepAuthStatus,
     isPending,
@@ -268,7 +262,7 @@ export const useToggleAuthStatus = () => {
   } = useMutation(toggleTwoStepAuthRequest, {
     onSuccess: () => {
       toast.success("Two step auth is updated successfully");
-      userStore.actions.toggleTwoStepAuthentication();
+      userStore.toggleTwoStepAuthentication();
     },
     onError: (error: any) => {
       toast.error(error?.response?.data.message);

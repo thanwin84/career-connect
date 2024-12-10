@@ -8,7 +8,7 @@ import { useMutation, useQuery } from "../hooks";
 import { JobStatus } from "../types";
 import { useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useAppContext } from "../contexts/AppProvider";
+import { useMyJobStore } from "../store/MyJobsStore";
 
 export const useCreateJobApplication = () => {
   const {
@@ -40,9 +40,7 @@ export const useGetMyApplications = (status: JobStatus) => {
   const [searchParams, setSearchParams] = useSearchParams();
   // const searchParams = new URLSearchParams(location.search)
   const page = searchParams.get("page");
-  const {
-    myJobStore: { actions },
-  } = useAppContext();
+  const myJobStore = useMyJobStore();
 
   const { data, isLoading, isError, isSuccess, refetch } = useQuery(() =>
     getMyApplicationRequest(
@@ -61,7 +59,7 @@ export const useGetMyApplications = (status: JobStatus) => {
     searchParams.set("page", "1");
     setSearchParams(searchParams);
     // when tab changes job description will not be displayed
-    actions.selectMyJob(null);
+    myJobStore.selectMyJob(null);
   }, [status]);
 
   return {

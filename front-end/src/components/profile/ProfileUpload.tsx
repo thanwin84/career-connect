@@ -4,8 +4,9 @@ import { FormData as FormDataT } from "../../types";
 import { Button, Input, ProgressBar } from "../ui";
 import { IoMdPhotos as PhotoIcon } from "react-icons/io";
 import useFileUpload from "../../hooks/useFileUpload";
-import { useAppContext } from "../../contexts/AppProvider";
 import { useEffect } from "react";
+import { useUserStore } from "../../store/userStore";
+import { useProfileStore } from "../../store/ProfileStore";
 
 type Props = {
   className?: string;
@@ -17,20 +18,18 @@ export default function ProfileUpload({ className }: Props) {
     register,
     formState: { errors },
   } = useForm();
-  const {
-    profileStore: { actions },
-    userStore: { actions: userActions, state: userState },
-  } = useAppContext();
+  const userStore = useUserStore();
+  const profileStore = useProfileStore();
   const { fileUrl, handleFileChange } = useFilePreview(
-    userState.user?.avatar?.url || ""
+    userStore.user?.avatar?.url || ""
   );
   const { uploadPhoto, uploadParcentage, isLoading, isSuccess, data } =
     useFileUpload();
 
   useEffect(() => {
     if (isSuccess) {
-      actions.toggleProfileUploadModal();
-      userActions.updateUserAvatar(data?.avatar?.url as string);
+      profileStore.toggleProfileUploadModal();
+      userStore.updateUserAvatar(data?.avatar?.url as string);
     }
   }, [isSuccess]);
 

@@ -1,27 +1,23 @@
 import { EducationForm } from ".";
 import { useAddEducationRecord } from "../../../api/UserApi";
-import { useAppContext } from "../../../contexts/AppProvider";
 import { Education, FormData } from "../../../types";
 import { useEffect, useState } from "react";
 import ObjectId from "bson-objectid";
+import { useProfileStore } from "../../../store/ProfileStore";
+import { useUserStore } from "../../../store/userStore";
 type Props = {
   className?: string;
 };
 export default function AddEducation({ className }: Props) {
   const { isPending, addEducationRecord, isSuccess } = useAddEducationRecord();
-  const {
-    profileStore: {
-      state: { selectedEducationRecord },
-      actions,
-    },
-    userStore: { actions: userActions },
-  } = useAppContext();
+  const profileStore = useProfileStore();
+  const userStore = useUserStore();
   const [record, setRecord] = useState<Education>();
 
   useEffect(() => {
     if (isSuccess && record) {
-      userActions.addEducationRecord(record);
-      actions.toggleAddEducationModal();
+      userStore.addEducationRecord(record);
+      profileStore.toggleAddEducationModal();
     }
   }, [isSuccess]);
 
@@ -37,9 +33,9 @@ export default function AddEducation({ className }: Props) {
       title="Add Education"
       submitButtonText="Create"
       isPending={isPending}
-      closeModal={actions.toggleAddEducationModal}
+      closeModal={profileStore.toggleAddEducationModal}
       onSave={handleOnSave}
-      record={selectedEducationRecord as Education}
+      record={profileStore.selectedEducationRecord as Education}
       className={className}
     />
   );

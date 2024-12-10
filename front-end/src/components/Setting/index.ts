@@ -9,13 +9,13 @@ import TwoStepAuthentication from "./TwoStepAuthentication";
 import SelectCountry from "./SelectCountry";
 
 export {
-    AddPhoneNumber,
-    ChangePassword,
-    ConfirmAccountDelete,
-    DeleteAccount,
-    EnterConfirmationCode,
-    ReEnterPasswordForDelete,
-    SettingLinks,
-    TwoStepAuthentication,
-    SelectCountry
-}
+  AddPhoneNumber,
+  ChangePassword,
+  ConfirmAccountDelete,
+  DeleteAccount,
+  EnterConfirmationCode,
+  ReEnterPasswordForDelete,
+  SettingLinks,
+  TwoStepAuthentication,
+  SelectCountry,
+};
