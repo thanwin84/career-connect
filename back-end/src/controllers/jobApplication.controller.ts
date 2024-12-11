@@ -221,7 +221,7 @@ export const getAppliedIdList = asyncHandler(
       .json(
         new ApiResponse(
           statusCodes.OK,
-          idList,
+          { ids: idList },
           "Applied id list is feched successfully"
         )
       );

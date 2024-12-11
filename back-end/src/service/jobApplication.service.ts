@@ -256,8 +256,7 @@ export const deleteJobApplicationService = async (
 };
 
 export const getAppliedJobIdsService = async (userId: string) => {
-  const result = await JobApplication.find({ candidateId: userId }).select(
-    "jobId -_id"
-  );
-  return result;
+  let result = await JobApplication.find({ candidateId: userId });
+  const ids = result?.map((item) => item.jobId);
+  return ids;
 };

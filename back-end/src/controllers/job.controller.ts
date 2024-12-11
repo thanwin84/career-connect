@@ -88,7 +88,11 @@ const getJob = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const job = await getSingleJobService(id);
-  res.status(statusCodes.OK).json({ job: job });
+  res
+    .status(statusCodes.OK)
+    .json(
+      new ApiResponse(statusCodes.OK, { job }, "Job is fetched successfully")
+    );
 });
 
 const updateJob = asyncHandler(async (req: Request, res: Response) => {
