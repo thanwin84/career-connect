@@ -1,5 +1,5 @@
 import { BsFillSunFill, BsMoonFill } from "react-icons/bs";
-import { useDashboardContext } from "../../layout/DashboardLayout";
+import { useDashboardContext } from "../../contexts/dashboardContext";
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useDashboardContext();

@@ -1,5 +1,5 @@
 import { useUserStore } from "../../store/userStore";
-import MenuContainer from "../dashboardNavigations/MenuContainer";
+import MenuContainer from "../ui/menu/MenuContainer";
 import { Link } from "react-router-dom";
 
 type Props = {

@@ -1,14 +1,17 @@
-import links from "../../utils/links";
+import links from "../../config/userDashboardLinks";
 import { NavLink } from "react-router-dom";
-import { useDashboardContext } from "../../layout/DashboardLayout";
 import { User } from "../../types";
+import { useDashboardContext } from "../../contexts/dashboardContext";
 
 type Props = {
   className?: string;
   isSmallSidebar?: boolean;
 };
 
-export default function NavLinks({ className, isSmallSidebar }: Props) {
+export default function UserDashboardLinks({
+  className,
+  isSmallSidebar,
+}: Props) {
   const { toggleSmallSidebar, user } = useDashboardContext();
   const { role } = user as User;
 

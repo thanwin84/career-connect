@@ -6,6 +6,7 @@ import {
   UserRoles,
 } from "../constants/constant";
 
+export type Theme = "light" | "dark";
 export type Education = {
   _id: string;
   school: String;

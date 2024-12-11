@@ -1,30 +1,33 @@
+import { useDashboardContext } from "../../contexts/dashboardContext";
+import { useWindowScreenSize } from "../../hooks";
 import { Logo } from "../ui";
-import NavLinks from "./NavLinks";
+import UserDashboardLinks from "./UserDashboardLinks";
 import { Link } from "react-router-dom";
-import { useDashboardContext } from "../../layout/DashboardLayout";
 
 type Props = {
-    className?: string
-}
+  className?: string;
+};
 
-export default function BigSidebar({className}:Props){
-    const {showBigSidebar} = useDashboardContext()
-    return (
-        <div className="border-r dark:border-none">
-        {showBigSidebar && <SideBar className={className}/> }
-        </div>
-    )
-}
+export default function BigSidebar({ className }: Props) {
+  const { showBigSidebar } = useDashboardContext();
+  const currentSize = useWindowScreenSize();
 
-function SideBar({className}: {className?: string}){
-    return (
-        <section className={`w-full p-4  dark:border-none  h-screen ${className}`}>
-            <Link
-                to="../"
-            >
+  if (currentSize === "sm") {
+    return null;
+  }
+
+  return (
+    <aside
+      className={`border-r dark:border-none dark:bg-zinc-800 h-screen ${className}`}
+    >
+      {showBigSidebar && (
+        <section className={`w-full p-4 `}>
+          <Link to="../">
             <Logo className="w-44 pb-14 pt-4" />
-            </Link>
-            <NavLinks className="pt-8"  />
+          </Link>
+          <UserDashboardLinks className="pt-8" />
         </section>
-    )
+      )}
+    </aside>
+  );
 }

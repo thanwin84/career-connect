@@ -6,6 +6,7 @@ import { Route } from "react-router-dom";
 import { checkDefaultTheme } from "../utils/checkDefaultTheme";
 import MyJob from "../pages/MyJob";
 import JobDescription from "../components/myjobs/JobDescription";
+import { Theme } from "../types";
 
 const AllJobs = lazy(() => import("../pages/AllJobs"));
 const AddJob = lazy(() => import("../pages/AddJob"));
@@ -15,9 +16,11 @@ const EditProfile = lazy(() => import("../pages/EditProfile"));
 const Setting = lazy(() => import("../pages/Setting"));
 const Admin = lazy(() => import("../pages/Admin"));
 const Stats = lazy(() => import("../pages/Stats"));
-const DashboardLayout = lazy(() => import("../layout/DashboardLayout"));
+const DashboardLayout = lazy(
+  () => import("../layout/user-dashboard/DashboardLayout")
+);
 
-const theme = checkDefaultTheme();
+const theme = checkDefaultTheme() as Theme;
 
 const DashboardRoutes = (
   <Route element={<ProtectedRoute />}>

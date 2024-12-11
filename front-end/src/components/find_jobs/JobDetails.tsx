@@ -4,10 +4,10 @@ import { useFindJobsContext } from "../../pages/FindJobs";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { Job } from "../../types";
-import { useAppContext } from "../../contexts/AppProvider";
 import { useCreateJobApplication } from "../../api/JobApplication";
 import ObjectID from "bson-objectid";
 import { JOB_STATUS } from "../../constants/constant";
+import { useUserStore } from "../../store/userStore";
 
 type Props = {
   className?: string;
@@ -29,21 +29,19 @@ export default function JobDetails({ className }: Props) {
   // TODO: Fix mark applied on job card
   const isApplied = false;
   const { handleSubmit } = useForm();
-  const {
-    userStore: { state: userState },
-  } = useAppContext();
+  const userStore = useUserStore();
   const { createJobApplication, isPending, isSuccess } =
     useCreateJobApplication();
 
   function onHandleSubmit() {
     const ob = {
       id: new ObjectID().toHexString(),
-      candidateId: userState.user?._id,
+      candidateId: userStore.user?._id,
       recruiterId: currentJobDetails?.createdBy,
       jobId: currentJobDetails?._id,
       statusHistory: {
         status: JOB_STATUS.APPLIED,
-        updatedBy: userState.user?._id,
+        updatedBy: userStore.user?._id,
         updatedAt: new Date(),
       },
     };

@@ -1,6 +1,6 @@
 import { FaTimes } from "react-icons/fa";
 import { Logo } from "../ui";
-import NavLinks from "./NavLinks";
+import UserDashboardLinks from "./UserDashboardLinks";
 
 type Props = {
   className?: string;
@@ -16,7 +16,7 @@ export default function SmallSidebar({ className, onClick }: Props) {
         <Logo className="w-44 mx-auto" />
       </div>
       <div className="py-20 px-8">
-        <NavLinks isSmallSidebar={true} />
+        <UserDashboardLinks isSmallSidebar={true} />
       </div>
     </div>
   );

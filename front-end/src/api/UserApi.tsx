@@ -16,7 +16,6 @@ import {
 } from "../apiRequest";
 import { useMutation, useQuery } from "../hooks";
 import { toast } from "react-toastify";
-import { useAppContext } from "../contexts/AppProvider";
 import { FormData } from "../types";
 import { useUserStore } from "../store/userStore";
 import { useProfileStore } from "../store/ProfileStore";
@@ -43,9 +42,14 @@ export const useLoginUser = () => {
 
 export const useLogout = () => {
   const userStore = useUserStore();
+  const navigate = useNavigate();
   const { mutate: logout, isPending } = useMutation(() => logoutUserRequest(), {
     onSuccess: () => {
       userStore.logoutUser();
+      const broadcast = new BroadcastChannel("auth");
+      broadcast.postMessage("logout");
+      broadcast.close();
+      navigate("/");
       toast.success("You are logged out successfully");
     },
     onError: () => {
