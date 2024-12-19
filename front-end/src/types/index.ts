@@ -4,9 +4,9 @@ import {
   JOB_TYPE,
   experianceLevel,
   UserRoles,
-} from "../constants/constant";
+} from '../constants/constant';
 
-export type Theme = "light" | "dark";
+export type Theme = 'light' | 'dark';
 export type Education = {
   _id: string;
   school: String;
@@ -20,7 +20,7 @@ export type Education = {
 };
 
 export type UserRole = (typeof UserRoles)[keyof typeof UserRoles];
-export type UserType = "recruiter" | "user" | null;
+export type UserType = 'recruiter' | 'user' | null;
 
 export type User = {
   _id?: string;
@@ -92,21 +92,9 @@ export type UserJobSearchParams = {
   limit?: string;
   page?: string;
   search?: string;
-  jobStatus?: JobStatus | "all";
-  jobType?: JobType | "all";
+  jobStatus?: JobStatus | 'all';
+  jobType?: JobType | 'all';
   sort?: JobSortBy;
-};
-
-export type PublicJobsSearchParams = {
-  page: string;
-  limit: string;
-  jobType: JobType[];
-  sort: JobSortBy | null;
-  location: string | null;
-  search: string | null;
-  minSalary: string;
-  maxSalary: string;
-  experianceLevel: ExperianceLevel[];
 };
 
 export type UserJobs = {
@@ -139,9 +127,11 @@ export type Pagination = {
 
 // Api response
 
-export type ApplicationStats = {
-  users: number;
-  jobs: number;
+export type BaseApiReponse<T> = {
+  statusCode: number;
+  message: string;
+  success: boolean;
+  data: T;
 };
 
 interface ApiResponse<T = any> {
@@ -150,21 +140,6 @@ interface ApiResponse<T = any> {
   success: boolean;
   data: T;
 }
-export type JobList = {
-  jobs: Job[];
-  pagination: Pagination;
-};
-
-export type JobApplicationStats = {
-  defaultStats: {
-    [JOB_STATUS.APPLIED]: number;
-    [JOB_STATUS.SHORTLISTED]: number;
-    [JOB_STATUS.INTERVIEW]: number;
-    [JOB_STATUS.DECLINED]: number;
-    [JOB_STATUS.HIRED]: number;
-  };
-  monthlyApplications: { date: string; count: number }[];
-};
 
 export type MyJobApplication = {
   _id: string;
@@ -177,10 +152,7 @@ export type MyJobApplication = {
   job: Job;
   recruiter: User;
 };
-export type GetMyJobApplication = {
-  jobApplications: MyJobApplication[];
-  pagination: Pagination;
-};
+
 export type GetSingleJob = {
   job: Job;
 };
@@ -189,22 +161,7 @@ export type AppliedJobIdList = {
 };
 export interface GetJobApiResponse extends ApiResponse<GetSingleJob> {}
 export interface CurrentUserResponse extends ApiResponse<User> {}
-export interface JobListResponse extends ApiResponse<JobList> {}
-export interface JobApplicationStatsResponse
-  extends ApiResponse<JobApplicationStats> {}
 
-export interface GetMyJobApplicationResponse
-  extends ApiResponse<GetMyJobApplication> {}
 export interface GetUserJobsApiResponse extends ApiResponse<UserJobs> {}
 export interface GetJAppliedJobIdListResponse
   extends ApiResponse<AppliedJobIdList> {}
-
-// admin
-export type UserList = {
-  users: User[];
-  pagination: Pagination;
-};
-
-export interface ApplicationStatsResponse
-  extends ApiResponse<ApplicationStats> {}
-export interface UserListResponse extends ApiResponse<UserList> {}

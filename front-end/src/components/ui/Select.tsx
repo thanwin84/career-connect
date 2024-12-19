@@ -1,5 +1,5 @@
-import { forwardRef, SelectHTMLAttributes, useId } from "react";
-import FormError from "./FormError";
+import { forwardRef, SelectHTMLAttributes, useId } from 'react';
+import FormError from './FormError';
 
 type Props = {
   label?: string;
@@ -10,9 +10,9 @@ type Props = {
 } & SelectHTMLAttributes<HTMLSelectElement>;
 
 const style =
-  "px-4 py-2 bg-slate-50 dark:bg-zinc-700 w-full text-back dark:text-slate-200 focus:outline-none border border-gray-200 focus:border-none rounded-md";
+  'px-4 py-2 bg-slate-50 dark:bg-zinc-700 w-full text-back dark:text-slate-200 focus:outline-none border border-gray-200 focus:border-none rounded-md';
 const errorStyle =
-  "border-red-400 focus:ring-2 focus:ring-red-300 dark:focus:ring-red-500";
+  'border-red-400 focus:ring-2 focus:ring-red-300 dark:focus:ring-red-500';
 // const success = "border border-green-400 focus:ring-2 focus:ring-green-300";
 
 const Select = forwardRef<HTMLSelectElement, Props>(
@@ -44,7 +44,7 @@ const Select = forwardRef<HTMLSelectElement, Props>(
           id={id}
           {...props}
           ref={ref}
-          className={`${style}  ${errorMessage ? errorStyle : ""}`}
+          className={`${style}  ${errorMessage ? errorStyle : ''}`}
         >
           {/* First option as a placeholder, disabled */}
           <option value="" disabled selected>

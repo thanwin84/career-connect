@@ -14,4 +14,6 @@ function getLastStatusUpdatedDate(
   return statusUpdatedDate;
 }
 
+export const extractDataFromResponse = <T>(response: { data: T }) =>
+  response.data;
 export { formatDate, customFetch, debounce, getLastStatusUpdatedDate };

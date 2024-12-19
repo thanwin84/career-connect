@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useLogout } from "../../../api/UserApi";
+import { useLogout } from "../../../features/auth/hooks/useLogout";
 
 type Props = {
   className?: string;

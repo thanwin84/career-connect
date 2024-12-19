@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AngleDownIcon, AngleUpIcon } from "../../utils/Icons";
+import { AngleDownIcon, AngleUpIcon } from "../../assets/icons/Icons";
 
 type Props = {
   className?: string;

@@ -1,24 +1,26 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense } from 'react';
 
-import { action as deleteJobAction } from "../pages/DeleteJob";
-import ProtectedRoute from "../auth/ProtectedRoute";
-import { Route } from "react-router-dom";
-import { checkDefaultTheme } from "../utils/checkDefaultTheme";
-import MyJob from "../pages/MyJob";
-import JobDescription from "../components/myjobs/JobDescription";
-import { Theme } from "../types";
+import { action as deleteJobAction } from '../pages/DeleteJob';
+import ProtectedRoute from './ProtectedRoute';
+import { Route } from 'react-router-dom';
+import { checkDefaultTheme } from '../utils/checkDefaultTheme';
+import MyJob from '../features/manage-my-jobs/pages/MyJob';
+import JobDescription from '../features/manage-my-jobs/components/JobDescription';
+import { Theme } from '../types';
 
-const AllJobs = lazy(() => import("../pages/AllJobs"));
-const AddJob = lazy(() => import("../pages/AddJob"));
-const EditJob = lazy(() => import("../pages/EditJob"));
-const Profile = lazy(() => import("../pages/Profile"));
-const EditProfile = lazy(() => import("../pages/EditProfile"));
-const Setting = lazy(() => import("../pages/Setting"));
-const Admin = lazy(() => import("../pages/Admin"));
-const Stats = lazy(() => import("../pages/Stats"));
-const DashboardLayout = lazy(
-  () => import("../layout/user-dashboard/DashboardLayout")
+const AllJobs = lazy(
+  () => import('../features/manage-job-post/pages/PostedJobs')
 );
+const AddJob = lazy(() => import('../features/manage-job-post/pages/AddJob'));
+const EditJob = lazy(() => import('../features/manage-job-post/pages/EditJob'));
+const Profile = lazy(() => import('../features/user_profile/pages/Profile'));
+const EditProfile = lazy(
+  () => import('../features/user_profile/pages/EditProfile')
+);
+const Setting = lazy(() => import('../features/setting/pages/Setting'));
+const Admin = lazy(() => import('../features/admin/pages/Admin'));
+const Stats = lazy(() => import('../features/user-stats/pages/Stats'));
+const DashboardLayout = lazy(() => import('../layout/DashboardLayout'));
 
 const theme = checkDefaultTheme() as Theme;
 
@@ -40,7 +42,9 @@ const DashboardRoutes = (
           </Suspense>
         }
         loader={async () => {
-          const { loader } = await import("../pages/AddJob");
+          const { loader } = await import(
+            '../features/manage-job-post/pages/AddJob'
+          );
           return loader({});
         }}
       />
@@ -52,7 +56,9 @@ const DashboardRoutes = (
           </Suspense>
         }
         loader={async (args) => {
-          const { loader } = await import("../pages/AllJobs");
+          const { loader } = await import(
+            '../features/manage-job-post/pages/PostedJobs'
+          );
           return loader(args);
         }}
       />
@@ -76,7 +82,7 @@ const DashboardRoutes = (
         path="admin"
         element={<Admin />}
         loader={async () => {
-          const { loader } = await import("../pages/Admin");
+          const { loader } = await import('../features/admin/pages/Admin');
           return loader();
         }}
       />
@@ -88,7 +94,9 @@ const DashboardRoutes = (
           </Suspense>
         }
         loader={async (args) => {
-          const { loader } = await import("../pages/EditJob");
+          const { loader } = await import(
+            '../features/manage-job-post/pages/EditJob'
+          );
           return loader(args);
         }}
       />
@@ -101,7 +109,7 @@ const DashboardRoutes = (
           </Suspense>
         }
         loader={async () => {
-          const { loader } = await import("../pages/Stats");
+          const { loader } = await import('../features/user-stats/pages/Stats');
           return loader();
         }}
       />

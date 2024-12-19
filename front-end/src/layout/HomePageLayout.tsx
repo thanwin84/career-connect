@@ -1,8 +1,8 @@
-import HomeNavbar from "../components/home/HomeNavbar";
-import { Outlet } from "react-router-dom";
-import { useUserInformation } from "../api/UserApi";
-import { LoadingPage } from "../components/ui";
-import { useUserStore } from "../store/userStore";
+import HomeNavbar from '../features/navigations/components/home/HomeNavbar';
+import { Outlet } from 'react-router-dom';
+import { LoadingPage } from '../components/ui';
+import { useUserStore } from '../store/userStore';
+import { useUserInformation } from '../hooks/user/useUserInformation';
 
 export default function HomePageLayout() {
   const userStore = useUserStore();
