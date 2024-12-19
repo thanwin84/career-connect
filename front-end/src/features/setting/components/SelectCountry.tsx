@@ -1,4 +1,4 @@
-import { countries } from '../../../constants/constant';
+import { countries } from '../../../app/constants/constant';
 import { IoIosArrowBack } from 'react-icons/io';
 
 type Country = {

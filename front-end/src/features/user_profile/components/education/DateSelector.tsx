@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Select } from '../../../../components/ui';
 import { useFormContext } from 'react-hook-form';
-import { months } from '../../../../constants/constant';
+import { months } from '../../../../app/constants/constant';
 import { generateYears } from '../../../../utils/generateYears';
 
 type Props = {

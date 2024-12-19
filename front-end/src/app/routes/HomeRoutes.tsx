@@ -1,12 +1,12 @@
-import { HomePageLayout } from '../layout';
+import { HomePageLayout } from '../../layout';
 
-import { Login, Error, HomePage } from '../pages';
+import { Login, Error, HomePage } from '../../pages';
 import { lazy, Suspense } from 'react';
 import { Route } from 'react-router-dom';
 import { routes } from '../constants/routes';
 import ProtectedRoute from './ProtectedRoute';
-const FindJobs = lazy(() => import('../features/find_jobs/pages/FindJobs'));
-const Register = lazy(() => import('../features/auth/pages/Register'));
+const FindJobs = lazy(() => import('../../features/find_jobs/pages/FindJobs'));
+const Register = lazy(() => import('../../features/auth/pages/Register'));
 
 const HomeRoutes = (
   <Route>
@@ -26,7 +26,7 @@ const HomeRoutes = (
           }
           loader={async (args) => {
             const { loader } = await import(
-              '../features/find_jobs/pages/FindJobs'
+              '../../features/find_jobs/pages/FindJobs'
             );
             return loader(args);
           }}

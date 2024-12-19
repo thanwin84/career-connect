@@ -5,7 +5,7 @@ import {
   JOB_TYPE,
   JOB_STATUS,
   JOB_SORT_BY,
-} from '../../../../constants/constant';
+} from '../../../../app/constants/constant';
 import { Form, useSubmit } from 'react-router-dom';
 import { useDebounce } from '../../../../hooks';
 import { UserJobSearchParams } from '../../../../types';

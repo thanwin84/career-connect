@@ -1,6 +1,6 @@
 import { useProfileStore } from '../../../../store/ProfileStore';
 import { Education } from '../../../../types';
-import { UniversityIcon, EditIcon } from '../../../../assets/icons/Icons';
+import { UniversityIcon, EditIcon } from '../../../../app/assets/icons/Icons';
 
 type Props = {
   record: Education;

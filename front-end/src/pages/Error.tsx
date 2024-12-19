@@ -1,5 +1,5 @@
 import { useRouteError } from 'react-router-dom';
-import img from '../assets/images/not-found.svg';
+import img from '../App/assets/images/not-found.svg';
 import { Link } from 'react-router-dom';
 
 type RouteError = {

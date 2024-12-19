@@ -1,4 +1,4 @@
-import logo from "../../assets/images/logo-5.svg";
+import logo from '../../App/assets/images/logo-5.svg';
 
 type Props = {
   className?: string;

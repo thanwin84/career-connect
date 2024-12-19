@@ -3,7 +3,7 @@ import {
   JOB_SORT_BY,
   JOB_TYPE,
   experianceLevel,
-} from '../../../constants/constant';
+} from '../../../app/constants/constant';
 import { Form, useLocation, useNavigate, useSubmit } from 'react-router-dom';
 import { FormState, useFindJobsContext } from '../pages/FindJobs';
 

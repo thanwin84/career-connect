@@ -1,11 +1,11 @@
-import { LovedIcon, LoveIcon } from '../../../assets/icons/Icons';
+import { LovedIcon, LoveIcon } from '../../../app/assets/icons/Icons';
 import { Button } from '../../../components/ui';
 import { useFindJobsContext } from '../pages/FindJobs';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
 import { Job } from '../../../types';
 import ObjectID from 'bson-objectid';
-import { JOB_STATUS } from '../../../constants/constant';
+import { JOB_STATUS } from '../../../app/constants/constant';
 import { useUserStore } from '../../../store/userStore';
 import { useCreateJobApplication } from '../hooks/useCreateJobApplication';
 

@@ -1,6 +1,6 @@
 import { Form } from 'react-router-dom';
 import { FormEvent } from 'react';
-import { SearchIcon, LocationIcon } from '../../../assets/icons/Icons';
+import { SearchIcon, LocationIcon } from '../../../app/assets/icons/Icons';
 import { Button, InputWithIcon } from '../../../components/ui';
 
 type Props = {

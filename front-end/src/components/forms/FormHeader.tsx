@@ -1,4 +1,4 @@
-import { CrossIcon } from '../../assets/icons/Icons';
+import { CrossIcon } from '../../app/assets/icons/Icons';
 
 type Props = {
   className?: string;

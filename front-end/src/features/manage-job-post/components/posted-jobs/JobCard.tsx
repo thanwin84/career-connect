@@ -7,7 +7,7 @@ import {
   LocationArrowIcon,
   CalenderIcon,
   BriefcaseIcon,
-} from '../../../../assets/icons/Icons';
+} from '../../../../app/assets/icons/Icons';
 import { Button } from '../../../../components/ui';
 import { Job } from '../../../../types';
 

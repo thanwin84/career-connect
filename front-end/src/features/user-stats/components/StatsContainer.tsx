@@ -1,5 +1,5 @@
 import { StatItem } from '../../../components/ui';
-import { jobStatusIcons } from '../../../constants/jobstatusIcons';
+import { jobStatusIcons } from '../../../app/constants/jobstatusIcons';
 import { JobApplicationStats } from '../types';
 
 export default function StatsContainer({

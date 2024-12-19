@@ -5,7 +5,7 @@ import {
   JOB_STATUS,
   JOB_TYPE,
   experianceLevel,
-} from '../../../../constants/constant';
+} from '../../../../app/constants/constant';
 import FormInput from '../../../../components/forms/FormInput';
 import FormSelect from '../../../../components/forms/FormSelect';
 import { CountryList, Job, FormData } from '../../../../types';

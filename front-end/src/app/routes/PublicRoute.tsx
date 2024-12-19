@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useUserStore } from '../store/userStore';
+import { useUserStore } from '../../store/userStore';
 import { ReactNode } from 'react';
 
 type Props = {

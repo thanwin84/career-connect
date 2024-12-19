@@ -1,5 +1,5 @@
 import { JobStatus } from '../../../types';
-import { jobStatusIcons } from '../../../constants/jobstatusIcons';
+import { jobStatusIcons } from '../../../app/constants/jobstatusIcons';
 
 type Props = {
   className?: string;

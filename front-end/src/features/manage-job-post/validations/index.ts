@@ -3,7 +3,7 @@ import {
   JOB_STATUS,
   JOB_TYPE,
   experianceLevel,
-} from '../../../constants/constant';
+} from '../../../app/constants/constant';
 
 export const createJobFormSchema = z.object({
   company: z.string().min(1, 'Company is required'),

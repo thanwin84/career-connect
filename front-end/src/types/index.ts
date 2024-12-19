@@ -4,7 +4,7 @@ import {
   JOB_TYPE,
   experianceLevel,
   UserRoles,
-} from '../constants/constant';
+} from '../app/constants/constant';
 
 export type Theme = 'light' | 'dark';
 export type Education = {

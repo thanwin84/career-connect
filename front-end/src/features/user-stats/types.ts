@@ -1,4 +1,4 @@
-import { JOB_STATUS } from '../../constants/constant';
+import { JOB_STATUS } from '../../app/constants/constant';
 import { BaseApiReponse } from '../../types';
 
 export type JobApplicationStats = {

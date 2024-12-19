@@ -1,4 +1,4 @@
-import links from '../../../../config/userDashboardLinks';
+import links from '../../../../app/config/userDashboardLinks';
 import { NavLink } from 'react-router-dom';
 import { useDashboardContext } from '../../../../contexts/dashboardContext';
 import { User } from '../../../../types';

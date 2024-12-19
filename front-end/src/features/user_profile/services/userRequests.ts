@@ -1,6 +1,6 @@
 import { customFetch } from '../../../utils';
 import { FormData } from '../../../types';
-import { multipartConfig } from '../../../config';
+import { multipartConfig } from '../../../app/config';
 
 export const uploadPhotoRequest = async (
   userId: string,
