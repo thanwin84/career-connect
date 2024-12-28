@@ -1,7 +1,7 @@
 type Props = {
   className?: string;
 };
-import NotAvailablePhoto from '../../../App/assets/images/not-available.svg';
+import NotAvailablePhoto from '../../../assets/images/not-available.svg';
 export default function NotAvailable({}: Props) {
   return (
     <div className="w-full space-y-4">

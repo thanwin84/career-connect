@@ -4,7 +4,7 @@ import {
   LocationIcon,
   DollarIcon,
   DateRangeIcon,
-} from '../../../app/assets/icons/Icons';
+} from '../../../assets/icons/Icons';
 import { Button } from '../../../components/ui';
 import { Job } from '../../../types';
 import { formatDate } from '../../../utils';

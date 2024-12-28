@@ -5,7 +5,7 @@ import {
   ProfileIcon,
   AdminSettingIcon,
   CalenderIcon,
-} from '../assets/icons/Icons';
+} from '../../assets/icons/Icons';
 
 const links = [
   {

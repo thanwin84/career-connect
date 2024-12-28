@@ -6,7 +6,7 @@ import {
   CalenderIcon,
   RejectedIcon,
   ShortListIcon,
-} from '../assets/icons/Icons';
+} from '../../assets/icons/Icons';
 
 export const jobStatusIcons: Record<JobStatus, ReactNode> = {
   applied: <SuccessIcon className="text-green-500 dark:text-green-400" />,

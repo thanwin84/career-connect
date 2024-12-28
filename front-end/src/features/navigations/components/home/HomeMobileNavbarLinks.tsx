@@ -1,7 +1,7 @@
 import { links } from '../../../../app/config/homeLinks';
 import { NavLink } from 'react-router-dom';
 import { Logo } from '../../../../components/ui';
-import { CrossIcon } from '../../../../app/assets/icons/Icons';
+import { CrossIcon } from '../../../../assets/icons/Icons';
 
 type Props = {
   closeFn: () => void;

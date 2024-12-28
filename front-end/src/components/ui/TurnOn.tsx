@@ -1,4 +1,4 @@
-import { CircleIcon } from '../../app/assets/icons/Icons';
+import { CircleIcon } from '../../assets/icons/Icons';
 
 export default function TurnOn() {
   return (

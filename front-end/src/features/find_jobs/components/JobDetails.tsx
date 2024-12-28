@@ -1,4 +1,4 @@
-import { LovedIcon, LoveIcon } from '../../../app/assets/icons/Icons';
+import { LovedIcon, LoveIcon } from '../../../assets/icons/Icons';
 import { Button } from '../../../components/ui';
 import { useFindJobsContext } from '../pages/FindJobs';
 import { IoMdArrowRoundBack } from 'react-icons/io';
