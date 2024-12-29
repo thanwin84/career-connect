@@ -1,7 +1,5 @@
 import {
   BarChartIcon,
-  QueryStatsIcon,
-  FormIcon,
   ProfileIcon,
   AdminSettingIcon,
   CalenderIcon,
@@ -9,23 +7,13 @@ import {
 
 const links = [
   {
-    text: 'add job',
-    path: '.',
-    icon: <FormIcon />,
-  },
-  {
-    text: 'all jobs',
-    path: 'all-jobs',
-    icon: <QueryStatsIcon />,
-  },
-  {
     text: 'My Jobs',
     path: 'my-jobs',
     icon: <CalenderIcon />,
   },
   {
     text: 'stats',
-    path: 'stats',
+    path: '.',
     icon: <BarChartIcon />,
   },
   {

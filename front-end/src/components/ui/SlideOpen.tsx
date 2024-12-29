@@ -1,6 +1,6 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect } from 'react';
 
-type Position = "right" | "left" | "bottom";
+type Position = 'right' | 'left' | 'bottom';
 type Props = {
   className?: string;
   isOpen: boolean;
@@ -9,22 +9,23 @@ type Props = {
   position?: Position;
 };
 export default function SlideOpen({
-  className = "",
+  className = '',
   isOpen,
   closeFn,
   children,
-  position = "right",
+  position = 'right',
 }: Props) {
   const positions: Record<Position, string> = {
-    right: `top-0 right-0 ${isOpen ? "translate-x-0" : "translate-x-full"}`,
-    left: `top-0 left-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`,
-    bottom: `bottom-0 left-0 ${isOpen ? "translate-y-0" : "translate-y-full"}`,
+    right: `top-0 right-0 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`,
+    left: `top-0 left-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`,
+    bottom: `bottom-0 left-0 ${isOpen ? 'translate-y-0' : 'translate-y-full'}`,
   };
+
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     }
   }, [isOpen]);
 

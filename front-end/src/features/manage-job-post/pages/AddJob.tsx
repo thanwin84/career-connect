@@ -23,14 +23,12 @@ export default function AddJob() {
   const { createJob, isPending } = useCreateJob();
 
   return (
-    <section className=" dark:text-white p-6">
-      <CreateJobForm
-        countries={countries}
-        title="Add Job"
-        buttonText="Create Job"
-        onSave={createJob}
-        isLoading={isPending}
-      />
-    </section>
+    <CreateJobForm
+      countries={countries}
+      title="Add Job"
+      buttonText="Create Job"
+      onSave={createJob}
+      isLoading={isPending}
+    />
   );
 }

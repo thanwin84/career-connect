@@ -1,22 +1,13 @@
 import { lazy, Suspense } from 'react';
 
-import { action as deleteJobAction } from '../../pages/DeleteJob';
 import ProtectedRoute from './ProtectedRoute';
 import { Route } from 'react-router-dom';
 import { checkDefaultTheme } from '../../utils/checkDefaultTheme';
 import MyJob from '../../features/manage-my-jobs/pages/MyJob';
 import JobDescription from '../../features/manage-my-jobs/components/JobDescription';
 import { Theme } from '../../types';
+import { LoadingPage } from '../../components/ui';
 
-const AllJobs = lazy(
-  () => import('../../features/manage-job-post/pages/PostedJobs')
-);
-const AddJob = lazy(
-  () => import('../../features/manage-job-post/pages/AddJob')
-);
-const EditJob = lazy(
-  () => import('../../features/manage-job-post/pages/EditJob')
-);
 const Profile = lazy(() => import('../../features/user_profile/pages/Profile'));
 const EditProfile = lazy(
   () => import('../../features/user_profile/pages/EditProfile')
@@ -33,7 +24,7 @@ const DashboardRoutes = (
     <Route
       path="dashboard"
       element={
-        <Suspense>
+        <Suspense fallback={<LoadingPage />}>
           <DashboardLayout defaultTheme={theme} />
         </Suspense>
       }
@@ -42,30 +33,27 @@ const DashboardRoutes = (
         index
         element={
           <Suspense>
-            <AddJob />
+            <Stats />
           </Suspense>
         }
         loader={async () => {
           const { loader } = await import(
-            '../../features/manage-job-post/pages/AddJob'
+            '../../features/user-stats/pages/Stats'
           );
-          return loader({});
+          return loader();
         }}
       />
-      <Route
-        path="all-jobs"
-        element={
-          <Suspense>
-            <AllJobs />
-          </Suspense>
-        }
-        loader={async (args) => {
-          const { loader } = await import(
-            '../../features/manage-job-post/pages/PostedJobs'
-          );
-          return loader(args);
-        }}
-      />
+      <Route path="my-jobs">
+        <Route index element={<MyJob />} />
+        <Route
+          path=":jobId"
+          element={
+            <section className="py-6 px-6">
+              <JobDescription />
+            </section>
+          }
+        />
+      </Route>
       <Route
         path="profile"
         element={
@@ -90,47 +78,7 @@ const DashboardRoutes = (
           return loader();
         }}
       />
-      <Route
-        path="edit-job/:id"
-        element={
-          <Suspense>
-            <EditJob />
-          </Suspense>
-        }
-        loader={async (args) => {
-          const { loader } = await import(
-            '../../features/manage-job-post/pages/EditJob'
-          );
-          return loader(args);
-        }}
-      />
-      <Route path="delete-job/:id" action={deleteJobAction} />
-      <Route
-        path="stats"
-        element={
-          <Suspense>
-            <Stats />
-          </Suspense>
-        }
-        loader={async () => {
-          const { loader } = await import(
-            '../../features/user-stats/pages/Stats'
-          );
-          return loader();
-        }}
-      />
 
-      <Route path="my-jobs">
-        <Route index element={<MyJob />} />
-        <Route
-          path=":jobId"
-          element={
-            <section className="py-6 px-6">
-              <JobDescription />
-            </section>
-          }
-        />
-      </Route>
       <Route
         path="setting"
         element={

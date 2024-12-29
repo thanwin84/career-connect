@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { useLogout } from "../../../features/auth/hooks/useLogout";
+import { Link } from 'react-router-dom';
+import { useLogout } from '../../../features/auth/hooks/useLogout';
 
 type Props = {
   className?: string;
@@ -28,6 +28,14 @@ export default function DropDownList({
               onClick={toggleDropdown}
             >
               Setting
+            </Link>
+          </li>
+          <li role="menuitem" className="text-center">
+            <Link
+              to="/post-jobs"
+              className="w-full  text-center bg-white dark:text-slate-100 dark:bg-zinc-800 text-slate-900 hover:text-blue-800 hover:font-bold dark:hover:text-blue-500  px-4 py-1 rounded-md"
+            >
+              Post Jobs
             </Link>
           </li>
           <li role="menuitem">

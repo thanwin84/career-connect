@@ -40,6 +40,7 @@ const HomeRoutes = (
           </Suspense>
         }
       />
+
       <Route path={routes.LOGIN} element={<Login />} />
     </Route>
   </Route>

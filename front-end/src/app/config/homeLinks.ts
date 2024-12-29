@@ -1,11 +1,10 @@
 export const links = [
-    {
-        name: "FIND JOBS",
-        path: "."
-    },
-    {
-        name: 'DASHBOARD',
-        path: "../dashboard"
-    }
-    
-]
+  {
+    name: 'FIND JOBS',
+    path: '.',
+  },
+  {
+    name: 'DASHBOARD',
+    path: '../dashboard',
+  },
+];
