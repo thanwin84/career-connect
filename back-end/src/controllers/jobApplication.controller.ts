@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
-import asyncHandler from "../utils/asyncHandler";
-import { JobApplication } from "../models/jobApplication.model";
-import { BadRequestError } from "../errors/customErrors";
-import { statusCodes } from "../utils/constants";
-import mongoose from "mongoose";
-import { ApiResponse } from "../utils/ApiResponse";
+import { Request, Response } from 'express';
+import asyncHandler from '../utils/asyncHandler';
+import { JobApplication } from '../models/jobApplication.model';
+import { BadRequestError } from '../errors/customErrors';
+import { statusCodes } from '../utils/constants';
+import mongoose from 'mongoose';
+import { ApiResponse } from '../utils/ApiResponse';
 import {
   createJobApplicationService,
   deleteJobApplicationService,
@@ -13,8 +13,8 @@ import {
   jobApplicationStatsService,
   updateJobApplicationStatusService,
   updateManyJobApplicationStatusService,
-} from "../service/jobApplication.service";
-import { JobStatus } from "../types";
+} from '../service/jobApplication.service';
+import { JobStatus, Pagination } from '../types';
 
 const apply = asyncHandler(async (req: Request, res: Response) => {
   const { _id, candidateId } = req.body;
@@ -30,7 +30,7 @@ const apply = asyncHandler(async (req: Request, res: Response) => {
       new ApiResponse(
         statusCodes.CREATED,
         { jobApplication: newApplication },
-        "Job application is created successfully"
+        'Job application is created successfully'
       )
     );
 });
@@ -51,7 +51,7 @@ const updateApplicationStatus = asyncHandler(
         new ApiResponse(
           statusCodes.OK,
           {},
-          "Application status is updated successfully"
+          'Application status is updated successfully'
         )
       );
   }
@@ -91,6 +91,7 @@ const getAllJobApplications = asyncHandler(
       candidateId,
       recruiterId,
       sort,
+      candidateName,
     } = req.query;
     const skips = (Number(page) - 1) * Number(limit);
     const queryObject: any = {};
@@ -98,7 +99,7 @@ const getAllJobApplications = asyncHandler(
       latest: { createdAt: -1 },
       old: { createdAt: 1 },
     } as const;
-    if (status && status !== "all") queryObject.status = status;
+    if (status && status !== 'all') queryObject.status = status;
     if (candidateId)
       queryObject.candidateId = new mongoose.Types.ObjectId(
         candidateId as string
@@ -108,31 +109,83 @@ const getAllJobApplications = asyncHandler(
         recruiterId as string
       );
 
-    const jobApplications = await JobApplication.aggregate([
+    const aggregationPipeline = [
       {
         $match: queryObject,
       },
       {
         $sort:
           sortOptions[sort as keyof typeof sortOptions] ||
-          sortOptions["latest"],
+          sortOptions['latest'],
       },
       {
-        $skip: skips,
+        $lookup: {
+          from: 'users',
+          localField: 'candidateId',
+          foreignField: '_id',
+          as: 'user',
+        },
       },
+      {
+        $addFields: {
+          user: { $first: '$user' },
+        },
+      },
+    ];
+    if (candidateName) {
+      aggregationPipeline.push({
+        $match: {
+          'user.firstName': candidateName,
+        },
+      });
+    }
+    const jobApplications = await JobApplication.aggregate([
+      ...aggregationPipeline,
+      {
+        $lookup: {
+          from: 'jobs',
+          localField: 'jobId',
+          foreignField: '_id',
+          as: 'job',
+        },
+      },
+      {
+        $addFields: {
+          job: { $first: '$job' },
+        },
+      },
+      {
+        $skip: Number(skips),
+      },
+
       {
         $limit: Number(limit),
       },
+      {
+        $project: { 'user.password': 0 },
+      },
     ]);
-    const total = await JobApplication.countDocuments(queryObject);
+
+    let total = await JobApplication.countDocuments(queryObject);
+    if (candidateName && jobApplications.length > 0) {
+      total = 1;
+    }
+    if (candidateName && jobApplications.length === 0) {
+      total = 1;
+    }
     const pages = Math.ceil(total / Number(limit));
+    const pagination: Pagination = {
+      totalPages: pages,
+      currentPage: Number(page),
+      totalItems: total,
+    };
     res
       .status(statusCodes.OK)
       .json(
         new ApiResponse(
           statusCodes.OK,
-          { jobApplications, pages, total },
-          "All jobs are fetched successfully"
+          { jobApplications, pagination: pagination },
+          'All jobs are fetched successfully'
         )
       );
   }
@@ -152,7 +205,7 @@ const getMyApplications = asyncHandler(async (req: Request, res: Response) => {
       new ApiResponse(
         statusCodes.OK,
         myApplications,
-        "All your applications are fetched successfully"
+        'All your applications are fetched successfully'
       )
     );
 });
@@ -190,7 +243,7 @@ const deleteJobApplication = asyncHandler(
         new ApiResponse(
           statusCodes.OK,
           {},
-          "Application is deleted successfully"
+          'Application is deleted successfully'
         )
       );
   }
@@ -207,7 +260,7 @@ const getJobApplicationStats = asyncHandler(
         new ApiResponse(
           statusCodes.OK,
           { defaultStats, monthlyApplications },
-          "Job application stats have been fetched successfully"
+          'Job application stats have been fetched successfully'
         )
       );
   }
@@ -222,7 +275,7 @@ export const getAppliedIdList = asyncHandler(
         new ApiResponse(
           statusCodes.OK,
           { ids: idList },
-          "Applied id list is feched successfully"
+          'Applied id list is feched successfully'
         )
       );
   }
