@@ -6,12 +6,12 @@ import { updateJobRequest } from '../services';
 
 export const useUpdateJob = () => {
   const naviage = useNavigate();
-  const { id } = useParams();
+  const { jobId } = useParams();
   const { isPending, mutate: updateJob } = useMutation(
-    (formData: FormData) => updateJobRequest(id as string, formData),
+    (formData: FormData) => updateJobRequest(jobId as string, formData),
     {
       onSuccess: () => {
-        naviage('../all-jobs');
+        naviage('../jobs');
         toast.success('Job is updated successfully');
       },
       onError: (error) => {

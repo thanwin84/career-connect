@@ -39,7 +39,7 @@ function LayoutContent() {
       />
       <section className={`flex-1`}>
         <MainNavbar />
-        <main className="dark:bg-zinc-700 p-4">
+        <main className="dark:bg-zinc-700 bg-slate-50 p-4">
           <Outlet />
         </main>
       </section>

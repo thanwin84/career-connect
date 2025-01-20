@@ -47,7 +47,7 @@ const Select = forwardRef<HTMLSelectElement, Props>(
           className={`${style}  ${errorMessage ? errorStyle : ''}`}
         >
           {/* First option as a placeholder, disabled */}
-          <option value="" disabled selected>
+          <option value="" disabled>
             {placeholder}
           </option>
 

@@ -29,6 +29,7 @@ export default function useQuery<TData>(
     isError: false,
     error: '',
   });
+
   const { onError, onSuccess } = config;
 
   const runQuery = async () => {

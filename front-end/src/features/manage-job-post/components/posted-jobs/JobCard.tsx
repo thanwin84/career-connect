@@ -61,7 +61,7 @@ export default function JobCard({ job }: Props) {
       </div>
       <div className="flex gap-2 px-4">
         <Link
-          to={`../edit-job/${job._id}`}
+          to={`../edit/${job._id}`}
           className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-sm"
         >
           Edit

@@ -15,7 +15,7 @@ type Loader = {
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   try {
-    const job = await getJobRequest(params.id as string);
+    const job = await getJobRequest(params.jobId as string);
     const countryList = await getCountryListRequest();
     const ob = { job: job, countries: countryList };
 
