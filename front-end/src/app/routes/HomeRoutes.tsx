@@ -5,22 +5,24 @@ import { lazy, Suspense } from 'react';
 import { Route } from 'react-router-dom';
 import { routes } from '../constants/routes';
 import ProtectedRoute from './ProtectedRoute';
+import PublicRoute from './PublicRoute';
+import { LoadingPage } from '../../components/ui';
 const FindJobs = lazy(() => import('../../features/find_jobs/pages/FindJobs'));
 const Register = lazy(() => import('../../features/auth/pages/Register'));
 
 const HomeRoutes = (
-  <Route>
-    <Route
-      path={routes.HOME}
-      element={<HomePageLayout />}
-      errorElement={<Error />}
-    >
-      <Route index element={<HomePage />} />
-      <Route element={<ProtectedRoute />}>
+  <>
+    <Route element={<ProtectedRoute />}>
+      <Route
+        path={routes.HOME}
+        element={<HomePageLayout />}
+        errorElement={<Error />}
+      >
+        <Route index element={<HomePage />} />
         <Route
           path={routes.JOBS}
           element={
-            <Suspense fallback={<div>Loading..</div>}>
+            <Suspense fallback={<LoadingPage />}>
               <FindJobs />
             </Suspense>
           }
@@ -32,6 +34,9 @@ const HomeRoutes = (
           }}
         />
       </Route>
+    </Route>
+    <Route element={<PublicRoute />}>
+      <Route path={routes.LOGIN} element={<Login />} />
       <Route
         path={routes.REGISTER}
         element={
@@ -40,9 +45,7 @@ const HomeRoutes = (
           </Suspense>
         }
       />
-
-      <Route path={routes.LOGIN} element={<Login />} />
     </Route>
-  </Route>
+  </>
 );
 export default HomeRoutes;
