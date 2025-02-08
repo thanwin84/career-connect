@@ -19,7 +19,7 @@ const Password = ({ className }: Props) => {
         type={showPassword ? 'text' : 'password'}
         label="Password"
         placeholder="Enter your password"
-        className="border-none focus:none pr-8"
+        className=" focus:none pr-8"
         name="password"
       />
       <span

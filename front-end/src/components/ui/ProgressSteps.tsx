@@ -12,14 +12,14 @@ export default function ProgressSteps({
   className,
 }: Props) {
   return (
-    <div className={`w-full bg-slate-50 dark:bg-zinc-900 ${className}`}>
-      <div className="text-xl font-semibold">
-        <span className="dark:text-slate-200">
+    <div className={`w-full bg-transparent ${className}`}>
+      <div className="text-xl font-semibold mb-2">
+        <span className="dark:text-slate-200 text-slate-700">
           {totalSteps === currentStep + 1
             ? 'Final step'
             : `Step ${currentStep + 1}`}
         </span>
-        <span className="ml-4 text-slate-600 dark:text-slate-400">
+        <span className="ml-4 text-slate-800 dark:text-slate-400">
           {stepTitles[currentStep]}
         </span>
       </div>
@@ -27,8 +27,8 @@ export default function ProgressSteps({
         {stepTitles.map((stepTitle, index) => (
           <span
             key={stepTitle}
-            className={`bg-blue-200 px-1 h-2 w-full rounded-md ${
-              currentStep === index ? 'bg-blue-600' : ''
+            className={`bg-slate-200 px-1 h-2 w-full rounded-md ${
+              currentStep === index ? 'bg-slate-800' : ''
             }`}
           ></span>
         ))}

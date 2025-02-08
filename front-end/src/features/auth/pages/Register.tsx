@@ -38,8 +38,8 @@ export default function Register({}: Props) {
   const titles = ['Create Account', 'Describe yourself', 'Add Profile Photo'];
 
   return (
-    <main className="w-full bg-slate-50 dark:bg-zinc-900 ">
-      <div className="lg:w-4/6 w-5/6  mx-auto">
+    <main className="bg-gray-100 min-h-screen py-6">
+      <div className="w-[90%] bg-white md:w-[45%] mx-auto px-6 rounded-md shadow-md">
         <ProgressSteps
           className=" mx-auto pt-6"
           totalSteps={steps.length}

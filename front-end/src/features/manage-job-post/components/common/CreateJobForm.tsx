@@ -46,7 +46,7 @@ export default function CreateJobForm({
             {title}
           </h2>
           <div className="space-y-4">
-            <div className="lg:flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               <FormInput label="Position" name="position" />
               <FormInput label="Company" name="company" />
             </div>
@@ -80,7 +80,7 @@ export default function CreateJobForm({
               name="experianceLevel"
               title="Select Experiance Level"
             />
-            <div className="flex flex-col md:flex-row md:gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               <FormInput
                 label="Application Deadline"
                 type="date"
@@ -95,7 +95,6 @@ export default function CreateJobForm({
             <SalaryRange />
             <div className="flex justify-end">
               <Button
-                category="success"
                 type="submit"
                 classname="mt-6 "
                 loading={isLoading}

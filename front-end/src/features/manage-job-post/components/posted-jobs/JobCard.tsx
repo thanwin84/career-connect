@@ -62,12 +62,13 @@ export default function JobCard({ job }: Props) {
       <div className="flex gap-2 px-4">
         <Link
           to={`../edit/${job._id}`}
-          className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-sm"
+          className="px-4 py-2 border border-gray-600 hover:bg-slate-800 hover:text-slate-200   dark:text-slate-200 dark:hover:bg-slate-100 dark:hover:text-slate-800  text-slate-800 rounded-md text-sm"
         >
           Edit
         </Link>
         <Form method="post" action={`../delete-job/${job._id}`}>
           <Button
+            category="outlined"
             type="submit"
             classname="text-sm"
             loading={navagation.state === 'submitting'}

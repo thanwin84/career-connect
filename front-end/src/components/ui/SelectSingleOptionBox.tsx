@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
-import FormError from "./FormError";
+import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import FormError from './FormError';
 
 type Props = {
   options: string[];
@@ -22,16 +22,18 @@ export default function SelectSingleOptionBox({
   return (
     <>
       <div className={`${className}`}>
-        <p className="text-slate-700 mb-2 dark:text-slate-300">{title}</p>
+        <p className="text-slate-800 font-semibold mb-2 dark:text-slate-300">
+          {title}
+        </p>
         <ul className={`w-full flex gap-2`}>
           {options.map((option) => (
             <label
               key={option}
               onClick={() => setSelectedOption(option)}
-              className={`px-6 py-2 border rounded-md text-nowrap cursor-pointer dark:text-slate-200  ${
+              className={`px-6 py-2 border rounded-md text-nowrap cursor-pointer  dark:text-slate-200  ${
                 selectedOption === option
-                  ? "bg-zinc-800 dark:bg-zinc-100 text-white dark:text-slate-900"
-                  : ""
+                  ? 'bg-zinc-800  dark:bg-zinc-100 text-white dark:text-slate-900'
+                  : 'dark:border-gray-400'
               }`}
             >
               <input

@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { Select, Input } from '../../../../components/ui';
+import { Select, Input, Button } from '../../../../components/ui';
 import { useAllJobsContext } from '../../pages/PostedJobs';
 import {
   JOB_TYPE,
@@ -75,12 +75,7 @@ export default function SearchJobsContainer() {
             onChange={handleChange}
           />
           <div className="flex flex-col justify-end">
-            <button
-              onClick={handleClick}
-              className="w-full bg-blue-500 text-white text-center px-4 py-2 rounded hover:bg-blue-600"
-            >
-              Reset to Default Values
-            </button>
+            <Button onClick={handleClick}>Reset to Default Values</Button>
           </div>
         </div>
       </div>

@@ -34,9 +34,7 @@ export default function CreateAccount({
     defaultValues: user,
   });
   return (
-    <div
-      className={`w-full   dark:bg-zinc-900  bg-white px-6 py-4 rounded-md mx-auto ${className}`}
-    >
+    <div className={`w-full   mx-auto ${className}`}>
       <FormTitle title="Create your account" />
       <FormProvider {...methods}>
         <form
@@ -46,23 +44,23 @@ export default function CreateAccount({
           <div className="flex flex-col gap-3">
             <FormInput
               label="First Name"
-              placeholder="Enter your first Name"
+              placeholder="Your first name"
               name="firstName"
             />
             <FormInput
               label="Last Name"
-              placeholder="Enter your last name"
+              placeholder="Your last name"
               name="lastName"
             />
             <FormInput
               label="Location"
-              placeholder="Enter your location"
+              placeholder="Dhaka, Bangladesh"
               name="location"
             />
             <FormInput
               type="email"
               label="Email"
-              placeholder="Enter your email"
+              placeholder="sample@mail.com"
               name="email"
             />
             <Password className="mb-4" />

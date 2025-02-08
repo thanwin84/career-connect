@@ -7,6 +7,7 @@ import {
   describeYourselfSchema,
   DescribeYourselfType,
 } from '../../validations';
+import FormTitle from './FormTitle';
 
 type Props = {
   className?: string;
@@ -36,18 +37,15 @@ export default function DescribeYourself({
   }
   const selected = watch('role');
   return (
-    <form
-      onSubmit={handleSubmit(action)}
-      className={`w-full h-screen ${className}`}
-    >
-      <h2 className="text-xl dark:text-slate-300 mb-6">
-        What brings to Career Connect?
-      </h2>
+    <form onSubmit={handleSubmit(action)} className={`w-full ${className}`}>
+      <FormTitle title="What brings to Career Connect?" />
       <ul className="mb-1 flex flex-col">
         {options.map(({ text, value }) => (
           <label
-            className={`py-2 px-4 text-lg border mb-4 rounded-md bg-white hover:border-1 hover:border-blue-300 cursor-pointer ${
-              selected === value ? 'border-2 border-blue-500' : ''
+            className={`py-2 px-4 text-lg border mb-4 rounded-md bg-white   cursor-pointer ${
+              selected === value
+                ? 'border-2 border-slate-500'
+                : 'border-2 hover:border-slate-500'
             } `}
             key={text}
           >

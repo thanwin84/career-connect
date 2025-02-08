@@ -1,5 +1,4 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { LoadingPage } from '../../components/ui';
 import { useUserStore } from '../../store/userStore';
 import { useUserInformation } from '../../hooks/user/useUserInformation';
 import { ReactNode } from 'react';

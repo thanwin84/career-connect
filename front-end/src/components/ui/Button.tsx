@@ -1,39 +1,44 @@
-import { ButtonHTMLAttributes, ReactNode } from "react";
-import Spinner from "./Spinner";
+import { ButtonHTMLAttributes, ReactNode } from 'react';
+import Spinner from './Spinner';
 
 type Props = {
   children: ReactNode;
-  type?: "button" | "reset" | "submit";
+  type?: 'button' | 'reset' | 'submit';
   classname?: string;
   category?:
-    | "primary"
-    | "danger"
-    | "success"
-    | "link"
-    | "normal"
-    | "lightDanger";
+    | 'primary'
+    | 'danger'
+    | 'success'
+    | 'link'
+    | 'normal'
+    | 'lightDanger'
+    | 'outlined';
+
   loading?: boolean;
   loadingText?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({
-  type = "button",
+  type = 'button',
   classname,
-  category = "primary",
+  category = 'primary',
   children,
   loading = false,
-  loadingText = "loading..",
+  loadingText = 'loading..',
   ...props
 }: Props) {
   const styles = {
-    primary: "bg-blue-600 hover:bg-blue-600 text-slate-100",
-    danger: "bg-red-500 hover:bg-red-600 text-white",
-    success: "bg-green-500 hover:bg-green-600 text-white",
-    link: "bg-white text-blue-600 hover:underline",
-    normal: "bg-gray-500 text-gray-100 hover:bg-gray-600",
-    lightDanger: "bg-red-100 text-red-500 hover:bg-red-200",
+    primary:
+      'bg-slate-900 dark:bg-slate-100 dark:text-slate-800 hover:bg-slate-800 dark:hover:bg-slate-200 text-slate-100',
+    danger: 'bg-red-500 hover:bg-red-600 text-white',
+    success: 'bg-green-500 hover:bg-green-600 text-white',
+    link: 'bg-white text-blue-600 hover:underline',
+    normal: 'bg-gray-500 text-gray-100 hover:bg-gray-600',
+    lightDanger: 'bg-red-100 text-red-500 hover:bg-red-200',
+    outlined:
+      'border border-gray-600 dark:text-slate-200 hover:bg-slate-800 hover:text-slate-200 dark:hover:bg-slate-100 dark:hover:text-slate-800 dark:text-white text-slate-800',
   };
-  const loadingStyle = "bg-gray-400  cursor-not-allowed";
+  const loadingStyle = 'bg-gray-400  cursor-not-allowed';
   return (
     <button
       {...props}
