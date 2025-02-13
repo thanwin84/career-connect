@@ -1,12 +1,9 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-import { useUserStore } from "../store/userStore";
-import { User } from "../types";
-import { useTheme } from "../hooks/useTheme";
+import { createContext, ReactNode, useContext, useState } from 'react';
+import { useUserStore } from '../store/userStore';
+import { User } from '../types';
 
 type DashboardContextT = {
   user: User | null;
-  theme: string;
-  toggleTheme: () => void;
   showBigSidebar: boolean;
   showSmallSidebar: boolean;
   toggleBigSidebar: () => void;
@@ -19,7 +16,7 @@ const dashboardContext = createContext<DashboardContextT | undefined>(
 
 type Props = {
   children: ReactNode;
-  defaultTheme: "light" | "dark";
+  defaultTheme: 'light' | 'dark';
 };
 
 export const DashboardProvider = ({ children, defaultTheme }: Props) => {
@@ -27,7 +24,6 @@ export const DashboardProvider = ({ children, defaultTheme }: Props) => {
   const user = userStore.user;
   const [showBigSidebar, setShowBigSidebar] = useState(true);
   const [showSmallSidebar, setShowSmallSidebar] = useState(false);
-  const { theme, toggleTheme } = useTheme({ defaultTheme: defaultTheme });
 
   function toggleBigSidebar() {
     setShowBigSidebar(!showBigSidebar);
@@ -40,8 +36,6 @@ export const DashboardProvider = ({ children, defaultTheme }: Props) => {
     <dashboardContext.Provider
       value={{
         user,
-        theme,
-        toggleTheme,
         showBigSidebar,
         showSmallSidebar,
         toggleBigSidebar,
@@ -57,7 +51,7 @@ export const useDashboardContext = () => {
   const context = useContext(dashboardContext);
   if (!context) {
     throw new Error(
-      "useDashBoardContext must be used within DashboardLayout component"
+      'useDashBoardContext must be used within DashboardLayout component'
     );
   }
   return context;

@@ -1,18 +1,17 @@
-import { BsFillSunFill, BsMoonFill } from "react-icons/bs";
-import { useDashboardContext } from "../../contexts/dashboardContext";
+import { BsFillSunFill, BsMoonFill } from 'react-icons/bs';
+import { useTheme } from '../../hooks/useTheme';
 
 export default function ThemeToggle() {
-  const { theme, toggleTheme } = useDashboardContext();
-
+  const { toggleTheme, theme } = useTheme({ defaultTheme: 'light' });
   return (
     <button
       onClick={toggleTheme}
       className="cursor-pointer my-auto dark:text-white"
       aria-label={
-        theme === "dark" ? "switch to light mode" : "switch to dark mode"
+        theme === 'dark' ? 'switch to light mode' : 'switch to dark mode'
       }
     >
-      {theme === "dark" ? (
+      {theme === 'dark' ? (
         <BsFillSunFill className="" />
       ) : (
         <BsMoonFill className="" />
