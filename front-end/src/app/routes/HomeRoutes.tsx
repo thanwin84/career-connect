@@ -4,15 +4,15 @@ import { Login, Error, HomePage } from '../../pages';
 import { lazy, Suspense } from 'react';
 import { Route } from 'react-router-dom';
 import { routes } from '../constants/routes';
-import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
 import { LoadingPage } from '../../components/ui';
+
 const FindJobs = lazy(() => import('../../features/find_jobs/pages/FindJobs'));
 const Register = lazy(() => import('../../features/auth/pages/Register'));
 
 const HomeRoutes = (
   <>
-    <Route element={<ProtectedRoute />}>
+    <Route>
       <Route
         path={routes.HOME}
         element={<HomePageLayout />}
