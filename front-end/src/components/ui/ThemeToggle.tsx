@@ -2,7 +2,7 @@ import { BsFillSunFill, BsMoonFill } from 'react-icons/bs';
 import { useTheme } from '../../hooks/useTheme';
 
 export default function ThemeToggle() {
-  const { toggleTheme, theme } = useTheme({ defaultTheme: 'light' });
+  const { toggleTheme, theme } = useTheme();
   return (
     <button
       onClick={toggleTheme}

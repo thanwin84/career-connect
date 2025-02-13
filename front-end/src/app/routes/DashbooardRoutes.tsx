@@ -2,10 +2,8 @@ import { lazy, Suspense } from 'react';
 
 import ProtectedRoute from './ProtectedRoute';
 import { Route } from 'react-router-dom';
-import { checkDefaultTheme } from '../../utils/checkDefaultTheme';
 import MyJob from '../../features/manage-my-jobs/pages/MyJob';
 import JobDescription from '../../features/manage-my-jobs/components/JobDescription';
-import { Theme } from '../../types';
 import { LoadingPage } from '../../components/ui';
 
 const Profile = lazy(() => import('../../features/user_profile/pages/Profile'));
@@ -17,15 +15,13 @@ const Admin = lazy(() => import('../../features/admin/pages/Admin'));
 const Stats = lazy(() => import('../../features/user-stats/pages/Stats'));
 const DashboardLayout = lazy(() => import('../../layout/DashboardLayout'));
 
-const theme = checkDefaultTheme() as Theme;
-
 const DashboardRoutes = (
   <Route element={<ProtectedRoute />}>
     <Route
       path="dashboard"
       element={
         <Suspense fallback={<LoadingPage />}>
-          <DashboardLayout defaultTheme={theme} />
+          <DashboardLayout />
         </Suspense>
       }
     >

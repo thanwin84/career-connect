@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
-type Props = {
-  defaultTheme?: 'light' | 'dark';
-};
-export const useTheme = ({ defaultTheme = 'light' }: Props) => {
-  const [theme, setTheme] = useState(defaultTheme);
+export const useTheme = () => {
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('themeMode');
+    return savedTheme ? savedTheme : 'light';
+  });
 
   function toggleTheme() {
     if (theme === 'dark') {

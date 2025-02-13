@@ -2,7 +2,7 @@ import LoginAndLogoutContainer from './LoginAndLogoutContainer';
 import HomeNavLinks from './HomeNavLinks';
 import HomeMobileNavbar from './HomeMobileNavbar';
 import { Link } from 'react-router-dom';
-import { Logo } from '../../../../components/ui';
+import { Logo, ThemeToggle } from '../../../../components/ui';
 type Props = {
   isLoggedIn: boolean;
 };
@@ -19,7 +19,10 @@ export default function HomeNavbar({ isLoggedIn }: Props) {
         />
       </div>
       <HomeMobileNavbar className="md:hidden" />
-      <LoginAndLogoutContainer className="font-serif ml-auto md:ml-0" />
+      <div className="flex gap-4 items-center">
+        <ThemeToggle />
+        <LoginAndLogoutContainer />
+      </div>
     </nav>
   );
 }

@@ -16,10 +16,9 @@ const dashboardContext = createContext<DashboardContextT | undefined>(
 
 type Props = {
   children: ReactNode;
-  defaultTheme: 'light' | 'dark';
 };
 
-export const DashboardProvider = ({ children, defaultTheme }: Props) => {
+export const DashboardProvider = ({ children }: Props) => {
   const userStore = useUserStore();
   const user = userStore.user;
   const [showBigSidebar, setShowBigSidebar] = useState(true);
