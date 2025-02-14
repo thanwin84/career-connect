@@ -19,31 +19,27 @@ export default function DropDownList({
           id="dropdown-menu"
           role="menu"
           aria-label="user options menu"
-          className="grid gap-2 w-full bg-white dark:bg-zinc-800 border border-slate-300 rounded-md p-1 absolute left-0 mt-2 z-10"
+          className="grid gap-2 w-full bg-white dark:bg-zinc-800 border border-slate-300 rounded-md  absolute left-0 mt-2 z-10 py-6 px-2"
         >
-          <li role="menuitem" className="text-center">
-            <Link
-              to="/dashboard/setting"
-              className="w-full  text-center bg-white dark:text-slate-100 dark:bg-zinc-800 text-slate-900 hover:text-blue-800 hover:font-bold dark:hover:text-blue-500  px-4 py-1 rounded-md"
-              onClick={toggleDropdown}
-            >
+          <li
+            role="menuitem"
+            className="dark:text-slate-200 text-slate-800 font-semibold  text-center py-1 hover:bg-gray-100 dark:hover:bg-zinc-700 dark:hover:text-slate-100 rounded-md"
+          >
+            <Link to="/dashboard/setting" onClick={toggleDropdown}>
               Setting
             </Link>
           </li>
-          <li role="menuitem" className="text-center">
-            <Link
-              to="/post-jobs"
-              className="w-full  text-center bg-white dark:text-slate-100 dark:bg-zinc-800 text-slate-900 hover:text-blue-800 hover:font-bold dark:hover:text-blue-500  px-4 py-1 rounded-md"
-            >
-              Post Jobs
-            </Link>
+          <li
+            role="menuitem"
+            className="dark:text-slate-200 text-slate-800 font-semibold  text-center py-1 hover:bg-gray-100 dark:hover:bg-zinc-700 dark:hover:text-slate-100 rounded-md"
+          >
+            <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li role="menuitem">
-            <button
-              type="button"
-              className="mb-2 bg-white dark:text-slate-100 dark:bg-zinc-800 text-slate-900 hover:text-blue-800 hover:font-bold dark:hover:text-blue-500  px-4 py-1 rounded-md  w-full"
-              onClick={() => logout({})}
-            >
+          <li
+            role="menuitem"
+            className="dark:text-slate-200 text-slate-800 font-semibold  text-center py-1 hover:bg-gray-100 dark:hover:bg-zinc-700 dark:hover:text-slate-100 rounded-md"
+          >
+            <button type="button" onClick={() => logout({})}>
               Logout
             </button>
           </li>

@@ -14,11 +14,11 @@ export default function Login() {
   const { isPending, loginUser } = useLoginUser();
 
   return (
-    <main className="h-screen bg-gray-100 dark:bg-zinc-900 py-8">
-      <div className="bg-white p-8 w-4/6 lg:w-2/5 shadow-lg rounded-md mx-auto  dark:bg-zinc-800">
+    <main className="h-screen bg-gray-100 dark:bg-zinc-800 py-8">
+      <div className="bg-white  p-8 w-4/6 lg:w-2/5 shadow-lg rounded-md mx-auto  dark:bg-zinc-800">
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(loginUser)}>
-            <h2 className="text-2xl mb-1 text-slate-800  dark:text-white font-semibold">
+            <h2 className="text-2xl mb-1 text-blue-800  dark:text-white font-semibold">
               Login
             </h2>
             <p className="text-slate-700 dark:text-slate-300 mb-2">

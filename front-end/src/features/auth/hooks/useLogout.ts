@@ -12,7 +12,6 @@ export const useLogout = () => {
       userStore.logoutUser();
       const broadcast = new BroadcastChannel('auth');
       broadcast.postMessage('logout');
-      broadcast.close();
       navigate('/');
       toast.success('You are logged out successfully');
     },

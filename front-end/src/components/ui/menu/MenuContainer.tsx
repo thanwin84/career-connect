@@ -1,6 +1,6 @@
-import { useState } from "react";
-import DropDownButton from "./DropDownButton";
-import DropDownList from "./DropDownList";
+import { useState } from 'react';
+import DropDownButton from './DropDownButton';
+import DropDownList from './DropDownList';
 
 type Props = {
   className?: string;
@@ -14,7 +14,7 @@ export default function MenuContainer({ className }: Props) {
   }
 
   return (
-    <div className={`relative w-40  ${className}`}>
+    <div className={`relative w-40   ${className}`}>
       <DropDownButton
         toggleDropdown={toggleDropdown}
         isDropdownOpen={showDropDown}

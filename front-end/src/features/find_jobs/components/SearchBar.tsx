@@ -18,7 +18,7 @@ export default function SearchBar({
 }: Props) {
   return (
     <Form
-      className={`lg:flex bg-white dark:bg-zinc-800 px-4 py-6 rounded-md ${className}`}
+      className={`lg:flex   px-4 py-6 rounded-md ${className}`}
       onSubmit={action}
     >
       <div className="w-full flex flex-col lg:flex-row gap-4 px-4 py-6">
@@ -38,7 +38,7 @@ export default function SearchBar({
         />
       </div>
       <div className="my-auto flex justify-end">
-        <Button type="submit" classname="mb-4 w-full  lg:mb-0">
+        <Button type="submit" classname="mb-4 w-full  lg:mb-0 bg-blue-600">
           Search
         </Button>
       </div>

@@ -1,5 +1,5 @@
-import { InputHTMLAttributes, ReactNode } from "react";
-import Input from "./Input";
+import { InputHTMLAttributes, ReactNode } from 'react';
+import Input from './Input';
 
 type Props = {
   icon: ReactNode;
@@ -11,7 +11,7 @@ type Props = {
 
 export default function InputWithIcon({
   icon,
-  type = "text",
+  type = 'text',
   name,
   className,
   placeholder,
@@ -19,7 +19,7 @@ export default function InputWithIcon({
 }: Props) {
   return (
     <div
-      className={`relative w-full flex bg-gray-50 dark:bg-zinc-700 pl-2 rounded-md focus-within:border-blue-400  ${className}`}
+      className={`relative w-full flex py-1 rounded-md bg-white dark:bg-zinc-800 pl-2 focus-within:border-blue-400  ${className}`}
     >
       <span
         aria-hidden={true}
@@ -32,7 +32,7 @@ export default function InputWithIcon({
         name={name}
         placeholder={placeholder}
         {...props}
-        className="border-none outline-none focus:none"
+        className="border-none outline-none focus:none bg-white dark:bg-zinc-800 focus:ring-0"
       />
     </div>
   );

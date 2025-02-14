@@ -29,7 +29,7 @@ export default function Button({
 }: Props) {
   const styles = {
     primary:
-      'bg-slate-900 dark:bg-slate-100 dark:text-slate-800 hover:bg-slate-800 dark:hover:bg-slate-200 text-slate-100',
+      'bg-blue-700 dark:bg-blue-600 dark:text-slate-100 hover:bg-blue-800 dark:hover:bg-blue-700 text-slate-100',
     danger: 'bg-red-500 hover:bg-red-600 text-white',
     success: 'bg-green-500 hover:bg-green-600 text-white',
     link: 'bg-white text-blue-600 hover:underline',

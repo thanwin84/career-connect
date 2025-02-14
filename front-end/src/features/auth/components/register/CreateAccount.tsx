@@ -64,7 +64,7 @@ export default function CreateAccount({
               name="email"
             />
             <Password className="mb-4" />
-            <Button classname="self-end">Next</Button>
+            <Button classname="w-full">Next</Button>
           </div>
         </form>
       </FormProvider>
