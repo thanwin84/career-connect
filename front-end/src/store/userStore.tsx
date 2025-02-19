@@ -1,12 +1,13 @@
-import { create } from "zustand";
-import { Education, User } from "../types";
-import { produce } from "immer";
+import { create } from 'zustand';
+import { Education, User } from '../types';
+import { produce } from 'immer';
 
 type UserState = {
   isLoggedIn: boolean;
   userAvatar: string | null;
   user: User | null;
   jobAppliedIds: string[];
+  isLoading: boolean;
 };
 
 type Store = UserState & {
@@ -18,6 +19,7 @@ type Store = UserState & {
   addEducationRecord: (education: Education) => void;
   deleteEducationRecord: (id: string) => void;
   updateUserAvatar: (avatar: string) => void;
+  setLoading: (value: boolean) => void;
 };
 
 const initialUserState: UserState = {
@@ -25,6 +27,7 @@ const initialUserState: UserState = {
   user: null,
   userAvatar: null,
   jobAppliedIds: [],
+  isLoading: true,
 };
 
 export const useUserStore = create<Store>((set) => ({
@@ -35,6 +38,12 @@ export const useUserStore = create<Store>((set) => ({
         draft.user = user;
         draft.isLoggedIn = true;
         draft.userAvatar = user.avatar?.url || null;
+      })
+    ),
+  setLoading: (value: Boolean) =>
+    set(
+      produce((draft) => {
+        draft.isLoading = value;
       })
     ),
   logoutUser: () =>

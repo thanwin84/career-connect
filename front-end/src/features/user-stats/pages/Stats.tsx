@@ -14,6 +14,7 @@ export const loader = async () => {
 
 export default function Stats() {
   const data = useLoaderData() as JobApplicationStatsResponse;
+  
   const { defaultStats, monthlyApplications } = data.data;
   return (
     <div className="">

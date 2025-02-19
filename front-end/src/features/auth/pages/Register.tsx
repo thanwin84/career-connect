@@ -9,6 +9,7 @@ import useMultiStep from '../../../hooks/useMultiStep';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../../store/userStore';
 import { RegisterFormType } from '../validations';
+import { LoadingPage } from '../../../components/ui';
 
 type Props = {
   className?: string;
@@ -36,6 +37,10 @@ export default function Register({}: Props) {
   ]);
 
   const titles = ['Create Account', 'Describe yourself', 'Add Profile Photo'];
+
+  if (userStore.isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <main className="bg-gray-100 min-h-screen py-6">

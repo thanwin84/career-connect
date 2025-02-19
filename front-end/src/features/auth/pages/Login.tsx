@@ -1,10 +1,11 @@
-import { Button, Password } from '../../../components/ui';
+import { Button, LoadingPage, Password } from '../../../components/ui';
 import { Link } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginFormSchema, LoginFormType } from '../validations';
 import FormInput from '../../../components/forms/FormInput';
 import { useLoginUser } from '../hooks/useLoginUser';
+import { useUserStore } from '../../../store/userStore';
 
 export default function Login() {
   const methods = useForm<LoginFormType>({
@@ -12,6 +13,11 @@ export default function Login() {
   });
 
   const { isPending, loginUser } = useLoginUser();
+  const { isLoading } = useUserStore();
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <main className="h-screen bg-gray-100 dark:bg-zinc-800 py-8">

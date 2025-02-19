@@ -7,9 +7,12 @@ export const useUserInformation = () => {
 
   const { data: user, isLoading } = useQuery(getUserInformationRequest, {
     onSuccess: (data) => {
+      userStore.setLoading(false);
       userStore.addUser(data.data);
     },
-    onError: () => {},
+    onError: () => {
+      userStore.setLoading(false);
+    },
   });
 
   return {
