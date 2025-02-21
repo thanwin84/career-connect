@@ -1,0 +1,49 @@
+name: career-connect
+
+services:
+  mongo-server:
+    image: mongo
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - career-network
+  api:
+    build: ./back-end
+    restart: unless-stopped
+    env_file: ./back-end/.env
+    ports:
+      - 5100:5100
+    depends_on:
+      - mongo-server
+    volumes:
+      - ./back-end:/usr/src/app
+      - /app/node_modules
+    networks:
+      - career-network
+  front-end:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 5173:5173
+    depends_on:
+      - api
+    env_file:
+      - ./front-end/.env
+    volumes:
+      - ./front-end:/usr/src/app
+      - /app/node_modules
+
+    networks:
+      - career-network
+
+volumes:
+  mongo-data:
+
+networks:
+  career-network:
+    driver: bridge
