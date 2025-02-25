@@ -2,6 +2,7 @@ import LoginAndLogoutContainer from './LoginAndLogoutContainer';
 import HomeMobileNavbar from './HomeMobileNavbar';
 import { Link } from 'react-router-dom';
 import { Logo, ThemeToggle } from '../../../../components/ui';
+import NotificationContainer from '../../../notifications/components/NotificationContainer';
 type Props = {
   isLoggedIn: boolean;
 };
@@ -15,6 +16,7 @@ export default function HomeNavbar({ isLoggedIn }: Props) {
       </div>
       <HomeMobileNavbar className="md:hidden" />
       <div className="flex gap-4">
+        <NotificationContainer />
         <ThemeToggle />
         <LoginAndLogoutContainer />
         {!isLoggedIn && (

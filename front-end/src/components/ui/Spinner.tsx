@@ -8,7 +8,7 @@ type Props = {
 export default function Spinner({
   size = 'h-14 w-14',
   color = 'border-blue-500',
-  borderThickness = 'border-4',
+  borderThickness = 'border-2',
   className,
 }: Props) {
   return (
