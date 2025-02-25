@@ -1,4 +1,4 @@
-export const db_name = "apply-jobs";
+export const db_name = 'apply-jobs';
 
 export const statusCodes = {
   OK: 200,
@@ -17,42 +17,46 @@ export const statusCodes = {
 } as const;
 
 export const JOB_STATUS = {
-  INTERVIEW: "interview",
-  DECLINED: "declined",
-  SHORTLISTED: "shortListed",
-  APPLIED: "applied",
-  HIRED: "hired",
-  ALL: "all",
+  INTERVIEW: 'interview',
+  DECLINED: 'declined',
+  SHORTLISTED: 'shortListed',
+  APPLIED: 'applied',
+  HIRED: 'hired',
+  ALL: 'all',
 } as const;
 export const JOB_TYPE = {
-  FULL_TIME: "full-time",
-  PART_TIME: "part-time",
-  INTERNSHIP: "internship",
-  REMORE: "remote",
-  HYBRID: "hybrid",
-  ALL: "all",
+  FULL_TIME: 'full-time',
+  PART_TIME: 'part-time',
+  INTERNSHIP: 'internship',
+  REMORE: 'remote',
+  HYBRID: 'hybrid',
+  ALL: 'all',
 } as const;
 export const JOB_SORT_BY = {
-  NEWEST_FIRST: "newest",
-  OLDEST_FIRST: "oldest",
-  ASCENDING: "a-z",
-  DESCENDING: "z-a",
+  NEWEST_FIRST: 'newest',
+  OLDEST_FIRST: 'oldest',
+  ASCENDING: 'a-z',
+  DESCENDING: 'z-a',
 } as const;
 export const experianceLevel = {
-  ENTRY: "entry",
-  MID: "mid",
-  SENIOR: "senior",
-  EXPERT: "expert",
-  JUNIOR: "junior",
-  NONE: "none",
+  ENTRY: 'entry',
+  MID: 'mid',
+  SENIOR: 'senior',
+  EXPERT: 'expert',
+  JUNIOR: 'junior',
+  NONE: 'none',
 } as const;
 
 export const UserRoles = {
-  GUEST: "guest",
-  RECRUITER: "recruiter",
-  ADMIN: "admin",
-  MODERATOR: "moderator",
-  PREMIUM_USER: "premium_user",
-  PREMIUM_RECRUITER: "premium_recruiter",
-  USER: "user",
+  GUEST: 'guest',
+  RECRUITER: 'recruiter',
+  ADMIN: 'admin',
+  MODERATOR: 'moderator',
+  PREMIUM_USER: 'premium_user',
+  PREMIUM_RECRUITER: 'premium_recruiter',
+  USER: 'user',
+} as const;
+
+export const NotificationTypes = {
+  JOB_UPDATE: 'job_update',
 } as const;

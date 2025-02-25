@@ -1,9 +1,11 @@
+import { Pagination } from '.';
+import { Notification } from '../models/notification.model';
 import {
   JOB_SORT_BY,
   JOB_STATUS,
   JOB_TYPE,
   UserRoles,
-} from "../utils/constants";
+} from '../utils/constants';
 
 export type UserRole = (typeof UserRoles)[keyof typeof UserRoles];
 export type JobStatus = (typeof JOB_STATUS)[keyof typeof JOB_STATUS];
@@ -60,3 +62,31 @@ export type JobApplication = {
   }[];
   notes?: string;
 };
+
+export type Job_Update_Notification = {
+  company: string;
+  position: string;
+  status: JobStatus;
+  date: string;
+};
+
+// Api Response
+interface ApiResponse<T = any> {
+  statusCode: number;
+  message: string;
+  success: boolean;
+  data: T;
+}
+export type BaseApiReponse<T> = {
+  statusCode: number;
+  message: string;
+  success: boolean;
+  data: T;
+};
+
+export type GetAllNotificationsApiResponse = BaseApiReponse<{
+  notifications: Notification[];
+  pagination: Pagination;
+}>;
+export interface GetUnreadNotificationCountResponse
+  extends ApiResponse<{ unreadCount: number }> {}

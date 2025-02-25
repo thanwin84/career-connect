@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import asyncHandler from '../utils/asyncHandler';
 import { JobApplication } from '../models/jobApplication.model';
-import { BadRequestError } from '../errors/customErrors';
+import { BadRequestError, NotFoundError } from '../errors/customErrors';
 import { statusCodes } from '../utils/constants';
 import mongoose from 'mongoose';
 import { ApiResponse } from '../utils/ApiResponse';
@@ -15,6 +15,10 @@ import {
   updateManyJobApplicationStatusService,
 } from '../service/jobApplication.service';
 import { JobStatus, Pagination } from '../types';
+import { Notification } from '../models/notification.model';
+import { Job_Update_Notification } from '../types/shared';
+import { Job } from '../models/job.model';
+import { onlineUsers, io } from '..';
 
 const apply = asyncHandler(async (req: Request, res: Response) => {
   const { _id, candidateId } = req.body;
@@ -44,6 +48,33 @@ const updateApplicationStatus = asyncHandler(
       userId: req.user.userId as string,
       status: req.body.status,
     });
+
+    const applicantion = await JobApplication.findById(applicationId);
+    if (!applicantion) {
+      throw new NotFoundError(
+        `Application with id ${applicationId} is not found`
+      );
+    }
+    const job = await Job.findById(applicantion?.jobId);
+    if (!job) {
+      throw new NotFoundError(`Job with id ${applicantion?.jobId} not found`);
+    }
+    const data: Job_Update_Notification = {
+      company: job?.company,
+      position: job?.position,
+      status: req.body.status,
+      date: new Date().toString(),
+    };
+    const notification = await Notification.create({
+      userId: applicantion?.candidateId,
+      type: 'job_update',
+      data,
+    });
+    const recipentSocketId = onlineUsers.get(
+      applicantion.candidateId.toString()
+    );
+
+    io.to(recipentSocketId).emit('new_notification', notification);
 
     res
       .status(statusCodes.OK)
