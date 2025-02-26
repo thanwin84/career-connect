@@ -16,7 +16,7 @@ export default function HomeNavbar({ isLoggedIn }: Props) {
       </div>
       <HomeMobileNavbar className="md:hidden" />
       <div className="flex gap-4">
-        <NotificationContainer />
+        {isLoggedIn && <NotificationContainer />}
         <ThemeToggle />
         <LoginAndLogoutContainer />
         {!isLoggedIn && (

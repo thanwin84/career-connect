@@ -1,6 +1,6 @@
-import { Notification } from '../../../../../back-end/src/models/notification.model';
 import { Button } from '../../../components/ui';
 import HorizontalLine from '../../../components/ui/HorizontalDevider';
+import { Notification } from '../../../types';
 import NotificationItem from './NotificationItem';
 import { motion } from 'motion/react';
 

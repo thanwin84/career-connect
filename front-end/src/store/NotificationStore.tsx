@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 import { create } from 'zustand';
-import { Notification } from '../../../back-end/src/models/notification.model';
 import { devtools } from 'zustand/middleware';
+import { Notification } from '../types';
 type State = {
   notificationList: Notification[];
   unreadCount: number;

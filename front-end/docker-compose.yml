@@ -1,0 +1,14 @@
+name: career-connect-frontend
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 5173:5173
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+      - /app/node_modules

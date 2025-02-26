@@ -4,6 +4,7 @@ import {
   JOB_TYPE,
   experianceLevel,
   UserRoles,
+  NotificationTypes,
 } from '../app/constants/constant';
 
 export type Theme = 'light' | 'dark';
@@ -165,3 +166,20 @@ export interface CurrentUserResponse extends ApiResponse<User> {}
 export interface GetUserJobsApiResponse extends ApiResponse<UserJobs> {}
 export interface GetJAppliedJobIdListResponse
   extends ApiResponse<AppliedJobIdList> {}
+
+export type GetAllNotificationsApiResponse = BaseApiReponse<{
+  notifications: Notification[];
+  pagination: Pagination;
+}>;
+export interface GetUnreadNotificationCountResponse
+  extends ApiResponse<{ unreadCount: number }> {}
+
+export type Notification = {
+  _id: string;
+  userId: string;
+  type: keyof typeof NotificationTypes;
+  data: any;
+  status: 'read' | 'unread';
+  createdAt: string;
+  updatedAt: string;
+};

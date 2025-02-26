@@ -1,4 +1,4 @@
-import { useMutation } from '../../../../hooks';
+import { useMutation } from '../../../hooks';
 import { markAsReadRequest } from '../service';
 
 export const useMarkAsReadNotifications = () => {

@@ -3,11 +3,11 @@ import NotificationIcon from './NoficationIcon';
 import NotificationsList from './NotificationsList';
 import { useUserStore } from '../../../store/userStore';
 import socket from '../../../socket';
-import { useGetAllNotifications } from './hooks/useGetAllNotifications';
+import { useGetAllNotifications } from '../hooks/useGetAllNotifications';
 
-import { useGetUnreadCount } from './hooks/useGetUnreadCount';
+import { useGetUnreadCount } from '../hooks/useGetUnreadCount';
 import { useNotificationStore } from '../../../store/NotificationStore';
-import { useMarkAsReadNotifications } from './hooks/useMarkAsReadNotifications';
+import { useMarkAsReadNotifications } from '../hooks/useMarkAsReadNotifications';
 
 type Props = {
   className?: string;

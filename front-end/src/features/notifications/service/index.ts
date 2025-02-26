@@ -1,6 +1,5 @@
-import { customFetch } from '../../../../utils';
-import { GetUnreadNotificationCountResponse } from '../../../../../../back-end/src/types/shared';
-import { Pagination } from '../../../../types';
+import { customFetch } from '../../../utils';
+import { GetUnreadNotificationCountResponse, Pagination } from '../../../types';
 
 export const getAllNoficationsRequest = <T>(
   page: String

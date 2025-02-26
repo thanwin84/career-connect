@@ -1,5 +1,5 @@
-import { useQuery } from '../../../../hooks';
-import { useNotificationStore } from '../../../../store/NotificationStore';
+import { useQuery } from '../../../hooks';
+import { useNotificationStore } from '../../../store/NotificationStore';
 import { getUnreadNotificationCount } from '../service';
 
 export const useGetUnreadCount = () => {
