@@ -1,18 +1,83 @@
-## To Do
+# Career Connect Backend
 
-## Feature Enhancements To-Do for Job Application
+This repository contains the backend server implementation for Career Connect, a platform designed to connect job seekers with employers.
 
-- [ ] **Application Withdrawal**: Allow candidates to withdraw applications with a reason.
-- [ ] **Notifications**: Send email or in-app alerts for status updates and interview scheduling.
-- [ ] **Application Logs**: Track status changes and interview updates with timestamps.
-- [ ] **Date Range Filtering**: Filter applications by submission dates.
-- [ ] **Interview Rescheduling**: Allow recruiters to reschedule interviews with a reason.
-- [ ] **Comments**: Enable recruiters to add notes on applications.
-- [ ] **Granular Access Control**: Set specific permissions for who can update or view applications.
-- [ ] **Dashboard Summary**: Show admin statistics (total apps, statuses, scheduled interviews).
-- [ ] **Bulk Status Update**: Allow batch status changes on applications.
-- [ ] **Export to CSV/Excel**: Export applications data for offline analysis.
+## Tech Stack
 
-fix
+- Node.js
+- Express.js
+- MongoDB
+- JWT Authentication
+- Docker
+- Socket.io (for real-time notifications)
+- Twilio API (for two-factor authentication)
 
-1. user should not able to apply to own job
+## Getting Started
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Node.js (v14 or higher) - for local development
+- MongoDB - for local development
+- npm or yarn - for local development
+
+### Installation
+
+#### Using Docker
+
+1. Clone the repository
+
+   ```bash
+   git clone <repository-url>
+   cd career-connect/back-end
+   ```
+
+2. Build and run with Docker Compose
+   ```bash
+   docker-compose up --build
+   ```
+
+#### Local Development
+
+1. Clone the repository
+
+   ```bash
+   git clone <repository-url>
+   cd career-connect/back-end
+   ```
+
+2. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Edit the `.env` file with your configuration
+
+4. Start the server
+   ```bash
+   npm run dev
+   ```
+
+## API Documentation
+
+The API endpoints are documented using Postman. You can access the API documentation at the following URL:
+
+[API Documentation](https://documenter.getpostman.com/view/20010455/2sAYBSjtQr)
+
+## Features
+
+- User authentication and authorization
+- Job posting management
+- Profile management
+- Application tracking
+- Search functionality
+- Real-time notifications using Socket.io
+- Two-factor authentication using Twilio API
+- Containerized deployment
