@@ -1,14 +1,26 @@
-import { BadRequestError, NotFoundError } from "../errors/customErrors";
-import { Job } from "../models/job.model";
-import { User } from "../models/user.model";
-import { Pagination } from "../types";
-import { deleteAsset, uploadOnCloudinary } from "../utils/cloudinary";
+import { redisClient } from '../config/redis';
+import { BadRequestError, NotFoundError } from '../errors/customErrors';
+import { Job } from '../models/job.model';
+import { User } from '../models/user.model';
+import { Pagination } from '../types';
+import { deleteAsset, uploadOnCloudinary } from '../utils/cloudinary';
 
 export const currentUser = async (userId: string) => {
   if (!userId) {
-    throw new BadRequestError("User id is missing");
+    throw new BadRequestError('User id is missing');
   }
-  const user = await User.findById(userId).select("-password");
+  let user;
+  const cachedUser = await redisClient.get(`users:${userId}`);
+  if (cachedUser) {
+    user = JSON.parse(cachedUser);
+  } else {
+    user = await User.findById(userId).select('-password');
+    if (user) {
+      await redisClient.set(`users:${userId}`, JSON.stringify(user), {
+        EX: 60 * 60 * 6,
+      });
+    }
+  }
 
   if (!user) {
     throw new NotFoundError(`User with id ${userId} not found`);
@@ -33,7 +45,7 @@ export const updateUserService = async (
   delete updatedUser.password;
   const user = await User.findById(userId);
   if (!user) {
-    throw new NotFoundError("User does not exist");
+    throw new NotFoundError('User does not exist');
   }
   const oldAvatarPublicId = user.avatar?.publicId;
   if (file) {
@@ -48,14 +60,18 @@ export const updateUserService = async (
       };
     }
   }
-  return await User.findByIdAndUpdate(userId, updatedUser);
+  const _updatedUser = await User.findByIdAndUpdate(userId, updatedUser, {
+    new: true,
+  }).select('-password');
+  await redisClient.set(`users:${userId}`, JSON.stringify(_updatedUser));
+  return _updatedUser;
 };
 
 export const uploadPhotoService = async (
   localFilePath: string,
   userId: string
 ) => {
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).select('-password');
   if (!user) {
     throw new NotFoundError(`User with id ${userId} is not found`);
   }
@@ -73,6 +89,7 @@ export const uploadPhotoService = async (
     }
   }
   await user.save();
+  await redisClient.set(`users:${userId}`, JSON.stringify(user));
   return user;
 };
 
@@ -80,8 +97,9 @@ export const addEducationEntryService = async (data: any, userId: string) => {
   const updatedUser = await User.findOneAndUpdate(
     { _id: userId },
     { $push: { educationRecords: data } },
-    { $new: true }
-  );
+    { new: true }
+  ).select('-password');
+  await redisClient.set(`users:${userId}`, JSON.stringify(updatedUser));
   return updatedUser;
 };
 
@@ -90,19 +108,25 @@ export const deleteAddEducationEntryService = async (
   userId: string
 ) => {
   const records = await User.findOne(
-    { _id: userId, "educationRecords._id": recordId },
-    { "educationRecords.$": 1 }
+    { _id: userId, 'educationRecords._id': recordId },
+    { 'educationRecords.$': 1 }
   );
   if (!records) {
-    throw new NotFoundError("Record does not exists");
+    throw new NotFoundError('Record does not exists');
   }
 
-  const updatedUser = await User.findByIdAndUpdate(userId, {
-    $pull: { educationRecords: { _id: recordId } },
-  });
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    {
+      $pull: { educationRecords: { _id: recordId } },
+    },
+    { new: true }
+  ).select('-password');
 
   if (!updatedUser) {
-    throw new BadRequestError("User not found");
+    throw new BadRequestError('User not found');
+  } else {
+    await redisClient.set(`users:${userId}`, JSON.stringify(updatedUser));
   }
 };
 
@@ -112,13 +136,18 @@ export const updateEducationEntryService = async (
   recordId: string
 ) => {
   const updatedUser = await User.findOneAndUpdate(
-    { _id: userId, "educationRecords._id": recordId },
+    { _id: userId, 'educationRecords._id': recordId },
     {
-      "educationRecords.$": data,
+      'educationRecords.$': data,
     }
   );
   if (!updatedUser) {
-    throw new BadRequestError("Record is not found");
+    throw new BadRequestError('Record is not found');
+  } else {
+    await redisClient.set(
+      `users:${userId}`,
+      JSON.stringify({ ...updatedUser, password: null })
+    );
   }
 };
 
@@ -150,12 +179,13 @@ export const addPhoneNumberService = async (
   phoneNumber: string,
   userId: string
 ) => {
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).select('-password');
   if (!user) {
     throw new NotFoundError(`User with id ${userId} is not found`);
   }
   user.phoneNumber = phoneNumber;
   await user.save();
+  await redisClient.set(`users:${userId}`, JSON.stringify(user));
 };
 
 export const toggleAccessStatusService = async (userId: string) => {
