@@ -78,7 +78,7 @@ connectToDB()
   .then(() => {
     server.listen(process.env.PORT, () => {
       console.log('Server is running on port ', port);
-      redisConnect().then((res) => {
+      redisConnect().then(() => {
         console.log('redis is connected');
       });
     });
