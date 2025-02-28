@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 import {
   ExperianceLevel,
   JobStatus,
@@ -6,9 +6,10 @@ import {
   Pagination,
   Sort,
   UserRole,
-} from "../types";
-import { Job, JobT } from "../models/job.model";
-import { NotFoundError } from "../errors/customErrors";
+} from '../types';
+import { Job, JobT } from '../models/job.model';
+import { NotFoundError } from '../errors/customErrors';
+import { redisClient } from '../config/redis';
 
 type GetAllJobsCreatedByUser = {
   page: number;
@@ -32,29 +33,29 @@ export const getAllJobsCreatedByUserService = async ({
 }: GetAllJobsCreatedByUser) => {
   const skips = (page - 1) * limit;
   const queryObject: any =
-    currentUserRole === "admin"
+    currentUserRole === 'admin'
       ? {}
       : { createdBy: new mongoose.Types.ObjectId(userId) };
   if (search) {
     queryObject.$or = [
-      { position: { $regex: search, $options: "i" } },
-      { company: { $regex: search, $options: "i" } },
+      { position: { $regex: search, $options: 'i' } },
+      { company: { $regex: search, $options: 'i' } },
     ];
   }
-  if (jobStatus && jobStatus !== "all") {
+  if (jobStatus && jobStatus !== 'all') {
     queryObject.jobStatus = jobStatus;
   }
-  if (jobType && jobType !== "all") {
+  if (jobType && jobType !== 'all') {
     queryObject.jobType = jobType;
   }
   const sortOptions = {
     newest: { createdAt: -1 },
     oldest: { createdAt: 1 },
-    "a-z": { position: 1 },
-    "z-a": { position: -1 },
+    'a-z': { position: 1 },
+    'z-a': { position: -1 },
   };
   const sortKey =
-    sortOptions[sort as keyof typeof sortOptions] || sortOptions["newest"];
+    sortOptions[sort as keyof typeof sortOptions] || sortOptions['newest'];
 
   const aggregationPipeline: any = [
     {
@@ -112,16 +113,16 @@ export const GetJobsService = async ({
   if (location) {
     addConditions.push({
       $or: [
-        { jobLocation: { $regex: location, $options: "i" } },
-        { country: { $regex: location, $options: "i" } },
+        { jobLocation: { $regex: location, $options: 'i' } },
+        { country: { $regex: location, $options: 'i' } },
       ],
     });
   }
   if (search) {
     addConditions.push({
       $or: [
-        { position: { $regex: search, $options: "i" } },
-        { company: { $regex: search, $options: "i" } },
+        { position: { $regex: search, $options: 'i' } },
+        { company: { $regex: search, $options: 'i' } },
       ],
     });
   }
@@ -132,16 +133,16 @@ export const GetJobsService = async ({
   const sortOptions = {
     newest: { createdAt: -1 },
     oldest: { createdAt: 1 },
-    "a-z": { position: 1 },
-    "z-a": { position: -1 },
+    'a-z': { position: 1 },
+    'z-a': { position: -1 },
   };
   const sortKey =
-    sortOptions[sort as keyof typeof sortOptions] || sortOptions["newest"];
+    sortOptions[sort as keyof typeof sortOptions] || sortOptions['newest'];
   if (minSalary || maxSalary) {
-    (queryObject["salary.min"] = minSalary
+    (queryObject['salary.min'] = minSalary
       ? { $gte: Number(minSalary) }
       : { $gte: 0 }),
-      (queryObject["salary.max"] = maxSalary
+      (queryObject['salary.max'] = maxSalary
         ? { $lte: Number(maxSalary) }
         : { $lte: Number.MAX_SAFE_INTEGER });
   }
@@ -185,10 +186,21 @@ export const createJobService = async (data: JobT) => {
 };
 
 export const getSingleJobService = async (jobId: string) => {
-  const job = await Job.findById(jobId);
-  if (!job) {
-    throw new NotFoundError(`Job with id ${jobId} is not found`);
+  const cachedJob = await redisClient.get(`jobs:${jobId}`);
+  let job;
+  if (cachedJob) {
+    job = JSON.parse(cachedJob);
+  } else {
+    job = await Job.findById(jobId);
+    if (job) {
+      await redisClient.set(`jobs:${jobId}`, JSON.stringify(job), {
+        EX: 60 * 60,
+      });
+    } else {
+      throw new NotFoundError(`Job with id ${jobId} is not found`);
+    }
   }
+
   return job;
 };
 
@@ -198,7 +210,9 @@ export const updateJobService = async (updatedJob: JobT, jobId: string) => {
     { $set: updatedJob },
     { new: true }
   );
-  if (!job) {
+  if (job) {
+    await redisClient.set(`jobs:${job._id}`, JSON.stringify(job));
+  } else {
     throw new NotFoundError(`Job with id ${jobId}`);
   }
   return job;
@@ -207,7 +221,7 @@ export const updateJobService = async (updatedJob: JobT, jobId: string) => {
 export const deleteJobService = async (jobId: string) => {
   const job = await Job.findOneAndDelete({ _id: jobId });
   if (!job) {
-    throw new NotFoundError("Job is not found");
+    throw new NotFoundError('Job is not found');
   }
   return job;
 };

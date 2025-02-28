@@ -9,6 +9,7 @@ import cors from 'cors';
 import { corsOptions } from './config/corsOption';
 import http from 'http';
 import { Server } from 'socket.io';
+import { redisConnect } from './config/redis';
 
 const app = express();
 const server = http.createServer(app);
@@ -72,10 +73,14 @@ io.on('connection', (socket) => {
 });
 
 export { io, onlineUsers };
+
 connectToDB()
   .then(() => {
     server.listen(process.env.PORT, () => {
       console.log('Server is running on port ', port);
+      redisConnect().then((res) => {
+        console.log('redis is connected');
+      });
     });
   })
   .catch((error) => console.log('mongodb connection failed error ', error));

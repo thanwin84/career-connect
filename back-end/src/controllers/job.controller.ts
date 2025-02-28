@@ -1,8 +1,8 @@
-import asyncHandler from "../utils/asyncHandler";
-import { statusCodes } from "../utils/constants";
-import { BadRequestError } from "../errors/customErrors";
-import { Request, Response } from "express";
-import { ExperianceLevel, JobStatus, JobType, Sort, UserRole } from "../types";
+import asyncHandler from '../utils/asyncHandler';
+import { statusCodes } from '../utils/constants';
+import { BadRequestError } from '../errors/customErrors';
+import { Request, Response } from 'express';
+import { ExperianceLevel, JobStatus, JobType, Sort, UserRole } from '../types';
 import {
   createJobService,
   deleteJobService,
@@ -10,8 +10,8 @@ import {
   GetJobsService,
   getSingleJobService,
   updateJobService,
-} from "../service/job.service";
-import { ApiResponse } from "../utils/ApiResponse";
+} from '../service/job.service';
+import { ApiResponse } from '../utils/ApiResponse';
 
 const getAllJobsCreatedByUser = asyncHandler(
   async (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ const getAllJobsCreatedByUser = asyncHandler(
 
     res
       .status(statusCodes.OK)
-      .json(new ApiResponse(statusCodes.OK, response, "successfully fetched"));
+      .json(new ApiResponse(statusCodes.OK, response, 'successfully fetched'));
   }
 );
 
@@ -71,7 +71,7 @@ const getJobs = asyncHandler(async (req: Request, res: Response) => {
       new ApiResponse(
         statusCodes.OK,
         response,
-        "Jobs have been fetched successfully"
+        'Jobs have been fetched successfully'
       )
     );
 });
@@ -86,12 +86,11 @@ const createJob = asyncHandler(async (req: Request, res: Response) => {
 
 const getJob = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
-
   const job = await getSingleJobService(id);
   res
     .status(statusCodes.OK)
     .json(
-      new ApiResponse(statusCodes.OK, { job }, "Job is fetched successfully")
+      new ApiResponse(statusCodes.OK, { job }, 'Job is fetched successfully')
     );
 });
 
@@ -105,11 +104,11 @@ const updateJob = asyncHandler(async (req: Request, res: Response) => {
 const deleteJob = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
   if (!id) {
-    throw new BadRequestError("Id is missing");
+    throw new BadRequestError('Id is missing');
   }
   await deleteJobService(id);
 
-  res.status(statusCodes.OK).json({ msg: "job deleted" });
+  res.status(statusCodes.OK).json({ msg: 'job deleted' });
 });
 
 export {
