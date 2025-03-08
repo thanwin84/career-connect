@@ -11,6 +11,7 @@ This repository contains the backend server implementation for Career Connect, a
 - Docker
 - Socket.io (for real-time notifications)
 - Twilio API (for two-factor authentication)
+- Redis (for caching)
 
 ## Getting Started
 

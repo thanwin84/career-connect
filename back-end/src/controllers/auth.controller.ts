@@ -1,10 +1,10 @@
-import asyncHandler from "../utils/asyncHandler";
-import { statusCodes } from "../utils/constants";
-import { Request, Response, CookieOptions } from "express";
-import { ApiResponse } from "../utils/ApiResponse";
-import { loginUser, registerUser } from "../service/auth.service";
+import asyncHandler from '../utils/asyncHandler';
+import { statusCodes } from '../utils/constants';
+import { Request, Response, CookieOptions } from 'express';
+import { ApiResponse } from '../utils/ApiResponse';
+import { loginUser, registerUser } from '../service/auth.service';
 
-declare module "express-serve-static-core" {
+declare module 'express-serve-static-core' {
   interface Response {
     cookie(name: string, value: string, options?: CookieOptions): this;
   }
@@ -15,7 +15,7 @@ const register = asyncHandler(async (req: Request, res: Response) => {
   res
     .status(statusCodes.CREATED)
     .json(
-      new ApiResponse(statusCodes.CREATED, {}, "User is created successfully")
+      new ApiResponse(statusCodes.CREATED, {}, 'User is created successfully')
     );
 });
 
@@ -28,27 +28,27 @@ const login = asyncHandler(async (req: Request, res: Response) => {
   const oneDay = 1000 * 60 * 60 * 24;
   const options: CookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.NODE_ENV === 'production',
     expires: new Date(Date.now() + oneDay),
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
   };
-  user.password = "";
+  user.password = '';
   res
     .status(statusCodes.OK)
-    .cookie("token", token, options)
-    .json(new ApiResponse(statusCodes.OK, user, "login is successfull"));
+    .cookie('token', token, options)
+    .json(new ApiResponse(statusCodes.OK, user, 'login is successfull'));
 });
 
 const logout = asyncHandler(async (req: Request, res: Response) => {
   const options: CookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
   };
   res
     .status(statusCodes.OK)
-    .clearCookie("token", options)
-    .json(new ApiResponse(statusCodes.OK, {}, "logout is successfull"));
+    .clearCookie('token', options)
+    .json(new ApiResponse(statusCodes.OK, {}, 'logout is successfull'));
 });
 
 export { register, login, logout };

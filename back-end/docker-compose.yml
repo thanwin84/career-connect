@@ -28,11 +28,11 @@ services:
       - 5100:5100
     depends_on:
       - mongo-server
-    volumes:
-      - .:/usr/src/app
-      - /app/node_modules
+
     networks:
       - career-network
+    volumes:
+      - ./src:/code/src
 
 volumes:
   mongo-data:

@@ -1,14 +1,15 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 import {
   BadRequestError,
   ForbiddenError,
   NotFoundError,
   UnauthorizedError,
-} from "../errors/customErrors";
-import { JobApplication } from "../models/jobApplication.model";
-import { JobStatus, Pagination } from "../types";
-import { JOB_STATUS } from "../utils/constants";
-import { formatMonth } from "../utils/format";
+} from '../errors/customErrors';
+import { JobApplication } from '../models/jobApplication.model';
+import { JobStatus, Pagination } from '../types';
+import { JOB_STATUS } from '../utils/constants';
+import { formatMonth } from '../utils/format';
+import { Job } from '../models/job.model';
 
 export const jobApplicationStatsService = async (userId: string) => {
   const stats = await JobApplication.aggregate([
@@ -19,7 +20,7 @@ export const jobApplicationStatsService = async (userId: string) => {
     },
     {
       $group: {
-        _id: "$status",
+        _id: '$status',
         count: {
           $sum: 1,
         },
@@ -47,14 +48,14 @@ export const jobApplicationStatsService = async (userId: string) => {
     },
     {
       $addFields: {
-        createdAt: { $toDate: "$createdAt" },
+        createdAt: { $toDate: '$createdAt' },
       },
     },
     {
       $group: {
         _id: {
-          year: { $year: "$createdAt" },
-          month: { $month: "$createdAt" },
+          year: { $year: '$createdAt' },
+          month: { $month: '$createdAt' },
         },
         count: { $sum: 1 },
       },
@@ -86,17 +87,35 @@ export const createJobApplicationService = async ({
   candidateId,
   data,
 }: CreateJobApplicationService) => {
-  const appliction = await JobApplication.findById(applicationId);
-  if (appliction) {
-    throw new BadRequestError(
-      `Application with id ${applicationId} already exists`
-    );
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  try {
+    const existingApplication = await JobApplication.findById(
+      applicationId
+    ).session(session);
+    if (existingApplication) {
+      throw new BadRequestError(
+        `Application with id ${applicationId} already exists`
+      );
+    }
+    if (candidateId !== userId) {
+      throw new ForbiddenError('You are not allowed to do this operation');
+    }
+    const newApplication = await JobApplication.create([data], { session });
+    const job = await Job.findById(data.jobId).session(session);
+    if (!job) {
+      throw new NotFoundError(`Job with id ${data.jobId} not found`);
+    }
+    job.numberOfApplicants = job.numberOfApplicants + 1;
+    await job.save({ session });
+    await session.commitTransaction();
+    session.endSession();
+    return newApplication;
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    throw error;
   }
-  if (candidateId !== userId) {
-    throw new ForbiddenError("You are not allowed to do this operation");
-  }
-  const newApplication = await JobApplication.create(data);
-  return newApplication;
 };
 
 type UpdateJobApplicationStatus = {
@@ -119,7 +138,7 @@ export const updateJobApplicationStatusService = async ({
   // only recruiter can modify the application
   if (application.recruiterId.toString() !== userId) {
     throw new ForbiddenError(
-      "You are not allowed to modify the application status"
+      'You are not allowed to modify the application status'
     );
   }
   application.status = status;
@@ -174,7 +193,7 @@ export const getMyApplicationsService = async ({
   const queryObject: any = {
     candidateId: new mongoose.Types.ObjectId(userId),
   };
-  if (status && status !== "all") queryObject.status = status;
+  if (status && status !== 'all') queryObject.status = status;
   const sortOptions = {
     latest: { createdAt: -1 },
     old: { createdAt: 1 },
@@ -185,7 +204,7 @@ export const getMyApplicationsService = async ({
     },
     {
       $sort:
-        sortOptions[sort as keyof typeof sortOptions] || sortOptions["latest"],
+        sortOptions[sort as keyof typeof sortOptions] || sortOptions['latest'],
     },
     {
       $skip: skips,
@@ -195,32 +214,32 @@ export const getMyApplicationsService = async ({
     },
     {
       $lookup: {
-        from: "jobs",
-        localField: "jobId",
-        foreignField: "_id",
-        as: "job",
+        from: 'jobs',
+        localField: 'jobId',
+        foreignField: '_id',
+        as: 'job',
       },
     },
     {
       $addFields: {
-        job: { $arrayElemAt: ["$job", 0] },
+        job: { $arrayElemAt: ['$job', 0] },
       },
     },
     {
       $lookup: {
-        from: "users",
-        localField: "recruiterId",
-        foreignField: "_id",
-        as: "recruiter",
+        from: 'users',
+        localField: 'recruiterId',
+        foreignField: '_id',
+        as: 'recruiter',
       },
     },
     {
       $addFields: {
-        recruiter: { $arrayElemAt: ["$recruiter", 0] },
+        recruiter: { $arrayElemAt: ['$recruiter', 0] },
       },
     },
     {
-      $unset: ["recruiterId", "candidateId", "jobId"],
+      $unset: ['recruiterId', 'candidateId', 'jobId'],
     },
   ]);
 
@@ -248,10 +267,10 @@ export const deleteJobApplicationService = async (
       `Job application with id ${applicationId} is not found`
     );
   }
-  if (userRole === "admin" || jobApplication.recruiterId === userId) {
+  if (userRole === 'admin' || jobApplication.recruiterId === userId) {
     await JobApplication.deleteOne({ _id: applicationId });
   } else {
-    throw new UnauthorizedError("you are not allowed to perform to delete");
+    throw new UnauthorizedError('you are not allowed to perform to delete');
   }
 };
 
