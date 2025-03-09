@@ -6,12 +6,13 @@ This repository contains the backend server implementation for Career Connect, a
 
 - Node.js
 - Express.js
-- MongoDB
+- MongoDB(Indexes, Aggregations, Transactions)
 - JWT Authentication
 - Docker
 - Socket.io (for real-time notifications)
 - Twilio API (for two-factor authentication)
 - Redis (for caching)
+- BullMQ (for job scheduling and background processing)
 
 ## Getting Started
 
@@ -82,3 +83,10 @@ The API endpoints are documented using Postman. You can access the API documenta
 - Real-time notifications using Socket.io
 - Two-factor authentication using Twilio API
 - Containerized deployment
+- Background job processing using BullMQ
+
+## Background Job Processing with BullMQ
+
+BullMQ is used to handle background tasks efficiently. Some of the tasks handled include:
+
+Scheduled Account Deletion: Soft-deleted accounts are permanently removed after one day.
