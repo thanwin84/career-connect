@@ -39,6 +39,7 @@ import jobApplicationRouter from './routes/jobApplication.route';
 import accoutSettingRouter from './routes/accountSetting.route';
 import verificationRouter from './routes/verification.route';
 import notificationRouter from './routes/notification.route';
+import { deleteAccountWorker } from './workers/deleteAccountWorker';
 
 // routes declaration
 app.use('/api/v1/auth', authRouter);
@@ -50,6 +51,8 @@ app.use('/api/v1/records', recordsRouter);
 app.use('/api/v1/job-applications', jobApplicationRouter);
 app.use('/api/v1/notifications', notificationRouter);
 
+// start workers
+deleteAccountWorker;
 // app.use(express.static(path.resolve(__dirname, "./public")))
 app.get('/health', (req, res) => {
   res.send({ success: 'true' });

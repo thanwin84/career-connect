@@ -1,7 +1,7 @@
-import mongoose, { InferSchemaType, Document } from "mongoose";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { UserRoles } from "../utils/constants";
+import mongoose, { InferSchemaType, Document } from 'mongoose';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { UserRoles } from '../utils/constants';
 
 const educationSchema = new mongoose.Schema({
   school: {
@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema(
     },
     location: {
       type: String,
-      default: "Not Available",
+      default: 'Not Available',
     },
     role: {
       type: String,
@@ -85,12 +85,16 @@ const userSchema = new mongoose.Schema(
     phoneNumber: {
       type: String,
     },
+    isDeleted: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true }
 );
 
-userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
+userSchema.pre('save', async function (next) {
+  if (this.isModified('password')) {
     this.password = await bcrypt.hash(this.password, 10);
     next();
   } else {
@@ -121,4 +125,4 @@ type UserMethods = {
 };
 type UserT = InferSchemaType<typeof userSchema>;
 export interface UserDocument extends UserT, Document, UserMethods {}
-export const User = mongoose.model("User", userSchema);
+export const User = mongoose.model('User', userSchema);
