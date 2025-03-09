@@ -1,5 +1,5 @@
 import { Queue } from 'bullmq';
-import { redisConnectionConfig } from '../config/redisConnection.config';
+import { redisConnectionConfig } from '../../config/redisConnection.config';
 
 export const deleteAccountQueue = new Queue('deleteAccount', {
   connection: redisConnectionConfig,

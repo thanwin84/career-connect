@@ -1,6 +1,6 @@
 import { Worker } from 'bullmq';
-import { deleteAccountTask } from '../service/tasks/user.task';
-import { redisConnectionConfig } from '../config/redisConnection.config';
+import { deleteAccountTask } from './accountDeletionService';
+import { redisConnectionConfig } from '../../config/redisConnection.config';
 
 export const deleteAccountWorker = new Worker(
   'deleteAccount',

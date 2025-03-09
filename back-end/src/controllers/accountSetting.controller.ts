@@ -7,12 +7,7 @@ import {
 import { User, UserDocument } from '../models/user.model';
 import asyncHandler from '../utils/asyncHandler';
 import { statusCodes } from '../constants';
-import { Job } from '../models/job.model';
-import { JobApplication } from '../models/jobApplication.model';
-import {
-  deleteAccountQueue,
-  scheduleDeleteAccountJob,
-} from '../queues/deleteAccountQueue';
+import { scheduleDeleteAccountJob } from '../tasks/account-deletion/deleteAccountQueue';
 
 const changePassword = asyncHandler(async (req: Request, res: Response) => {
   const { oldPassword, newPassword } = req.body;

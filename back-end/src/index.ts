@@ -39,7 +39,7 @@ import jobApplicationRouter from './routes/jobApplication.route';
 import accoutSettingRouter from './routes/accountSetting.route';
 import verificationRouter from './routes/verification.route';
 import notificationRouter from './routes/notification.route';
-import { deleteAccountWorker } from './workers/deleteAccountWorker';
+import { deleteAccountWorker } from './tasks/account-deletion/deleteAccountWorker';
 
 // routes declaration
 app.use('/api/v1/auth', authRouter);
