@@ -1,12 +1,8 @@
 import { Queue } from 'bullmq';
+import { redisConnectionConfig } from '../config/redisConnection.config';
 
 export const deleteAccountQueue = new Queue('deleteAccount', {
-  connection: {
-    username: process.env.REDIS_USERNAME,
-    password: process.env.REDIS_PASSWORD,
-    host: process.env.REDIS_HOST,
-    port: 12624,
-  },
+  connection: redisConnectionConfig,
 });
 
 export const scheduleDeleteAccountJob = (userId: string) => {

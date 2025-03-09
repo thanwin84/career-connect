@@ -7,7 +7,7 @@ import {
 } from '../errors/customErrors';
 import { JobApplication } from '../models/jobApplication.model';
 import { JobStatus, Pagination } from '../types';
-import { JOB_STATUS } from '../utils/constants';
+import { JOB_STATUS } from '../constants';
 import { formatMonth } from '../utils/format';
 import { Job } from '../models/job.model';
 

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import asyncHandler from '../utils/asyncHandler';
 import { JobApplication } from '../models/jobApplication.model';
 import { BadRequestError, NotFoundError } from '../errors/customErrors';
-import { statusCodes } from '../utils/constants';
+import { statusCodes } from '../constants';
 import mongoose from 'mongoose';
 import { ApiResponse } from '../utils/ApiResponse';
 import {

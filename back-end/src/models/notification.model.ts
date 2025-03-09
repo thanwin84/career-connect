@@ -1,5 +1,5 @@
 import mongoose, { InferSchemaType } from 'mongoose';
-import { NotificationTypes } from '../utils/constants';
+import { NotificationTypes } from '../constants';
 
 const notificationSchema = new mongoose.Schema(
   {

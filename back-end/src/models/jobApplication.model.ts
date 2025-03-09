@@ -1,21 +1,21 @@
-import mongoose, { InferSchemaType } from "mongoose";
-import { JOB_STATUS } from "../utils/constants";
+import mongoose, { InferSchemaType } from 'mongoose';
+import { JOB_STATUS } from '../constants';
 
 const jobApplicationSchema = new mongoose.Schema(
   {
     candidateId: {
       type: mongoose.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
     recruiterId: {
       type: mongoose.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
     jobId: {
       type: mongoose.Types.ObjectId,
-      ref: "Job",
+      ref: 'Job',
       required: true,
     },
     status: {
@@ -30,7 +30,7 @@ const jobApplicationSchema = new mongoose.Schema(
           return true;
         },
         message:
-          "You must provide interview data when status is set to interview",
+          'You must provide interview data when status is set to interview',
       },
     },
     statusHistory: [
@@ -43,7 +43,7 @@ const jobApplicationSchema = new mongoose.Schema(
         },
         updatedBy: {
           type: mongoose.Types.ObjectId,
-          ref: "User",
+          ref: 'User',
           required: true,
         },
         updatedAt: {
@@ -59,7 +59,7 @@ const jobApplicationSchema = new mongoose.Schema(
         validator: function (value: Date) {
           return !value || value >= new Date();
         },
-        message: "Interview date must be in the future",
+        message: 'Interview date must be in the future',
       },
     },
     notes: {
@@ -71,11 +71,11 @@ const jobApplicationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-jobApplicationSchema.pre("save", async function (next) {
-  if (this.isModified("status")) {
+jobApplicationSchema.pre('save', async function (next) {
+  if (this.isModified('status')) {
     if (this.status === JOB_STATUS.INTERVIEW && !this.interviewDate) {
       next(
-        new Error("Interview date is required when status is set to interview")
+        new Error('Interview date is required when status is set to interview')
       );
     }
   }
@@ -84,6 +84,6 @@ jobApplicationSchema.pre("save", async function (next) {
 
 export type JobApplicationT = InferSchemaType<typeof jobApplicationSchema>;
 export const JobApplication = mongoose.model(
-  "JobApplication",
+  'JobApplication',
   jobApplicationSchema
 );

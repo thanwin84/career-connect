@@ -4,7 +4,7 @@ import {
   JOB_STATUS,
   JOB_TYPE,
   UserRoles,
-} from "../utils/constants";
+} from '../constants';
 
 export type JobStatus = (typeof JOB_STATUS)[keyof typeof JOB_STATUS];
 export type JobType = (typeof JOB_TYPE)[keyof typeof JOB_TYPE];

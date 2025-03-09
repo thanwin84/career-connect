@@ -3,7 +3,7 @@ import { Notification } from '../models/notification.model';
 import { Pagination } from '../types';
 import { ApiResponse } from '../utils/ApiResponse';
 import asyncHandler from '../utils/asyncHandler';
-import { statusCodes } from '../utils/constants';
+import { statusCodes } from '../constants';
 
 export const getAllNotification = asyncHandler(async (req, res) => {
   const page = parseInt(req.query.page as string) || 1;

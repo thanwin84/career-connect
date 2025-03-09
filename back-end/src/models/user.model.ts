@@ -1,7 +1,7 @@
 import mongoose, { InferSchemaType, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { UserRoles } from '../utils/constants';
+import { UserRoles } from '../constants';
 
 const educationSchema = new mongoose.Schema({
   school: {

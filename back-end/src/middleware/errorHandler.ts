@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { statusCodes } from "../utils/constants";
+import { NextFunction, Request, Response } from 'express';
+import { statusCodes } from '../constants';
 
 interface CustomError extends Error {
   statusCode?: number;
@@ -13,7 +13,7 @@ const errorHandler = (
   console.log(err);
   res.status(err.statusCode || statusCodes.INTERNAL_SERVER_ERROR).json({
     success: false,
-    message: err.message || "Internal server error",
+    message: err.message || 'Internal server error',
   });
 };
 

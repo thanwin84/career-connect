@@ -6,7 +6,7 @@ import {
 } from '../errors/customErrors';
 import { User, UserDocument } from '../models/user.model';
 import asyncHandler from '../utils/asyncHandler';
-import { statusCodes } from '../utils/constants';
+import { statusCodes } from '../constants';
 import { Job } from '../models/job.model';
 import { JobApplication } from '../models/jobApplication.model';
 import {

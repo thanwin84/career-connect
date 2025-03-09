@@ -1,5 +1,5 @@
 import asyncHandler from '../utils/asyncHandler';
-import { statusCodes } from '../utils/constants';
+import { statusCodes } from '../constants';
 import { Request, Response, CookieOptions } from 'express';
 import { ApiResponse } from '../utils/ApiResponse';
 import { loginUser, registerUser } from '../service/auth.service';

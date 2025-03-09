@@ -1,5 +1,6 @@
 import { Worker } from 'bullmq';
 import { deleteAccountTask } from '../service/tasks/user.task';
+import { redisConnectionConfig } from '../config/redisConnection.config';
 
 export const deleteAccountWorker = new Worker(
   'deleteAccount',
@@ -8,11 +9,6 @@ export const deleteAccountWorker = new Worker(
     await deleteAccountTask(userId);
   },
   {
-    connection: {
-      username: process.env.REDIS_USERNAME,
-      password: process.env.REDIS_PASSWORD,
-      host: process.env.REDIS_HOST,
-      port: 12624,
-    },
+    connection: redisConnectionConfig,
   }
 );

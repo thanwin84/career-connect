@@ -1,5 +1,5 @@
 import asyncHandler from '../utils/asyncHandler';
-import { statusCodes } from '../utils/constants';
+import { statusCodes } from '../constants';
 import { BadRequestError } from '../errors/customErrors';
 import { Request, Response } from 'express';
 import { ExperianceLevel, JobStatus, JobType, Sort, UserRole } from '../types';

@@ -1,11 +1,6 @@
 import { Pagination } from '.';
 import { Notification } from '../models/notification.model';
-import {
-  JOB_SORT_BY,
-  JOB_STATUS,
-  JOB_TYPE,
-  UserRoles,
-} from '../utils/constants';
+import { JOB_SORT_BY, JOB_STATUS, JOB_TYPE, UserRoles } from '../constants';
 
 export type UserRole = (typeof UserRoles)[keyof typeof UserRoles];
 export type JobStatus = (typeof JOB_STATUS)[keyof typeof JOB_STATUS];

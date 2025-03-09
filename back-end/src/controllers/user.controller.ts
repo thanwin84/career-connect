@@ -1,8 +1,8 @@
-import asyncHandler from "../utils/asyncHandler";
-import { statusCodes } from "../utils/constants";
-import { BadRequestError } from "../errors/customErrors";
-import { Request, Response } from "express";
-import { ApiResponse } from "../utils/ApiResponse";
+import asyncHandler from '../utils/asyncHandler';
+import { statusCodes } from '../constants';
+import { BadRequestError } from '../errors/customErrors';
+import { Request, Response } from 'express';
+import { ApiResponse } from '../utils/ApiResponse';
 import {
   addEducationEntryService,
   addPhoneNumberService,
@@ -14,7 +14,7 @@ import {
   updateEducationEntryService,
   updateUserService,
   uploadPhotoService,
-} from "../service/user.service";
+} from '../service/user.service';
 
 const getCurrentUser = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = req.user;
@@ -25,7 +25,7 @@ const getCurrentUser = asyncHandler(async (req: Request, res: Response) => {
       new ApiResponse(
         statusCodes.OK,
         user,
-        "user is information is fetched successfully"
+        'user is information is fetched successfully'
       )
     );
 });
@@ -39,7 +39,7 @@ const getApplicationStats = asyncHandler(
         new ApiResponse(
           statusCodes.OK,
           { users, jobs },
-          "application status is fetched successfully"
+          'application status is fetched successfully'
         )
       );
   }
@@ -53,15 +53,15 @@ const updateUser = asyncHandler(async (req: Request, res: Response) => {
   );
   res
     .status(statusCodes.OK)
-    .json(new ApiResponse(statusCodes.OK, {}, "updated successfully"));
+    .json(new ApiResponse(statusCodes.OK, {}, 'updated successfully'));
 });
 
 const uploadPhoto = asyncHandler(async (req: Request, res: Response) => {
-  const localFilePath = req?.file?.path || "";
+  const localFilePath = req?.file?.path || '';
   await uploadPhotoService(localFilePath, req.user.userId);
   res
     .status(statusCodes.OK)
-    .json(new ApiResponse(statusCodes.OK, {}, "photo is updated successfully"));
+    .json(new ApiResponse(statusCodes.OK, {}, 'photo is updated successfully'));
 });
 
 const addEducation = asyncHandler(async (req: Request, res: Response) => {
@@ -73,7 +73,7 @@ const addEducation = asyncHandler(async (req: Request, res: Response) => {
       new ApiResponse(
         statusCodes.OK,
         updatedUser,
-        "education entry is added successfully"
+        'education entry is added successfully'
       )
     );
 });
@@ -82,12 +82,12 @@ const deleteEducationEntry = asyncHandler(
   async (req: Request, res: Response) => {
     const { recordId } = req.params;
     if (!recordId) {
-      throw new BadRequestError("record id is missing");
+      throw new BadRequestError('record id is missing');
     }
     await deleteAddEducationEntryService(recordId, req.user.userId);
     res
       .status(statusCodes.OK)
-      .json(new ApiResponse(statusCodes.OK, {}, "deleted successfully"));
+      .json(new ApiResponse(statusCodes.OK, {}, 'deleted successfully'));
   }
 );
 
@@ -95,7 +95,7 @@ const updateEducationEntry = asyncHandler(
   async (req: Request, res: Response) => {
     const { recordId } = req.params;
     if (!recordId) {
-      throw new BadRequestError("record id is missing");
+      throw new BadRequestError('record id is missing');
     }
     req.body._id = recordId;
     await updateEducationEntryService(req.body, req.user.userId, recordId);
@@ -115,12 +115,12 @@ const updateEducationEntry = asyncHandler(
 const toggleAccessStatus = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = req.params;
   if (!userId) {
-    throw new BadRequestError("User id is missing");
+    throw new BadRequestError('User id is missing');
   }
   await toggleAccessStatusService(userId);
   res
     .status(statusCodes.OK)
-    .json(new ApiResponse(statusCodes.OK, {}, "Access status is updated"));
+    .json(new ApiResponse(statusCodes.OK, {}, 'Access status is updated'));
 });
 
 const getUsersList = asyncHandler(async (req: Request, res: Response) => {
@@ -132,7 +132,7 @@ const getUsersList = asyncHandler(async (req: Request, res: Response) => {
       new ApiResponse(
         statusCodes.OK,
         response,
-        "user list is fetched successfully"
+        'user list is fetched successfully'
       )
     );
 });
@@ -140,13 +140,13 @@ const getUsersList = asyncHandler(async (req: Request, res: Response) => {
 const addPhoneNumber = asyncHandler(async (req: Request, res: Response) => {
   const { phoneNumber } = req.body;
   if (!phoneNumber) {
-    throw new BadRequestError("Phone number is missing");
+    throw new BadRequestError('Phone number is missing');
   }
   await addPhoneNumberService(phoneNumber, req.user.userId);
   res
     .status(statusCodes.OK)
     .json(
-      new ApiResponse(statusCodes.OK, {}, "Phone number is added successfully")
+      new ApiResponse(statusCodes.OK, {}, 'Phone number is added successfully')
     );
 });
 

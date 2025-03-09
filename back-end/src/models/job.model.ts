@@ -1,5 +1,5 @@
-import mongoose, { InferSchemaType } from "mongoose";
-import { JOB_STATUS, JOB_TYPE, experianceLevel } from "../utils/constants";
+import mongoose, { InferSchemaType } from 'mongoose';
+import { JOB_STATUS, JOB_TYPE, experianceLevel } from '../constants';
 const jobSchema = new mongoose.Schema(
   {
     company: {
@@ -24,7 +24,7 @@ const jobSchema = new mongoose.Schema(
     },
     jobLocation: {
       type: String,
-      default: "my city",
+      default: 'my city',
     },
     country: {
       type: String,
@@ -44,7 +44,7 @@ const jobSchema = new mongoose.Schema(
     openRoles: Number,
     createdBy: {
       type: mongoose.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
     numberOfApplicants: {
@@ -59,4 +59,4 @@ const jobSchema = new mongoose.Schema(
   { timestamps: true }
 );
 export type JobT = InferSchemaType<typeof jobSchema>;
-export const Job = mongoose.model("Job", jobSchema);
+export const Job = mongoose.model('Job', jobSchema);
