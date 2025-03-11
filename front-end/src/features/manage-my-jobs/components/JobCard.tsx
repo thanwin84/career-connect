@@ -13,7 +13,7 @@ export default function JobCard({ className, job, jobStatus, date }: Props) {
 
   return (
     <article
-      className={`dark:bg-zinc-800 bg-white   px-6 py-4 rounded-md flex gap-4  ${className} hover:border  hover:border-blue-500 `}
+      className={`bg-black/[0.96] bg-white   px-6 py-4 rounded-md flex gap-4  ${className} hover:border  hover:border-blue-500 `}
     >
       <span className="text-2xl my-auto font-extrabold text-blue-500">
         {company.substring(0, 1)}

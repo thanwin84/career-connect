@@ -13,7 +13,7 @@ export default function EducationContainer({ className }: Props) {
 
   return (
     <section
-      className={`bg-white dark:bg-zinc-800 w-full rounded-md shadow-md py-4 ${className}`}
+      className={`bg-white dark:bg-black/[0.96] w-full rounded-md shadow-md py-4 ${className}`}
     >
       <div className="px-6 py-2 flex justify-between">
         <Heading icon={<FaGraduationCap />} content="Education" />

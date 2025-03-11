@@ -44,7 +44,7 @@ export default function CandidatesTable({
   return (
     <table className={`w-full shadow-sm  ${className}`}>
       <thead className=" rounded-md">
-        <tr className=" bg-slate-200 dark:bg-zinc-800 text-slate-700 dark:text-slate-200 rounded-md">
+        <tr className=" bg-slate-200 dark:bg-black/[0.96] text-slate-700 dark:text-slate-200 rounded-md">
           {headings.map((heading) => (
             <td key={heading} className="text-center font-semibold p-3">
               <div className="flex gap-3">

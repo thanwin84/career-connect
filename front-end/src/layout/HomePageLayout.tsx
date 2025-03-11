@@ -9,7 +9,7 @@ export default function HomePageLayout() {
   useUserInformation();
 
   return (
-    <main className="w-full bg-gray-100   dark:bg-zinc-700 min-h-screen">
+    <main className="w-full bg-gray-100 dark:bg-zinc-900    min-h-screen">
       <HomeNavbar isLoggedIn={isLoggedIn} />
       <div>
         <Outlet />

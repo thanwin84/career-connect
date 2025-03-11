@@ -20,7 +20,7 @@ export default function JobDescription({ className }: Props) {
     myJobStore.selectedMyJob.job;
   return (
     <article
-      className={`py-6 px-4 bg-white dark:bg-zinc-800 rounded-md ${className}`}
+      className={`py-6 px-4 bg-white bg-black/[0.96] rounded-md ${className}`}
     >
       <JobHeader
         position={position}

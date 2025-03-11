@@ -11,7 +11,7 @@ export default function DashboardMainContent({ className }: Props) {
       <header>
         <Navbar />
       </header>
-      <main className="bg-slate-50 dark:bg-zinc-700 min-h-screen">
+      <main className="bg-slate-50 dark:bg-zinc-900 min-h-screen">
         <Outlet />
       </main>
     </div>

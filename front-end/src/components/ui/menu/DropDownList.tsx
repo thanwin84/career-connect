@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useLogout } from '../../../features/auth/hooks/useLogout';
+import { motion } from 'motion/react';
 
 type Props = {
   className?: string;
@@ -15,11 +16,13 @@ export default function DropDownList({
   return (
     <>
       {isDropDownOpen && (
-        <ul
+        <motion.ul
+          initial={{ scale: 0.8, opacity: 0.6 }}
+          animate={{ scale: 1, opacity: 1 }}
           id="dropdown-menu"
           role="menu"
           aria-label="user options menu"
-          className="grid gap-2 w-full bg-white dark:bg-zinc-800 border border-slate-300 rounded-md  absolute left-0 mt-2 z-10 py-6 px-2"
+          className="grid gap-2 w-full bg-white dark:bg-zinc-800 border border-slate-300 dark:border-slate-500 rounded-md  absolute left-0 mt-2 z-10 py-6 px-2"
         >
           <li
             role="menuitem"
@@ -43,7 +46,7 @@ export default function DropDownList({
               Logout
             </button>
           </li>
-        </ul>
+        </motion.ul>
       )}
     </>
   );

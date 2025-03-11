@@ -41,7 +41,7 @@ export default function CreateJobForm({
   return (
     <FormProvider {...methods}>
       <form method="post" onSubmit={methods.handleSubmit(onSave)}>
-        <div className="p-8  bg-white  dark:bg-zinc-800 rounded-md">
+        <div className="p-8  bg-white  dark:bg-black/[0.96] rounded-md">
           <h2 className="text-2xl mb-6 text-gray-800 font-medium dark:text-slate-100">
             {title}
           </h2>

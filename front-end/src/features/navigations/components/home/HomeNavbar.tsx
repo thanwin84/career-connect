@@ -8,7 +8,7 @@ type Props = {
 };
 export default function HomeNavbar({ isLoggedIn }: Props) {
   return (
-    <nav className="bg-white dark:bg-zinc-800  flex justify-between border-b  border-gray-200 dark:border-none px-6 py-4">
+    <nav className="bg-white dark:bg-black/[0.96] flex justify-between border-b  border-gray-200 dark:border-none px-6 py-4">
       <div className="hidden md:flex md:items-center">
         <Link to="/">
           <Logo className="w-44" />

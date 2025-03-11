@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
-    <nav className="w-full flex justify-between px-4 py-4 shadow-sm bg-white dark:bg-zinc-800 border-b dark:border-none">
+    <nav className="w-full flex justify-between px-4 py-4 shadow-sm bg-white dark:bg-black/[0.96] border-b dark:border-none">
       <SidebardToggle />
       <div>
         <Logo className="lg:hidden w-36" />

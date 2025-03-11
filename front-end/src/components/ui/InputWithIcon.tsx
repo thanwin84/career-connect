@@ -32,7 +32,7 @@ export default function InputWithIcon({
         name={name}
         placeholder={placeholder}
         {...props}
-        className="border-none outline-none focus:none bg-white dark:bg-zinc-800 focus:ring-0"
+        className="border-none focus:border-none focus:ring-0 bg-white dark:bg-zinc-800 "
       />
     </div>
   );

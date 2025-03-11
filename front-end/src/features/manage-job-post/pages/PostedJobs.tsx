@@ -39,7 +39,7 @@ export default function PostedJobs({}: Props) {
         data,
       }}
     >
-      <section className="dark:bg-zinc-700">
+      <section className="">
         <SearchJobsContainer />
         <JobsContainer />
       </section>

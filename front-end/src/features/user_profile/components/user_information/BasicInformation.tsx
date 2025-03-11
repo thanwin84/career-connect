@@ -13,7 +13,7 @@ export default function BasicInformation({ user, className }: Props) {
   const { email, location, role, phoneNumber } = user;
   return (
     <section
-      className={`bg-white dark:bg-zinc-800 w-full rounded-md shadow-md px-8 py-6 ${className}`}
+      className={`bg-white dark:bg-black/[0.96] w-full rounded-md shadow-md px-8 py-6 ${className}`}
     >
       <div className="flex justify-between mb-4">
         <Heading icon={<CgProfile />} content="Basic Information" />

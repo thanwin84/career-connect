@@ -18,7 +18,7 @@ export default function BigSidebar({ className }: Props) {
 
   return (
     <aside
-      className={`border-r dark:border-none dark:bg-zinc-800 h-screen ${className}`}
+      className={`border-r dark:border-none dark:bg-black/[0.96] h-screen ${className}`}
     >
       {showBigSidebar && (
         <section className={`w-full p-4 `}>

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from 'react';
 
 type TabContextType = {
   currentTab: string;
@@ -19,7 +19,7 @@ const Tabs = ({
   defaultTab,
   className,
   children,
-  tabFontSize = "text-lg",
+  tabFontSize = 'text-lg',
 }: Props) => {
   const [currentTab, setCurrentTab] = useState(defaultTab || tabs?.[0]);
 
@@ -27,7 +27,7 @@ const Tabs = ({
     <div className={`w-full p-5  ${className}`}>
       <tabContext.Provider value={{ currentTab }}>
         <div
-          className="flex rounded-sm shadow-sm bg-white dark:bg-zinc-800"
+          className="flex rounded-sm shadow-sm bg-white bg-black/[0.96]"
           role="tablist"
         >
           {tabs?.map((tab, index) => (
@@ -38,8 +38,8 @@ const Tabs = ({
               onClick={() => setCurrentTab(tab)}
               className={`flex-1 ${tabFontSize} px-4 py-2 rounded-md text-center font-semibold m-1 cursor-pointer transition duration-200 ease-in-out ${
                 currentTab === tab
-                  ? "bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-slate-300"
-                  : "text-gray-500 dark:text-slate-300"
+                  ? 'bg-gray-100 text-gray-600 dark:bg-zinc-800 dark:text-slate-300'
+                  : 'text-gray-500 dark:text-slate-300'
               }`}
               key={index}
             >
