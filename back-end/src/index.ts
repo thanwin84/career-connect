@@ -80,7 +80,7 @@ export { io, onlineUsers };
 connectToDB()
   .then(() => {
     server.listen(process.env.PORT, () => {
-      console.log('Server is running on port ', port);
+      console.log(`Server is running on port ${process.env.PORT}`);
       redisConnect().then(() => {
         console.log('redis is connected');
       });
