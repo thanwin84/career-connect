@@ -84,6 +84,7 @@ The API endpoints are documented using Postman. You can access the API documenta
 - Two-factor authentication using Twilio API
 - Containerized deployment
 - Background job processing using BullMQ
+- logging with pino(registrations, logins, account deletions and all kinds of errors)
 
 ## Background Job Processing with BullMQ
 

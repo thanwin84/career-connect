@@ -8,6 +8,7 @@ import { User, UserDocument } from '../models/user.model';
 import asyncHandler from '../utils/asyncHandler';
 import { statusCodes } from '../constants';
 import { scheduleDeleteAccountJob } from '../tasks/account-deletion/deleteAccountQueue';
+import { logger } from '../utils/logger';
 
 const changePassword = asyncHandler(async (req: Request, res: Response) => {
   const { oldPassword, newPassword } = req.body;
@@ -74,6 +75,7 @@ const deleteAccount = asyncHandler(async (req: Request, res: Response) => {
     throw new NotFoundError(`User with id ${userId} could not be found`);
   }
   scheduleDeleteAccountJob(userId);
+  logger.info(`user with ${user.email} has deleted account`);
   res.status(200).json({ message: 'Your account has been deleted' });
 });
 
