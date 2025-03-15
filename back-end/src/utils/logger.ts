@@ -13,16 +13,15 @@ export const logger = pino({
   transport: {
     targets: [
       {
-        target: 'pino/file',
+        target: 'pino-pretty',
         options: {
-          destination: path.join(logDirectory, 'info.log'),
+          destination: path.join(logDirectory, 'output.log'),
         },
         level: 'info',
       },
       {
-        target: 'pino/file',
-        options: { destination: path.join(logDirectory, 'error.log') },
-        level: 'error',
+        target: 'pino-pretty',
+        options: { destination: process.stdout.fd },
       },
     ],
   },
