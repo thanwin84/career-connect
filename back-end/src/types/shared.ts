@@ -9,13 +9,13 @@ export type JobSortBy = (typeof JOB_SORT_BY)[keyof typeof JOB_SORT_BY];
 
 export type Education = {
   _id: string;
-  school: String;
-  department: String;
-  degree: String;
-  startMonth: String;
-  startYear: String;
-  endMonth?: String;
-  endYear?: String;
+  school: string;
+  department: string;
+  degree: string;
+  startMonth: string;
+  startYear: string;
+  endMonth?: string;
+  endYear?: string;
   currentlyStudying: boolean;
 };
 export type User = {
@@ -66,12 +66,6 @@ export type Job_Update_Notification = {
 };
 
 // Api Response
-interface ApiResponse<T = any> {
-  statusCode: number;
-  message: string;
-  success: boolean;
-  data: T;
-}
 export type BaseApiReponse<T> = {
   statusCode: number;
   message: string;
@@ -83,5 +77,3 @@ export type GetAllNotificationsApiResponse = BaseApiReponse<{
   notifications: Notification[];
   pagination: Pagination;
 }>;
-export interface GetUnreadNotificationCountResponse
-  extends ApiResponse<{ unreadCount: number }> {}

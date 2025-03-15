@@ -46,11 +46,7 @@ const getApplicationStats = asyncHandler(
 );
 
 const updateUser = asyncHandler(async (req: Request, res: Response) => {
-  const updatedUser = await updateUserService(
-    req.body,
-    req.user.userId,
-    req?.file
-  );
+  await updateUserService(req.body, req.user.userId, req?.file);
   res
     .status(statusCodes.OK)
     .json(new ApiResponse(statusCodes.OK, {}, 'updated successfully'));

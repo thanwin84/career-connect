@@ -7,7 +7,6 @@ import {
 } from 'express-validator';
 import {
   BadRequestError,
-  ForbiddenError,
   NotFoundError,
   UnauthorizedError,
 } from '../errors/customErrors';

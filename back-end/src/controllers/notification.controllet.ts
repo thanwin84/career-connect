@@ -51,7 +51,7 @@ export const getUnreadNotificationsCount = asyncHandler(async (req, res) => {
 });
 export const markAsRead = asyncHandler(async (req, res) => {
   const userId = req.user.userId;
-  const result = await Notification.updateMany(
+  await Notification.updateMany(
     { userId: userId, status: 'unread' },
     { $set: { status: 'read' } }
   );

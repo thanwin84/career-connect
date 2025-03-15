@@ -11,7 +11,7 @@ declare module 'express-serve-static-core' {
 }
 
 const register = asyncHandler(async (req: Request, res: Response) => {
-  const user = await registerUser(req.body, req.file);
+  await registerUser(req.body, req.file);
   res
     .status(statusCodes.CREATED)
     .json(
