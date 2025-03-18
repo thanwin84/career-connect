@@ -13,19 +13,19 @@ import {
 } from '../middleware/validationMiddleware';
 import { authenticateUser } from '../middleware/auth.middleware';
 
-const router = Router();
+const jobRouter = Router();
 
-router.route('/all-jobs').get(getJobs);
+jobRouter.route('/all-jobs').get(getJobs);
 
-router
+jobRouter
   .route('/')
   .get(authenticateUser, getAllJobsCreatedByUser)
   .post(authenticateUser, ValidateJobInput, createJob);
 
-router
+jobRouter
   .route('/:id')
   .get(getJob)
   .patch(authenticateUser, validateIdParam, ValidateJobInput, updateJob)
   .delete(authenticateUser, validateIdParam, deleteJob);
 
-export default router;
+export default jobRouter;

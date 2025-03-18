@@ -1,9 +1,9 @@
-import { Router } from "express";
-import { getCountryList, getCityList } from "../controllers/records.controller";
+import { Router } from 'express';
+import { getCountryList, getCityList } from '../controllers/records.controller';
 
-const router = Router()
+const recordsRouter = Router();
 
-router.route("/countries").get(getCountryList)
-router.route('/countries/:countryId/cities').get(getCityList)
+recordsRouter.route('/countries').get(getCountryList);
+recordsRouter.route('/countries/:countryId/cities').get(getCityList);
 
-export default router
+export default recordsRouter;

@@ -10,6 +10,7 @@ import { corsOptions } from './config/corsOption';
 import http from 'http';
 import { Server } from 'socket.io';
 import { redisConnect } from './config/redis';
+import configureRoute from './routes';
 
 const app = express();
 const server = http.createServer(app);
@@ -30,26 +31,9 @@ app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
-// routes import
-import jobRouter from './routes/job.route';
-import authRouter from './routes/auth.route';
-import userRouter from './routes/user.route';
-import recordsRouter from './routes/records.route';
-import jobApplicationRouter from './routes/jobApplication.route';
-import accoutSettingRouter from './routes/accountSetting.route';
-import verificationRouter from './routes/verification.route';
-import notificationRouter from './routes/notification.route';
-import { deleteAccountWorker } from './tasks/account-deletion/deleteAccountWorker';
+configureRoute(app);
 
-// routes declaration
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/account-setting', accoutSettingRouter);
-app.use('/api/v1/verification', verificationRouter);
-app.use('/api/v1/jobs', jobRouter);
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1/records', recordsRouter);
-app.use('/api/v1/job-applications', jobApplicationRouter);
-app.use('/api/v1/notifications', notificationRouter);
+import { deleteAccountWorker } from './tasks/account-deletion/deleteAccountWorker';
 
 // start workers
 deleteAccountWorker;

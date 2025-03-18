@@ -6,13 +6,13 @@ import {
 } from '../controllers/notification.controllet';
 import { authenticateUser } from '../middleware/auth.middleware';
 
-const router = Router();
+const notificationRouter = Router();
 
-router.route('/').get(authenticateUser, getAllNotification);
+notificationRouter.route('/').get(authenticateUser, getAllNotification);
 
-router.route('/mark-as-read').patch(authenticateUser, markAsRead);
+notificationRouter.route('/mark-as-read').patch(authenticateUser, markAsRead);
 
-router
+notificationRouter
   .route('/unread-count')
   .get(authenticateUser, getUnreadNotificationsCount);
-export default router;
+export default notificationRouter;
