@@ -6,17 +6,17 @@ import {
 } from '../middleware/validationMiddleware';
 import upload from '../middleware/multer.middleware';
 
-const router = Router();
+const authRouter = Router();
 
-router.post(
+authRouter.post(
   '/register',
   upload.single('avatar'),
   validateRegisterInput,
   register
 );
 
-router.post('/login', validateLoginInput, login);
+authRouter.post('/login', validateLoginInput, login);
 
-router.route('/logout').get(logout);
+authRouter.route('/logout').get(logout);
 
-export default router;
+export default authRouter;

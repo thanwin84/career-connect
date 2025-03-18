@@ -1,8 +1,8 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
   validateApplicationUpdateStatus,
   validateJobApplicationInput,
-} from "../middleware/validationMiddleware";
+} from '../middleware/validationMiddleware';
 import {
   apply,
   deleteJobApplication,
@@ -13,36 +13,38 @@ import {
   getMyApplications,
   updateApplicationStatus,
   updateManyApplicationStatus,
-} from "../controllers/jobApplication.controller";
+} from '../controllers/jobApplication.controller';
 import {
   authenticateUser,
   authorizePermissions,
-} from "../middleware/auth.middleware";
+} from '../middleware/auth.middleware';
 
-const router = Router();
+const jobApplicationRouter = Router();
 
-router
-  .route("/")
+jobApplicationRouter
+  .route('/')
   .post(authenticateUser, validateJobApplicationInput, apply)
-  .get(authenticateUser, authorizePermissions("admin"), getAllJobApplications);
+  .get(authenticateUser, authorizePermissions('admin'), getAllJobApplications);
 
-router.route("/applied").get(authenticateUser, getAppliedIdList);
+jobApplicationRouter.route('/applied').get(authenticateUser, getAppliedIdList);
 
-router
-  .route("/job-application-stats")
+jobApplicationRouter
+  .route('/job-application-stats')
   .get(authenticateUser, getJobApplicationStats);
-router.route("/my-applications").get(authenticateUser, getMyApplications);
-router
-  .route("/update-status")
+jobApplicationRouter
+  .route('/my-applications')
+  .get(authenticateUser, getMyApplications);
+jobApplicationRouter
+  .route('/update-status')
   .patch(
     authenticateUser,
     validateApplicationUpdateStatus,
     updateManyApplicationStatus
   );
-router
-  .route("/:applicationId")
+jobApplicationRouter
+  .route('/:applicationId')
   .patch(authenticateUser, updateApplicationStatus)
   .get(authenticateUser, getJobApplication)
   .delete(authenticateUser, deleteJobApplication);
 
-export default router;
+export default jobApplicationRouter;

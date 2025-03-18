@@ -5,6 +5,7 @@ import notificationRouter from './notification.route';
 import jobApplicationRouter from './jobApplication.route';
 import jobRouter from './job.route';
 import recordsRouter from './records.route';
+import userRouter from './user.route';
 
 const configureRoute = (app: any) => {
   app.use('/api/v1/account-setting', accountRouter);
@@ -14,6 +15,7 @@ const configureRoute = (app: any) => {
   app.use('/api/v1/job-applications', jobApplicationRouter);
   app.use('/api/v1/jobs', jobRouter);
   app.use('/api/v1/records', recordsRouter);
+  app.use('/api/v1/users', userRouter);
 };
 
 export default configureRoute;

@@ -6,19 +6,15 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { corsOptions } from './config/corsOption';
 import http from 'http';
-import { Server } from 'socket.io';
 import { redisConnect } from './config/redis';
 import configureRoute from './routes';
-
+import { deleteAccountWorker } from './tasks/account-deletion/deleteAccountWorker';
+import { startSocket } from './socket';
+import { appConfig } from './config/appConfig';
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST'],
-  },
-});
-if (process.env.NODE_ENV === 'development') {
+
+if (appConfig.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
@@ -30,17 +26,15 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 
 configureRoute(app);
-
-import { deleteAccountWorker } from './tasks/account-deletion/deleteAccountWorker';
-
 // start workers
 deleteAccountWorker;
-// app.use(express.static(path.resolve(__dirname, "./public")))
-app.get('/health', (req, res) => {
+
+// health check
+app.get('/health', (_req, res) => {
   res.send({ success: 'true' });
 });
 
-app.use('*', (req, res) => {
+app.use('*', (_req, res) => {
   res.status(404).json({ msg: 'Not Found' });
 });
 
@@ -48,16 +42,7 @@ app.use(errorHandler);
 
 const port = process.env.PORT || 5100;
 
-const onlineUsers = new Map();
-// socket
-io.on('connection', (socket) => {
-  socket.on('register', (userId) => {
-    onlineUsers.set(userId, socket.id);
-  });
-  socket.on('disconnect', () => {});
-});
-
-export { io, onlineUsers };
+export const { io, onlineUsers } = startSocket(server);
 
 connectToDB()
   .then(() => {
