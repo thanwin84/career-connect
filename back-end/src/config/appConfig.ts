@@ -17,4 +17,7 @@ export const appConfig = {
   REDIS_USERNAME: process.env.REDIS_USERNAME,
   REDIS_PASSWORD: process.env.REDIS_PASSWORD,
   REDIS_HOST: process.env.REDIS_HOST,
+  RESEND_API_KEY: process.env.RESEND_API_KEY,
+  MAILTRAP_AUTH_USER: process.env.MAILTRAP_AUTH_USER,
+  MAILTRAP_PASSWORD: process.env.MAILTRAP_PASSWORD,
 };

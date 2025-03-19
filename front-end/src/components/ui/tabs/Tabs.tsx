@@ -27,7 +27,7 @@ const Tabs = ({
     <div className={`w-full p-5  ${className}`}>
       <tabContext.Provider value={{ currentTab }}>
         <div
-          className="flex rounded-sm shadow-sm bg-white bg-black/[0.96]"
+          className="flex rounded-sm shadow-sm bg-gray-100 dark:bg-black/[0.96]"
           role="tablist"
         >
           {tabs?.map((tab, index) => (
@@ -38,7 +38,7 @@ const Tabs = ({
               onClick={() => setCurrentTab(tab)}
               className={`flex-1 ${tabFontSize} px-4 py-2 rounded-md text-center font-semibold m-1 cursor-pointer transition duration-200 ease-in-out ${
                 currentTab === tab
-                  ? 'bg-gray-100 text-gray-600 dark:bg-zinc-800 dark:text-slate-300'
+                  ? 'bg-white text-gray-600 dark:bg-zinc-800 dark:text-slate-300'
                   : 'text-gray-500 dark:text-slate-300'
               }`}
               key={index}

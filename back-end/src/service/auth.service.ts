@@ -6,6 +6,7 @@ import {
 import { User, UserDocument } from '../models/user.model';
 import { uploadOnCloudinary } from '../utils/cloudinary';
 import { logger } from '../utils/logger';
+import { sendEmail } from '../utils/sendEmail';
 
 export const registerUser = async (data: any, file?: Express.Multer.File) => {
   const isFirstAccount = (await User.countDocuments()) === 0;
@@ -29,6 +30,11 @@ export const registerUser = async (data: any, file?: Express.Multer.File) => {
     }
   }
   const user = await User.create(data);
+  await sendEmail({
+    emailType: 'emailVerify',
+    to: user.email,
+    userId: user._id.toString(),
+  });
   logger.info(`New user registered: ${user.email} with role ${user.role}`);
   return user;
 };

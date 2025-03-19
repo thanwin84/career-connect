@@ -46,6 +46,7 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      index: true,
     },
     password: {
       type: String,
@@ -86,6 +87,20 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     isDeleted: {
+      type: Date,
+      default: null,
+    },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    emailVerifyToken: String,
+    emailVerifyTokenExpiry: {
+      type: Date,
+      default: null,
+    },
+    forgotPasswordToken: String,
+    forgotPasswordTokenExpiry: {
       type: Date,
       default: null,
     },
