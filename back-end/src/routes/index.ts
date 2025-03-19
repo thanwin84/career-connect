@@ -6,6 +6,7 @@ import jobApplicationRouter from './jobApplication.route';
 import jobRouter from './job.route';
 import recordsRouter from './records.route';
 import userRouter from './user.route';
+import emailRouter from './email.routes';
 
 const configureRoute = (app: any) => {
   app.use('/api/v1/account-setting', accountRouter);
@@ -16,6 +17,7 @@ const configureRoute = (app: any) => {
   app.use('/api/v1/jobs', jobRouter);
   app.use('/api/v1/records', recordsRouter);
   app.use('/api/v1/users', userRouter);
+  app.use('/api/v1/verifications', emailRouter);
 };
 
 export default configureRoute;
