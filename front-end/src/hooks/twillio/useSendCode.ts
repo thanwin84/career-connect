@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify';
 import useMutation from '../useMutation';
-import { sendCodeRequest } from '../../services/twillioService';
 
 export const useSendCode = () => {
   const {
@@ -21,3 +20,6 @@ export const useSendCode = () => {
     isSuccess,
   };
 };
+function sendCodeRequest(_variables: unknown): Promise<unknown> {
+  throw new Error('Function not implemented.');
+}

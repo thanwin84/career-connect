@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
-import { addPhoneNumberRequest } from '../../services/service';
+
 import useMutation from '../useMutation';
+import { addPhoneNumberRequest } from '../../lib/api/user';
 
 export const useAddPhoneNumber = () => {
   const {

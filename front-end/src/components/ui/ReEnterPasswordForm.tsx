@@ -1,6 +1,6 @@
-import { FormData } from "../../types";
-import { Button, Input } from "../ui";
-import { useForm } from "react-hook-form";
+import { FormData } from '../../lib/types/common';
+import { Button, Input } from '../ui';
+import { useForm } from 'react-hook-form';
 
 type Props = {
   className?: string;
@@ -39,7 +39,7 @@ export default function ReEnterPasswordForm({
             type="password"
             placeholder="Password"
             className="mb-20"
-            {...register("password", { required: "Password is required" })}
+            {...register('password', { required: 'Password is required' })}
             errorMessage={errors.password?.message as string}
           />
           <Button loading={isPending}>Submit</Button>

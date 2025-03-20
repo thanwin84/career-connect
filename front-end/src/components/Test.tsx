@@ -1,5 +1,5 @@
-import Status from '../features/manage-job-post/components/candidates/Status';
-import User from '../features/manage-job-post/components/candidates/User';
+import Status from '../app/manage-job-post/components/candidates/Status';
+import User from '../app/manage-job-post/components/candidates/User';
 
 export default function Test() {
   return (

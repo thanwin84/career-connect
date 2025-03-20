@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify';
 import useMutation from '../useMutation';
-import { verifyCodeRequest } from '../../services/twillioService';
 
 export const useVerifyCode = () => {
   const { mutate: verifyCode, isPending } = useMutation(verifyCodeRequest, {
@@ -17,3 +16,6 @@ export const useVerifyCode = () => {
     isPending,
   };
 };
+function verifyCodeRequest(_variables: unknown): Promise<unknown> {
+  throw new Error('Function not implemented.');
+}

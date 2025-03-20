@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
-import { useUserStore } from '../store/userStore';
-import { User } from '../types';
+import { useUserStore } from '../lib/store/userStore';
+import { User } from '../lib/types/user';
 
 type DashboardContextT = {
   user: User | null;

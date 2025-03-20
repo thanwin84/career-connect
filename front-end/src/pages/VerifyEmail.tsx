@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useMutation } from '../hooks';
 import { customFetch } from '../utils';
-import { Button } from '../components/ui';
 
 type Props = {
   className?: string;

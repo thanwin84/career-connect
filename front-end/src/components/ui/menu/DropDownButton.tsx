@@ -1,6 +1,6 @@
 import { FaCaretDown } from 'react-icons/fa';
 import UserIcon from '../UserIcon';
-import { useUserStore } from '../../../store/userStore';
+import { useUserStore } from '../../../lib/store/userStore';
 
 type Props = {
   className?: string;

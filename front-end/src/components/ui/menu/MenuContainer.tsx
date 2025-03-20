@@ -14,8 +14,9 @@ export default function MenuContainer({ className }: Props) {
   }
 
   return (
-    <div className={`relative w-40   ${className}`}>
+    <div className={`relative  w-40   ${className}`}>
       <DropDownButton
+        className="self-center"
         toggleDropdown={toggleDropdown}
         isDropdownOpen={showDropDown}
       />

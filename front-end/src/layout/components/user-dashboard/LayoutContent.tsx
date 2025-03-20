@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { useDashboardContext } from '../../../contexts/dashboardContext';
-import { BigSidebar } from '../../../features/navigations/components/dashboardNavigations';
-import MobileSideBarModal from '../../../features/navigations/components/dashboardNavigations/MobileSideBarModal';
+import { BigSidebar } from '../../../app/dashboard/components/navigation';
+import MobileSideBarModal from '../../../app/dashboard/components/navigation/MobileSideBarModal';
 import { useWindowScreenSize } from '../../../hooks';
 import DashboardMainContent from './MainContent';
 

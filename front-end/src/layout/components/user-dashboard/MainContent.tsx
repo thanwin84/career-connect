@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Navbar } from '../../../features/navigations/components/dashboardNavigations';
+import { Navbar } from '../../../app/dashboard/components/navigation';
 
 type Props = {
   className?: string;

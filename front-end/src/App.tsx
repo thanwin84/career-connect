@@ -5,11 +5,11 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import DashboardRoutes from './app/routes/DashbooardRoutes';
-import HomeRoutes from './app/routes/HomeRoutes';
-import AuthBroadcast from './app/auth/AuthBroadCast';
+import DashboardRoutes from './routes/DashbooardRoutes';
+import HomeRoutes from './routes/HomeRoutes';
+import AuthBroadcast from './auth/AuthBroadCast';
 import Test from './components/Test';
-import PostJobsRoutes from './app/routes/PostJobsRoutes';
+import PostJobsRoutes from './routes/PostJobsRoutes';
 import NotFound from './pages/NotFound';
 import VerifyEmail from './pages/VerifyEmail';
 

@@ -18,7 +18,7 @@ import Pagination from './Pagination/Pagination';
 import Alert from './Alert';
 import ReEnterPassword from './ReEnterPassword';
 import ReEnterPasswordForm from './ReEnterPasswordForm';
-import SelectCountry from '../../features/setting/components/SelectCountry';
+import SelectCountry from '../../app/setting/components/SelectCountry';
 import Select from './Select';
 import Password from './Password';
 import SlideOpen from './SlideOpen';

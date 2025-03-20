@@ -1,0 +1,11 @@
+import { BaseApiReponse, Pagination } from './common';
+import { User } from './user';
+
+export type ApplicationStatsResponse = BaseApiReponse<{
+  users: number;
+  jobs: number;
+}>;
+export type UserListResponse = BaseApiReponse<{
+  users: User[];
+  pagination: Pagination;
+}>;

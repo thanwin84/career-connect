@@ -1,6 +1,6 @@
-import HomeNavbar from '../features/navigations/components/home/HomeNavbar';
+import HomeNavbar from '../app/homepage/components/navigation/HomeNavbar';
 import { Outlet } from 'react-router-dom';
-import { useUserStore } from '../store/userStore';
+import { useUserStore } from '../lib/store/userStore';
 import { useUserInformation } from '../hooks/user/useUserInformation';
 
 export default function HomePageLayout() {

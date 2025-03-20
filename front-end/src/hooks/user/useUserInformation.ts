@@ -1,5 +1,5 @@
-import { getUserInformationRequest } from '../../services/service';
-import { useUserStore } from '../../store/userStore';
+import { getUserInformationRequest } from '../../lib/api/user';
+import { useUserStore } from '../../lib/store/userStore';
 import useQuery from '../useQuery';
 
 export const useUserInformation = () => {

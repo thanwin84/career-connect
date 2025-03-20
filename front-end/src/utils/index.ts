@@ -1,7 +1,7 @@
-import formatDate from "./formatDate";
-import customFetch from "./customFetch";
-import debounce from "./debounce";
-import { JobStatus } from "../types";
+import formatDate from './formatDate';
+import customFetch from './customFetch';
+import debounce from './debounce';
+import { JobStatus } from '../lib/types/job';
 
 function getLastStatusUpdatedDate(
   statusHistory: {

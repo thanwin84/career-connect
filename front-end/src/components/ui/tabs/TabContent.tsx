@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { useTabContext } from "./Tabs";
+import { ReactNode } from 'react';
+import { useTabContext } from './Tabs';
 
 type Props = {
   value: string;
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function TabContent({ value, children, className }: Props) {
-  const { currentTab } = useTabContext("TabContent");
+  const { currentTab } = useTabContext('TabContent');
   return (
     <>
       {value === currentTab && (

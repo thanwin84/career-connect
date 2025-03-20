@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useLogout } from '../../../features/auth/hooks/useLogout';
+import { useLogout } from '../../../app/auth/hooks/useLogout';
 import { motion } from 'motion/react';
 
 type Props = {

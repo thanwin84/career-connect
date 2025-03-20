@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { routes } from '../app/constants/routes';
+import { routes } from '../lib/constants/routes';
 
 type Props = {
   className?: string;
