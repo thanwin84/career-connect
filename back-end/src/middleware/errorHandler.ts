@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { statusCodes } from '../constants';
 import { logger } from '../utils/logger';
 
@@ -15,7 +15,12 @@ const maskSessitiveData = (body: Record<string, any>) => {
   }
   return filteredBody;
 };
-const errorHandler = (err: CustomError, req: Request, res: Response) => {
+const errorHandler = (
+  err: CustomError,
+  req: Request,
+  res: Response,
+  _next: NextFunction
+) => {
   logger.error({
     message: err.message || 'Intenal Server Error',
     statusCodes: err.statusCode || statusCodes.INTERNAL_SERVER_ERROR,
@@ -25,6 +30,7 @@ const errorHandler = (err: CustomError, req: Request, res: Response) => {
     params: req.params,
     query: req.query,
   });
+
   res.status(err.statusCode || statusCodes.INTERNAL_SERVER_ERROR).json({
     success: false,
     message: err.message || 'Internal server error',

@@ -44,7 +44,8 @@ export const loginUser = async (email: string, password: string) => {
   if (!user) {
     throw new NotFoundError('user does not exist');
   }
-  const isPasswordValid = user.isPasswordCorrect(password);
+  const isPasswordValid = await user.isPasswordCorrect(password);
+
   if (!isPasswordValid) {
     throw new UnauthenticatedError('invalid credentials');
   }

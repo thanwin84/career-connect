@@ -26,6 +26,7 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 
 configureRoute(app);
+app.use(errorHandler);
 // start workers
 deleteAccountWorker;
 
@@ -37,8 +38,6 @@ app.get('/health', (_req, res) => {
 app.use('*', (_req, res) => {
   res.status(404).json({ msg: 'Not Found' });
 });
-
-app.use(errorHandler);
 
 const port = process.env.PORT || 5100;
 
