@@ -11,8 +11,8 @@ export default function ChangePassword() {
   } = useForm();
 
   return (
-    <div className="w-full">
-      <h3 className="text-xl text-slate-600 border-b py-2 dark:text-slate-200">
+    <div className="w-full ">
+      <h3 className="text-xl text-slate-700 border-b py-2 dark:text-slate-200">
         Password and Security
       </h3>
       <p className="py-2 text-slate-700 dark:text-slate-300">
@@ -53,7 +53,7 @@ export default function ChangePassword() {
           <Button
             type="submit"
             category="success"
-            classname={`mt-4 w-auto bg-green-300 `}
+            classname={`w-full mt-4 bg-green-300 `}
           >
             Save changes
           </Button>
