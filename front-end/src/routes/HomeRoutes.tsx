@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom';
 import { routes } from '../lib/constants/routes';
 import PublicRoute from './PublicRoute';
 import { LoadingPage } from '../components/ui';
+import EmailConfirmation from '../pages/EmailConfirmation';
 
 const FindJobs = lazy(() => import('../app/find_jobs/pages/FindJobs'));
 const Register = lazy(() => import('../app/auth/pages/Register'));
@@ -35,6 +36,7 @@ const HomeRoutes = (
     </Route>
     <Route element={<PublicRoute />}>
       <Route path={routes.LOGIN} element={<Login />} />
+      <Route path="/email-confirmation" element={<EmailConfirmation />} />
       <Route
         path={routes.REGISTER}
         element={

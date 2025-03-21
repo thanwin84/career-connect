@@ -1,4 +1,9 @@
-import { Button, LoadingPage, Password } from '../../../components/ui';
+import {
+  Button,
+  LoadingButton,
+  LoadingPage,
+  Password,
+} from '../../../components/ui';
 import { Link } from 'react-router-dom';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -43,14 +48,13 @@ export default function Login() {
               name="email"
             />
             <Password className="mb-4" />
-            <Button
-              type="submit"
-              loadingText="loading.."
-              loading={isPending}
-              classname="w-full"
-            >
-              Login
-            </Button>
+            {isPending ? (
+              <LoadingButton />
+            ) : (
+              <Button type="submit" loadingText="loading.." classname="w-full">
+                Login
+              </Button>
+            )}
             <p className="text-center mt-2 dark:text-slate-100">
               Not a member yet?{' '}
               <Link

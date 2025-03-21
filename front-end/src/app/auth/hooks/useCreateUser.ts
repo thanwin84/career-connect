@@ -5,10 +5,16 @@ import { registerUserRequest } from '../../../lib/api/auth';
 
 export const useCreateUser = () => {
   const navigate = useNavigate();
-  const { mutate: createUser, isPending } = useMutation(registerUserRequest, {
+  const {
+    mutate: createUser,
+    isError,
+    isSuccess,
+    error,
+    isPending,
+  } = useMutation(registerUserRequest, {
     onSuccess: () => {
       toast.success('Registration is successfull');
-      navigate('/login');
+      navigate('/email-confirmation');
     },
     onError: (error: any) => {
       toast.error(error?.response?.data.message);
@@ -17,5 +23,8 @@ export const useCreateUser = () => {
   return {
     isPending,
     createUser,
+    isError,
+    isSuccess,
+    error,
   };
 };

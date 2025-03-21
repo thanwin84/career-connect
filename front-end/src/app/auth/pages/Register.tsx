@@ -8,7 +8,6 @@ import {
 import useMultiStep from '../../../hooks/useMultiStep';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../../lib/store/userStore';
-
 import { LoadingPage } from '../../../components/ui';
 import { RegisterFormType } from '../../../lib/schemas/registerSchema';
 
