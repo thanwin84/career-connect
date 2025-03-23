@@ -7,7 +7,11 @@ export const getApplicationStatsRequest =
 
 export const getUserListRequest = (params: string): Promise<UserListResponse> =>
   customFetch
-    .get(`/users/get-users-list?${params}`)
+    .get(`/users/get-users-list?limit=5&${params}`, {
+      headers: {
+        'Cache-Control': 'no-cache, no-store',
+      },
+    })
     .then(extractDataFromResponse);
 
 export const toggleAccessStatusRequest = (userId: string) =>

@@ -1,15 +1,25 @@
 import { useEffect, useState } from 'react';
-import Row from './Row';
 import { toast } from 'react-toastify';
 import { useUserToggleAccessStatus } from '../../hooks/admin/useUserToggleAccessStatus';
 import { Users } from '../../../../lib/types/user';
+import { formatDate } from '../../../../utils';
+import ToggleStatus from './ToggleStatus';
+import {
+  TableContainer,
+  TableHead,
+  TableTitle,
+  TableRow,
+  TableCell,
+  TableContent,
+} from '../../../../components/ui/table';
 
 type Props = {
   className?: string;
   users: Users;
+  isDataLoading?: boolean;
 };
 
-export default function UsersTable({ users }: Props) {
+export default function UsersTable({ users, isDataLoading = false }: Props) {
   const headers = [
     'Ban',
     'Access Status',
@@ -32,6 +42,9 @@ export default function UsersTable({ users }: Props) {
     );
     toggleUserAccessStatus(userId);
   }
+  useEffect(() => {
+    setUserList(users);
+  }, [users]);
 
   useEffect(() => {
     if (isError) {
@@ -40,25 +53,36 @@ export default function UsersTable({ users }: Props) {
     }
   }, [isError]);
   return (
-    <table className="table-auto w-full bg-white dark:bg-zinc-900 shadow-md rounded-md">
-      <thead>
-        <tr>
-          {headers.map((item, index) => (
-            <th key={index} className="p-4  text-slate-700 dark:text-slate-200">
-              {item}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {userList?.map((user) => (
-          <Row
-            key={user._id}
-            user={user}
-            handleToggle={() => handleToggle(user._id as string)}
-          />
+    <TableContainer
+      className={`${
+        isDataLoading
+          ? 'bg-black dark:bg-slate-800 dark:opacity-30 opacity-50'
+          : 'bg-white dark:bg-zinc-900'
+      }`}
+    >
+      <TableHead>
+        {headers.map((item) => (
+          <TableTitle key={item}>{item}</TableTitle>
         ))}
-      </tbody>
-    </table>
+      </TableHead>
+      <TableContent>
+        {userList?.map((user) => (
+          <TableRow>
+            <TableCell>
+              <ToggleStatus
+                accessStatus={user.accessStatus as boolean}
+                onToggleClick={() => handleToggle(user._id as string)}
+              />
+            </TableCell>
+            <TableCell>{user.accessStatus ? 'true' : 'false'}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>
+              {formatDate(user?.createdAt?.toString() as string)}
+            </TableCell>
+            <TableCell>{user.role}</TableCell>
+          </TableRow>
+        ))}
+      </TableContent>
+    </TableContainer>
   );
 }
