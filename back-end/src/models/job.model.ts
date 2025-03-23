@@ -1,5 +1,5 @@
 import mongoose, { InferSchemaType } from 'mongoose';
-import { JOB_STATUS, JOB_TYPE, experianceLevel } from '../constants';
+import { JOB_TYPE, experianceLevel } from '../constants';
 const jobSchema = new mongoose.Schema(
   {
     company: {
@@ -11,11 +11,6 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-    },
-    jobStatus: {
-      type: String,
-      enum: Object.values(JOB_STATUS),
-      default: JOB_STATUS.APPLIED,
     },
     jobType: {
       type: String,

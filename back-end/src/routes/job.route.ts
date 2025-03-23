@@ -20,7 +20,7 @@ jobRouter.route('/all-jobs').get(getJobs);
 jobRouter
   .route('/')
   .get(authenticateUser, getAllJobsCreatedByUser)
-  .post(authenticateUser, ValidateJobInput, createJob);
+  .post(authenticateUser, createJob);
 
 jobRouter
   .route('/:id')

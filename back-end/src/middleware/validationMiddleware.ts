@@ -47,12 +47,6 @@ export const ValidateJobInput = withValidationError([
   body('company').notEmpty().withMessage('company is required'),
   body('position').notEmpty().withMessage('position is required'),
   body('jobLocation').notEmpty().withMessage('jobLocation is required'),
-  body('jobStatus').if((value) => {
-    const exist = Object.values(JOB_STATUS).includes(value);
-    if (!exist) {
-      throw new BadRequestError('Invalid job status');
-    }
-  }),
   body('jobType').if((value) => {
     const exist = Object.values(JOB_TYPE).includes(value);
     if (!exist) {

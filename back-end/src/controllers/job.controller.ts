@@ -12,6 +12,7 @@ import {
   updateJobService,
 } from '../service/job.service';
 import { ApiResponse } from '../utils/ApiResponse';
+import { jobSchema } from '../schemas/jobSchema';
 
 const getAllJobsCreatedByUser = asyncHandler(
   async (req: Request, res: Response) => {
@@ -78,7 +79,7 @@ const getJobs = asyncHandler(async (req: Request, res: Response) => {
 
 const createJob = asyncHandler(async (req: Request, res: Response) => {
   req.body.createdBy = req.user.userId;
-
+  jobSchema.parse(req.body);
   const job = await createJobService(req.body);
 
   res.status(statusCodes.CREATED).json({ job });
