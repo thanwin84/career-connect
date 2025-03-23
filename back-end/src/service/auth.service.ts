@@ -56,3 +56,20 @@ export const loginUser = async (email: string, password: string) => {
   logger.info(`${user._id} has accessed the site`);
   return user;
 };
+
+export const checkEmailService = async (email: string) => {
+  if (!email) {
+    throw new BadRequestError('Email does not exists');
+  }
+  const user = await User.findOne({ email });
+
+  if (user) {
+    return {
+      exists: true,
+    };
+  } else {
+    return {
+      exists: false,
+    };
+  }
+};

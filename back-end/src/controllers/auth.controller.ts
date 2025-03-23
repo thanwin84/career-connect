@@ -2,7 +2,11 @@ import asyncHandler from '../utils/asyncHandler';
 import { statusCodes } from '../constants';
 import { Request, Response, CookieOptions } from 'express';
 import { ApiResponse } from '../utils/ApiResponse';
-import { loginUser, registerUser } from '../service/auth.service';
+import {
+  checkEmailService,
+  loginUser,
+  registerUser,
+} from '../service/auth.service';
 
 declare module 'express-serve-static-core' {
   interface Response {
@@ -51,4 +55,12 @@ const logout = asyncHandler(async (req: Request, res: Response) => {
     .json(new ApiResponse(statusCodes.OK, {}, 'logout is successfull'));
 });
 
-export { register, login, logout };
+const checkEmail = asyncHandler(async (req: Request, res: Response) => {
+  const { email } = req.body;
+  const data = await checkEmailService(email);
+  res
+    .status(200)
+    .json(new ApiResponse(statusCodes.OK, data, 'successfull request'));
+});
+
+export { register, login, logout, checkEmail };

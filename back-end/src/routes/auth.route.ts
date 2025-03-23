@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { register, login, logout } from '../controllers/auth.controller';
+import {
+  register,
+  login,
+  logout,
+  checkEmail,
+} from '../controllers/auth.controller';
 import {
   validateRegisterInput,
   validateLoginInput,
@@ -18,5 +23,6 @@ authRouter.post(
 authRouter.post('/login', validateLoginInput, login);
 
 authRouter.route('/logout').get(logout);
+authRouter.route('/check-email').post(checkEmail);
 
 export default authRouter;
