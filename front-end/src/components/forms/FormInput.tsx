@@ -8,12 +8,14 @@ type Props = {
   placeholder?: string;
   label?: string;
   type?: string;
+  serverErrorMessage?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export default function FormInput({
   className,
   name,
   placeholder,
+  serverErrorMessage,
   label,
   type = 'text',
   ...props
@@ -26,11 +28,13 @@ export default function FormInput({
   return (
     <Input
       type={type}
-      className={className}
+      className={`focus:ring-2 ring-slate-300 ${className}`}
       label={label}
       placeholder={placeholder}
       {...register(name as string)}
-      errorMessage={errors[name]?.message as string}
+      errorMessage={
+        (serverErrorMessage as string) || (errors[name]?.message as string)
+      }
       {...props}
     />
   );

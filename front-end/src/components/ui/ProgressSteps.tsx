@@ -19,7 +19,7 @@ export default function ProgressSteps({
             ? 'Final step'
             : `Step ${currentStep + 1}`}
         </span>
-        <span className="ml-4 text-slate-800 dark:text-slate-400">
+        <span className="ml-4 text-slate-800 dark:text-blue-500">
           {stepTitles[currentStep]}
         </span>
       </div>
@@ -28,7 +28,7 @@ export default function ProgressSteps({
           <span
             key={stepTitle}
             className={`bg-slate-200 px-1 h-2 w-full rounded-md ${
-              currentStep === index ? 'bg-slate-800' : ''
+              currentStep === index ? 'bg-slate-800 dark:bg-slate-600' : ''
             }`}
           ></span>
         ))}

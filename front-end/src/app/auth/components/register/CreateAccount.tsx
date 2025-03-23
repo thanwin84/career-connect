@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '../../../../components/ui';
-import { Password } from '../../../../components/ui';
+import { Password, Button } from '../../../../components/ui';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import FormInput from '../../../../components/forms/FormInput';
@@ -10,6 +9,8 @@ import {
   RegisterFormType,
   personalInfoSchema,
 } from '../../../../lib/schemas/registerSchema';
+import { useState } from 'react';
+import { useEmailCheck } from '../../hooks/useEmailCheck';
 
 type Props = {
   className?: string;
@@ -24,15 +25,21 @@ export default function CreateAccount({
   className,
   user,
 }: Props) {
-  async function action(formData: PersonalInfoType) {
-    setUser(formData);
-    next();
-  }
+  const [email, setEmail] = useState('');
+  const emailExists = useEmailCheck(email);
+  const emailErrorMessage = emailExists ? 'Email is already registered' : '';
 
   const methods = useForm<PersonalInfoType>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: user,
   });
+  async function action(formData: PersonalInfoType) {
+    setUser(formData);
+    if (!emailErrorMessage) {
+      next();
+    }
+  }
+
   return (
     <div className={`w-full   mx-auto ${className}`}>
       <FormTitle title="Create your account" />
@@ -42,16 +49,18 @@ export default function CreateAccount({
           aria-labelledby="formTitle"
         >
           <div className="flex flex-col gap-3">
-            <FormInput
-              label="First Name"
-              placeholder="Your first name"
-              name="firstName"
-            />
-            <FormInput
-              label="Last Name"
-              placeholder="Your last name"
-              name="lastName"
-            />
+            <div className="flex gap-4">
+              <FormInput
+                label="First Name"
+                placeholder="Your first name"
+                name="firstName"
+              />
+              <FormInput
+                label="Last Name"
+                placeholder="Your last name"
+                name="lastName"
+              />
+            </div>
             <FormInput
               label="Location"
               placeholder="Dhaka, Bangladesh"
@@ -62,6 +71,8 @@ export default function CreateAccount({
               label="Email"
               placeholder="sample@mail.com"
               name="email"
+              onChange={(e) => setEmail(e.target.value)}
+              serverErrorMessage={emailErrorMessage}
             />
             <Password className="mb-4" />
             <Button classname="w-full">Next</Button>

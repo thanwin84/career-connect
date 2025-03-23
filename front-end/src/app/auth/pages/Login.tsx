@@ -29,8 +29,8 @@ export default function Login() {
   }
 
   return (
-    <main className="h-screen bg-gray-100 dark:bg-zinc-800 py-8">
-      <div className="bg-white  p-8 w-4/6 lg:w-2/5 shadow-lg rounded-md mx-auto  dark:bg-zinc-800">
+    <main className="h-screen bg-gray-100 dark:bg-zinc-800 py-10">
+      <div className=" bg-white  dark:border dark:border-gray-500 p-8 w-4/6 lg:w-2/5 shadow-lg rounded-md mx-auto  dark:bg-zinc-800">
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(loginUser)}>
             <h2 className="text-2xl mb-1 text-blue-800  dark:text-white font-semibold">

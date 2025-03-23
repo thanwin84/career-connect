@@ -43,8 +43,8 @@ export default function Register({}: Props) {
   }
 
   return (
-    <main className="bg-gray-100 min-h-screen py-6">
-      <div className="w-[90%] bg-white md:w-[45%] mx-auto px-6 rounded-md shadow-md">
+    <main className="bg-gray-100 dark:bg-zinc-900  min-h-screen py-6">
+      <div className="w-[90%] bg-white dark:bg-zinc-800 md:w-[45%] mx-auto px-6 rounded-md shadow-md">
         <ProgressSteps
           className=" mx-auto pt-6"
           totalSteps={steps.length}

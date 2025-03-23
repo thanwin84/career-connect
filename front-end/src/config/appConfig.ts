@@ -4,5 +4,3 @@ export const appConfig = {
   EMAIL_VERIFICATION_EXPIRY_TIME: import.meta.env
     .VITE_EMAIL_VERIFICATION_EXPIRY_TIME,
 };
-
-console.log(appConfig);
