@@ -9,6 +9,7 @@ import {
   DescribeYourselfType,
 } from '../../../../lib/schemas/registerSchema';
 import { UserRole } from '../../../../lib/types/user';
+import TransitionPage from '../../../../components/ui/TransitionPage';
 
 type Props = {
   className?: string;
@@ -38,49 +39,51 @@ export default function DescribeYourself({
   }
   const selected = watch('role');
   return (
-    <form onSubmit={handleSubmit(action)} className={`w-full ${className}`}>
-      <FormTitle title="What brings to Career Connect?" />
-      <ul className="mb-1 flex flex-col">
-        {options.map(({ text, value }) => (
-          <label
-            className={`py-2 px-4 text-lg border mb-4 rounded-md bg-white   cursor-pointer ${
-              selected === value
-                ? 'border-2 border-slate-500'
-                : 'border-2 hover:border-slate-500'
-            } `}
-            key={text}
-          >
-            <input
-              value={value}
-              type="radio"
-              {...register('role')}
-              className="hidden"
-            />
-            {text}
-          </label>
-        ))}
-      </ul>
+    <TransitionPage>
+      <form onSubmit={handleSubmit(action)} className={`w-full ${className}`}>
+        <FormTitle title="What brings to Career Connect?" />
+        <ul className="mb-1 flex flex-col">
+          {options.map(({ text, value }) => (
+            <label
+              className={`py-2 px-4 text-lg border mb-4 rounded-md bg-white   cursor-pointer ${
+                selected === value
+                  ? 'border-2 border-slate-500'
+                  : 'border-2 hover:border-slate-500'
+              } `}
+              key={text}
+            >
+              <input
+                value={value}
+                type="radio"
+                {...register('role')}
+                className="hidden"
+              />
+              {text}
+            </label>
+          ))}
+        </ul>
 
-      {formState.errors.role?.message && (
-        <FormError
-          className="ml-2 text-base"
-          message={formState.errors.role?.message}
-          id="user-type-error"
-        />
-      )}
-      <div className="flex justify-between gap-4 mt-2">
-        <Button
-          type="button"
-          classname="w-24"
-          onClick={goBack}
-          category="normal"
-        >
-          Back
-        </Button>
-        <Button disabled={!selected} type="submit" classname="w-24">
-          Next
-        </Button>
-      </div>
-    </form>
+        {formState.errors.role?.message && (
+          <FormError
+            className="ml-2 text-base"
+            message={formState.errors.role?.message}
+            id="user-type-error"
+          />
+        )}
+        <div className="flex justify-between gap-4 mt-2">
+          <Button
+            type="button"
+            classname="w-24"
+            onClick={goBack}
+            category="normal"
+          >
+            Back
+          </Button>
+          <Button disabled={!selected} type="submit" classname="w-24">
+            Next
+          </Button>
+        </div>
+      </form>
+    </TransitionPage>
   );
 }

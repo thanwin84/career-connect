@@ -12,6 +12,7 @@ import {
   AddProfileType,
   addProfilePhotoSchema,
 } from '../../../../lib/schemas/registerSchema';
+import TransitionPage from '../../../../components/ui/TransitionPage';
 
 type Props = {
   className?: string;
@@ -51,50 +52,52 @@ export default function AddProfilePhoto({ className, goBack, user }: Props) {
   }
   return (
     <FormProvider {...methods}>
-      <form
-        onSubmit={methods.handleSubmit(handleFinish)}
-        className={` ${className}`}
-      >
-        <FormTitle title=" Add Your Profile Photo or Skip it to upload later." />
-        <div className="h-24 w-24 rounded-full relative mx-auto">
-          <div className=" flex h-full w-full rounded-full  bg-gray-200 justify-center mb-4">
-            {fileUrl ? (
-              <img
-                className="w-full h-full object-cover rounded-full"
-                src={fileUrl}
-              />
-            ) : (
-              <IoPersonOutline size={24} className="my-auto text-gray-800" />
-            )}
-          </div>
-          <label
-            className=" dark:text-slate-200  px-6 py-2 rounded-md  self-center"
-            htmlFor="profile"
-          >
-            <input
-              id="profile"
-              className="hidden"
-              type="file"
-              name="avatar"
-              onChange={handleFileChange}
-            />
-            <div className="bg-gray-100  p-1 rounded-md absolute bottom-2 right-0">
-              <CiCamera
-                className="text-slate-700 dark:text-slate-900"
-                size={22}
-              />
+      <TransitionPage>
+        <form
+          onSubmit={methods.handleSubmit(handleFinish)}
+          className={` ${className}`}
+        >
+          <FormTitle title=" Add Your Profile Photo or Skip it to upload later." />
+          <div className="h-24 w-24 rounded-full relative mx-auto">
+            <div className=" flex h-full w-full rounded-full  bg-gray-200 justify-center mb-4">
+              {fileUrl ? (
+                <img
+                  className="w-full h-full object-cover rounded-full"
+                  src={fileUrl}
+                />
+              ) : (
+                <IoPersonOutline size={24} className="my-auto text-gray-800" />
+              )}
             </div>
-          </label>
-        </div>
-        <div className="flex gap-4 justify-between mt-4">
-          <Button classname="w-full" category="normal" onClick={handleBack}>
-            Back
-          </Button>
-          <Button classname="w-full" type="submit" disabled={isPending}>
-            {isPending ? 'In progess...' : 'Finish'}
-          </Button>
-        </div>
-      </form>
+            <label
+              className=" dark:text-slate-200  px-6 py-2 rounded-md  self-center"
+              htmlFor="profile"
+            >
+              <input
+                id="profile"
+                className="hidden"
+                type="file"
+                name="avatar"
+                onChange={handleFileChange}
+              />
+              <div className="bg-gray-100  p-1 rounded-md absolute bottom-2 right-0">
+                <CiCamera
+                  className="text-slate-700 dark:text-slate-900"
+                  size={22}
+                />
+              </div>
+            </label>
+          </div>
+          <div className="flex gap-4 justify-between mt-4">
+            <Button classname="w-full" category="normal" onClick={handleBack}>
+              Back
+            </Button>
+            <Button classname="w-full" type="submit" disabled={isPending}>
+              {isPending ? 'In progess...' : 'Finish'}
+            </Button>
+          </div>
+        </form>
+      </TransitionPage>
     </FormProvider>
   );
 }

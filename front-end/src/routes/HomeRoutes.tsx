@@ -34,6 +34,7 @@ const HomeRoutes = (
         />
       </Route>
     </Route>
+
     <Route element={<PublicRoute />}>
       <Route path={routes.LOGIN} element={<Login />} />
       <Route path="/email-confirmation" element={<EmailConfirmation />} />
