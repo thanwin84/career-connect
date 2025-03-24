@@ -1,16 +1,10 @@
 import { z } from 'zod';
-import { JOB_STATUS, JOB_TYPE, experianceLevel } from '../constants/constant';
+import { JOB_TYPE, experianceLevel } from '../constants/constant';
 
 export const createJobFormSchema = z.object({
   company: z.string().min(1, 'Company is required'),
   position: z.string().min(1, 'Position is required'),
   jobLocation: z.string().min(1, 'Job Location is required'),
-  jobStatus: z
-    .enum(Object.values(JOB_STATUS) as [string, ...string[]], {
-      message: 'Please select an option',
-      invalid_type_error: 'Please select an option',
-    })
-    .optional(),
   jobType: z.enum(Object.values(JOB_TYPE) as [string, ...string[]], {
     message: 'Please select an option',
     invalid_type_error: 'Invalid Job Type',

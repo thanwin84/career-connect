@@ -17,7 +17,6 @@ export type Job = {
   _id: string;
   company: string;
   position: string;
-  jobStatus: JobStatus;
   jobType: JobType;
   jobLocation: string;
   country: string;

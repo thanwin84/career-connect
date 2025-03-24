@@ -247,4 +247,5 @@ export const UserRoles = {
 export { JOB_SORT_BY, JOB_STATUS, JOB_TYPE, experianceLevel, countries };
 export const NotificationTypes = {
   JOB_UPDATE: 'job_update',
+  JOB_APPLY: 'job_apply',
 } as const;

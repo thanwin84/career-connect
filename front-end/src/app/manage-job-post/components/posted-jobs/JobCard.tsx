@@ -52,12 +52,6 @@ export default function JobCard({ job }: Props) {
           icon={<BriefcaseIcon className="text-blue-600" />}
           text={job.jobType}
         />
-        <div className="">
-          <span className={`px-4 py-1  rounded-sm`}>
-            {job.jobStatus.substring(0, 1).toUpperCase() +
-              job.jobStatus.substring(1)}
-          </span>
-        </div>
       </div>
       <div className="flex gap-2 px-4">
         <Link

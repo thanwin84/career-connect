@@ -1,11 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, FormProvider } from 'react-hook-form';
 import { SelectSingleOptionBox, Button } from '../../../../components/ui';
-import {
-  JOB_STATUS,
-  JOB_TYPE,
-  experianceLevel,
-} from '../../../../lib/constants/constant';
+import { JOB_TYPE, experianceLevel } from '../../../../lib/constants/constant';
 import FormInput from '../../../../components/forms/FormInput';
 import FormSelect from '../../../../components/forms/FormSelect';
 import {
@@ -62,15 +58,6 @@ export default function CreateJobForm({
               }
             />
             <div className="lg:flex gap-4">
-              {title.toLocaleLowerCase() !== 'add job' && (
-                <FormSelect
-                  options={Object.values(JOB_STATUS)}
-                  name="jobStatus"
-                  label="Job Status"
-                  className="flex-1"
-                  placeholder="Select Job Status"
-                />
-              )}
               <FormSelect
                 options={Object.values(JOB_TYPE)}
                 label="Job Type"

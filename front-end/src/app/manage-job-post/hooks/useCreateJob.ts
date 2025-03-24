@@ -8,7 +8,7 @@ export const useCreateJob = () => {
 
   const { mutate: createJob, isPending } = useMutation(createJobRequest, {
     onSuccess: () => {
-      navigate('/dashboard/all-jobs');
+      navigate('/post-jobs/jobs');
       toast.success('Job has been created successfully');
     },
     onError: (error) => {

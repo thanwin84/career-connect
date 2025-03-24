@@ -1,10 +1,9 @@
-import { NotificationTypes } from '../constants/constant';
 import { BaseApiReponse, Pagination } from './common';
 
 export type Notification = {
   _id: string;
   userId: string;
-  type: keyof typeof NotificationTypes;
+  type: 'job_apply' | 'job_update';
   data: any;
   status: 'read' | 'unread';
   createdAt: string;
