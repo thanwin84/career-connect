@@ -7,9 +7,11 @@ import {
 } from '../errors/customErrors';
 import { JobApplication } from '../models/jobApplication.model';
 import { JobStatus, Pagination } from '../types';
-import { JOB_STATUS } from '../constants';
+import { JOB_STATUS, NotificationTypes } from '../constants';
 import { formatMonth } from '../utils/format';
 import { Job } from '../models/job.model';
+import { io, onlineUsers } from '..';
+import { Notification } from '../models/notification.model';
 
 export const jobApplicationStatsService = async (userId: string) => {
   const stats = await JobApplication.aggregate([
@@ -108,6 +110,19 @@ export const createJobApplicationService = async ({
     }
     job.numberOfApplicants = job.numberOfApplicants + 1;
     await job.save({ session });
+    // send notification to recruiter
+    const recruiterSocketId = onlineUsers.get(job.createdBy.toString());
+    const notificationItem = await Notification.create({
+      userId: job.createdBy,
+      type: NotificationTypes.JOB_APPLY,
+      data: {
+        jobTitle: job.position,
+        userId: userId,
+      },
+    });
+    if (recruiterSocketId) {
+      io.to(recruiterSocketId).emit('new_notification', notificationItem);
+    }
     await session.commitTransaction();
     session.endSession();
     return newApplication;

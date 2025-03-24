@@ -1,7 +1,7 @@
 import http from 'http';
 import { Server } from 'socket.io';
 
-const onlineUsers = new Map();
+const onlineUsers = new Map<string, string>(); // userId: socketId
 export const startSocket = (server: http.Server) => {
   const io = new Server(server, {
     cors: {
@@ -10,10 +10,13 @@ export const startSocket = (server: http.Server) => {
     },
   });
   io.on('connection', (socket) => {
+    console.log(`User with id ${socket.id} is connected`);
     socket.on('register', (userId) => {
       onlineUsers.set(userId, socket.id);
     });
-    socket.on('disconnect', () => {});
+    socket.on('disconnect', () => {
+      console.log(`User with id ${socket.id} is disconnected`);
+    });
   });
 
   return { io, onlineUsers };

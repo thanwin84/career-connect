@@ -59,4 +59,5 @@ export const UserRoles = {
 
 export const NotificationTypes = {
   JOB_UPDATE: 'job_update',
+  JOB_APPLY: 'job_apply',
 } as const;

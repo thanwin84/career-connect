@@ -24,7 +24,11 @@ const jobApplicationRouter = Router();
 jobApplicationRouter
   .route('/')
   .post(authenticateUser, validateJobApplicationInput, apply)
-  .get(authenticateUser, authorizePermissions('admin'), getAllJobApplications);
+  .get(
+    authenticateUser,
+    authorizePermissions('admin', 'user'),
+    getAllJobApplications
+  );
 
 jobApplicationRouter.route('/applied').get(authenticateUser, getAppliedIdList);
 

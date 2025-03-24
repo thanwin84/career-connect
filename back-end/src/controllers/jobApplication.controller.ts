@@ -28,6 +28,7 @@ const apply = asyncHandler(async (req: Request, res: Response) => {
     userId: req.user.userId as string,
     data: req.body,
   });
+
   res
     .status(statusCodes.CREATED)
     .json(
@@ -74,7 +75,9 @@ const updateApplicationStatus = asyncHandler(
       applicantion.candidateId.toString()
     );
 
-    io.to(recipentSocketId).emit('new_notification', notification);
+    if (recipentSocketId) {
+      io.to(recipentSocketId).emit('new_notification', notification);
+    }
 
     res
       .status(statusCodes.OK)
