@@ -2,7 +2,10 @@ import { Button } from '../../../components/ui';
 import HorizontalLine from '../../../components/ui/HorizontalDevider';
 import { NotificationTypes } from '../../../lib/constants/constant';
 import { Notification } from '../../../lib/types/notification';
-import NotificationItem from './NotificationItem';
+import {
+  AppliedJobNotificationItem,
+  JobUpdateNotificationItem,
+} from './notification-items';
 import { motion } from 'motion/react';
 
 type Props = {
@@ -19,7 +22,6 @@ export default function NotificationsList({
   refetch,
   hasMore,
 }: Props) {
-  console.log(notifications);
   return (
     <motion.div
       initial={{ scale: 0.8, opacity: 0.6 }}
@@ -37,7 +39,7 @@ export default function NotificationsList({
             {notifications?.map((item) => {
               if (item.type === NotificationTypes.JOB_UPDATE) {
                 return (
-                  <NotificationItem
+                  <JobUpdateNotificationItem
                     key={item.data.date}
                     company={item.data.company}
                     position={item.data.position}
@@ -46,11 +48,13 @@ export default function NotificationsList({
                     className="hover:bg-gray-100 dark:hover:bg-zinc-700 mb-1 rounded-md px-2 py-1"
                   />
                 );
-              } else {
+              } else if (item.type === NotificationTypes.JOB_APPLY) {
                 return (
-                  <p className="mb-1 py-1 text-slate-700 dark:text-slate-200">
-                    {`User with id ${item.userId} has applied to ${item.data.jobTitle}`}
-                  </p>
+                  <AppliedJobNotificationItem
+                    key={item._id}
+                    date={item.createdAt}
+                    jobTitle={item.data.jobTitle}
+                  />
                 );
               }
             })}

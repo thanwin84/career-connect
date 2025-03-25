@@ -12,8 +12,10 @@ import Test from './components/Test';
 import PostJobsRoutes from './routes/PostJobsRoutes';
 import NotFound from './pages/NotFound';
 import VerifyEmail from './pages/VerifyEmail';
+import { useNotification } from './app/notifications/hooks/useNotification';
 
 function App() {
+  useNotification();
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
