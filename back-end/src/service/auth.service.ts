@@ -1,8 +1,10 @@
+import mongoose from 'mongoose';
 import {
   BadRequestError,
   NotFoundError,
   UnauthenticatedError,
 } from '../errors/customErrors';
+import { Role } from '../models/role.model';
 import { User, UserDocument } from '../models/user.model';
 import { uploadOnCloudinary } from '../utils/cloudinary';
 import { logger } from '../utils/logger';
@@ -10,33 +12,63 @@ import { sendEmail } from '../utils/sendEmail';
 
 export const registerUser = async (data: any, file?: Express.Multer.File) => {
   const isFirstAccount = (await User.countDocuments()) === 0;
-  data.role = isFirstAccount ? 'admin' : 'user';
-  const userExists = await User.findOne({ email: data.email });
+  const session = await mongoose.startSession();
 
-  if (userExists) {
-    logger.warn(
-      `Registration attempt failed: User with email ${data.email} already exists`
-    );
-    throw new BadRequestError('User is already registered');
-  }
+  try {
+    session.startTransaction();
+    const userRole = isFirstAccount ? 'admin' : data.role;
+    const role = await Role.findOne({ role: userRole }).session(session);
 
-  if (file) {
-    const uploadResponse = await uploadOnCloudinary(file.path);
-    if (uploadResponse) {
-      data.avatar = {
-        publicId: uploadResponse.public_id,
-        url: uploadResponse.url,
-      };
+    if (!role) {
+      throw new NotFoundError(`role: ${userRole} is not found`);
     }
+
+    const userExists = await User.findOne({ email: data.email }).session(
+      session
+    );
+
+    if (userExists) {
+      logger.warn(
+        `Registration attempt failed: User with email ${data.email} already exists`
+      );
+      throw new BadRequestError('User is already registered');
+    }
+
+    if (file) {
+      const uploadResponse = await uploadOnCloudinary(file.path);
+      if (uploadResponse) {
+        data.avatar = {
+          publicId: uploadResponse.public_id,
+          url: uploadResponse.url,
+        };
+      }
+    }
+    const user = await User.create(
+      [
+        {
+          ...data,
+          role: [role?.id],
+        },
+      ],
+      { session: session }
+    );
+
+    await sendEmail({
+      emailType: 'emailVerify',
+      to: user[0].email,
+      userId: user[0]._id.toString(),
+    });
+    logger.info(
+      `New user registered: ${user[0].email} with role ${user[0].role}`
+    );
+    await session.commitTransaction();
+    session.endSession();
+    return user;
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    throw error;
   }
-  const user = await User.create(data);
-  await sendEmail({
-    emailType: 'emailVerify',
-    to: user.email,
-    userId: user._id.toString(),
-  });
-  logger.info(`New user registered: ${user.email} with role ${user.role}`);
-  return user;
 };
 
 export const loginUser = async (email: string, password: string) => {
