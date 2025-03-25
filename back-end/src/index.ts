@@ -11,6 +11,7 @@ import configureRoute from './routes';
 import { deleteAccountWorker } from './tasks/account-deletion/deleteAccountWorker';
 import { startSocket } from './socket';
 import { appConfig } from './config/appConfig';
+import { populateRoles } from './seedRoles';
 const app = express();
 const server = http.createServer(app);
 
@@ -29,6 +30,9 @@ configureRoute(app);
 app.use(errorHandler);
 // start workers
 deleteAccountWorker;
+
+//seeding
+populateRoles();
 
 // health check
 app.get('/health', (_req, res) => {

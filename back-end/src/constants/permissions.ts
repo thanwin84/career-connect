@@ -11,7 +11,9 @@ export const permissions = {
   APPLICATION_DELETE: 'application:delete',
   CANDIDATE_SHORTLIST: 'candidate:shortlist',
   CANDIDATE_VIEW: 'candidate:view',
-  PROFILE_VIEW: 'profile:view',
-  USER_UPDATE: 'user:update',
-  USER_DELETE: 'user:delete',
+  OTHER_PROFILE_VIEW: 'profile:view',
+  PROFILE_UPDATE: 'profile:update',
+  ACCOUNT_DELETE: 'account:delete',
+  USER_ACCOUNT_DELETE: 'user:delete',
+  VIEW_ADMIN_DASHBOARD: 'view:dashboard',
 };

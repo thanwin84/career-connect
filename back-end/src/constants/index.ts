@@ -55,6 +55,8 @@ export const UserRoles = {
   PREMIUM_USER: 'premium_user',
   PREMIUM_RECRUITER: 'premium_recruiter',
   USER: 'user',
+  USED_UP_FREE_USER: 'used_up_free_user', // user who has used all free features
+  USED_UP_FREE_RECRUITER: 'used_up_free_recruiter', // recruiter who has used all free features
 } as const;
 
 export const NotificationTypes = {
