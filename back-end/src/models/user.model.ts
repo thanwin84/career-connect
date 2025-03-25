@@ -1,7 +1,6 @@
 import mongoose, { InferSchemaType, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { UserRoles } from '../constants';
 
 const educationSchema = new mongoose.Schema({
   school: {
@@ -61,9 +60,8 @@ const userSchema = new mongoose.Schema(
       default: 'Not Available',
     },
     role: {
-      type: String,
-      enum: Object.values(UserRoles),
-      default: UserRoles.USER,
+      type: mongoose.Types.ObjectId,
+      ref: 'Role',
     },
     avatar: {
       url: String,
