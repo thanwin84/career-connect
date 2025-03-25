@@ -12,7 +12,7 @@ export const populateRoles = async () => {
   try {
     await Role.insertMany([
       {
-        name: UserRoles.ADMIN,
+        role: UserRoles.ADMIN,
         permissions: [
           permissions.USER_ACCOUNT_DELETE,
           permissions.OTHER_PROFILE_VIEW,
@@ -22,14 +22,14 @@ export const populateRoles = async () => {
         ],
       },
       {
-        name: UserRoles.USER,
+        role: UserRoles.USER,
         permissions: [
           permissions.APPLICATION_CREATE,
           permissions.OTHER_PROFILE_VIEW,
         ],
       },
       {
-        name: UserRoles.PREMIUM_USER,
+        role: UserRoles.PREMIUM_USER,
         permissions: [
           permissions.APPLICATION_CREATE,
           permissions.OTHER_PROFILE_VIEW,
@@ -37,11 +37,11 @@ export const populateRoles = async () => {
         ],
       },
       {
-        name: UserRoles.USED_UP_FREE_USER,
+        role: UserRoles.USED_UP_FREE_USER,
         permissions: [],
       },
       {
-        name: UserRoles.RECRUITER,
+        role: UserRoles.RECRUITER,
         permissions: [
           permissions.JOB_CREATE,
           permissions.APPLICATION_UPDATE,
@@ -50,7 +50,7 @@ export const populateRoles = async () => {
         ],
       },
       {
-        name: UserRoles.USED_UP_FREE_RECRUITER,
+        role: UserRoles.USED_UP_FREE_RECRUITER,
         permissions: [permissions.OTHER_PROFILE_VIEW],
       },
     ]);

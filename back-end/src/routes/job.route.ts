@@ -12,6 +12,8 @@ import {
   validateIdParam,
 } from '../middleware/validationMiddleware';
 import { authenticateUser } from '../middleware/auth.middleware';
+import { authorize } from '../middleware/authorize.middleware';
+import { permissions } from '../constants/permissions';
 
 const jobRouter = Router();
 
@@ -20,7 +22,7 @@ jobRouter.route('/all-jobs').get(getJobs);
 jobRouter
   .route('/')
   .get(authenticateUser, getAllJobsCreatedByUser)
-  .post(authenticateUser, createJob);
+  .post(authenticateUser, authorize(permissions.JOB_CREATE), createJob);
 
 jobRouter
   .route('/:id')

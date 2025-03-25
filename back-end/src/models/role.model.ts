@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { InferSchemaType } from 'mongoose';
 import { UserRoles } from '../constants';
 import { permissions } from '../constants/permissions';
 
@@ -16,4 +16,6 @@ const roleSchema = new mongoose.Schema({
   },
 });
 
-export const Role = mongoose.model('role', roleSchema);
+export const Role = mongoose.model('Role', roleSchema);
+
+export type RoleType = InferSchemaType<typeof roleSchema>;

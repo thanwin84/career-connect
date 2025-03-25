@@ -36,6 +36,15 @@ const educationSchema = new mongoose.Schema({
   },
 });
 
+const imageSchema = new mongoose.Schema({
+  url: {
+    type: String,
+  },
+  publicId: {
+    type: String,
+  },
+});
+
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -59,18 +68,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: 'Not Available',
     },
-    role: {
-      type: mongoose.Types.ObjectId,
-      ref: 'Role',
-    },
-    avatar: {
-      url: String,
-      publicId: String,
-    },
-    coverPhoto: {
-      url: String,
-      publicId: String,
-    },
+    avatar: imageSchema,
+    coverPhoto: imageSchema,
     educationRecords: [educationSchema],
     // only admin can change this
     accessStatus: {
@@ -102,6 +101,12 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    role: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Role',
+      },
+    ],
   },
   { timestamps: true }
 );

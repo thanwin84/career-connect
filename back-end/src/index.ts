@@ -32,7 +32,6 @@ app.use(errorHandler);
 deleteAccountWorker;
 
 //seeding
-populateRoles();
 
 // health check
 app.get('/health', (_req, res) => {
@@ -51,6 +50,7 @@ connectToDB()
   .then(() => {
     server.listen(port, () => {
       console.log(`Server is running on port ${port}`);
+      populateRoles();
       redisConnect().then(() => {
         console.log('redis is connected');
       });
