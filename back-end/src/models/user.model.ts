@@ -1,6 +1,7 @@
 import mongoose, { InferSchemaType, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { locationSchema } from './location.model';
 
 const educationSchema = new mongoose.Schema({
   school: {
@@ -64,10 +65,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    location: {
-      type: String,
-      default: 'Not Available',
-    },
+    location: locationSchema,
     avatar: imageSchema,
     coverPhoto: imageSchema,
     educationRecords: [educationSchema],
