@@ -9,7 +9,7 @@ export const locationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  detailsAdress: String,
+  detailsAddress: String,
 });
 
 export const Location = mongoose.model('Location', locationSchema);

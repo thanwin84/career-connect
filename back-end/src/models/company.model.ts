@@ -1,26 +1,34 @@
 import mongoose from 'mongoose';
 import { locationSchema } from './location.model';
-const companySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-  },
-  description: String,
-  location: locationSchema,
-  role: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Role',
+
+const companySchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
     },
-  ],
-  employees: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
+    description: String,
+    location: locationSchema,
+    role: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Role',
+      },
+    ],
+    employees: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    adminID: {
+      type: mongoose.Types.ObjectId,
       ref: 'User',
     },
-  ],
-});
+  },
+  { timestamps: true }
+);
 
 export const Company = mongoose.model('Company', companySchema);

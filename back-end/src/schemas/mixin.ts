@@ -9,4 +9,10 @@ const DateMixin = z.object({
   updatedAt: z.union([z.string(), z.date()]).optional(),
 });
 
-export { IDSchema, DateMixin };
+const locationZodSchema = z.object({
+  city: z.string({ required_error: 'City is required' }),
+  country: z.string({ required_error: 'Country is required' }),
+  detailsAddress: z.string().optional(),
+});
+
+export { IDSchema, DateMixin, locationZodSchema };
