@@ -12,6 +12,7 @@ import { deleteAccountWorker } from './tasks/account-deletion/deleteAccountWorke
 import { startSocket } from './socket';
 import { appConfig } from './config/appConfig';
 import { populateRoles } from './seedRoles';
+import { logger } from './utils/logger';
 const app = express();
 const server = http.createServer(app);
 
@@ -49,11 +50,11 @@ export const { io, onlineUsers } = startSocket(server);
 connectToDB()
   .then(() => {
     server.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
+      logger.info(`Server is running on port ${port}`);
       populateRoles();
       redisConnect().then(() => {
-        console.log('redis is connected');
+        logger.info('redis is connected');
       });
     });
   })
-  .catch((error) => console.log('mongodb connection failed error ', error));
+  .catch((error) => logger.error('mongodb connection failed error ', error));

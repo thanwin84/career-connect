@@ -16,5 +16,6 @@ export const permissions = {
   ACCOUNT_DELETE: 'account:delete',
   USER_ACCOUNT_DELETE: 'user:delete',
   VIEW_ADMIN_DASHBOARD: 'view:dashboard',
+  ROle_ASSIGN: 'role:create',
 };
 export type Permissions = (typeof permissions)[keyof typeof permissions];
