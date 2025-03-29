@@ -8,6 +8,15 @@ export class NotFoundError extends Error {
     this.statusCode = statusCodes.NOT_FOUND;
   }
 }
+export class DuplicateResourceError extends Error {
+  statusCode: number;
+  constructor(message: string) {
+    super(message);
+    this.name = 'DuplcateResourceError';
+    this.statusCode = statusCodes.CONFLICT;
+  }
+}
+
 export class ForbiddenError extends Error {
   statusCode: number;
   constructor(message: string) {
