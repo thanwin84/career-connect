@@ -105,6 +105,10 @@ const userSchema = new mongoose.Schema(
         ref: 'Role',
       },
     ],
+    worksAt: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Company',
+    },
   },
   { timestamps: true }
 );
