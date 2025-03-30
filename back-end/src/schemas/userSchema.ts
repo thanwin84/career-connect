@@ -43,7 +43,9 @@ export const userSchema = z.object({
   email: z
     .string({ required_error: 'Email is required' })
     .email('Email must be valid email'),
-  password: z.string({ required_error: 'password is required' }),
+  password: z
+    .string({ required_error: 'password is required' })
+    .min(8, 'Password must be at least 8 chars long'),
   lastName: z.string({ required_error: 'Last name is required' }),
   location: locationZodSchema,
   avatar: imageSchema.optional(),
@@ -65,5 +67,11 @@ export const userSchema = z.object({
       message: 'Invalid worksAt Id',
     }),
 });
+
+export const changePasswordSchema = z.object({
+  oldPassword: userSchema.shape.password,
+  newPassword: userSchema.shape.password,
+});
+
 export type EducationType = z.infer<typeof educationSchema>;
 export type UserType = z.infer<typeof userSchema>;
