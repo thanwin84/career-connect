@@ -29,13 +29,13 @@ export default function HomePage({}: Props) {
     }
   }
   return (
-    <main className="mt-8 dark:bg-zinc-900 min-h-screen">
-      <div className="w-[90%] md:w-[80%] mx-auto space-y-6">
-        <div className="text-center">
-          <h2 className=" text-slate-700 font-extrabold tracking-wide text-4xl dark:text-blue-500">
+    <main className='mt-8 dark:bg-zinc-900 min-h-screen'>
+      <div className='w-[90%] md:w-[80%] mx-auto space-y-6'>
+        <div className='text-center'>
+          <h2 className=' text-slate-700 font-extrabold tracking-wide text-4xl dark:text-blue-500'>
             Find Your Dream Job
           </h2>
-          <p className="mt-2 text-xl font-semibold text-slate-600 dark:text-slate-300">
+          <p className='mt-2 text-xl font-semibold text-slate-600 dark:text-slate-300'>
             12,00+ Active Vacancies, Available Right Now!
           </p>
         </div>

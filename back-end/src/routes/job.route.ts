@@ -7,10 +7,6 @@ import {
   deleteJob,
   getJobs,
 } from '../controllers/job.controller';
-import {
-  ValidateJobInput,
-  validateIdParam,
-} from '../middleware/validationMiddleware';
 import { authenticateUser } from '../middleware/auth.middleware';
 import { authorize } from '../middleware/authorize.middleware';
 import { permissions } from '../constants/permissions';

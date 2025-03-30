@@ -1,8 +1,5 @@
 import { Router } from 'express';
-import {
-  validateApplicationUpdateStatus,
-  validateJobApplicationInput,
-} from '../middleware/validationMiddleware';
+
 import {
   apply,
   deleteJobApplication,
@@ -14,21 +11,14 @@ import {
   updateApplicationStatus,
   updateManyApplicationStatus,
 } from '../controllers/jobApplication.controller';
-import {
-  authenticateUser,
-  authorizePermissions,
-} from '../middleware/auth.middleware';
+import { authenticateUser } from '../middleware/auth.middleware';
 
 const jobApplicationRouter = Router();
 
 jobApplicationRouter
   .route('/')
-  .post(authenticateUser, validateJobApplicationInput, apply)
-  .get(
-    authenticateUser,
-    authorizePermissions('admin', 'user'),
-    getAllJobApplications
-  );
+  .post(authenticateUser, apply)
+  .get(authenticateUser, getAllJobApplications);
 
 jobApplicationRouter.route('/applied').get(authenticateUser, getAppliedIdList);
 
@@ -40,11 +30,7 @@ jobApplicationRouter
   .get(authenticateUser, getMyApplications);
 jobApplicationRouter
   .route('/update-status')
-  .patch(
-    authenticateUser,
-    validateApplicationUpdateStatus,
-    updateManyApplicationStatus
-  );
+  .patch(authenticateUser, updateManyApplicationStatus);
 jobApplicationRouter
   .route('/:applicationId')
   .patch(authenticateUser, updateApplicationStatus)

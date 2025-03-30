@@ -5,7 +5,6 @@ import {
   toggleTwoStepAuthentication,
 } from '../controllers/accountSetting.controller';
 import { authenticateUser } from '../middleware/auth.middleware';
-import { validateChangePasswordInput } from '../middleware/validationMiddleware';
 import { Router } from 'express';
 
 const AccountRouter = Router();
