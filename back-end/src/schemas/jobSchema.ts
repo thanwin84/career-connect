@@ -1,11 +1,12 @@
 import { z } from 'zod';
-import { DateMixin, IDSchema } from './mixin';
+import { DateMixin, IDSchema, locationZodSchema } from './mixin';
 import { experianceLevel, JOB_TYPE } from '../constants';
+import { validId } from '../utils';
 
 export const jobSchema = z.object({
   ...IDSchema.shape,
   ...DateMixin.shape,
-  company: z.string({ required_error: 'company is required' }),
+  companyId: validId('companyId'),
   position: z.string({ required_error: 'Position is required.' }),
   jobType: z.enum(
     Object.values(JOB_TYPE) as [
@@ -17,8 +18,7 @@ export const jobSchema = z.object({
       invalid_type_error: 'Invalid status',
     }
   ),
-  jobLocation: z.string().optional(),
-  country: z.string().optional(),
+  jobLocation: locationZodSchema,
   salary: z.object({
     min: z.number().min(0, 'Salary minimum cannot be less than 0').default(0),
     max: z.number().min(0, 'Salary maximum cannot be less than 0').default(0),
@@ -38,7 +38,7 @@ export const jobSchema = z.object({
     .int()
     .min(0, 'Open roles number cannot be negative number')
     .optional(),
-  createdBy: z.string().optional(),
+  createdBy: validId('createdBy'),
   numberOfApplicants: z.number().optional(),
   applicationDeadline: z
     .string({
@@ -49,3 +49,5 @@ export const jobSchema = z.object({
       message: 'Please enter a valid date',
     }),
 });
+
+export type JobType = z.infer<typeof jobSchema>;

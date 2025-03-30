@@ -21,3 +21,10 @@ export const appConfig = {
   MAILTRAP_AUTH_USER: process.env.MAILTRAP_AUTH_USER,
   MAILTRAP_PASSWORD: process.env.MAILTRAP_PASSWORD,
 };
+
+export const sortOptions = {
+  newest: { createdAt: -1 },
+  oldest: { createdAt: 1 },
+  'a-z': { position: 1 },
+  'z-a': { position: -1 },
+};

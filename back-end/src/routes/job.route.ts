@@ -27,7 +27,7 @@ jobRouter
 jobRouter
   .route('/:id')
   .get(getJob)
-  .patch(authenticateUser, validateIdParam, ValidateJobInput, updateJob)
-  .delete(authenticateUser, validateIdParam, deleteJob);
+  .patch(authenticateUser, updateJob)
+  .delete(authenticateUser, deleteJob);
 
 export default jobRouter;

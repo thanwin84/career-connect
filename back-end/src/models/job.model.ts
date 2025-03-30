@@ -1,11 +1,11 @@
-import mongoose, { InferSchemaType } from 'mongoose';
+import mongoose from 'mongoose';
 import { JOB_TYPE, experianceLevel } from '../constants';
+import { locationSchema } from './location.model';
 const jobSchema = new mongoose.Schema(
   {
-    company: {
-      type: String,
-      required: true,
-      trim: true,
+    companyId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Company',
     },
     position: {
       type: String,
@@ -17,13 +17,7 @@ const jobSchema = new mongoose.Schema(
       enum: Object.values(JOB_TYPE),
       default: JOB_TYPE.FULL_TIME,
     },
-    jobLocation: {
-      type: String,
-      default: 'my city',
-    },
-    country: {
-      type: String,
-    },
+    jobLocation: locationSchema,
     salary: {
       type: {
         min: Number,
@@ -36,9 +30,12 @@ const jobSchema = new mongoose.Schema(
       enum: Object.values(experianceLevel),
       default: experianceLevel.ENTRY,
     },
-    openRoles: Number,
+    openRoles: {
+      type: Number,
+      default: 0,
+    },
     createdBy: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
@@ -53,5 +50,4 @@ const jobSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-export type JobT = InferSchemaType<typeof jobSchema>;
 export const Job = mongoose.model('Job', jobSchema);

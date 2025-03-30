@@ -81,7 +81,6 @@ const createJob = asyncHandler(async (req: Request, res: Response) => {
   req.body.createdBy = req.user.userId;
   jobSchema.parse(req.body);
   const job = await createJobService(req.body);
-
   res.status(statusCodes.CREATED).json({ job });
 });
 

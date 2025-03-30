@@ -7,9 +7,13 @@ import {
   Sort,
   UserRole,
 } from '../types';
-import { Job, JobT } from '../models/job.model';
+import { Job } from '../models/job.model';
 import { NotFoundError } from '../errors/customErrors';
 import { redisClient } from '../config/redis';
+import { jobSchema } from '../schemas/jobSchema';
+import { validId } from '../utils';
+import { jobAggregationPipeline } from '../db/jobAggregations';
+import { sortOptions } from '../config/appConfig';
 
 type GetAllJobsCreatedByUser = {
   page: number;
@@ -48,12 +52,6 @@ export const getAllJobsCreatedByUserService = async ({
   if (jobType && jobType !== 'all') {
     queryObject.jobType = jobType;
   }
-  const sortOptions = {
-    newest: { createdAt: -1 },
-    oldest: { createdAt: 1 },
-    'a-z': { position: 1 },
-    'z-a': { position: -1 },
-  };
   const sortKey =
     sortOptions[sort as keyof typeof sortOptions] || sortOptions['newest'];
 
@@ -113,8 +111,8 @@ export const GetJobsService = async ({
   if (location) {
     addConditions.push({
       $or: [
-        { jobLocation: { $regex: location, $options: 'i' } },
-        { country: { $regex: location, $options: 'i' } },
+        { 'jobLocation.city': { $regex: location, $options: 'i' } },
+        { 'jobLocation.country': { $regex: location, $options: 'i' } },
       ],
     });
   }
@@ -164,6 +162,7 @@ export const GetJobsService = async ({
       $skip: skips,
     },
     { $limit: Number(limit) },
+    ...jobAggregationPipeline,
   ];
   const jobs = await Job.aggregate(aggregationPipeline);
   const jobsCount = await Job.countDocuments(queryObject);
@@ -180,20 +179,33 @@ export const GetJobsService = async ({
   };
 };
 
-export const createJobService = async (data: JobT) => {
-  const job = await Job.create(data);
+export const createJobService = async (data: any) => {
+  jobSchema.parse(data);
+  const job = await Job.create({
+    ...data,
+    createdBy: new mongoose.Types.ObjectId(data.createdBy),
+  });
   return job;
 };
 
 export const getSingleJobService = async (jobId: string) => {
+  validId('jobId').parse(jobId);
   const cachedJob = await redisClient.get(`jobs:${jobId}`);
   let job;
   if (cachedJob) {
     job = JSON.parse(cachedJob);
   } else {
-    job = await Job.findById(jobId);
+    job = await Job.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(jobId),
+        },
+      },
+      ...jobAggregationPipeline,
+    ]);
+
     if (job) {
-      await redisClient.set(`jobs:${jobId}`, JSON.stringify(job), {
+      await redisClient.set(`jobs:${jobId}`, JSON.stringify(job[0]), {
         EX: 60 * 60,
       });
     } else {
@@ -201,10 +213,12 @@ export const getSingleJobService = async (jobId: string) => {
     }
   }
 
-  return job;
+  return job[0];
 };
 
-export const updateJobService = async (updatedJob: JobT, jobId: string) => {
+export const updateJobService = async (updatedJob: any, jobId: string) => {
+  validId('jobId').parse(jobId);
+  jobSchema.omit({ createdBy: true }).parse(updatedJob);
   const job = await Job.findByIdAndUpdate(
     jobId,
     { $set: updatedJob },
@@ -219,6 +233,7 @@ export const updateJobService = async (updatedJob: JobT, jobId: string) => {
 };
 
 export const deleteJobService = async (jobId: string) => {
+  validId('jobId').parse(jobId);
   const job = await Job.findOneAndDelete({ _id: jobId });
   if (!job) {
     throw new NotFoundError('Job is not found');

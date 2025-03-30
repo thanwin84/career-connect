@@ -61,7 +61,7 @@ const updateApplicationStatus = asyncHandler(
       throw new NotFoundError(`Job with id ${applicantion?.jobId} not found`);
     }
     const data: Job_Update_Notification = {
-      company: job?.company,
+      company: 'Meta', //TODO: remove it later
       position: job?.position,
       status: req.body.status,
       date: new Date().toString(),
