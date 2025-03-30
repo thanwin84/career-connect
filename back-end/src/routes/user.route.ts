@@ -15,11 +15,6 @@ import {
   authenticateUser,
   authorizePermissions,
 } from '../middleware/auth.middleware';
-import {
-  validateUserUpdateInput,
-  validateAddEducationInput,
-  validateupdateAddEducationInput,
-} from '../middleware/validationMiddleware';
 import upload from '../middleware/multer.middleware';
 
 const userRouter = Router();
@@ -39,16 +34,12 @@ userRouter.route('/current-user').get(getCurrentUser);
 userRouter
   .route('/admin/app-stats')
   .get(authorizePermissions('admin'), getApplicationStats);
-userRouter
-  .route('/update-user')
-  .patch(upload.single('avatar'), validateUserUpdateInput, updateUser);
+userRouter.route('/update-user').patch(upload.single('avatar'), updateUser);
 userRouter.route('/add-phone-number').patch(addPhoneNumber);
-userRouter
-  .route('/add-education')
-  .patch(validateAddEducationInput, addEducation);
+userRouter.route('/add-education').patch(addEducation);
 userRouter.route('/education/:recordId').patch(deleteEducationEntry);
 userRouter
   .route('/education/:recordId/update-record')
-  .patch(validateupdateAddEducationInput, updateEducationEntry);
+  .patch(updateEducationEntry);
 
 export default userRouter;

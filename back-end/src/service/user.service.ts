@@ -2,19 +2,19 @@ import { redisClient } from '../config/redis';
 import { BadRequestError, NotFoundError } from '../errors/customErrors';
 import { Job } from '../models/job.model';
 import { User } from '../models/user.model';
+import { educationSchema, userSchema } from '../schemas/userSchema';
 import { Pagination } from '../types';
+import { validId } from '../utils';
 import { deleteAsset, uploadOnCloudinary } from '../utils/cloudinary';
 
 export const currentUser = async (userId: string) => {
-  if (!userId) {
-    throw new BadRequestError('User id is missing');
-  }
+  validId('userId').parse(userId);
   let user;
   const cachedUser = await redisClient.get(`users:${userId}`);
   if (cachedUser) {
     user = JSON.parse(cachedUser);
   } else {
-    user = await User.findById(userId).select('-password');
+    user = await User.findById(userId).populate('role worksAt');
     if (user) {
       await redisClient.set(`users:${userId}`, JSON.stringify(user), {
         EX: 60 * 60 * 6,
@@ -43,6 +43,9 @@ export const updateUserService = async (
 ) => {
   const updatedUser = { ...data };
   delete updatedUser.password;
+  userSchema
+    .omit({ educationRecords: true, password: true })
+    .parse(updatedUser);
   const user = await User.findById(userId);
   if (!user) {
     throw new NotFoundError('User does not exist');
@@ -94,6 +97,7 @@ export const uploadPhotoService = async (
 };
 
 export const addEducationEntryService = async (data: any, userId: string) => {
+  educationSchema.parse(data);
   const updatedUser = await User.findOneAndUpdate(
     { _id: userId },
     { $push: { educationRecords: data } },
@@ -135,6 +139,10 @@ export const updateEducationEntryService = async (
   userId: string,
   recordId: string
 ) => {
+  educationSchema.parse(data);
+  validId('userId').parse(userId);
+  validId('recordId').parse(recordId);
+
   const updatedUser = await User.findOneAndUpdate(
     { _id: userId, 'educationRecords._id': recordId },
     {

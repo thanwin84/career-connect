@@ -10,11 +10,7 @@ import { Router } from 'express';
 
 const AccountRouter = Router();
 
-AccountRouter.route('/change-password').patch(
-  authenticateUser,
-  validateChangePasswordInput,
-  changePassword
-);
+AccountRouter.route('/change-password').patch(authenticateUser, changePassword);
 AccountRouter.route('/re-enter-password').post(
   authenticateUser,
   reEnterPassword

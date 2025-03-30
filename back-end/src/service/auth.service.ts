@@ -9,9 +9,11 @@ import { User, UserDocument } from '../models/user.model';
 import { uploadOnCloudinary } from '../utils/cloudinary';
 import { logger } from '../utils/logger';
 import { sendEmail } from '../utils/sendEmail';
+import { userSchema } from '../schemas/userSchema';
 
 export const registerUser = async (data: any, file?: Express.Multer.File) => {
   const isFirstAccount = (await User.countDocuments()) === 0;
+  userSchema.omit({ educationRecords: true }).parse(data);
   const session = await mongoose.startSession();
 
   try {
@@ -72,6 +74,7 @@ export const registerUser = async (data: any, file?: Express.Multer.File) => {
 };
 
 export const loginUser = async (email: string, password: string) => {
+  userSchema.pick({ email: true, password: true }).parse({ email, password });
   const user: UserDocument | null = await User.findOne({ email: email });
   if (!user) {
     throw new NotFoundError('user does not exist');

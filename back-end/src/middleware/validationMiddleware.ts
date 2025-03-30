@@ -5,21 +5,11 @@ import {
   ValidationChain,
   validationResult,
 } from 'express-validator';
-import {
-  BadRequestError,
-  NotFoundError,
-  UnauthorizedError,
-} from '../errors/customErrors';
-import {
-  JOB_SORT_BY,
-  JOB_STATUS,
-  JOB_TYPE,
-  experianceLevel,
-} from '../constants';
+import { BadRequestError, UnauthorizedError } from '../errors/customErrors';
+import { JOB_SORT_BY, JOB_TYPE, experianceLevel } from '../constants';
 import mongoose from 'mongoose';
 import { Job } from '../models/job.model';
 import { NextFunction, Request, RequestHandler, Response } from 'express';
-import { User } from '../models/user.model';
 
 const withValidationError = (
   validateValues: ValidationChain | ValidationChain[]
@@ -80,84 +70,6 @@ export const validateIdParam = withValidationError([
         throw new UnauthorizedError('not authorized to access this route');
       }
     }),
-]);
-
-export const validateRegisterInput = withValidationError([
-  body('firstName').notEmpty().withMessage('firstName is required'),
-  body('email')
-    .notEmpty()
-    .withMessage('email is required')
-    .isEmail()
-    .withMessage('Email must be valid'),
-  body('password')
-    .notEmpty()
-    .withMessage('password is required')
-    .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters long'),
-  body('lastName').notEmpty().withMessage('lastName is required'),
-]);
-
-export const validateLoginInput = withValidationError([
-  body('email')
-    .notEmpty()
-    .withMessage('email is required')
-    .isEmail()
-    .withMessage('email must be valid'),
-  body('password').notEmpty().withMessage('Password is required'),
-]);
-
-export const validateUserUpdateInput = withValidationError([
-  body('firstName').notEmpty().withMessage('First name is required'),
-  body('location').notEmpty().withMessage('location is required'),
-  body('lastName').notEmpty().withMessage('lastName is required'),
-]);
-
-export const validateAddEducationInput = withValidationError([
-  body('school').notEmpty().withMessage('name is required'),
-  body('degree')
-    .notEmpty()
-    .withMessage('degree is required')
-    .custom(async (value, { req }) => {
-      const user = await User.findById(req.user.userId);
-      if (!user) {
-        throw new NotFoundError('User does not exist');
-      }
-      const records = user.educationRecords.filter(
-        (record) =>
-          record.degree.toLowerCase() === req.body.degree.toLowerCase() &&
-          record.school.toLowerCase() === req.body.school.toLowerCase()
-      );
-      if (records.length > 0) {
-        throw new BadRequestError('This entry already exists');
-      }
-      return true;
-    }),
-  body('department').notEmpty().withMessage('department is required'),
-  body('startMonth').notEmpty().withMessage('starting month is required'),
-  body('startYear').notEmpty().withMessage('starting year is required'),
-  body('endMonth')
-    .if((value, { req }) => req.body.currentlyStudying === 'false')
-    .notEmpty()
-    .withMessage('End month is required'),
-  body('endYear')
-    .if((value, { req }) => req.body.currentlyStudying === 'false')
-    .notEmpty()
-    .withMessage('End year is required'),
-]);
-export const validateupdateAddEducationInput = withValidationError([
-  body('school').notEmpty().withMessage('name is required'),
-  body('degree').notEmpty().withMessage('degree is required'),
-  body('department').notEmpty().withMessage('department is required'),
-  body('startMonth').notEmpty().withMessage('starting month is required'),
-  body('startYear').notEmpty().withMessage('starting year is required'),
-  body('endMonth')
-    .if((value, { req }) => req.body.currentlyStudying === 'false')
-    .notEmpty()
-    .withMessage('End month is required'),
-  body('endYear')
-    .if((value, { req }) => req.body.currentlyStudying === 'false')
-    .notEmpty()
-    .withMessage('End year is required'),
 ]);
 
 export const validateChangePasswordInput = withValidationError([
