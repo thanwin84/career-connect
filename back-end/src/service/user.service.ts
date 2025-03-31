@@ -14,7 +14,9 @@ export const currentUser = async (userId: string) => {
   if (cachedUser) {
     user = JSON.parse(cachedUser);
   } else {
-    user = await User.findById(userId).populate('role worksAt');
+    user = await User.findById(userId)
+      .populate('role worksAt')
+      .select('-password');
     if (user) {
       await redisClient.set(`users:${userId}`, JSON.stringify(user), {
         EX: 60 * 60 * 6,
@@ -169,6 +171,32 @@ export const getUserListService = async (page: number, limit: number) => {
       $skip: skip,
     },
     { $limit: limit },
+    {
+      $lookup: {
+        from: 'companies',
+        localField: 'worksAt',
+        foreignField: '_id',
+        as: 'company',
+      },
+    },
+    {
+      $addFields: {
+        company: { $first: '$company' },
+      },
+    },
+    {
+      $project: {
+        password: 0,
+      },
+    },
+    {
+      $lookup: {
+        from: 'roles',
+        localField: 'role',
+        foreignField: '_id',
+        as: 'role',
+      },
+    },
   ]);
   const usersCount = await User.countDocuments();
   const totalPages = Math.ceil(usersCount / Number(limit));

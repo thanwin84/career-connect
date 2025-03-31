@@ -23,17 +23,11 @@ userRouter.use(authenticateUser);
 userRouter
   .route('/upload-profile-photo')
   .patch(upload.single('avatar'), uploadPhoto);
-userRouter
-  .route('/toggle-access-status/:userId')
-  .patch(authorizePermissions('admin'), toggleAccessStatus);
-userRouter
-  .route('/get-users-list')
-  .get(authorizePermissions('admin'), getUsersList);
+userRouter.route('/toggle-access-status/:userId').patch(toggleAccessStatus);
+userRouter.route('/get-users-list').get(getUsersList);
 
 userRouter.route('/current-user').get(getCurrentUser);
-userRouter
-  .route('/admin/app-stats')
-  .get(authorizePermissions('admin'), getApplicationStats);
+userRouter.route('/admin/app-stats').get(getApplicationStats);
 userRouter.route('/update-user').patch(upload.single('avatar'), updateUser);
 userRouter.route('/add-phone-number').patch(addPhoneNumber);
 userRouter.route('/add-education').patch(addEducation);
