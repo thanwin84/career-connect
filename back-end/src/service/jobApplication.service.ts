@@ -12,6 +12,142 @@ import { formatMonth } from '../utils/format';
 import { Job } from '../models/job.model';
 import { io, onlineUsers } from '..';
 import { Notification } from '../models/notification.model';
+import {
+  jobApplicationSchema,
+  JobApplicationType,
+} from '../schemas/jobApplicationSchema';
+import { jobApplicationPipeline } from '../db/aggregationPipelines';
+import { validId } from '../utils';
+
+export const getAllJobApplicationsService = async ({
+  page,
+  limit,
+  candidateId,
+  status,
+  recruiterId,
+  sort,
+  candidateName,
+}: {
+  page: number;
+  limit: number;
+  candidateId: string;
+  status: string;
+  recruiterId: string;
+  sort: string;
+  candidateName: string;
+}) => {
+  const skips = (Number(page) - 1) * Number(limit);
+  const queryObject: any = {};
+  const sortOptions = {
+    latest: { createdAt: -1 },
+    old: { createdAt: 1 },
+  } as const;
+  if (status && status !== 'all') queryObject.status = status;
+  if (candidateId)
+    queryObject.candidateId = new mongoose.Types.ObjectId(
+      candidateId as string
+    );
+  if (recruiterId)
+    queryObject.recruiterId = new mongoose.Types.ObjectId(
+      recruiterId as string
+    );
+
+  const aggregationPipeline = [
+    {
+      $match: queryObject,
+    },
+    {
+      $sort:
+        sortOptions[sort as keyof typeof sortOptions] || sortOptions['latest'],
+    },
+    {
+      $skip: Number(skips),
+    },
+
+    {
+      $limit: Number(limit),
+    },
+    ...jobApplicationPipeline,
+  ];
+  if (candidateName) {
+    aggregationPipeline.push({
+      $match: {
+        'candidate.firstName': { $regex: candidateName, $options: 'i' },
+      },
+    });
+  }
+  const jobApplications = await JobApplication.aggregate(aggregationPipeline);
+
+  let total = await JobApplication.countDocuments(queryObject);
+  if (candidateName && jobApplications.length > 0) {
+    total = 1;
+  }
+  if (candidateName && jobApplications.length === 0) {
+    total = 1;
+  }
+  const pages = Math.ceil(total / Number(limit));
+  const pagination: Pagination = {
+    totalPages: pages,
+    currentPage: Number(page),
+    totalItems: total,
+  };
+  return {
+    data: jobApplications,
+    pagination,
+  };
+};
+type GetMyApplication = {
+  page: number;
+  limit: number;
+  userId: string;
+  status: JobStatus;
+  sort: string;
+};
+export const getMyApplicationsService = async ({
+  page,
+  limit,
+  userId,
+  status,
+  sort,
+}: GetMyApplication) => {
+  const skips = (page - 1) * limit;
+  const queryObject: any = {
+    candidateId: new mongoose.Types.ObjectId(userId),
+  };
+  if (status && status !== 'all') queryObject.status = status;
+  const sortOptions = {
+    latest: { createdAt: -1 },
+    old: { createdAt: 1 },
+  } as const;
+  const jobApplications = await JobApplication.aggregate([
+    {
+      $match: queryObject,
+    },
+    {
+      $sort:
+        sortOptions[sort as keyof typeof sortOptions] || sortOptions['latest'],
+    },
+    {
+      $skip: skips,
+    },
+    {
+      $limit: limit,
+    },
+    ...jobApplicationPipeline,
+  ]);
+
+  const total = await JobApplication.countDocuments(queryObject);
+  const pages = Math.ceil(total / Number(limit));
+  const pagination: Pagination = {
+    totalPages: pages,
+    totalItems: total,
+    currentPage: page,
+  };
+  return {
+    jobApplications,
+    pagination,
+  };
+};
 
 export const jobApplicationStatsService = async (userId: string) => {
   const stats = await JobApplication.aggregate([
@@ -76,19 +212,49 @@ export const jobApplicationStatsService = async (userId: string) => {
   return { defaultStats, monthlyApplications };
 };
 
+export const getJobApplicationService = async (applicationId: string) => {
+  validId('applicationId').parse(applicationId);
+  console.log(applicationId);
+  const jobApplications = await JobApplication.aggregate([
+    {
+      $match: {
+        _id: new mongoose.Types.ObjectId(applicationId),
+      },
+    },
+    ...jobApplicationPipeline,
+  ]);
+  if (jobApplications.length === 0) {
+    throw new BadRequestError(
+      `Job application with id ${applicationId} is not found`
+    );
+  }
+  return jobApplications[0];
+};
+
 type CreateJobApplicationService = {
   applicationId: string;
   userId: string;
-  candidateId: string;
   data: any;
 };
 
 export const createJobApplicationService = async ({
   applicationId,
   userId,
-  candidateId,
   data,
 }: CreateJobApplicationService) => {
+  jobApplicationSchema.pick({ recruiterId: true, jobId: true }).parse(data);
+  const jobApplication: JobApplicationType = {
+    candidateId: userId,
+    status: 'applied',
+    recruiterId: data.recruiterId,
+    jobId: data.jobId,
+    statusHistory: [
+      {
+        status: 'applied',
+        updatedBy: userId,
+      },
+    ],
+  };
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
@@ -100,10 +266,10 @@ export const createJobApplicationService = async ({
         `Application with id ${applicationId} already exists`
       );
     }
-    if (candidateId !== userId) {
-      throw new ForbiddenError('You are not allowed to do this operation');
-    }
-    const newApplication = await JobApplication.create([data], { session });
+
+    const newApplication = await JobApplication.create([jobApplication], {
+      session,
+    });
     const job = await Job.findById(data.jobId).session(session);
     if (!job) {
       throw new NotFoundError(`Job with id ${data.jobId} not found`);
@@ -144,6 +310,7 @@ export const updateJobApplicationStatusService = async ({
   userId,
   status,
 }: UpdateJobApplicationStatus) => {
+  jobApplicationSchema.pick({ status: true }).parse({ status });
   const application = await JobApplication.findById(applicationId);
   if (!application) {
     throw new NotFoundError(
@@ -170,6 +337,7 @@ export const updateManyJobApplicationStatusService = async (
   applicationIds: string[],
   userId: string
 ) => {
+  jobApplicationSchema.pick({ status: true }).parse({ status });
   const queryObject: any = {};
   if (applicationIds && Array.isArray(applicationIds)) {
     queryObject._id = { $in: applicationIds };
@@ -188,87 +356,6 @@ export const updateManyJobApplicationStatusService = async (
     { runValidators: true }
   );
   return { modifiedCount };
-};
-
-type GetMyApplication = {
-  page: number;
-  limit: number;
-  userId: string;
-  status: JobStatus;
-  sort: string;
-};
-export const getMyApplicationsService = async ({
-  page,
-  limit,
-  userId,
-  status,
-  sort,
-}: GetMyApplication) => {
-  const skips = (page - 1) * limit;
-  const queryObject: any = {
-    candidateId: new mongoose.Types.ObjectId(userId),
-  };
-  if (status && status !== 'all') queryObject.status = status;
-  const sortOptions = {
-    latest: { createdAt: -1 },
-    old: { createdAt: 1 },
-  } as const;
-  const jobApplications = await JobApplication.aggregate([
-    {
-      $match: queryObject,
-    },
-    {
-      $sort:
-        sortOptions[sort as keyof typeof sortOptions] || sortOptions['latest'],
-    },
-    {
-      $skip: skips,
-    },
-    {
-      $limit: limit,
-    },
-    {
-      $lookup: {
-        from: 'jobs',
-        localField: 'jobId',
-        foreignField: '_id',
-        as: 'job',
-      },
-    },
-    {
-      $addFields: {
-        job: { $arrayElemAt: ['$job', 0] },
-      },
-    },
-    {
-      $lookup: {
-        from: 'users',
-        localField: 'recruiterId',
-        foreignField: '_id',
-        as: 'recruiter',
-      },
-    },
-    {
-      $addFields: {
-        recruiter: { $arrayElemAt: ['$recruiter', 0] },
-      },
-    },
-    {
-      $unset: ['recruiterId', 'candidateId', 'jobId'],
-    },
-  ]);
-
-  const total = await JobApplication.countDocuments(queryObject);
-  const pages = Math.ceil(total / Number(limit));
-  const pagination: Pagination = {
-    totalPages: pages,
-    totalItems: total,
-    currentPage: page,
-  };
-  return {
-    jobApplications,
-    pagination,
-  };
 };
 
 export const deleteJobApplicationService = async (

@@ -1,53 +1,39 @@
 import { JOB_STATUS } from '../constants/constant';
 import { BaseApiReponse, Pagination } from './common';
 import { JobStatus, Job } from './job';
-import { User } from './user';
 
-export type JobApplication = {
+type Public_User = {
   _id: string;
-  candidateId: string;
-  recruiterId: string;
-  jobId: string;
-  interviewDate?: string;
-  createdAt: string;
-  updatedAt: string;
-  status?: JobStatus;
-  statusHistory: {
-    status: JobStatus;
-    updatedBy: string;
-    updatedAt?: string;
-  }[];
-  notes?: string;
+  firstName: string;
+  email: string;
+  lastName: string;
+  avatar?: {
+    url: string;
+    publicId: string;
+  };
 };
-
-export type MyJobApplication = {
+type JobApplication = {
   _id: string;
   status: JobStatus;
-  statusHistory: {
-    status: JobStatus;
-    updatedBy: string;
-    updatedAt: string;
-  }[];
+  statusHistory: Public_User[];
+  recruiter: Public_User;
   job: Job;
-  recruiter: User;
+  company: string;
+  candidate: Public_User;
+  notes?: string;
 };
 
 export type GetJAppliedJobIdListResponse = BaseApiReponse<{
   ids: string[];
 }>;
 
-export type Candidate = JobApplication & {
-  user: User;
-  job: Job;
-};
-
 export type GetJobApplicationList = BaseApiReponse<{
-  jobApplications: Candidate[];
+  jobApplications: JobApplication[];
   pagination: Pagination;
 }>;
 
 export type GetMyJobApplicationResponse = BaseApiReponse<{
-  jobApplications: MyJobApplication[];
+  jobApplications: JobApplication[];
   pagination: Pagination;
 }>;
 

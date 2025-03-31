@@ -8,7 +8,9 @@ import { ApiResponse } from '../utils/ApiResponse';
 import {
   createJobApplicationService,
   deleteJobApplicationService,
+  getAllJobApplicationsService,
   getAppliedJobIdsService,
+  getJobApplicationService,
   getMyApplicationsService,
   jobApplicationStatsService,
   updateJobApplicationStatusService,
@@ -21,10 +23,10 @@ import { Job } from '../models/job.model';
 import { onlineUsers, io } from '..';
 
 const apply = asyncHandler(async (req: Request, res: Response) => {
-  const { _id, candidateId } = req.body;
+  const { _id } = req.body;
+
   const newApplication = await createJobApplicationService({
     applicationId: _id as string,
-    candidateId: candidateId as string,
     userId: req.user.userId as string,
     data: req.body,
   });
@@ -127,98 +129,21 @@ const getAllJobApplications = asyncHandler(
       sort,
       candidateName,
     } = req.query;
-    const skips = (Number(page) - 1) * Number(limit);
-    const queryObject: any = {};
-    const sortOptions = {
-      latest: { createdAt: -1 },
-      old: { createdAt: 1 },
-    } as const;
-    if (status && status !== 'all') queryObject.status = status;
-    if (candidateId)
-      queryObject.candidateId = new mongoose.Types.ObjectId(
-        candidateId as string
-      );
-    if (recruiterId)
-      queryObject.recruiterId = new mongoose.Types.ObjectId(
-        recruiterId as string
-      );
-
-    const aggregationPipeline = [
-      {
-        $match: queryObject,
-      },
-      {
-        $sort:
-          sortOptions[sort as keyof typeof sortOptions] ||
-          sortOptions['latest'],
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'candidateId',
-          foreignField: '_id',
-          as: 'user',
-        },
-      },
-      {
-        $addFields: {
-          user: { $first: '$user' },
-        },
-      },
-    ];
-    if (candidateName) {
-      aggregationPipeline.push({
-        $match: {
-          'user.firstName': candidateName,
-        },
-      });
-    }
-    const jobApplications = await JobApplication.aggregate([
-      ...aggregationPipeline,
-      {
-        $lookup: {
-          from: 'jobs',
-          localField: 'jobId',
-          foreignField: '_id',
-          as: 'job',
-        },
-      },
-      {
-        $addFields: {
-          job: { $first: '$job' },
-        },
-      },
-      {
-        $skip: Number(skips),
-      },
-
-      {
-        $limit: Number(limit),
-      },
-      {
-        $project: { 'user.password': 0 },
-      },
-    ]);
-
-    let total = await JobApplication.countDocuments(queryObject);
-    if (candidateName && jobApplications.length > 0) {
-      total = 1;
-    }
-    if (candidateName && jobApplications.length === 0) {
-      total = 1;
-    }
-    const pages = Math.ceil(total / Number(limit));
-    const pagination: Pagination = {
-      totalPages: pages,
-      currentPage: Number(page),
-      totalItems: total,
-    };
+    const data = await getAllJobApplicationsService({
+      limit: Number(limit),
+      page: Number(page),
+      status: status as string,
+      candidateId: candidateId as string,
+      recruiterId: recruiterId as string,
+      sort: sort as string,
+      candidateName: sort as string,
+    });
     res
       .status(statusCodes.OK)
       .json(
         new ApiResponse(
           statusCodes.OK,
-          { jobApplications, pagination: pagination },
+          data,
           'All jobs are fetched successfully'
         )
       );
@@ -245,18 +170,13 @@ const getMyApplications = asyncHandler(async (req: Request, res: Response) => {
 });
 const getJobApplication = asyncHandler(async (req: Request, res: Response) => {
   const { applicationId } = req.params;
-  const jobApplication = await JobApplication.findById(applicationId);
-  if (!jobApplication) {
-    throw new BadRequestError(
-      `Job application with id ${applicationId} is not found`
-    );
-  }
+  const data = await getJobApplicationService(applicationId);
   res
     .status(statusCodes.OK)
     .json(
       new ApiResponse(
         statusCodes.OK,
-        { jobApplication },
+        data,
         `Applicaiton with id ${applicationId} is fetched successfully`
       )
     );

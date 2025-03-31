@@ -1,6 +1,23 @@
 import mongoose, { InferSchemaType } from 'mongoose';
 import { JOB_STATUS } from '../constants';
 
+const jobStatusSchema = new mongoose.Schema(
+  {
+    status: {
+      type: String,
+      enum: Object.values(JOB_STATUS),
+      default: JOB_STATUS.APPLIED,
+      required: true,
+    },
+    updatedBy: {
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
 const jobApplicationSchema = new mongoose.Schema(
   {
     candidateId: {
@@ -33,26 +50,7 @@ const jobApplicationSchema = new mongoose.Schema(
           'You must provide interview data when status is set to interview',
       },
     },
-    statusHistory: [
-      {
-        status: {
-          type: String,
-          enum: Object.values(JOB_STATUS),
-          default: JOB_STATUS.APPLIED,
-          required: true,
-        },
-        updatedBy: {
-          type: mongoose.Types.ObjectId,
-          ref: 'User',
-          required: true,
-        },
-        updatedAt: {
-          type: Date,
-          default: new Date(),
-          required: true,
-        },
-      },
-    ],
+    statusHistory: [jobStatusSchema],
     interviewDate: {
       type: Date,
       validate: {
