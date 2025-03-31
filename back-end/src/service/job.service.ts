@@ -12,8 +12,37 @@ import { NotFoundError } from '../errors/customErrors';
 import { redisClient } from '../config/redis';
 import { jobSchema } from '../schemas/jobSchema';
 import { validId } from '../utils';
-import { jobAggregationPipeline } from '../db/jobAggregations';
 import { sortOptions } from '../config/appConfig';
+import { jobAggregationPipeline } from '../db/aggregationPipelines';
+
+export const getSingleJobService = async (jobId: string) => {
+  validId('jobId').parse(jobId);
+  const cachedJob = await redisClient.get(`jobs:${jobId}`);
+  let job;
+  if (cachedJob) {
+    job = JSON.parse(cachedJob);
+    return job;
+  } else {
+    job = await Job.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(jobId),
+        },
+      },
+      ...jobAggregationPipeline,
+    ]);
+
+    if (job) {
+      await redisClient.set(`jobs:${jobId}`, JSON.stringify(job[0]), {
+        EX: 60 * 60,
+      });
+    } else {
+      throw new NotFoundError(`Job with id ${jobId} is not found`);
+    }
+  }
+
+  return job[0];
+};
 
 type GetAllJobsCreatedByUser = {
   page: number;
@@ -68,6 +97,7 @@ export const getAllJobsCreatedByUserService = async ({
     {
       $limit: limit,
     },
+    ...jobAggregationPipeline,
   ];
   const jobs = await Job.aggregate(aggregationPipeline);
   const totalJobs = await Job.countDocuments(queryObject);
@@ -187,35 +217,6 @@ export const createJobService = async (data: any) => {
   });
   return job;
 };
-
-export const getSingleJobService = async (jobId: string) => {
-  validId('jobId').parse(jobId);
-  const cachedJob = await redisClient.get(`jobs:${jobId}`);
-  let job;
-  if (cachedJob) {
-    job = JSON.parse(cachedJob);
-  } else {
-    job = await Job.aggregate([
-      {
-        $match: {
-          _id: new mongoose.Types.ObjectId(jobId),
-        },
-      },
-      ...jobAggregationPipeline,
-    ]);
-
-    if (job) {
-      await redisClient.set(`jobs:${jobId}`, JSON.stringify(job[0]), {
-        EX: 60 * 60,
-      });
-    } else {
-      throw new NotFoundError(`Job with id ${jobId} is not found`);
-    }
-  }
-
-  return job[0];
-};
-
 export const updateJobService = async (updatedJob: any, jobId: string) => {
   validId('jobId').parse(jobId);
   jobSchema.omit({ createdBy: true }).parse(updatedJob);

@@ -19,10 +19,12 @@ export const jobSchema = z.object({
     }
   ),
   jobLocation: locationZodSchema,
-  salary: z.object({
-    min: z.number().min(0, 'Salary minimum cannot be less than 0').default(0),
-    max: z.number().min(0, 'Salary maximum cannot be less than 0').default(0),
-  }),
+  salary: z
+    .object({
+      min: z.number().min(0, 'Salary minimum cannot be less than 0').default(0),
+      max: z.number().min(0, 'Salary maximum cannot be less than 0').default(0),
+    })
+    .optional(),
   experianceLevel: z.enum(
     Object.values(experianceLevel) as [
       (typeof experianceLevel)[keyof typeof experianceLevel],

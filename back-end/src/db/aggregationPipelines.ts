@@ -107,3 +107,57 @@ export const jobApplicationPipeline = [
     },
   },
 ];
+
+export const jobAggregationPipeline = [
+  {
+    $lookup: {
+      from: 'users',
+      localField: 'createdBy',
+      foreignField: '_id',
+      as: 'createdBy',
+      pipeline: [
+        {
+          $project: {
+            firstName: 1,
+            lastName: 1,
+            avatar: 1,
+            email: 1,
+          },
+        },
+      ],
+    },
+  },
+  {
+    $addFields: {
+      createdBy: { $first: '$createdBy' },
+    },
+  },
+
+  {
+    $lookup: {
+      from: 'companies',
+      localField: 'companyId',
+      foreignField: '_id',
+      as: 'company',
+      pipeline: [
+        {
+          $project: {
+            role: 0,
+            employees: 0,
+            adminID: 0,
+          },
+        },
+      ],
+    },
+  },
+  {
+    $addFields: {
+      company: { $first: '$company' },
+    },
+  },
+  {
+    $project: {
+      companyId: 0,
+    },
+  },
+];
