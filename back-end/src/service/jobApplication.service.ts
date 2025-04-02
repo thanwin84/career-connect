@@ -232,22 +232,21 @@ export const getJobApplicationService = async (applicationId: string) => {
 };
 
 type CreateJobApplicationService = {
-  applicationId: string;
   userId: string;
-  data: any;
+  jobId: string;
+  id?: string;
 };
 
 export const createJobApplicationService = async ({
-  applicationId,
   userId,
-  data,
+  jobId,
+  id,
 }: CreateJobApplicationService) => {
-  jobApplicationSchema.pick({ recruiterId: true, jobId: true }).parse(data);
+  jobApplicationSchema.pick({ jobId: true }).parse({ jobId });
   const jobApplication: JobApplicationType = {
     candidateId: userId,
     status: 'applied',
-    recruiterId: data.recruiterId,
-    jobId: data.jobId,
+    jobId: jobId,
     statusHistory: [
       {
         status: 'applied',
@@ -255,24 +254,25 @@ export const createJobApplicationService = async ({
       },
     ],
   };
+  if (id) {
+    jobApplication._id = id;
+  }
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const existingApplication = await JobApplication.findById(
-      applicationId
-    ).session(session);
+    const existingApplication = await JobApplication.findOne({ jobId }).session(
+      session
+    );
     if (existingApplication) {
-      throw new BadRequestError(
-        `Application with id ${applicationId} already exists`
-      );
+      throw new BadRequestError(`You've already applied to this job`);
     }
 
     const newApplication = await JobApplication.create([jobApplication], {
       session,
     });
-    const job = await Job.findById(data.jobId).session(session);
+    const job = await Job.findById(jobId).session(session);
     if (!job) {
-      throw new NotFoundError(`Job with id ${data.jobId} not found`);
+      throw new NotFoundError(`Job with id ${jobId} not found`);
     }
     job.numberOfApplicants = job.numberOfApplicants + 1;
     await job.save({ session });
@@ -317,12 +317,8 @@ export const updateJobApplicationStatusService = async ({
       `Application with id ${applicationId} does not exists`
     );
   }
-  // only recruiter can modify the application
-  if (application.recruiterId.toString() !== userId) {
-    throw new ForbiddenError(
-      'You are not allowed to modify the application status'
-    );
-  }
+  //TTODO: only recruiter can modify the application
+
   application.status = status;
   application.statusHistory.push({
     status: status,
@@ -369,11 +365,12 @@ export const deleteJobApplicationService = async (
       `Job application with id ${applicationId} is not found`
     );
   }
-  if (userRole === 'admin' || jobApplication.recruiterId === userId) {
-    await JobApplication.deleteOne({ _id: applicationId });
-  } else {
-    throw new UnauthorizedError('you are not allowed to perform to delete');
-  }
+  // TODO
+  // if (userRole === 'admin' || jobApplication.recruiterId === userId) {
+  //   await JobApplication.deleteOne({ _id: applicationId });
+  // } else {
+  //   throw new UnauthorizedError('you are not allowed to perform to delete');
+  // }
 };
 
 export const getAppliedJobIdsService = async (userId: string) => {

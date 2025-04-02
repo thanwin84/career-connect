@@ -28,7 +28,6 @@ export const jobApplicationSchema = z.object({
   ...IDSchema.shape,
   ...DateMixin.shape,
   candidateId: validId('candidateId'),
-  recruiterId: validId('recruiterId'),
   jobId: validId('jobId'),
   status: statusSchema.status,
   statusHistory: z.array(jobStatusSchema).optional(),

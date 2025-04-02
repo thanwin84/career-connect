@@ -23,12 +23,12 @@ import { Job } from '../models/job.model';
 import { onlineUsers, io } from '..';
 
 const apply = asyncHandler(async (req: Request, res: Response) => {
-  const { _id } = req.body;
+  const { jobId, id } = req.body;
 
   const newApplication = await createJobApplicationService({
-    applicationId: _id as string,
     userId: req.user.userId as string,
-    data: req.body,
+    jobId: jobId as string,
+    id: id,
   });
 
   res

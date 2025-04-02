@@ -25,11 +25,6 @@ const jobApplicationSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    recruiterId: {
-      type: mongoose.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
     jobId: {
       type: mongoose.Types.ObjectId,
       ref: 'Job',
