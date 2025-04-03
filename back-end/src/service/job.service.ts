@@ -14,6 +14,7 @@ import { jobSchema } from '../schemas/jobSchema';
 import { validId } from '../utils';
 import { sortOptions } from '../config/appConfig';
 import { jobAggregationPipeline } from '../db/aggregationPipelines';
+import { Company } from '../models/company.model';
 
 export const getSingleJobService = async (jobId: string) => {
   validId('jobId').parse(jobId);
@@ -209,11 +210,15 @@ export const GetJobsService = async ({
   };
 };
 
-export const createJobService = async (data: any) => {
-  jobSchema.parse(data);
+export const createJobService = async (data: any, userId: string) => {
+  console.log(data);
+  jobSchema.omit({ companyId: true, createdBy: true }).parse(data);
+
+  const company = await Company.findOne({ adminID: userId });
   const job = await Job.create({
     ...data,
-    createdBy: new mongoose.Types.ObjectId(data.createdBy),
+    createdBy: userId,
+    companyId: company?._id,
   });
   return job;
 };

@@ -6,7 +6,7 @@ import { validId } from '../utils';
 export const jobSchema = z.object({
   ...IDSchema.shape,
   ...DateMixin.shape,
-  companyId: validId('companyId'),
+  companyId: z.string({ required_error: 'Company id is required' }),
   position: z.string({ required_error: 'Position is required.' }),
   jobType: z.enum(
     Object.values(JOB_TYPE) as [
@@ -40,7 +40,7 @@ export const jobSchema = z.object({
     .int()
     .min(0, 'Open roles number cannot be negative number')
     .optional(),
-  createdBy: validId('createdBy'),
+  createdBy: z.string({ required_error: 'Created by is required' }),
   numberOfApplicants: z.number().optional(),
   applicationDeadline: z
     .string({
