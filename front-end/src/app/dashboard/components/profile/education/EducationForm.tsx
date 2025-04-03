@@ -1,11 +1,10 @@
-import { Checkbox, Button } from '../../../../../components/ui';
-import { DateSelector } from '.';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormHeader, FormInput } from '@/components/forms';
+import { Checkbox, Button, LoadingButton } from '@/components/ui';
+import { Education } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import FormHeader from '../../../../../components/forms/FormHeader';
-import FormInput from '../../../../../components/forms/FormInput';
-import { educationFormSchema } from '../../../../../lib/schemas/educationFormSchema';
-import { Education } from '../../../../../lib/types/user';
+import { useForm, FormProvider } from 'react-hook-form';
+import DateSelector from './DateSelector';
+import { educationSchema } from '@/lib/schemas';
 
 type Props = {
   title: string;
@@ -30,7 +29,7 @@ export default function EducationForm({
 }: Props) {
   const methods = useForm<Education>({
     defaultValues: record,
-    resolver: zodResolver(educationFormSchema),
+    resolver: zodResolver(educationSchema),
   });
   const { handleSubmit, register, watch } = methods;
 
@@ -38,52 +37,55 @@ export default function EducationForm({
 
   return (
     <section
-      className={`bg-white dark:bg-zinc-900 px-6 py-6 rounded-lg ${className}`}
+      className={`bg-white dark:bg-zinc-900 px-6 py-2 rounded-lg ${className}`}
     >
       <FormHeader title={title} id={id} closeModal={closeModal} />
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSave)}
-          className="flex flex-col gap-3 p-4"
+          className='flex flex-col gap-3 py-4'
           aria-labelledby={id}
         >
           <FormInput
-            label="School/College"
-            placeholder="Which school/College have you studied at?"
-            name="school"
+            label='School/College'
+            placeholder='Which school/College have you studied at?'
+            name='school'
           />
-          <FormInput label="Degree" placeholder="ex:B.E" name="degree" />
+          <FormInput label='Degree' placeholder='ex:B.E' name='degree' />
           <FormInput
-            label="Department"
-            placeholder="ex:Computer Science and Engineering"
-            name="department"
+            label='Department'
+            placeholder='ex:Computer Science and Engineering'
+            name='department'
           />
           <DateSelector
-            title="Starting From"
-            monthName="startMonth"
-            yearName="startYear"
+            title='Starting From'
+            monthName='startMonth'
+            yearName='startYear'
           />
 
           <Checkbox
-            label="Currently studying"
+            label='Currently studying'
             {...register('currentlyStudying')}
           />
 
           {!isChecked && (
             <DateSelector
-              title="Ending in"
-              monthName="endMonth"
-              yearName="endYear"
+              title='Ending in'
+              monthName='endMonth'
+              yearName='endYear'
             />
           )}
-          <Button
-            loading={isPending}
-            type="submit"
-            classname="self-end mt-2"
-            aria-label={submitButtonText}
-          >
-            {submitButtonText}
-          </Button>
+          {isPending ? (
+            <LoadingButton buttonText='Saving...' />
+          ) : (
+            <Button
+              type='submit'
+              classname='self-end mt-2 w-full'
+              aria-label={submitButtonText}
+            >
+              {submitButtonText}
+            </Button>
+          )}
         </form>
       </FormProvider>
     </section>

@@ -1,10 +1,10 @@
+import { useUpdateEducationRecord } from '@/hooks/api/user/useUpdateEducationRecord';
+import { useProfileStore } from '@/lib/store/ProfileStore';
+import { useUserStore } from '@/lib/store/userStore';
+import { Education } from '@/lib/types';
 import { useEffect, useState } from 'react';
-
-import { EducationForm, DeleteEducationRecord } from './index';
-import { useProfileStore } from '../../../../../lib/store/ProfileStore';
-import { useUserStore } from '../../../../../lib/store/userStore';
-import { useUpdateEducationRecord } from '../../../hooks/user_profile/useUpdateEducationRecord';
-import { Education } from '../../../../../lib/types/user';
+import DeleteEducationRecord from './DeleteEducationRecord';
+import EducationForm from './EducationForm';
 
 export default function EditEducation() {
   const profileStore = useProfileStore();
@@ -29,18 +29,18 @@ export default function EditEducation() {
   }
 
   return (
-    <div className="relative">
+    <div className='relative bg-white dark:bg-zinc-900 px-4 rounded-md py-6'>
       <EducationForm
-        title="Edit Education"
+        title='Edit Education'
         record={profileStore.selectedEducationRecord as Education}
         isPending={isPending}
         closeModal={profileStore.toggleEditEducationModal}
         onSave={handleOnsave}
-        submitButtonText="Save Changes"
-        id="edit-education-id"
+        submitButtonText='Save Changes'
+        id='edit-education-id'
       />
       <DeleteEducationRecord
-        className="absolute bottom-6 left-8"
+        className='w-full px-6'
         closeModal={profileStore.toggleEditEducationModal}
       />
     </div>
