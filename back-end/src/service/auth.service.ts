@@ -59,6 +59,7 @@ export const registerUser = async (data: any, file?: Express.Multer.File) => {
       emailType: 'emailVerify',
       to: user[0].email,
       userId: user[0]._id.toString(),
+      session: session,
     });
     logger.info(
       `New user registered: ${user[0].email} with role ${user[0].role}`

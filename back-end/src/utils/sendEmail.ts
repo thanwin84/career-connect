@@ -3,6 +3,7 @@ import nodemailer from 'nodemailer';
 import { logger } from './logger';
 import { User } from '../models/user.model';
 import bcrypt from 'bcrypt';
+import mongoose from 'mongoose';
 
 // Looking to send emails in production? Check out our Email API/SMTP product!
 const transporter = nodemailer.createTransport({
@@ -43,10 +44,12 @@ export async function sendEmail({
   emailType,
   to,
   userId,
+  session,
 }: {
   emailType: 'emailVerify' | 'forgotPassword';
   to: string;
   userId: string;
+  session: any;
 }) {
   const hashedToken = await bcrypt.hash(userId, 10);
   const expiryTime = Date.now() + 1000 * 60 * 5;
@@ -63,12 +66,17 @@ export async function sendEmail({
       forgotPasswordTokenExpiry: expiryTime,
     },
   };
-  const user = await User.findByIdAndUpdate(userId, {
-    $set:
-      emailType === 'emailVerify'
-        ? { ...toUpdate.emailVerification }
-        : { ...toUpdate.passwordVerify },
-  });
+
+  const user = await User.findByIdAndUpdate(
+    userId,
+    {
+      $set:
+        emailType === 'emailVerify'
+          ? { ...toUpdate.emailVerification }
+          : { ...toUpdate.passwordVerify },
+    },
+    { session }
+  );
   try {
     // send mail with defined transport object
     await transporter.sendMail({
