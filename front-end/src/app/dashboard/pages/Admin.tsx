@@ -1,10 +1,10 @@
 import { toast } from 'react-toastify';
 import { redirect, useLoaderData } from 'react-router-dom';
 import { FaSuitcaseRolling, FaCalendarCheck } from 'react-icons/fa';
-import { StatItem } from '../../../components/ui';
-import { getApplicationStatsRequest } from '../../../lib/api/admin';
+import { StatItem } from '@/components/ui';
+import { getApplicationStatsRequest } from '@/lib/api';
+import { ApplicationStatsResponse } from '@/lib/types';
 import UsersContainer from '../components/admin/UsersContainer';
-import { ApplicationStatsResponse } from '../../../lib/types/admin';
 
 export const loader = async () => {
   try {
@@ -28,25 +28,25 @@ export default function Admin({}: Props) {
   } = useLoaderData() as ApplicationStatsResponse;
   return (
     <section>
-      <ul className="p-6 flex gap-4">
-        <li className="w-full">
+      <ul className='p-6 flex gap-4'>
+        <li className='w-full'>
           <StatItem
             count={users}
-            title="Current User"
+            title='Current User'
             icon={<FaSuitcaseRolling />}
-            color="orange"
+            color='orange'
           />
         </li>
-        <li className="w-full">
+        <li className='w-full'>
           <StatItem
             count={jobs}
-            title="Total Jobs"
+            title='Total Jobs'
             icon={<FaCalendarCheck />}
-            color="blue"
+            color='blue'
           />
         </li>
       </ul>
-      <UsersContainer className="p-6" />
+      <UsersContainer className='p-6' />
     </section>
   );
 }

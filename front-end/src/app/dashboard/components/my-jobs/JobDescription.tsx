@@ -1,6 +1,6 @@
-import { useMyJobStore } from '../../../../lib/store/MyJobsStore';
-import { getLastStatusUpdatedDate } from '../../../../utils';
-import { UserCard } from '../../../../components/ui';
+import { UserCard } from '@/components/ui';
+import { useMyJobStore } from '@/lib/store/MyJobsStore';
+import { getLastStatusUpdatedDate } from '@/utils';
 import JobHeader from './JobHeader';
 import JobStatusBadge from './JobStatusBadge';
 
@@ -17,7 +17,7 @@ export default function JobDescription({ className }: Props) {
   const statusUpdatedDate = getLastStatusUpdatedDate(
     myJobStore.selectedMyJob.statusHistory
   );
-  const { company, position, jobLocation, country, createdAt } =
+  const { company, position, jobLocation, createdAt } =
     myJobStore.selectedMyJob.job;
   return (
     <article
@@ -25,17 +25,17 @@ export default function JobDescription({ className }: Props) {
     >
       <JobHeader
         position={position}
-        company={company}
-        jobLocation={jobLocation}
-        country={country}
+        company={company.name}
+        jobLocation={jobLocation.city}
+        country={jobLocation.country}
         jobCreatedDate={createdAt.toString()}
       />
       <JobStatusBadge
         statusLabel={myJobStore.selectedMyJob.status}
         date={statusUpdatedDate}
-        className="mt-4"
+        className='mt-4'
       />
-      <UserCard user={myJobStore.selectedMyJob.recruiter} className="mt-4" />
+      <UserCard user={myJobStore.selectedMyJob.recruiter} className='mt-4' />
     </article>
   );
 }

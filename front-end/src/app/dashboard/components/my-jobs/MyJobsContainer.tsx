@@ -1,14 +1,13 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { LoadingPage, Pagination } from '../../../../components/ui';
+import { LoadingPage, Pagination } from '@/components/ui';
+import { useWindowScreenSize } from '@/hooks';
+import { useGetMyApplications } from '@/hooks/api';
+import { useMyJobStore } from '@/lib/store/MyJobsStore';
+import { JobStatus, JobApplication } from '@/lib/types';
+import { getLastStatusUpdatedDate } from '@/utils';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import JobCard from './JobCard';
-import NotAvailable from './NotAvailable';
 import JobDescription from './JobDescription';
-import { getLastStatusUpdatedDate } from '../../../../utils';
-import { useWindowScreenSize } from '../../../../hooks';
-import { useMyJobStore } from '../../../../lib/store/MyJobsStore';
-import { useGetMyApplications } from '../../hooks/my-jobs/useGetMyApplications';
-import { JobStatus } from '../../../../lib/types/job';
-import { MyJobApplication } from '../../../../lib/types/jobApplication';
+import NotAvailable from './NotAvailable';
 
 type Props = {
   className?: string;
@@ -34,7 +33,7 @@ export default function MyJobsContainer({ type = 'all' }: Props) {
     searchParams.set('page', String(pageNumber));
     setSearchParams(searchParams);
   }
-  function handleClick(job: MyJobApplication) {
+  function handleClick(job: JobApplication) {
     myJobStore.selectMyJob(job);
     if (breakPoint === 'sm') {
       navigate(`/dashboard/my-jobs/${job._id}`);
@@ -42,12 +41,12 @@ export default function MyJobsContainer({ type = 'all' }: Props) {
   }
 
   return (
-    <section className="flex  gap-6">
-      <ul className="space-y-4 mt-4 w-[90%] md:w-[40%]">
+    <section className='flex  gap-6'>
+      <ul className='space-y-4 mt-4 w-[90%] md:w-[40%]'>
         {jobApplications?.map((job) => {
           return (
             <li
-              className="cursor-pointer"
+              className='cursor-pointer'
               key={job._id}
               onClick={() => handleClick(job)}
             >
@@ -68,7 +67,7 @@ export default function MyJobsContainer({ type = 'all' }: Props) {
           />
         )}
       </ul>
-      {breakPoint !== 'sm' && <JobDescription className="flex-1 mt-4" />}
+      {breakPoint !== 'sm' && <JobDescription className='flex-1 mt-4' />}
     </section>
   );
 }

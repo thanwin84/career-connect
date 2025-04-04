@@ -1,5 +1,5 @@
-import { jobStatusIcons } from '../../../../lib/constants/jobstatusIcons';
-import { JobStatus } from '../../../../lib/types/job';
+import { jobStatusIcons } from '@/lib/constants/jobstatusIcons';
+import { JobStatus } from '@/lib/types';
 
 type Props = {
   className?: string;
@@ -8,7 +8,7 @@ type Props = {
 
 export default function JobStatusIcon({ status }: Props) {
   return (
-    <span aria-hidden="true" className="my-auto">
+    <span aria-hidden='true' className='my-auto'>
       {jobStatusIcons[status]}
     </span>
   );

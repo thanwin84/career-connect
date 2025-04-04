@@ -1,5 +1,5 @@
-import { JobStatus } from '../../../../lib/types/job';
-import { formatDate } from '../../../../utils';
+import { JobStatus } from '@/lib/types';
+import { formatDate } from '@/utils';
 import JobStatusIcon from './JobStatusIcon';
 
 type Props = {
@@ -24,10 +24,10 @@ export default function JobStatusBadge({
   return (
     <p className={`flex gap-2 ${className}`}>
       <JobStatusIcon status={statusLabel} />
-      <span className="text-slate-900 dark:text-slate-200">
+      <span className='text-slate-900 dark:text-slate-200'>
         {types[statusLabel]}{' '}
       </span>
-      <span className="text-slate-900 dark:text-slate-200">
+      <span className='text-slate-900 dark:text-slate-200'>
         {formatDate(date)}
       </span>
     </p>
