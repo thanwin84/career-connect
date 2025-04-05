@@ -1,6 +1,6 @@
+import { User } from '@/lib/types';
+import { customFetch } from '@/utils';
 import { useState } from 'react';
-import { customFetch } from '../utils';
-import { User } from '../lib/types/user';
 
 type Type = {
   isLoading: boolean;

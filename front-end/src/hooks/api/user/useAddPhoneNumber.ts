@@ -1,9 +1,8 @@
 import { toast } from 'react-toastify';
+import { addPhoneNumberRequest } from '@/lib/api';
+import useMutation from '@/hooks/useMutation';
 
-import useMutation from '../useMutation';
-import { addPhoneNumberRequest } from '../../lib/api/user';
-
-export const useAddPhoneNumber = () => {
+const useAddPhoneNumber = () => {
   const {
     mutate: addPhoneNumber,
     isPending,
@@ -24,3 +23,5 @@ export const useAddPhoneNumber = () => {
     resetState,
   };
 };
+
+export default useAddPhoneNumber;

@@ -1,5 +1,5 @@
+import { Pagination } from '@/lib/types';
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { Pagination } from '../lib/types/common';
 
 type State<TData> = {
   data: TData[];
