@@ -15,6 +15,7 @@ import { validId } from '../utils';
 import { sortOptions } from '../config/appConfig';
 import { jobAggregationPipeline } from '../db/aggregationPipelines';
 import { Company } from '../models/company.model';
+import { truncate } from 'fs/promises';
 
 export const getSingleJobService = async (jobId: string) => {
   validId('jobId').parse(jobId);
@@ -224,7 +225,7 @@ export const createJobService = async (data: any, userId: string) => {
 };
 export const updateJobService = async (updatedJob: any, jobId: string) => {
   validId('jobId').parse(jobId);
-  jobSchema.omit({ createdBy: true }).parse(updatedJob);
+  jobSchema.omit({ createdBy: true, companyId: true }).parse(updatedJob);
   const job = await Job.findByIdAndUpdate(
     jobId,
     { $set: updatedJob },
