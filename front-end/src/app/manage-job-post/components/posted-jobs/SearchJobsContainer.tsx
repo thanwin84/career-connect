@@ -1,14 +1,10 @@
 import { ChangeEvent, useState } from 'react';
-import { Select, Input, Button } from '../../../../components/ui';
+import { Select, Input, Button } from '@/components/ui';
 import { useAllJobsContext } from '../../pages/PostedJobs';
-import {
-  JOB_TYPE,
-  JOB_STATUS,
-  JOB_SORT_BY,
-} from '../../../../lib/constants/constant';
 import { Form, useSubmit } from 'react-router-dom';
-import { useDebounce } from '../../../../hooks';
-import { UserJobSearchParams } from '../../../../lib/types/job';
+import { useDebounce } from '@/hooks';
+import { UserJobSearchParams } from '@/lib/types/job';
+import { constants } from '@/config/appConfig';
 
 export default function SearchJobsContainer() {
   const submit = useSubmit();
@@ -37,16 +33,16 @@ export default function SearchJobsContainer() {
   }
 
   return (
-    <Form className="p-6">
-      <div className="px-4 py-6 bg-white dark:bg-black/[0.96] rounded-md shadow-md">
-        <h2 className="text-xl text-slate-800 dark:text-slate-200 mb-4 font-semibold">
+    <Form className='p-6'>
+      <div className='px-4 py-6 bg-white dark:bg-black/[0.96] rounded-md shadow-md'>
+        <h2 className='text-xl text-slate-800 dark:text-slate-200 mb-4 font-semibold'>
           Search Form
         </h2>
-        <div className="grid lg:grid-cols-3 gap-4">
+        <div className='grid lg:grid-cols-3 gap-4'>
           <Input
-            label="Search"
-            type="search"
-            name="search"
+            label='Search'
+            type='search'
+            name='search'
             onChange={(e) => {
               setFormObject((prev) => ({ ...prev, search: e.target.value }));
               debounce(() => submit(e.target.form));
@@ -54,27 +50,27 @@ export default function SearchJobsContainer() {
             value={formObject.search}
           />
           <Select
-            label="Job Status"
-            options={['all', ...Object.values(JOB_STATUS)]}
-            name="jobStatus"
+            label='Job Status'
+            options={['all', ...Object.values(constants.JOB_STATUS)]}
+            name='jobStatus'
             onChange={handleChange}
             value={formObject.jobStatus}
           />
           <Select
-            label="Job Type"
-            name="jobType"
-            options={['all', ...Object.values(JOB_TYPE)]}
+            label='Job Type'
+            name='jobType'
+            options={['all', ...Object.values(constants.JOB_TYPE)]}
             onChange={handleChange}
             value={formObject.jobType}
           />
           <Select
-            label="Sort"
-            name="sort"
-            options={[...Object.values(JOB_SORT_BY)]}
+            label='Sort'
+            name='sort'
+            options={[...Object.values(constants.JOB_SORT_BY)]}
             value={formObject.sort}
             onChange={handleChange}
           />
-          <div className="flex flex-col justify-end">
+          <div className='flex flex-col justify-end'>
             <Button onClick={handleClick}>Reset to Default Values</Button>
           </div>
         </div>

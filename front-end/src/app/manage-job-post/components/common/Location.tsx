@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { ComboBox } from '../../../../components/ui';
+import { ComboBox } from '@/components/ui';
+import { ComboBoxListItem } from '@/components/ui/combobox';
+import { CountryList, City } from '@/lib/types';
+import { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { ComboBoxListItem } from '../../../../components/ui/combobox';
-import { CountryList, City } from '../../../../lib/types/common';
 
 type Props = {
   className?: string;
@@ -76,8 +76,8 @@ export default function Location({
   return (
     <div className={`flex gap-4 ${className}`}>
       <ComboBox
-        label="Country"
-        name="country"
+        label='Country'
+        name='country'
         defaultValue={country}
         onChange={handleCountryOnChange}
         onSelect={handleCountrySelect}
@@ -87,15 +87,15 @@ export default function Location({
           <ComboBoxListItem
             key={country._id}
             value={country.name}
-            className="px-2 py-2 hover:bg-gray-100 rounded-md"
+            className='px-2 py-2 hover:bg-gray-100 rounded-md'
           >
             {country.name}
           </ComboBoxListItem>
         ))}
       </ComboBox>
       <ComboBox
-        label="City"
-        name="city"
+        label='City'
+        name='city'
         defaultValue={jobLocation}
         onChange={handleCityChange}
         onSelect={handleCitySelect}
@@ -105,7 +105,7 @@ export default function Location({
           <ComboBoxListItem
             key={country._id}
             value={country.name}
-            className="px-2 py-2 hover:bg-gray-100 rounded-md"
+            className='px-2 py-2 hover:bg-gray-100 rounded-md'
           >
             {country.name}
           </ComboBoxListItem>

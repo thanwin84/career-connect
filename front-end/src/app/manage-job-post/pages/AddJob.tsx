@@ -2,7 +2,7 @@ import { CreateJobForm } from '../components/common';
 import { useLoaderData } from 'react-router-dom';
 import { useCreateJob } from '../hooks/useCreateJob';
 import { getCountryListRequest } from '../../../lib/api';
-import { CountryList } from '../../../lib/types/common';
+import { CountryList } from '../../../lib/types';
 
 type Props = {
   className?: string;
@@ -25,8 +25,8 @@ export default function AddJob() {
   return (
     <CreateJobForm
       countries={countries}
-      title="Add Job"
-      buttonText="Create Job"
+      title='Add Job'
+      buttonText='Create Job'
       onSave={createJob}
       isLoading={isPending}
     />

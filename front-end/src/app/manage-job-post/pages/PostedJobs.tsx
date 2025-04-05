@@ -1,13 +1,9 @@
-import { useContext, createContext } from 'react';
-import { JobsContainer, SearchJobsContainer } from '../components/posted-jobs';
+import { getCurrentUserJobsRequest } from '@/lib/api';
+import { GetUserJobsApiResponse, UserJobSearchParams } from '@/lib/types';
+import { createContext, useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
-import { getCurrentUserJobsRequest } from '../../../lib/api/job';
-import {
-  GetUserJobsApiResponse,
-  UserJobSearchParams,
-} from '../../../lib/types/job';
+import { SearchJobsContainer, JobsContainer } from '../components/posted-jobs';
 
 type LoaderType = {
   data: GetUserJobsApiResponse;
@@ -43,7 +39,7 @@ export default function PostedJobs({}: Props) {
         data,
       }}
     >
-      <section className="">
+      <section className=''>
         <SearchJobsContainer />
         <JobsContainer />
       </section>

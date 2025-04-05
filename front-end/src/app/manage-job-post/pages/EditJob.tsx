@@ -4,8 +4,8 @@ import { CreateJobForm } from '../components/common';
 import { useUpdateJob } from '../hooks/useUpdateJob';
 import { getCountryListRequest } from '../../../lib/api';
 import { getJobRequest } from '../../../lib/api/job';
-import { CountryList } from '../../../lib/types/common';
 import { GetJobApiResponse } from '../../../lib/types/job';
+import { CountryList } from '../../../lib/types';
 
 type Loader = {
   job: GetJobApiResponse;
@@ -34,12 +34,12 @@ export default function EditJob({}: Props) {
   const { updateJob, isPending } = useUpdateJob();
 
   return (
-    <main className="p-6">
+    <main className='p-6'>
       <CreateJobForm
         countries={countries}
         job={job.data.job}
-        title="Edit Job"
-        buttonText="Save Changes"
+        title='Edit Job'
+        buttonText='Save Changes'
         onSave={updateJob}
         isLoading={isPending}
       />
