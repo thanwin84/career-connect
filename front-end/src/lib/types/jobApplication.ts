@@ -1,26 +1,66 @@
-import { JOB_STATUS } from '../constants/constant';
-import { BaseApiReponse, Pagination } from './common';
+import { BaseApiReponse, Pagination, User } from '.';
+import { constants } from '../../config/appConfig';
 import { JobStatus, Job } from './job';
 
-type Public_User = {
-  _id: string;
-  firstName: string;
-  email: string;
-  lastName: string;
-  avatar?: {
-    url: string;
-    publicId: string;
-  };
-};
-type JobApplication = {
+export type Public_User = Pick<
+  User,
+  '_id' | 'firstName' | 'lastName' | 'avatar'
+>;
+export type StatusObject = {
   _id: string;
   status: JobStatus;
-  statusHistory: Public_User[];
+  updatedBy: Public_User;
+  createdAt: string;
+  updatedAt: string;
+};
+export type JobApplication = {
+  _id: string;
+  status: JobStatus;
+  statusHistory: StatusObject[];
   recruiter: Public_User;
   job: Job;
   company: string;
   candidate: Public_User;
   notes?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateJobApplicationType = {
+  id?: string;
+  jobId: string;
+};
+export type UpdateJobApplication = {
+  applicationId: string;
+  data: {
+    status: JobStatus;
+  };
+};
+
+export type GetMyJobApplicationsQueryParamsType = {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sort?: 'latest' | 'old';
+  status?: JobStatus;
+  candidateId?: string;
+  recruiterId?: string;
+};
+export type GetAllJobApplicationsQueryParamsType = {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sort?: 'latest' | 'old';
+  status?: JobStatus;
+  candidateId?: string;
+  recruiterId?: string;
+  candidateName?: string;
+};
+export type BulkJobApplicationStatusUpdateType = {
+  data: {
+    status: JobStatus;
+  };
+  params: string;
 };
 
 export type GetJAppliedJobIdListResponse = BaseApiReponse<{
@@ -39,11 +79,11 @@ export type GetMyJobApplicationResponse = BaseApiReponse<{
 
 export type JobApplicationStats = {
   defaultStats: {
-    [JOB_STATUS.APPLIED]: number;
-    [JOB_STATUS.SHORTLISTED]: number;
-    [JOB_STATUS.INTERVIEW]: number;
-    [JOB_STATUS.DECLINED]: number;
-    [JOB_STATUS.HIRED]: number;
+    [constants.JOB_STATUS.APPLIED]: number;
+    [constants.JOB_STATUS.SHORTLISTED]: number;
+    [constants.JOB_STATUS.INTERVIEW]: number;
+    [constants.JOB_STATUS.DECLINED]: number;
+    [constants.JOB_STATUS.HIRED]: number;
   };
   monthlyApplications: { date: string; count: number }[];
 };

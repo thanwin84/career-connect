@@ -1,10 +1,9 @@
+import { Input, Button } from '@/components/ui';
+import { useSendCode } from '@/hooks/twillio/useSendCode';
+import { useVerifyCode } from '@/hooks/twillio/useVerifyCode';
+import { useUserStore } from '@/lib/store/userStore';
 import { useState } from 'react';
-import { Button, Input } from '../../../components/ui';
 import { useForm } from 'react-hook-form';
-import { useUserStore } from '../../../lib/store/userStore';
-import { useSendCode } from '../../../hooks/twillio/useSendCode';
-import { useVerifyCode } from '../../../hooks/twillio/useVerifyCode';
-import { FormData } from '../../../lib/types/common';
 
 type Props = {
   moveToNextModal: () => void;
@@ -16,7 +15,10 @@ export default function EnterConfirmationCode({ moveToNextModal }: Props) {
   const [code, setCode] = useState('');
   const moveNext = code !== '';
 
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register } = useForm<{
+    phoneNumber: string;
+    code: string;
+  }>();
   const { sendAuthCode, isPending: isSendPending } = useSendCode();
   const { verifyCode, isPending: isVerifyPending } = useVerifyCode();
   function sendVerificationCode() {
@@ -31,45 +33,45 @@ export default function EnterConfirmationCode({ moveToNextModal }: Props) {
       setSendCode(false);
     }
   }
-  function handleVerify(formData: FormData) {
+  function handleVerify(formData: { phoneNumber: string; code: string }) {
     verifyCode(formData);
     moveToNextModal();
     setCode(formData.code);
   }
 
   return (
-    <div className="p-10  bg-white rounded dark:bg-zinc-900">
-      <h4 className="text-xl font-semibold mb-2 dark:text-slate-100">
+    <div className='p-10  bg-white rounded dark:bg-zinc-900'>
+      <h4 className='text-xl font-semibold mb-2 dark:text-slate-100'>
         Enter Confirmation Code
       </h4>
-      <p className="mb-2 dark:text-slate-200">
+      <p className='mb-2 dark:text-slate-200'>
         {sendCode ? (
           `A 6-digit code has been sent to +**********${
             userStore?.user?.phoneNumber?.slice(-3) || ''
           }`
         ) : (
           <>
-            Click <span className="text-blue-500 font-semibold">Send Code</span>{' '}
+            Click <span className='text-blue-500 font-semibold'>Send Code</span>{' '}
             button to get a new code.
           </>
         )}
       </p>
-      <p className="mb-4 dark:text-slate-200">
+      <p className='mb-4 dark:text-slate-200'>
         It may take up to a minute for you to receive this code
       </p>
       <form onSubmit={handleSubmit(handleVerify)}>
         <Input
-          placeholder="Enter code"
-          className="text-center"
+          placeholder='Enter code'
+          className='text-center'
           {...register('code')}
         />
         <input
-          className="hidden"
+          className='hidden'
           {...register('phoneNumber')}
           value={userStore?.user?.phoneNumber}
         />
         <Button
-          type="submit"
+          type='submit'
           loading={isVerifyPending}
           classname={`w-full mt-2 mb-2 ${
             !moveNext ? 'cursor-not-allowed' : ''
@@ -79,12 +81,12 @@ export default function EnterConfirmationCode({ moveToNextModal }: Props) {
           Next
         </Button>
       </form>
-      <form onSubmit={handleSubmit(sendVerificationCode)} className="mt-2">
+      <form onSubmit={handleSubmit(sendVerificationCode)} className='mt-2'>
         <Button
-          type="submit"
-          classname="w-full"
+          type='submit'
+          classname='w-full'
           loading={isSendPending}
-          loadingText="in progess.."
+          loadingText='in progess..'
         >
           Send Code
         </Button>

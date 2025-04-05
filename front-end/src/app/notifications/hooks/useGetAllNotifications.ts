@@ -1,8 +1,8 @@
+import { useInfiniteQuery } from '@/hooks/useInifiniteQuery';
+import { getAllNoficationsRequest } from '@/lib/api';
+import { useNotificationStore } from '@/lib/store/NotificationStore';
+import { Notification } from '@/lib/types';
 import { useEffect } from 'react';
-import { useInfiniteQuery } from '../../../hooks/useInifiniteQuery';
-import { getAllNoficationsRequest } from '../../../lib/api/notification';
-import { useNotificationStore } from '../../../lib/store/NotificationStore';
-import { Notification } from '../../../lib/types/notification';
 
 export const useGetAllNotifications = () => {
   const notificationStore = useNotificationStore();

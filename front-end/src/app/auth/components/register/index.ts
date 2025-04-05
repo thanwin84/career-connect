@@ -1,6 +1,6 @@
-import AddProfilePhoto from './AddProfilePhoto';
-import ProgressSteps from '../../../../components/ui/ProgressSteps';
-import CreateAccount from './CreateAccount';
-import DescribeYourself from './DescribeYourself';
+import ProgressSteps from '@/components/ui/ProgressSteps';
+import AddProfilePhotoForm from './AddProfilePhotoForm';
+import BasicInformationForm from './BasicInformationForm';
+import RoleForm from './RoleForm';
 
-export { AddProfilePhoto, ProgressSteps, CreateAccount, DescribeYourself };
+export { AddProfilePhotoForm, ProgressSteps, BasicInformationForm, RoleForm };

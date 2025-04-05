@@ -14,14 +14,14 @@ export default function CloseButton({ className }: Props) {
       className={`p-2 text-nowrap mb-4  gap-4  h-10 text-slate-800 dark:text-slate-100 ${className}`}
     >
       {!collapsed ? (
-        <div className="flex gap-4">
-          <span className="my-auto">
+        <div className='flex gap-4'>
+          <span className='my-auto'>
             <CrossIcon strokeWidth={1.5} />
           </span>
           <span>Collapse</span>
         </div>
       ) : (
-        <span className="my-auto ">
+        <span className='my-auto '>
           <IoMenu size={18} />
         </span>
       )}

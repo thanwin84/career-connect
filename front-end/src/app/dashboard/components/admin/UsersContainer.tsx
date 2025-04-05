@@ -1,7 +1,7 @@
-import { LoadingPage, Pagination } from '../../../../components/ui';
-import { useGetUserList } from '../../hooks/admin/useGetUserList';
-import UsersTable from './UsersTable';
+import { LoadingPage, Pagination } from '@/components/ui';
+import { useGetUserList } from '@/hooks/api';
 import { useSearchParams } from 'react-router-dom';
+import UsersTable from './UsersTable';
 
 type Props = {
   className?: string;
@@ -24,7 +24,7 @@ export default function UsersContainer({ className }: Props) {
 
   return (
     <div className={`w-full ${className}`}>
-      <h2 className="mb-4 text-center text-xl text-slate-700 dark:text-slate-200 font-bold">
+      <h2 className='mb-4 text-center text-xl text-slate-700 dark:text-slate-200 font-bold'>
         Manage Users
       </h2>
       <UsersTable isDataLoading={isLoading} users={users || []} />
@@ -33,7 +33,7 @@ export default function UsersContainer({ className }: Props) {
           currentPage={pagination.currentPage}
           totalPages={pagination.totalPages}
           handlePageChange={handlePageChange}
-          className="justify-end"
+          className='justify-end'
         />
       )}
     </div>

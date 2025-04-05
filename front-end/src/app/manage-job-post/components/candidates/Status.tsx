@@ -1,4 +1,4 @@
-import { JobStatus } from '../../../../lib/types/job';
+import { JobStatus } from '@/lib/types';
 
 type Props = {
   className?: string;

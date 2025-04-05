@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { useUserToggleAccessStatus } from '../../hooks/admin/useUserToggleAccessStatus';
-import { Users } from '../../../../lib/types/user';
-import { formatDate } from '../../../../utils';
-import ToggleStatus from './ToggleStatus';
 import {
   TableContainer,
   TableHead,
   TableTitle,
+  TableContent,
   TableRow,
   TableCell,
-  TableContent,
-} from '../../../../components/ui/table';
+} from '@/components/ui/table';
+import { useUserToggleAccessStatus } from '@/hooks/api';
+import { User } from '@/lib/types';
+import { formatDate } from '@/utils';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import ToggleStatus from './ToggleStatus';
 
 type Props = {
   className?: string;
-  users: Users;
+  users: User[];
   isDataLoading?: boolean;
 };
 
@@ -27,8 +27,8 @@ export default function UsersTable({ users, isDataLoading = false }: Props) {
     'Joined Date',
     'Role',
   ];
-  const [userList, setUserList] = useState<Users>(users);
-  const [originalUserList, setOrinalUserList] = useState<Users>([]);
+  const [userList, setUserList] = useState<User[]>(users);
+  const [originalUserList, setOrinalUserList] = useState<User[]>([]);
   const { toggleUserAccessStatus, isError } = useUserToggleAccessStatus();
 
   function handleToggle(userId: string) {
@@ -52,6 +52,7 @@ export default function UsersTable({ users, isDataLoading = false }: Props) {
       toast.error("Something went wrong. Could't not update access status");
     }
   }, [isError]);
+
   return (
     <TableContainer
       className={`${
@@ -79,7 +80,7 @@ export default function UsersTable({ users, isDataLoading = false }: Props) {
             <TableCell>
               {formatDate(user?.createdAt?.toString() as string)}
             </TableCell>
-            <TableCell>{user.role}</TableCell>
+            <TableCell>{user.role[0].role}</TableCell>
           </TableRow>
         ))}
       </TableContent>

@@ -1,7 +1,7 @@
-import { links } from '../../../../config/homeLinks';
+import { links } from '@/config/homeLinks';
 import { NavLink } from 'react-router-dom';
-import { Logo } from '../../../../components/ui';
-import { CrossIcon } from '../../../../assets/icons/Icons';
+import { Logo } from '@/components/ui';
+import { CrossIcon } from '@/assets/icons/Icons';
 
 type Props = {
   closeFn: () => void;
@@ -13,18 +13,18 @@ export default function HomeMobileNavbarLinks({ closeFn }: Props) {
     normal: 'dark:text-slate-200',
   };
   return (
-    <nav className="dark:bg-zinc-800 px-4 h-screen">
-      <div className="flex justify-between">
-        <Logo className="w-36 mt-5" />
+    <nav className='dark:bg-zinc-800 px-4 h-screen'>
+      <div className='flex justify-between'>
+        <Logo className='w-36 mt-5' />
         <button
           onClick={closeFn}
-          className="self-end  text-gray-400 hover:text-gray-300 hover:text-2xl text-xl"
+          className='self-end  text-gray-400 hover:text-gray-300 hover:text-2xl text-xl'
         >
           <CrossIcon />
         </button>
       </div>
-      <span className="block border-b mt-10"></span>
-      <ul className="flex flex-col gap-4 pt-14">
+      <span className='block border-b mt-10'></span>
+      <ul className='flex flex-col gap-4 pt-14'>
         {links.map((link) => (
           <NavLink
             key={link.name}

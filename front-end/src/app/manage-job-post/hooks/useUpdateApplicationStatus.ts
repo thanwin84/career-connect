@@ -1,12 +1,22 @@
 import { toast } from 'react-toastify';
 import { useMutation } from '../../../hooks';
-import { updateJobApplicationStatus } from '../../../lib/api/job';
-import { FormData } from '../../../lib/types/common';
+import { JobStatus } from '../../../lib/types';
+import { updateJobApplicationStatus } from '../../../lib/api/jobApplication';
+
+export type UpdatateApplicationStatusType = {
+  applicationId: string;
+  data: {
+    status: JobStatus;
+  };
+};
 
 export const useUpdateApplicationStatus = () => {
   const { mutate, isPending, isSuccess, isError } = useMutation(
-    (data: FormData) =>
-      updateJobApplicationStatus(data.applicationId, data.data),
+    (data: UpdatateApplicationStatusType) =>
+      updateJobApplicationStatus({
+        applicationId: data.applicationId,
+        data: data.data,
+      }),
     {
       onSuccess: () => {
         toast.success('Application status updated successfully');

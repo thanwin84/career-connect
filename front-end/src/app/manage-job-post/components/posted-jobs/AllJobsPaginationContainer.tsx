@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAllJobsContext } from '../../pages/PostedJobs';
-import { Pagination } from '../../../../components/ui';
+import { Pagination } from '@/components/ui';
 
 export default function AllJobsPaginationContainer() {
   let { data } = useAllJobsContext();
@@ -22,7 +22,7 @@ export default function AllJobsPaginationContainer() {
           totalPages={pagination.totalPages}
           currentPage={pagination.currentPage}
           handlePageChange={handlePageChange}
-          className="justify-end"
+          className='justify-end'
         />
       )}
     </div>

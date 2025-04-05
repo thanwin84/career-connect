@@ -1,7 +1,8 @@
+import { SlideOpen } from '@/components/ui';
 import { useState } from 'react';
 import { IoMenu } from 'react-icons/io5';
 import HomeMobileNavbarLinks from './HomeMobileNavbarLinks';
-import { SlideOpen } from '../../../../components/ui';
+
 type Props = {
   className?: string;
 };
@@ -15,7 +16,7 @@ export default function HomeMobileNavbar({ className }: Props) {
     <div className={`dark:bg-zinc-800 ${className}`}>
       <button
         onClick={toggleMobileSideBar}
-        className="my-auto text-3xl text-blue-500"
+        className='my-auto text-3xl text-blue-500'
       >
         <IoMenu />
       </button>
@@ -23,8 +24,8 @@ export default function HomeMobileNavbar({ className }: Props) {
       <SlideOpen
         closeFn={toggleMobileSideBar}
         isOpen={openMobileSideBar}
-        position="left"
-        className="w-3/6"
+        position='left'
+        className='w-3/6'
       >
         {<HomeMobileNavbarLinks closeFn={toggleMobileSideBar} />}
       </SlideOpen>

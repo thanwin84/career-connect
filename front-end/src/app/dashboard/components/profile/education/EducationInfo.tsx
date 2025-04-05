@@ -1,6 +1,6 @@
-import { useProfileStore } from '../../../../../lib/store/ProfileStore';
-import { UniversityIcon, EditIcon } from '../../../../../assets/icons/Icons';
-import { Education } from '../../../../../lib/types/user';
+import { UniversityIcon, EditIcon } from '@/assets/icons/Icons';
+import { useProfileStore } from '@/lib/store/ProfileStore';
+import { Education } from '@/lib/types';
 
 type Props = {
   record: Education;
@@ -16,23 +16,23 @@ export default function EducationInfo({ record, className }: Props) {
   }
   return (
     <div className={`py-4 flex gap-2 ${className}`}>
-      <div className="my-auto text-slate-600 dark:text-slate-300">
-        <UniversityIcon size="1.6rem" />
+      <div className='my-auto text-slate-600 dark:text-slate-300'>
+        <UniversityIcon size='1.6rem' />
       </div>
-      <div className="w-full">
-        <h3 className="font-bold text-slate-800 dark:text-slate-200 text-base">
+      <div className='w-full'>
+        <h3 className='font-bold text-slate-800 dark:text-slate-200 text-base'>
           {record.school}
         </h3>
-        <div className="w-full flex justify-between">
-          <p className="text-sm text-slate-700 dark:text-slate-300">
+        <div className='w-full flex justify-between'>
+          <p className='text-sm text-slate-700 dark:text-slate-300'>
             <span>{record.department}</span>
-            <span className="font-bold dark:text-slate-200"> . </span>
+            <span className='font-bold dark:text-slate-200'> . </span>
             <span>{record.degree}</span>
-            <span className="font-bold dark:text-slate-200"> . </span>
+            <span className='font-bold dark:text-slate-200'> . </span>
             <span>
               {record.startMonth} {record.startYear}
             </span>
-            <span className="font-bold"> - </span>
+            <span className='font-bold'> - </span>
             <span>
               {record.currentlyStudying
                 ? 'present'
@@ -41,7 +41,7 @@ export default function EducationInfo({ record, className }: Props) {
           </p>
 
           <button
-            className="text-slate-700 dark:text-slate-300 dark:hover:text-blue-500"
+            className='text-slate-700 dark:text-slate-300 dark:hover:text-blue-500'
             onClick={handleClick}
             aria-label={`click to edit ${record.school}`}
           >

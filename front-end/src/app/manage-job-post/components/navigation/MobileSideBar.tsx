@@ -13,10 +13,10 @@ export default function MobileSidebar({ className }: Props) {
     <section className={` p-6 ${className}`}>
       <button
         onClick={toggleSmallSidebar}
-        className="w-full flex gap-4 justify-between my-auto mb-6"
+        className='w-full flex gap-4 justify-between my-auto mb-6'
       >
         <span>Close</span>
-        <span className="my-auto text-xl hover:bg-zinc-800 rounded-full hover:text-white">
+        <span className='my-auto text-xl hover:bg-zinc-800 rounded-full hover:text-white'>
           <CrossIcon />
         </span>
       </button>
@@ -36,7 +36,7 @@ export default function MobileSidebar({ className }: Props) {
           to={link.path}
           end
         >
-          <span className="my-auto text-xl">{link.icon}</span>
+          <span className='my-auto text-xl'>{link.icon}</span>
           {link.text}
         </NavLink>
       ))}

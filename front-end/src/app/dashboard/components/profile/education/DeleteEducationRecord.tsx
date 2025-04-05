@@ -1,9 +1,9 @@
+import { Button } from '@/components/ui';
+import { useDeleteEducationRecord } from '@/hooks/api';
+import { useProfileStore } from '@/lib/store/ProfileStore';
+import { useUserStore } from '@/lib/store/userStore';
 import { useEffect } from 'react';
-import { Button } from '../../../../../components/ui';
 import { useForm } from 'react-hook-form';
-import { useProfileStore } from '../../../../../lib/store/ProfileStore';
-import { useUserStore } from '../../../../../lib/store/userStore';
-import { useDeleteEducationRecord } from '../../../hooks/user_profile/useDeleteEducationRecord';
 
 type Props = {
   closeModal: () => void;
@@ -34,12 +34,15 @@ export default function DeleteEducationRecord({
   }, [isSuccess]);
 
   return (
-    <form className="" onSubmit={handleSubmit(deleteEducationRecord)}>
+    <form
+      className={`${className}`}
+      onSubmit={handleSubmit(deleteEducationRecord)}
+    >
       <Button
-        category="lightDanger"
-        type="submit"
+        category='lightDanger'
+        type='submit'
         loading={isPending}
-        classname={`mb-4 text-sm mx-auto px-6 ${className}`}
+        classname={`mb-4 text-sm mx-auto px-6 w-full `}
       >
         Delete
       </Button>

@@ -9,11 +9,11 @@ export type JobApplicant = JobApplication & {
   job: Job;
 };
 type InitialState = {
-  jobApplicants: JobApplicant[] | null;
+  jobApplicants: JobApplication[] | null;
   selectedApplicantIds: string[];
 };
 type Store = InitialState & {
-  addCandidates: (jobApplicants: JobApplicant[]) => void;
+  addCandidates: (jobApplicants: JobApplication[]) => void;
   updateStatus: (id: string, status: JobStatus) => void;
   addSelectedItem: (id: string) => void;
   removeSelectedItem: (id: string) => void;
@@ -29,7 +29,7 @@ const initialState: InitialState = {
 
 export const useCandidateStore = create<Store>((set) => ({
   ...initialState,
-  addCandidates: (jobApplicants: JobApplicant[]) =>
+  addCandidates: (jobApplicants: JobApplication[]) =>
     set(
       produce((draft) => {
         draft.jobApplicants = jobApplicants;

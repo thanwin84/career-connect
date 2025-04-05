@@ -1,4 +1,4 @@
-import { TurnOn, TurnOff } from '../../../../components/ui';
+import { TurnOff, TurnOn } from '@/components/ui';
 
 type Props = {
   accessStatus: boolean;
@@ -8,7 +8,7 @@ type Props = {
 export default function ToggleStatus({ accessStatus, onToggleClick }: Props) {
   return (
     <button
-      type="submit"
+      type='submit'
       onClick={onToggleClick}
       aria-label={
         accessStatus ? 'Turn off access status' : 'turn on access status'

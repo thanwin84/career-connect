@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { CiViewTimeline } from 'react-icons/ci';
-import { JOB_STATUS } from '../../../../../lib/constants/constant';
 import { useCandidateStore } from '../../../../../lib/store/CandidateStore';
 import { useManyJobApplicationStatusUpdate } from '../../../hooks/useManyJobApplicationStatusUpdate';
 import { JobStatus } from '../../../../../lib/types/job';
+import { constants } from '../../../../../config/appConfig';
 type Props = {
   className?: string;
 };
@@ -38,17 +38,17 @@ export default function ChangeStatus({ className }: Props) {
         className={`flex gap-2 hover:text-blue-700 dark:hover:text-blue-500`}
         onClick={handleMainButtonClick}
       >
-        <CiViewTimeline className="my-auto" />
+        <CiViewTimeline className='my-auto' />
         <span>Change Status</span>
       </button>
       {isOpen && (
-        <ul className="absolute mt-2  bg-white dark:bg-zinc-700  w-full shadow-lg rounded-md py-2 border">
-          {Object.values(JOB_STATUS)
+        <ul className='absolute mt-2  bg-white dark:bg-zinc-700  w-full shadow-lg rounded-md py-2 border'>
+          {Object.values(constants.JOB_STATUS)
             .slice(0, -1)
             .map((value) => (
               <li
                 onClick={() => handleClickItem(value)}
-                className="text-center my-2 cursor-pointer text-slate-700 dark:text-slate-300 dark:hover:text-slate-200 hover:text-slate-800"
+                className='text-center my-2 cursor-pointer text-slate-700 dark:text-slate-300 dark:hover:text-slate-200 hover:text-slate-800'
                 key={value}
               >
                 {value.slice(0, 1).toUpperCase() + value.slice(1)}

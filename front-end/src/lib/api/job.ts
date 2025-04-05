@@ -1,44 +1,31 @@
-import { customFetch } from '../../utils';
 import {
   CreateJobApiResponse,
-  GetJobApiResponse,
-  GetUserJobsApiResponse,
-  JobListResponse,
-  JobStatus,
   UpdateJobApiResponse,
-  UpdateJobApplicationStatusData,
-  UserJobSearchParams,
-} from '../types/job';
-import { FormData } from '../types/common';
-
-import {
   GetJobApplicationList,
+  JobStatus,
   GetMyJobApplicationResponse,
-} from '../types/jobApplication';
+  GetJobApiResponse,
+  JobListResponse,
+  UserJobSearchParams,
+  GetUserJobsApiResponse,
+} from '@/lib/types';
+import { jobFormType } from '@/lib/schemas';
+import { customFetch } from '@/utils';
 
 export const createJobRequest = async (
-  formData: FormData
-): Promise<CreateJobApiResponse> => await customFetch.post('/jobs', formData);
+  formData: jobFormType
+): Promise<CreateJobApiResponse> => customFetch.post('/jobs', formData);
+
 export const updateJobRequest = async (
   paramId: string,
-  jobData: FormData
+  jobData: jobFormType
 ): Promise<UpdateJobApiResponse> =>
-  await customFetch.patch(`/jobs/${paramId}`, jobData);
+  customFetch.patch(`/jobs/${paramId}`, jobData);
 
 export const getJobApplicationListRequest = (
   params: string
 ): Promise<GetJobApplicationList> =>
-  customFetch
-    .get(`/job-applications?limit=4&${params}`)
-    .then((res) => res.data);
-
-export const updateJobApplicationStatus = (
-  applicationId: string,
-  data: UpdateJobApplicationStatusData
-) =>
-  customFetch.patch(`/job-applications/${applicationId}`, {
-    status: data,
-  });
+  customFetch(`/job-applications?limit=4&${params}`);
 
 export const updateManyJobApplicationStatusRequest = (
   params: string,
@@ -47,22 +34,15 @@ export const updateManyJobApplicationStatusRequest = (
 
 export const getMyApplicationRequest = (
   url: string
-): Promise<GetMyJobApplicationResponse> =>
-  customFetch.get(url).then((res) => res.data);
+): Promise<GetMyJobApplicationResponse> => customFetch.get(url);
 
 export const getJobRequest = (jobId: string): Promise<GetJobApiResponse> =>
-  customFetch.get(`/jobs/${jobId}`).then((res) => res.data);
+  customFetch.get(`/jobs/${jobId}`);
 export const getJobsRequest = async (
   searchParams: string
-): Promise<JobListResponse> => {
-  try {
-    const response = await customFetch.get(`/jobs/all-jobs${searchParams}`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+): Promise<JobListResponse> => customFetch.get(`/jobs/all-jobs${searchParams}`);
+
 export const getCurrentUserJobsRequest = (
   params: UserJobSearchParams
 ): Promise<GetUserJobsApiResponse> =>
-  customFetch.get('/jobs', { params: params }).then((res) => res.data);
+  customFetch.get('/jobs', { params: params });

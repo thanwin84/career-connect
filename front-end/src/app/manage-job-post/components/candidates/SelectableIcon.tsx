@@ -22,7 +22,7 @@ export default function SelectableIcon({
     >
       {isSelected ? (
         <SelectedIcon
-          className="text-slate-600 dark:text-slate-300"
+          className='text-slate-600 dark:text-slate-300'
           onClick={() => deselectItem(applicantId)}
         />
       ) : (

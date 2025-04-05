@@ -1,4 +1,4 @@
-import { useCandidateStore } from '../../../../../lib/store/CandidateStore';
+import { useCandidateStore } from '@/lib/store/CandidateStore';
 import ChangeStatus from './ChangeStatus';
 import Selected from './Selected';
 

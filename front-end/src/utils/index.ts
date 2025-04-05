@@ -1,21 +1,13 @@
 import formatDate from './formatDate';
 import customFetch from './customFetch';
 import debounce from './debounce';
-import { JobStatus } from '../lib/types/job';
+import { StatusObject } from '../lib/types/jobApplication';
 
-function getLastStatusUpdatedDate(
-  statusHistory: {
-    status: JobStatus;
-    updatedBy: string;
-    updatedAt: string;
-  }[]
-) {
+function getLastStatusUpdatedDate(statusHistory: StatusObject[]) {
   const statusUpdatedDate = statusHistory[statusHistory.length - 1].updatedAt;
   return statusUpdatedDate;
 }
 
-export const extractDataFromResponse = <T>(response: { data: T }) =>
-  response.data;
 export { formatDate, customFetch, debounce, getLastStatusUpdatedDate };
 
 export const formatTimer = (time: number) => {
@@ -27,3 +19,10 @@ export const formatTimer = (time: number) => {
     return `${time}`;
   }
 };
+
+export * from './checkDefaultTheme';
+export * from './generateId';
+export * from './generateYears';
+export * from './customFetch';
+export * from './debounce';
+export * from './hasPermissions';

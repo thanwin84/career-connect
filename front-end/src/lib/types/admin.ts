@@ -1,4 +1,4 @@
-import { BaseApiReponse, Pagination } from './common';
+import { BaseApiReponse, Pagination } from '.';
 import { User } from './user';
 
 export type ApplicationStatsResponse = BaseApiReponse<{

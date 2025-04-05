@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-import { User, Education } from '../types/user';
+import { Education, User } from '../types';
 
 type UserState = {
   isLoggedIn: boolean;
@@ -8,6 +8,7 @@ type UserState = {
   user: User | null;
   jobAppliedIds: string[];
   isLoading: boolean;
+  permissions: string[];
 };
 
 type Store = UserState & {
@@ -28,6 +29,7 @@ const initialUserState: UserState = {
   userAvatar: null,
   jobAppliedIds: [],
   isLoading: true,
+  permissions: [],
 };
 
 export const useUserStore = create<Store>((set) => ({
@@ -38,6 +40,8 @@ export const useUserStore = create<Store>((set) => ({
         draft.user = user;
         draft.isLoggedIn = true;
         draft.userAvatar = user.avatar?.url || null;
+        draft.permissions =
+          user?.role.map((item) => item.permissions).flat() || [];
       })
     ),
   setLoading: (value: Boolean) =>

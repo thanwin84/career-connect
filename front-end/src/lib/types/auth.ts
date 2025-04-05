@@ -1,5 +1,4 @@
-import { BaseApiReponse } from './common';
-import { User } from './user';
+import { BaseApiReponse, User } from '.';
 
 export type LoginResponse = BaseApiReponse<User>;
 export type LogoutResponse = BaseApiReponse<{}>;

@@ -1,12 +1,12 @@
-import { HomePageLayout } from '../layout';
-
-import { Login, Error, HomePage } from '../pages';
+import { LoadingPage } from '@/components/ui';
+import { HomePageLayout } from '@/layout';
+import { routes } from '@/lib/constants/routes';
+import { HomePage, Login } from '@/pages';
+import EmailConfirmation from '@/pages/EmailConfirmation';
 import { lazy, Suspense } from 'react';
 import { Route } from 'react-router-dom';
-import { routes } from '../lib/constants/routes';
 import PublicRoute from './PublicRoute';
-import { LoadingPage } from '../components/ui';
-import EmailConfirmation from '../pages/EmailConfirmation';
+import Error from '@/pages/Error';
 
 const FindJobs = lazy(() => import('../app/find_jobs/pages/FindJobs'));
 const Register = lazy(() => import('../app/auth/pages/Register'));
@@ -20,6 +20,7 @@ const HomeRoutes = (
         errorElement={<Error />}
       >
         <Route index element={<HomePage />} />
+
         <Route
           path={routes.JOBS}
           element={
@@ -34,10 +35,9 @@ const HomeRoutes = (
         />
       </Route>
     </Route>
-
     <Route element={<PublicRoute />}>
       <Route path={routes.LOGIN} element={<Login />} />
-      <Route path="/email-confirmation" element={<EmailConfirmation />} />
+      <Route path='/email-confirmation' element={<EmailConfirmation />} />
       <Route
         path={routes.REGISTER}
         element={

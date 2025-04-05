@@ -1,7 +1,6 @@
+import { ReEnterPasswordForm } from '@/components/ui';
+import { useDeleteAccount, useVerifyPassword } from '@/hooks/api';
 import { useEffect } from 'react';
-import { ReEnterPasswordForm } from '../../../components/ui';
-import { useDeleteAccount } from '../hooks/useDeleteAccount';
-import { useVerifyPassword } from '../hooks/useVerifyPassword';
 
 export default function ReEnterPasswordForDelete() {
   const { deleteAccount, isPending: deletePending } = useDeleteAccount();
@@ -19,8 +18,8 @@ export default function ReEnterPasswordForDelete() {
 
   return (
     <ReEnterPasswordForm
-      title="Re-enter your password"
-      description="You must re-enter your password to delete your account."
+      title='Re-enter your password'
+      description='You must re-enter your password to delete your account.'
       action={verifyPassword}
       isPending={deletePending || verifyPending}
     />

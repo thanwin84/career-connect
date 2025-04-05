@@ -1,5 +1,5 @@
-import { useUserStore } from '../../../../../lib/store/userStore';
-import { EducationInfo } from './index';
+import { useUserStore } from '@/lib/store/userStore';
+import EducationInfo from './EducationInfo';
 
 type Props = {
   className?: string;
@@ -14,10 +14,10 @@ export default function EducationRecordList({ className }: Props) {
     userStore.user.educationRecords.length === 0
   ) {
     return (
-      <div className="py-4">
-        <p className="text-base text-center text-slate-500 dark:text-slate-400">
+      <div className='py-4'>
+        <p className='text-base text-center text-slate-500 dark:text-slate-400'>
           Click{' '}
-          <span className="text-blue-600 font-semibold">Add Education</span>{' '}
+          <span className='text-blue-600 font-semibold'>Add Education</span>{' '}
           button to add your Education information
         </p>
       </div>

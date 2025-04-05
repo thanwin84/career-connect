@@ -1,4 +1,4 @@
-import { BaseApiReponse, Pagination } from './common';
+import { BaseApiReponse, Pagination } from '.';
 
 export type Notification = {
   _id: string;

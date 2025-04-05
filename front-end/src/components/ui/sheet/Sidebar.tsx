@@ -29,7 +29,7 @@ export default function Sidebar({ className, children }: Props) {
           animate={{ x: 0, opacity: 1, width: w }}
           exit={{ x: -200, opacity: 0, width: 0 }}
           transition={{ duration: 0.3 }}
-          className={`fixed  border-r w-[30%] dark:border-none dark:bg-black/[0.96] h-screen ${className}`}
+          className={`fixed   border-r w-[30%] dark:border-none dark:bg-black/[0.96] h-screen ${className}`}
         >
           {children}
         </motion.aside>

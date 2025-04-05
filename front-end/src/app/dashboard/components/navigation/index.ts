@@ -1,8 +1,8 @@
+import MenuContainer from '@/components/ui/menu';
 import BigSidebar from './BigSidebar';
-import MenuContainer from '../../../../components/ui/menu';
-import UserDashboardLinks from './UserDashboardLinks';
 import Navbar from './navbar/Navbar';
 import SmallSidebar from './SmallSidebar';
+import UserDashboardLinks from './UserDashboardLinks';
 
 export {
   BigSidebar,

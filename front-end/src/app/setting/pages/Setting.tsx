@@ -1,14 +1,17 @@
+import { Spinner } from '@/components/ui';
+import { Tabs, TabContentList, TabContent } from '@/components/ui/tabs';
+import { useCurrentUser } from '@/hooks/api';
+import { i } from 'motion/react-client';
 import {
   DeleteAccount,
   ChangePassword,
   TwoStepAuthentication,
 } from '../components';
-import { Tabs, TabContent, TabContentList } from '../../../components/ui/tabs';
-import { Spinner } from '../../../components/ui';
-import { useUserInformation } from '../../../hooks/user/useUserInformation';
+
+i;
 
 export default function SettingPageLayout() {
-  const { isLoading } = useUserInformation();
+  const { isLoading } = useCurrentUser();
   const tabs = {
     account: 'Account',
     passwrodAndSecurity: 'Password and Security',
@@ -16,15 +19,15 @@ export default function SettingPageLayout() {
 
   if (isLoading) {
     return (
-      <div className="h-screen flex justify-center items-center">
-        <Spinner size="h-10 w-10" color="text-gray-500" />
+      <div className='h-screen flex justify-center items-center'>
+        <Spinner size='h-10 w-10' color='text-gray-500' />
       </div>
     );
   }
 
   return (
-    <div className="w-full bg-white h-screen ">
-      <h2 className="text-2xl font-bold px-2 py-4 text-slate-800  dark:text-slate-100 ml-4">
+    <div className='w-full bg-white h-screen '>
+      <h2 className='text-2xl font-bold px-2 py-4 text-slate-800  dark:text-slate-100 ml-4'>
         Setting
       </h2>
       <Tabs

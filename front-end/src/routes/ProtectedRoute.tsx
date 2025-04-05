@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useUserStore } from '../lib/store/userStore';
-import { useUserInformation } from '../hooks/user/useUserInformation';
 import { ReactNode } from 'react';
+import { useUserStore } from '@/lib/store/userStore';
+import { useCurrentUser } from '@/hooks/api';
 
 type Props = {
   className?: string;
@@ -10,12 +10,12 @@ type Props = {
 
 export default function ProtectedRoute({ children }: Props) {
   const userStore = useUserStore();
-  const { isLoading } = useUserInformation();
+  const { isLoading } = useCurrentUser();
 
   if (userStore.isLoggedIn) {
     return children ? children : <Outlet />;
   }
   if (!isLoading && !userStore.isLoggedIn) {
-    return <Navigate to="/login" />;
+    return <Navigate to='/login' />;
   }
 }

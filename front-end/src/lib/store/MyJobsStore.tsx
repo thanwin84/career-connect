@@ -1,13 +1,13 @@
 import { produce } from 'immer';
 
 import { create } from 'zustand';
-import { MyJobApplication } from '../types/jobApplication';
+import { JobApplication } from '../types/jobApplication';
 
 type State = {
-  selectedMyJob: null | MyJobApplication;
+  selectedMyJob: null | JobApplication;
 };
 type Store = State & {
-  selectMyJob: (job: MyJobApplication | null) => void;
+  selectMyJob: (job: JobApplication | null) => void;
 };
 const initialState: State = {
   selectedMyJob: null,
@@ -15,7 +15,7 @@ const initialState: State = {
 
 export const useMyJobStore = create<Store>((set) => ({
   ...initialState,
-  selectMyJob: (job: MyJobApplication | null) =>
+  selectMyJob: (job: JobApplication | null) =>
     set(
       produce((draft) => {
         draft.selectedMyJob = job;

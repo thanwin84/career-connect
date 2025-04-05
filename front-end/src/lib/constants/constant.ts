@@ -1,30 +1,3 @@
-const JOB_STATUS = {
-  INTERVIEW: 'interview',
-  DECLINED: 'declined',
-  SHORTLISTED: 'shortListed',
-  APPLIED: 'applied',
-  HIRED: 'hired',
-  ALL: 'all',
-} as const;
-const JOB_TYPE = {
-  FULL_TIME: 'full-time',
-  PART_TIME: 'part-time',
-  INTERNSHIP: 'internship',
-  REMORE: 'remote',
-  HYBRID: 'hybrid',
-} as const;
-const JOB_SORT_BY = {
-  NEWEST_FIRST: 'newest',
-  OLDEST_FIRST: 'oldest',
-  ASCENDING: 'a-z',
-  DESCENDING: 'z-a',
-} as const;
-const experianceLevel = {
-  ENTRY: 'entry',
-  MID: 'mid',
-  SENIOR: 'senior',
-  EXPERT: 'expert',
-} as const;
 const countries: { name: string; code: string }[] = [
   { name: 'Afghanistan', code: '+93' },
   { name: 'Albania', code: '+355' },
@@ -234,17 +207,8 @@ export const months = [
   'November',
   'December',
 ];
-export const UserRoles = {
-  GUEST: 'guest',
-  RECRUITER: 'recruiter',
-  ADMIN: 'admin',
-  MODERATOR: 'moderator',
-  PREMIUM_USER: 'premium_user',
-  PREMIUM_RECRUITER: 'premium_recruiter',
-  USER: 'user',
-} as const;
 
-export { JOB_SORT_BY, JOB_STATUS, JOB_TYPE, experianceLevel, countries };
+export { countries };
 export const NotificationTypes = {
   JOB_UPDATE: 'job_update',
   JOB_APPLY: 'job_apply',

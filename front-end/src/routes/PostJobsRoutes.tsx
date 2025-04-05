@@ -1,17 +1,17 @@
-import { Route } from 'react-router-dom';
-import ProtectedRoute from './ProtectedRoute';
-import PostJobsLayout from '../layout/PostJobsLayout';
-import AddJob from '../app/manage-job-post/pages/AddJob';
+import Candidate from '@/app/manage-job-post/pages/Candidate';
+import Interviews from '@/app/manage-job-post/pages/Interviews';
+import PostJobsLayout from '@/layout/PostJobsLayout';
 import { lazy, Suspense } from 'react';
-import { action as deleteJobAction } from '../pages/DeleteJob';
-import Candidate from '../app/manage-job-post/pages/Candidate';
-import Interviews from '../app/manage-job-post/pages/Interviews';
+import { Route } from 'react-router-dom';
+import AddJob from '../app/manage-job-post/pages/AddJob';
+import ProtectedRoute from './ProtectedRoute';
+import { action as deleteJobAction } from '@/app/manage-job-post/pages/DeleteJob';
 
-const AllJobs = lazy(() => import('../app/manage-job-post/pages/PostedJobs'));
-const EditJob = lazy(() => import('../app/manage-job-post/pages/EditJob'));
+const AllJobs = lazy(() => import('@/app/manage-job-post/pages/PostedJobs'));
+const EditJob = lazy(() => import('@/app/manage-job-post/pages/EditJob'));
 const PostJobsRoutes = (
   <Route element={<ProtectedRoute />}>
-    <Route path="post-jobs" element={<PostJobsLayout />}>
+    <Route path='post-jobs' element={<PostJobsLayout />}>
       <Route
         index
         element={<AddJob />}
@@ -23,7 +23,7 @@ const PostJobsRoutes = (
         }}
       />
       <Route
-        path="jobs"
+        path='jobs'
         element={
           <Suspense>
             <AllJobs />
@@ -37,7 +37,7 @@ const PostJobsRoutes = (
         }}
       />
       <Route
-        path="edit/:jobId"
+        path='edit/:jobId'
         element={
           <Suspense>
             <EditJob />
@@ -50,9 +50,9 @@ const PostJobsRoutes = (
           return loader(args);
         }}
       />
-      <Route path="candidates" element={<Candidate />} />
-      <Route path="interviews" element={<Interviews />} />
-      <Route path="delete-job/:id" action={deleteJobAction} />
+      <Route path='candidates' element={<Candidate />} />
+      <Route path='interviews' element={<Interviews />} />
+      <Route path='delete-job/:id' action={deleteJobAction} />
     </Route>
   </Route>
 );

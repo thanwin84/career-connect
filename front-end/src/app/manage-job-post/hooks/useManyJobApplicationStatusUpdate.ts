@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useMutation } from '../../../hooks';
 import { updateManyJobApplicationStatusRequest } from '../../../lib/api/job';
-import { FormData } from '../../../lib/types/common';
+import { BulkJobApplicationStatusUpdateType } from '../../../lib/types';
 
 export const useManyJobApplicationStatusUpdate = () => {
   const {
@@ -11,7 +11,7 @@ export const useManyJobApplicationStatusUpdate = () => {
     error,
     isSuccess,
   } = useMutation(
-    (formData: FormData) =>
+    (formData: BulkJobApplicationStatusUpdateType) =>
       updateManyJobApplicationStatusRequest(formData.params, formData.data),
     {
       onSuccess: () => {

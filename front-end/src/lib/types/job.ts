@@ -1,37 +1,47 @@
-import {
-  JOB_STATUS,
-  JOB_TYPE,
-  JOB_SORT_BY,
-  experianceLevel,
-} from '../constants/constant';
-import { BaseApiReponse, Pagination } from './common';
+import { BaseApiReponse, Location, Pagination, TimeStamps } from '.';
+import { constants } from '../../config/appConfig';
 
-export type JobStatus = (typeof JOB_STATUS)[keyof typeof JOB_STATUS];
-export type JobType = (typeof JOB_TYPE)[keyof typeof JOB_TYPE];
-export type JobSortBy = (typeof JOB_SORT_BY)[keyof typeof JOB_SORT_BY];
+export type JobStatus =
+  (typeof constants.JOB_STATUS)[keyof typeof constants.JOB_STATUS];
+export type JobType =
+  (typeof constants.JOB_TYPE)[keyof typeof constants.JOB_TYPE];
+export type JobSortBy =
+  (typeof constants.JOB_SORT_BY)[keyof typeof constants.JOB_SORT_BY];
 export type ExperianceLevel =
-  (typeof experianceLevel)[keyof typeof experianceLevel];
+  (typeof constants.experianceLevel)[keyof typeof constants.experianceLevel];
 
+export type PublicCompany = {
+  _id: string;
+  name: string;
+  description?: string;
+  location: Location;
+} & TimeStamps;
 export type Job = {
   isApplied?: boolean;
   _id: string;
-  company: string;
   position: string;
   jobType: JobType;
-  jobLocation: string;
-  country: string;
+  jobLocation: Location;
   salary: {
     min: number;
     max: number;
   };
   experianceLevel: ExperianceLevel;
   openRoles: number;
-  createdBy: string;
-  createdAt: Date;
-  updatedAt: Date;
-  applicationDeadline: Date;
+  createdBy: {
+    _id: string;
+    firstName: string;
+    email: string;
+    lastName: string;
+    avatar: {
+      url: string;
+      publicId: string;
+    };
+  };
+  applicationDeadline: string;
   numberOfApplicants: number;
-};
+  company: PublicCompany;
+} & TimeStamps;
 
 export type Jobs = Job[];
 

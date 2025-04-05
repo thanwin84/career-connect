@@ -1,4 +1,4 @@
-import { User } from '../../../../lib/types/user';
+import { User } from '@/lib/types';
 import AvatarWithEdit from './AvatarWithEdit';
 type Props = {
   className?: string;
@@ -9,20 +9,20 @@ const url =
 export default function ProfileHeader({ user, className }: Props) {
   return (
     <div className={` relative  ${className}`}>
-      <div className="w-[95%] md:w-[80%] mx-auto">
+      <div className='w-[95%] md:w-[80%] mx-auto'>
         <img
-          className="w-full h-full mx-auto object-cover rounded-md"
+          className='w-full h-full mx-auto object-cover rounded-md'
           src={url}
-          alt="cover photo"
+          alt='cover photo'
         />
       </div>
-      <div className="flex absolute gap-4 left-2 md:left-8 -bottom-14">
+      <div className='flex absolute gap-4 left-2 md:left-8 -bottom-14'>
         <AvatarWithEdit avatarUrl={user?.avatar?.url as string} />
-        <div className="flex flex-col justify-end">
-          <p className="text-lg uppercase font-semibold text-slate-800 dark:text-slate-200">
+        <div className='flex flex-col justify-end'>
+          <p className='text-lg uppercase font-semibold text-slate-800 dark:text-slate-200'>
             {user.firstName} {user.lastName}
           </p>
-          <p className="text-slate-700 dark:text-slate-300">Your title</p>
+          <p className='text-slate-700 dark:text-slate-300'>Your title</p>
         </div>
       </div>
     </div>

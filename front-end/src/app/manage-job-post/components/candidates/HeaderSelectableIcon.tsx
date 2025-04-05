@@ -16,7 +16,7 @@ export default function HeaderSelectableIcon({
   return (
     <span className={`my-auto text-slate-500 dark:text-slate-400 ${className}`}>
       {!isSelected ? (
-        <UnselectedIcon className="text-slate-600" onClick={selectAll} />
+        <UnselectedIcon className='text-slate-600' onClick={selectAll} />
       ) : (
         <FaMinusSquare onClick={deselectAll} />
       )}

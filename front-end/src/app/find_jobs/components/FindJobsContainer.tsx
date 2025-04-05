@@ -1,7 +1,7 @@
+import { Pagination } from '@/components/ui';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { JobCard } from '.';
 import { useFindJobsContext } from '../pages/FindJobs';
-import { Pagination } from '../../../components/ui';
+import JobCard from './JobCard';
 
 type Props = {
   className?: string;
@@ -25,26 +25,26 @@ export default function FindJobsContainer({ className }: Props) {
   return (
     <section
       className={`w-full  ${className}`}
-      role="region"
-      aria-label="job listing section"
+      role='region'
+      aria-label='job listing section'
     >
-      <header aria-live="polite">
-        <h1 className="sr-only">Available Jobs</h1>
+      <header aria-live='polite'>
+        <h1 className='sr-only'>Available Jobs</h1>
         {totalItems > 0 && (
-          <p className="mb-3 text-sm font-semibold text-slate-500 dark:text-slate-400">
+          <p className='mb-3 text-sm font-semibold text-slate-500 dark:text-slate-400'>
             {totalItems} jobs Found
           </p>
         )}
         {totalItems === 0 && (
-          <p className="text-3xl dark:text-gray-500 text-gray-400">
+          <p className='text-3xl dark:text-gray-500 text-gray-400'>
             No Maching Jobs found
           </p>
         )}
       </header>
-      <div role="list" aria-label="job-listing">
+      <div role='list' aria-label='job-listing'>
         {jobs &&
-          jobs?.map((job, index) => (
-            <JobCard key={job.company + index} className="mb-2" job={job} />
+          jobs?.map((job) => (
+            <JobCard key={job._id} className='mb-2' job={job} />
           ))}
       </div>
       {totalPages > 1 && (
@@ -52,7 +52,7 @@ export default function FindJobsContainer({ className }: Props) {
           totalPages={totalPages}
           currentPage={currentPage}
           handlePageChange={handlePageChange}
-          position="center"
+          position='center'
         />
       )}
     </section>

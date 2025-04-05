@@ -1,11 +1,26 @@
-import { customFetch } from '../../utils';
-import { FormData } from '../types/common';
-import { GetJAppliedJobIdListResponse } from '../types/jobApplication';
+import { customFetch } from '@/utils';
+import {
+  CreateJobApplicationType,
+  GetJAppliedJobIdListResponse,
+  UpdateJobApplication,
+} from '@/lib/types';
 
-export const createJobApplicationRequest = (formData: FormData) =>
-  customFetch
-    .post('/job-applications', formData)
-    .then((response) => response.data);
+const createJobApplicationRequest = (formData: CreateJobApplicationType) =>
+  customFetch.post('/job-applications', formData);
 
-export const getAppliedIdListRequest: Promise<GetJAppliedJobIdListResponse> =
-  customFetch.get('/job-applications/applied').then((res) => res.data);
+const updateJobApplicationStatus = ({
+  applicationId,
+  data,
+}: UpdateJobApplication) =>
+  customFetch.patch(`/job-applications/${applicationId}`, {
+    status: data,
+  });
+
+const getAppliedIdListRequest: Promise<GetJAppliedJobIdListResponse> =
+  customFetch.get('/job-applications/applied');
+
+export {
+  createJobApplicationRequest,
+  updateJobApplicationStatus,
+  getAppliedIdListRequest,
+};

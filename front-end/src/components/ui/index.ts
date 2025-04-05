@@ -28,6 +28,7 @@ import ProgressBar from './ProgressBar';
 import Modal from './Modal';
 import CrossButton from './CrossButton';
 import UserCard from './UserCard';
+import ProfilePhotoUploader from './ProfilePhotoUploader';
 export {
   Button,
   Spinner,
@@ -59,4 +60,5 @@ export {
   Modal,
   CrossButton,
   UserCard,
+  ProfilePhotoUploader,
 };

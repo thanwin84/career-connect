@@ -1,5 +1,5 @@
-import { useUserStore } from '../../../../lib/store/userStore';
-import MenuContainer from '../../../../components/ui/menu/MenuContainer';
+import MenuContainer from '@/components/ui/menu';
+import { useUserStore } from '@/lib/store/userStore';
 import { Link } from 'react-router-dom';
 
 type Props = {
@@ -15,8 +15,8 @@ export default function LoginAndLogoutContainer({ className }: Props) {
         <MenuContainer />
       ) : (
         <Link
-          to="/login"
-          className="font-semibold text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100 px-4 py-2"
+          to='/login'
+          className='font-semibold text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100 px-4 py-2'
         >
           LOGIN
         </Link>

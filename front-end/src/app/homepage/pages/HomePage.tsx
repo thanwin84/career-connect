@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SearchBar } from '../../find_jobs/components';
 import { FormEvent } from 'react';
+import { SearchBar } from '@/app/find_jobs/components';
 
 type Props = {
   className?: string;

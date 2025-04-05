@@ -1,35 +1,35 @@
+import { UserFormType } from '@/lib/schemas';
 import { ToggleStatus } from '.';
-import { User } from '../../../../lib/types/user';
-import { formatDate } from '../../../../utils';
+import { formatDate } from '@/utils';
 
 type Props = {
-  user: User;
+  user: UserFormType;
   handleToggle: () => void;
 };
 
 export default function Row({ handleToggle, user }: Props) {
   const { accessStatus, firstName, createdAt, role } = user;
   return (
-    <tr className="border-b last:border-none">
-      <td className="p-4">
+    <tr className='border-b last:border-none'>
+      <td className='p-4'>
         <ToggleStatus
           accessStatus={accessStatus as boolean}
           onToggleClick={handleToggle}
         />
       </td>
-      <td className="p-4">
+      <td className='p-4'>
         {accessStatus ? (
-          <span className="text-green-600 dark:text-green-500 border border-green-500 p-1 rounded-lg">
+          <span className='text-green-600 dark:text-green-500 border border-green-500 p-1 rounded-lg'>
             Allowed
           </span>
         ) : (
-          <span className="text-red-600 dark:text-red-500 border border-red-500 p-1 rounded-lg">
+          <span className='text-red-600 dark:text-red-500 border border-red-500 p-1 rounded-lg'>
             Not Allowed
           </span>
         )}
       </td>
-      <td className="p-4 text-center dark:text-slate-300">{firstName}</td>
-      <td className="p-4  text-center dark:text-slate-300">
+      <td className='p-4 text-center dark:text-slate-300'>{firstName}</td>
+      <td className='p-4  text-center dark:text-slate-300'>
         {formatDate(createdAt?.toString() as string)}
       </td>
       <td

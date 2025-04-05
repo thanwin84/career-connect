@@ -2,13 +2,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useMutation } from '../../../hooks';
 import { updateJobRequest } from '../../../lib/api/job';
-import { FormData } from '../../../lib/types/common';
+import { jobFormType } from '../../../lib/schemas/jobSchema';
 
 export const useUpdateJob = () => {
   const naviage = useNavigate();
   const { jobId } = useParams();
   const { isPending, mutate: updateJob } = useMutation(
-    (formData: FormData) => updateJobRequest(jobId as string, formData),
+    (formData: jobFormType) => updateJobRequest(jobId as string, formData),
     {
       onSuccess: () => {
         naviage('../jobs');

@@ -11,6 +11,8 @@ type ContextType = {
   showSmallSidebar: boolean;
   isOpen: boolean;
   toggleOpen: () => void;
+  toggleCollapse: () => void;
+  isCollapsed: Boolean;
 };
 const sidebarContext = createContext<ContextType | undefined>(undefined);
 
@@ -18,6 +20,12 @@ export default function Sheet({ className, children }: Props) {
   const [showBigSidebar, setShowBigSidebar] = useState(true);
   const [showSmallSidebar, setShowSmallSidebar] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  function toggleCollapse() {
+    setIsCollapsed(!isCollapsed);
+    setShowBigSidebar(!showBigSidebar);
+  }
 
   const toggleOpen = () => {
     setIsOpen((prev) => !prev);
@@ -31,6 +39,8 @@ export default function Sheet({ className, children }: Props) {
         showBigSidebar,
         showSmallSidebar,
         isOpen,
+        toggleCollapse,
+        isCollapsed,
       }}
     >
       <motion.div

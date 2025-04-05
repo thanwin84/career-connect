@@ -1,7 +1,7 @@
-import { ChartsContainers, StatsContainer } from '../components';
+import { getJobApplicationStatsRequest } from '@/lib/api';
+import { JobApplicationStatsResponse } from '@/lib/types';
 import { useLoaderData } from 'react-router-dom';
-import { getJobApplicationStatsRequest } from '../../../../lib/api/applicationStats';
-import { JobApplicationStatsResponse } from '../../../../lib/types/jobApplication';
+import { StatsContainer, ChartsContainers } from '../components';
 
 export const loader = async () => {
   try {
@@ -17,7 +17,7 @@ export default function Stats() {
 
   const { defaultStats, monthlyApplications } = data.data;
   return (
-    <div className="">
+    <div className=''>
       <StatsContainer defaultStats={defaultStats} />
       {monthlyApplications?.length > 1 && (
         <ChartsContainers data={monthlyApplications} />

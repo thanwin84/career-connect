@@ -34,7 +34,7 @@ export default function Button({
     success: 'bg-green-500 hover:bg-green-600 text-white',
     link: 'bg-white text-blue-600 hover:underline',
     normal: 'bg-gray-500 text-gray-100 hover:bg-gray-600',
-    lightDanger: 'bg-red-100 text-red-500 hover:bg-red-200',
+    lightDanger: 'bg-red-50 text-red-500 hover:bg-red-200',
     outlined:
       'border border-gray-600 dark:text-slate-200 hover:bg-slate-800 hover:text-slate-200 dark:hover:bg-slate-100 dark:hover:text-slate-800 dark:text-white text-slate-800',
   };
@@ -48,13 +48,13 @@ export default function Button({
       } `}
     >
       {loading ? (
-        <div className="flex gap-2 justify-center">
+        <div className='flex gap-2 justify-center'>
           <Spinner
-            size="w-4 h-4"
-            borderThickness="border-2"
-            color="border-slate-100"
+            size='w-4 h-4'
+            borderThickness='border-2'
+            color='border-slate-100'
           />
-          {loading && <span className="text-slate-200">{loadingText}</span>}
+          {loading && <span className='text-slate-200'>{loadingText}</span>}
         </div>
       ) : (
         children

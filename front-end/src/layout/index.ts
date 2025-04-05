@@ -1,5 +1,2 @@
-
-import HomePageLayout from "./HomePageLayout";
-export {
-    HomePageLayout
-}
+import HomePageLayout from './HomePageLayout';
+export { HomePageLayout };
