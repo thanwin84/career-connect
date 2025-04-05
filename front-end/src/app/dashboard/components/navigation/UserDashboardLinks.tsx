@@ -1,4 +1,5 @@
 import { useSheetContext } from '@/components/ui/sheet/Sheet';
+import { permissions } from '@/config/permissions';
 import links from '@/config/userDashboardLinks';
 import { useUserStore } from '@/lib/store/userStore';
 import { NavLink } from 'react-router-dom';
@@ -19,8 +20,11 @@ export default function UserDashboardLinks({ className }: Props) {
     <div className={`w-full  ${className}`}>
       {links.map((link) => {
         const { text, path, icon } = link;
-        if (userStore.user?.role[0].role === 'admin') {
-          return;
+        if (
+          !userStore.permissions.includes(permissions.VIEW_ADMIN_DASHBOARD) &&
+          path === 'admin'
+        ) {
+          return null;
         }
         return (
           <NavLink
