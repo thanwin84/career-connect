@@ -4,6 +4,7 @@ import { LoadingPage } from '@/components/ui';
 import { lazy, Suspense } from 'react';
 import { Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
+import { permissions } from '@/config/permissions';
 
 const Profile = lazy(() => import('@/app/dashboard/pages/Profile'));
 const EditProfile = lazy(() => import('@/app/dashboard/pages/EditProfile'));
@@ -65,7 +66,13 @@ const DashboardRoutes = (
       />
       <Route
         path='admin'
-        element={<Admin />}
+        element={
+          <ProtectedRoute
+            allowedPermissions={[permissions.VIEW_ADMIN_DASHBOARD]}
+          >
+            <Admin />
+          </ProtectedRoute>
+        }
         loader={async () => {
           const { loader } = await import('../app/dashboard/pages/Admin');
           return loader();
