@@ -1,14 +1,23 @@
 import { ReactNode } from 'react';
 
-type Props = {
+type TableHeadProps = {
   className?: string;
   children: ReactNode;
+  sticky?: boolean;
 };
 
-export default function TableHead({ className, children }: Props) {
+export function TableHead({
+  className = '',
+  children,
+  sticky = false,
+}: TableHeadProps) {
+  const stickyClass = sticky ? 'sticky top-0' : '';
+
   return (
-    <thead className={`bg-gray-50 dark:bg-zinc-800 ${className}`}>
-      <tr>{children}</tr>
+    <thead
+      className={`bg-slate-100 dark:bg-stone-800  ${stickyClass} ${className}`}
+    >
+      {children}
     </thead>
   );
 }

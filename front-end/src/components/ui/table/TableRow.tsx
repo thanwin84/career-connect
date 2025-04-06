@@ -1,15 +1,14 @@
 import { ReactNode } from 'react';
 
-type Props = {
+type TableRowProps = {
   className?: string;
   children: ReactNode;
+  onClick?: () => void;
 };
 
-export default function TableRow({ className, children }: Props) {
+export function TableRow({ className = '', children, onClick }: TableRowProps) {
   return (
-    <tr
-      className={`text-center hover:bg-gray-50 dark:hover:bg-zinc-800 cursor-pointer ${className}`}
-    >
+    <tr className={`  ${className}`} onClick={onClick}>
       {children}
     </tr>
   );

@@ -1,15 +1,18 @@
-import TableCell from './TableCell';
-import TableContainer from './TableContainer';
-import TableHead from './TableHead';
-import TableRow from './TableRow';
-import TableTitle from './TableTitle';
-import TableContent from './TableContent';
+import Table from './Table';
+import TableBody from './Tablebody';
+import TableHeader from './TableHeader';
+import { TableCell } from './TableCell';
+import { TableFooter } from './TableFooter';
+import { TableRow } from './TableRow';
+import { TableHead } from './TableHead';
+export * from './icons';
 
 export {
+  Table,
+  TableBody,
+  TableHeader,
   TableCell,
-  TableContainer,
-  TableHead,
+  TableFooter,
   TableRow,
-  TableTitle,
-  TableContent,
+  TableHead,
 };
