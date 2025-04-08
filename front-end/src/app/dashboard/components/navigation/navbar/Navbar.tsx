@@ -4,9 +4,11 @@ import NavbarActions from './NavbarActions';
 import { TriggerButton } from '@/components/ui/sheet';
 import { FaAlignLeft } from 'react-icons/fa';
 
-export default function Navbar() {
+export default function Navbar({ className }: { className?: string }) {
   return (
-    <nav className='w-full flex justify-between px-4 py-4 shadow-sm bg-white dark:bg-black/[0.96] border-b dark:border-none'>
+    <nav
+      className={`w-full flex justify-between px-4 py-4 shadow-sm  border-b dark:border-none ${className}`}
+    >
       <TriggerButton className='text-blue-400 hover:text-blue-600'>
         <FaAlignLeft size={20} />
       </TriggerButton>
