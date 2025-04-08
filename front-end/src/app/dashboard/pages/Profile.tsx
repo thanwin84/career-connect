@@ -26,7 +26,7 @@ export default function Profile() {
       <Modal isOpen={profileStore.profilePhotoUploadModal}>
         <div className='relative w-[90%] md:w-[60%] mx-auto max-w-[500px]'>
           <CrossButton
-            className='absolute right-4 top-10'
+            className='absolute right-5 top-3'
             action={profileStore.toggleProfileUploadModal}
           />
           <ProfileUpload />

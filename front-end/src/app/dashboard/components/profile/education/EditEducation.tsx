@@ -29,7 +29,7 @@ export default function EditEducation() {
   }
 
   return (
-    <div className='relative bg-white dark:bg-zinc-900 px-4 rounded-md py-6'>
+    <div className='relative bg-white dark:bg-stone-800 px-4 rounded-md py-6'>
       <EducationForm
         title='Edit Education'
         record={profileStore.selectedEducationRecord as Education}

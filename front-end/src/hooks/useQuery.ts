@@ -36,7 +36,9 @@ export default function useQuery<TData>(
 
   const runQuery = async (newParams?: string) => {
     if (!fn) return;
-    setParams(newParams || '');
+    const paramToUse = newParams ?? params;
+    setParams(paramToUse);
+
     try {
       setState((prev) => ({ ...prev, isLoading: true }));
       const res = await fn(params);

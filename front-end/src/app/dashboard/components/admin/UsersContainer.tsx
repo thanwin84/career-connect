@@ -15,7 +15,6 @@ export default function UsersContainer({ className }: Props) {
     return <LoadingPage />;
   }
   const { users, pagination } = data.data;
-  console.log(users[0].firstName);
 
   function handlePageChange(pageNumber: number) {
     searchParams.set('page', String(pageNumber));
@@ -23,10 +22,7 @@ export default function UsersContainer({ className }: Props) {
   }
 
   return (
-    <div className={`w-full ${className}`}>
-      <h2 className='mb-4 text-center text-xl text-slate-700 dark:text-slate-200 font-bold'>
-        Manage Users
-      </h2>
+    <div className={` w-full px-6 ${className}`}>
       <UsersTable isDataLoading={isLoading} users={users || []} />
       {pagination.totalPages > 1 && (
         <Pagination

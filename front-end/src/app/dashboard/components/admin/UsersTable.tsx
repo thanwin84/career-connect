@@ -1,17 +1,20 @@
-import {
-  TableContainer,
-  TableHead,
-  TableTitle,
-  TableContent,
-  TableRow,
-  TableCell,
-} from '@/components/ui/table';
 import { useUserToggleAccessStatus } from '@/hooks/api';
 import { User } from '@/lib/types';
 import { formatDate } from '@/utils';
 import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import ToggleStatus from './ToggleStatus';
+import Table from '@/components/ui/table/Table';
+import {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+} from '@/components/ui/table';
+import { TableRow } from '@/components/ui/table/TableRow';
+import SelectableCell from '@/components/ui/table/SelectableCell';
+import UserTableToolbar from './UserTableToolbar';
+import EditButton from '@/components/ui/EditButton';
+import { TrashButton } from '@/components/ui';
 
 type Props = {
   className?: string;
@@ -26,64 +29,109 @@ export default function UsersTable({ users, isDataLoading = false }: Props) {
     "User's Name",
     'Joined Date',
     'Role',
+    'Actions',
   ];
   const [userList, setUserList] = useState<User[]>(users);
-  const [originalUserList, setOrinalUserList] = useState<User[]>([]);
-  const { toggleUserAccessStatus, isError } = useUserToggleAccessStatus();
-
-  function handleToggle(userId: string) {
-    setOrinalUserList(userList);
+  const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const { toggleUserAccessStatus } = useUserToggleAccessStatus();
+  function handleAllSelect() {
+    const isSelected = !isAllSelected;
+    setIsAllSelected(isSelected);
+    setSelectedIds((_prev) => {
+      if (isSelected) {
+        return users.map((user) => user._id);
+      } else {
+        return [];
+      }
+    });
+  }
+  function handleToggle(_id: string) {
+    // TODO: optimistic update
     setUserList((prevList) =>
-      prevList.map((user) =>
-        user._id === userId
+      prevList.map((user) => {
+        if (user._id === _id) {
+          // status = user.accessStatus
+        }
+        return user._id === _id
           ? { ...user, accessStatus: !user.accessStatus }
-          : user
-      )
+          : user;
+      })
     );
-    toggleUserAccessStatus(userId);
+    toggleUserAccessStatus(_id);
   }
   useEffect(() => {
     setUserList(users);
   }, [users]);
 
-  useEffect(() => {
-    if (isError) {
-      setUserList(originalUserList);
-      toast.error("Something went wrong. Could't not update access status");
-    }
-  }, [isError]);
-
+  function handleSingleSelect(id: string) {
+    const newList = selectedIds.includes(id)
+      ? selectedIds.filter((_id) => _id !== id)
+      : [...selectedIds, id];
+    setSelectedIds(newList);
+  }
   return (
-    <TableContainer
-      className={`${
-        isDataLoading
-          ? 'bg-black dark:bg-slate-800 dark:opacity-30 opacity-50'
-          : 'bg-white dark:bg-zinc-900'
-      }`}
-    >
-      <TableHead>
-        {headers.map((item) => (
-          <TableTitle key={item}>{item}</TableTitle>
-        ))}
-      </TableHead>
-      <TableContent>
-        {userList?.map((user) => (
+    <>
+      <UserTableToolbar
+        onClearAll={() => setSelectedIds([])}
+        totalSelectItems={selectedIds.length}
+      />
+      <Table isDataLoading={isDataLoading}>
+        <TableHead>
           <TableRow>
-            <TableCell>
-              <ToggleStatus
-                accessStatus={user.accessStatus as boolean}
-                onToggleClick={() => handleToggle(user._id as string)}
-              />
-            </TableCell>
-            <TableCell>{user.accessStatus ? 'true' : 'false'}</TableCell>
-            <TableCell>{user.email}</TableCell>
-            <TableCell>
-              {formatDate(user?.createdAt?.toString() as string)}
-            </TableCell>
-            <TableCell>{user.role[0].role}</TableCell>
+            <SelectableCell
+              isSelected={isAllSelected}
+              onSelect={() => handleAllSelect()}
+            />
+            {headers.map((title) => (
+              <TableHeader sortable={title === 'Actions' ? false : true}>
+                {title}
+              </TableHeader>
+            ))}
           </TableRow>
-        ))}
-      </TableContent>
-    </TableContainer>
+        </TableHead>
+        <TableBody>
+          {userList.map((user) => {
+            const isSelected = selectedIds.includes(user._id);
+            return (
+              <TableRow
+                className={`${
+                  isSelected
+                    ? 'dark:bg-stone-600 bg-slate-200'
+                    : 'hover:bg-gray-100  dark:hover:bg-stone-800'
+                }`}
+              >
+                <SelectableCell
+                  isSelected={isSelected}
+                  onSelect={() => handleSingleSelect(user._id)}
+                />
+                <TableCell>
+                  <ToggleStatus
+                    accessStatus={user.accessStatus}
+                    onToggleClick={() => handleToggle(user._id)}
+                  />
+                </TableCell>
+                <TableCell>{user.accessStatus.toString()}</TableCell>
+                <TableCell>{user.firstName + ' ' + user.lastName}</TableCell>
+                <TableCell>{formatDate(user.createdAt)}</TableCell>
+                <TableCell>
+                  <ul>
+                    {user.role.map((item) => (
+                      <li>{item.role}</li>
+                    ))}
+                  </ul>
+                </TableCell>
+                <TableCell>
+                  <div className='flex gap-2'>
+                    <EditButton onClick={() => 1} />
+                    <TrashButton onClick={() => 1} />
+                  </div>
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </>
   );
 }

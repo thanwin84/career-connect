@@ -1,4 +1,5 @@
-import { UniversityIcon, EditIcon } from '@/assets/icons/Icons';
+import { UniversityIcon } from '@/assets/icons/Icons';
+import EditButton from '@/components/ui/EditButton';
 import { useProfileStore } from '@/lib/store/ProfileStore';
 import { Education } from '@/lib/types';
 
@@ -40,13 +41,7 @@ export default function EducationInfo({ record, className }: Props) {
             </span>
           </p>
 
-          <button
-            className='text-slate-700 dark:text-slate-300 dark:hover:text-blue-500'
-            onClick={handleClick}
-            aria-label={`click to edit ${record.school}`}
-          >
-            <EditIcon />
-          </button>
+          <EditButton onClick={handleClick} />
         </div>
       </div>
     </div>

@@ -5,13 +5,15 @@ type Props = {
   user: User;
 };
 const url =
-  'https://res.cloudinary.com/dlxptkhle/image/upload/c_fill,g_auto,h_250,w_970/b_rgb:000000,e_gradient_fade,y_-0.50/c_scale,co_rgb:ffffff,fl_relative,l_text:montserrat_25_style_light_align_center:Shop%20Now,w_0.5,y_0.18/v1731775384/Black_and_White_Silhouette_Motivational_Quotes_Facebook_Cover_xmmkb7.png';
+  'https://images.pexels.com/photos/268941/pexels-photo-268941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
 export default function ProfileHeader({ user, className }: Props) {
   return (
     <div className={` relative  ${className}`}>
-      <div className='w-[95%] md:w-[80%] mx-auto'>
+      <div className='w-[95%] md:w-[80%] mx-auto h-48'>
+        {' '}
+        {/* Fixed height */}
         <img
-          className='w-full h-full mx-auto object-cover rounded-md'
+          className='w-full h-full object-cover rounded-md'
           src={url}
           alt='cover photo'
         />

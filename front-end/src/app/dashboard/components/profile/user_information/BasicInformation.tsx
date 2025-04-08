@@ -1,9 +1,9 @@
-import { CiEdit } from 'react-icons/ci';
 import { CgProfile } from 'react-icons/cg';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { User } from '@/lib/types';
 import BasicInfo from './BasicInfo';
 import Heading from './Heading';
+import EditButton from '@/components/ui/EditButton';
 
 type Props = {
   className?: string;
@@ -12,19 +12,15 @@ type Props = {
 
 export default function BasicInformation({ user, className }: Props) {
   const { email, location, role, phoneNumber } = user;
+  const navigate = useNavigate();
   return (
     <section
-      className={`bg-white dark:bg-black/[0.96] w-full rounded-md shadow-md px-8 py-6 ${className}`}
+      className={`bg-white dark:bg-stone-800 w-full rounded-md shadow-md px-8 py-6 ${className}`}
     >
       <div className='flex justify-between mb-4'>
         <Heading icon={<CgProfile />} content='Basic Information' />
-        <Link
-          aria-label='click to edit profile information'
-          to='../profile/edit'
-          className='my-auto text-xl dark:text-slate-200 hover:text-blue-900 hover:font-bold font-bold hover:text-2xl'
-        >
-          <CiEdit />
-        </Link>
+
+        <EditButton onClick={() => navigate('../profile/edit')} />
       </div>
       <div className='grid grid-cols-2 py-2 gap-2'>
         <BasicInfo label='Email' text={email} />

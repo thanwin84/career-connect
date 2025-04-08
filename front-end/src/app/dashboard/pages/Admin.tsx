@@ -27,26 +27,28 @@ export default function Admin({}: Props) {
     data: { jobs, users },
   } = useLoaderData() as ApplicationStatsResponse;
   return (
-    <section>
-      <ul className='p-6 flex gap-4'>
-        <li className='w-full'>
-          <StatItem
-            count={users}
-            title='Current User'
-            icon={<FaSuitcaseRolling />}
-            color='orange'
-          />
-        </li>
-        <li className='w-full'>
-          <StatItem
-            count={jobs}
-            title='Total Jobs'
-            icon={<FaCalendarCheck />}
-            color='blue'
-          />
-        </li>
+    <section className=''>
+      <ul className='p-6 flex flex-col md:flex-row gap-4'>
+        <StatItem
+          count={users}
+          title='Current User'
+          icon={<FaSuitcaseRolling />}
+          color='orange'
+        />
+        <StatItem
+          count={users}
+          title='Current User'
+          icon={<FaSuitcaseRolling />}
+          color='orange'
+        />
+        <StatItem
+          count={jobs}
+          title='Total Jobs'
+          icon={<FaCalendarCheck />}
+          color='blue'
+        />
       </ul>
-      <UsersContainer className='p-6' />
+      <UsersContainer />
     </section>
   );
 }

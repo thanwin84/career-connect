@@ -37,7 +37,7 @@ export default function EducationForm({
 
   return (
     <section
-      className={`bg-white dark:bg-zinc-900 px-6 py-2 rounded-lg ${className}`}
+      className={`bg-white dark:bg-stone-800 px-6 py-2 rounded-lg ${className}`}
     >
       <FormHeader title={title} id={id} closeModal={closeModal} />
       <FormProvider {...methods}>
