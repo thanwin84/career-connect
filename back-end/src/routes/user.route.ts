@@ -10,16 +10,15 @@ import {
   getUsersList,
   addPhoneNumber,
   uploadPhoto,
+  usersNameAutocompleteSuggestions,
 } from '../controllers/user.controller';
-import {
-  authenticateUser,
-  authorizePermissions,
-} from '../middleware/auth.middleware';
+import { authenticateUser } from '../middleware/auth.middleware';
 import upload from '../middleware/multer.middleware';
 
 const userRouter = Router();
 
 userRouter.use(authenticateUser);
+userRouter.route('/search').get(usersNameAutocompleteSuggestions);
 userRouter
   .route('/upload-profile-photo')
   .patch(upload.single('avatar'), uploadPhoto);

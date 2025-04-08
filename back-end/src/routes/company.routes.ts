@@ -10,7 +10,7 @@ import { authenticateUser } from '../middleware/auth.middleware';
 
 const companyRouter = Router();
 
-companyRouter.use(authenticateUser);
+// companyRouter.use(authenticateUser);
 
 companyRouter.route('/').get(getCompanyList).post(createCompany);
 

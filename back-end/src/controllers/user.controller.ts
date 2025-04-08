@@ -14,7 +14,9 @@ import {
   updateEducationEntryService,
   updateUserService,
   uploadPhotoService,
+  usersNameAutocompleteSuggestionService,
 } from '../service/user.service';
+import { SortOrder } from 'mongoose';
 
 const getCurrentUser = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = req.user;
@@ -120,8 +122,13 @@ const toggleAccessStatus = asyncHandler(async (req: Request, res: Response) => {
 });
 
 const getUsersList = asyncHandler(async (req: Request, res: Response) => {
-  const { page = 1, limit = 10 } = req.query;
-  const response = await getUserListService(Number(page), Number(limit));
+  const { page = 1, limit = 10, sort, _id } = req.query;
+  const response = await getUserListService(
+    Number(page),
+    Number(limit),
+    sort as string,
+    _id as string
+  );
   res
     .status(statusCodes.OK)
     .json(
@@ -146,6 +153,24 @@ const addPhoneNumber = asyncHandler(async (req: Request, res: Response) => {
     );
 });
 
+const usersNameAutocompleteSuggestions = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { search } = req.query;
+    const results = await usersNameAutocompleteSuggestionService(
+      search as string
+    );
+    res
+      .status(statusCodes.OK)
+      .json(
+        new ApiResponse(
+          statusCodes.OK,
+          results,
+          'Users name list is fetched successfully'
+        )
+      );
+  }
+);
+
 export {
   getCurrentUser,
   getApplicationStats,
@@ -157,4 +182,5 @@ export {
   getUsersList,
   addPhoneNumber,
   uploadPhoto,
+  usersNameAutocompleteSuggestions,
 };

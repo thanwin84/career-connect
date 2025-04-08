@@ -5,7 +5,7 @@ import { Pagination } from '../types';
 import { validId } from '../utils';
 
 export const createCompanyService = async (data: any) => {
-  companySchema.parse(data);
+  companySchema.omit({ role: true, employees: true }).parse(data);
   const companyExists = await Company.findOne({ name: data.name });
   if (companyExists) {
     throw new DuplicateResourceError('Company is already registered');

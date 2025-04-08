@@ -20,5 +20,14 @@ export const companySchema = z.object({
         message: 'Role id must be valid id',
       }
     ),
+  employees: z
+    .array(z.string())
+    .refine(
+      (values) =>
+        values.every((value) => mongoose.Types.ObjectId.isValid(value)),
+      {
+        message: 'employees id must be valid id',
+      }
+    ),
   adminID: validId('adminId'),
 });

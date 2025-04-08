@@ -1,9 +1,11 @@
+import mongoose from 'mongoose';
 import { redisClient } from '../config/redis';
 import { BadRequestError, NotFoundError } from '../errors/customErrors';
 import { Job } from '../models/job.model';
 import { User } from '../models/user.model';
 import { educationSchema, userSchema } from '../schemas/userSchema';
 import { Pagination } from '../types';
+import { SortOrder } from '../types/shared';
 import { validId } from '../utils';
 import { deleteAsset, uploadOnCloudinary } from '../utils/cloudinary';
 
@@ -161,11 +163,27 @@ export const updateEducationEntryService = async (
   }
 };
 
-export const getUserListService = async (page: number, limit: number) => {
+export const getUserListService = async (
+  page: number,
+  limit: number,
+  sort: string = 'desc',
+  _id?: string
+) => {
   const skip = (page - 1) * limit;
+  const sortOptions = {
+    asc: { createdAt: 1 },
+    desc: { createdAt: -1 },
+  } as const;
+  const query: any = {};
+  if (_id) {
+    query._id = new mongoose.Types.ObjectId(_id);
+  }
   const users = await User.aggregate([
     {
-      $sort: { name: 1 },
+      $match: query,
+    },
+    {
+      $sort: sortOptions[sort as keyof typeof sortOptions],
     },
     {
       $skip: skip,
@@ -198,7 +216,7 @@ export const getUserListService = async (page: number, limit: number) => {
       },
     },
   ]);
-  const usersCount = await User.countDocuments();
+  const usersCount = await User.countDocuments(query);
   const totalPages = Math.ceil(usersCount / Number(limit));
   const pagination: Pagination = {
     totalPages,
@@ -231,4 +249,19 @@ export const toggleAccessStatusService = async (userId: string) => {
   }
   user.accessStatus = !user.accessStatus;
   await user.save();
+};
+
+export const usersNameAutocompleteSuggestionService = async (
+  search: string
+) => {
+  const results = await User.find({
+    $or: [
+      { firstName: { $regex: search, $options: 'i' } },
+      { email: { $regex: search, $options: 'i' } },
+    ],
+  })
+    .limit(10) // Limit the number of results
+    .select('firstName lastName _id');
+
+  return results;
 };

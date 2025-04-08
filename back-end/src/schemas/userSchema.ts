@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { DateMixin, IDSchema, locationZodSchema } from './mixin';
 import mongoose from 'mongoose';
+import { UserRoles } from '../constants';
 
 export const educationSchema = z
   .object({
@@ -39,6 +40,7 @@ const imageSchema = z.object({
 });
 
 export const userSchema = z.object({
+  ...DateMixin.shape,
   firstName: z.string({ required_error: 'First name is required' }),
   email: z
     .string({ required_error: 'Email is required' })
@@ -60,6 +62,16 @@ export const userSchema = z.object({
   emailVerifyTokenExpiry: z.string().optional(),
   forgotPasswordToken: z.string().optional(),
   forgotPasswordTokenExpiry: z.string().optional(),
+  role: z.enum(
+    Object.values(UserRoles) as [
+      (typeof UserRoles)[keyof typeof UserRoles],
+      ...(typeof UserRoles)[keyof typeof UserRoles][]
+    ],
+    {
+      required_error: 'Job Type is required',
+      invalid_type_error: 'Invalid status',
+    }
+  ),
   worksAt: z
     .string()
     .optional()
