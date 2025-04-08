@@ -19,8 +19,9 @@ const defaultConfig: QueryConfig<any> = {
 };
 
 export default function useQuery<TData>(
-  fn: () => Promise<TData>,
-  config: QueryConfig<TData> = defaultConfig
+  fn: (params?: string) => Promise<TData>,
+  config: QueryConfig<TData> = defaultConfig,
+  initialParams?: string
 ) {
   const [state, setState] = useState<UserQueryState<TData>>({
     data: null,
@@ -29,14 +30,16 @@ export default function useQuery<TData>(
     isError: false,
     error: '',
   });
+  const [params, setParams] = useState<string | undefined>(initialParams);
 
   const { onError, onSuccess } = config;
 
-  const runQuery = async () => {
+  const runQuery = async (newParams?: string) => {
     if (!fn) return;
+    setParams(newParams || '');
     try {
       setState((prev) => ({ ...prev, isLoading: true }));
-      const res = await fn();
+      const res = await fn(params);
       setState({
         data: res,
         isLoading: false,
@@ -62,8 +65,8 @@ export default function useQuery<TData>(
   };
 
   useEffect(() => {
-    runQuery();
-  }, []);
+    runQuery(params);
+  }, [params]);
 
   return { ...state, refetch: runQuery };
 }
