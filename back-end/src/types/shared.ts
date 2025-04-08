@@ -41,6 +41,8 @@ export type User = {
   updatedAt?: Date;
 };
 
+export type SortOrder = 'asc' | 'desc';
+
 export type JobApplication = {
   _id: string;
   candidateId: string;

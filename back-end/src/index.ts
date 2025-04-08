@@ -11,8 +11,10 @@ import configureRoute from './routes';
 import { deleteAccountWorker } from './tasks/account-deletion/deleteAccountWorker';
 import { startSocket } from './socket';
 import { appConfig } from './config/appConfig';
-import { populateRoles } from './seedRoles';
+
 import { logger } from './utils/logger';
+import { populateRoles } from './scripts/seedRoles';
+
 const app = express();
 const server = http.createServer(app);
 
@@ -52,6 +54,7 @@ connectToDB()
     server.listen(port, () => {
       logger.info(`Server is running on port ${port}`);
       populateRoles();
+
       redisConnect().then(() => {
         logger.info('redis is connected');
       });

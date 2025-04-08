@@ -1,7 +1,7 @@
-import { UserRoles } from './constants';
-import { permissions } from './constants/permissions';
-import { Role } from './models/role.model';
-import { logger } from './utils/logger';
+import { UserRoles } from '../constants';
+import { permissions } from '../constants/permissions';
+import { Role } from '../models/role.model';
+import { logger } from '../utils/logger';
 
 export const populateRoles = async () => {
   const existingRoles = await Role.countDocuments();

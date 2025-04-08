@@ -99,7 +99,7 @@ export const checkEmailService = async (email: string) => {
   if (!email) {
     throw new BadRequestError('Email does not exists');
   }
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).populate('role');
 
   if (user) {
     return {

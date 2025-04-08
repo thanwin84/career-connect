@@ -48,7 +48,7 @@ export const updateUserService = async (
   const updatedUser = { ...data };
   delete updatedUser.password;
   userSchema
-    .omit({ educationRecords: true, password: true })
+    .omit({ educationRecords: true, password: true, role: true })
     .parse(updatedUser);
   const user = await User.findById(userId);
   if (!user) {
