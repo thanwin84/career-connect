@@ -29,6 +29,9 @@ import Modal from './Modal';
 import CrossButton from './CrossButton';
 import UserCard from './UserCard';
 import ProfilePhotoUploader from './ProfilePhotoUploader';
+import TrashButton from './TrashButton';
+import Sort from './Sort';
+import BackButton from './BackButton';
 export {
   Button,
   Spinner,
@@ -61,4 +64,7 @@ export {
   CrossButton,
   UserCard,
   ProfilePhotoUploader,
+  TrashButton,
+  Sort,
+  BackButton,
 };

@@ -16,21 +16,21 @@ export default function DropDownButton({
   const userStore = useUserStore();
   return (
     <button
-      type="button"
-      className={`w-full px-2 py-1 rounded-md flex justify-between    dark:bg-zinc-800 border border-slate-200 hover:border-blue-400 dark:border-slate-600 dark:hover:border-blue-600 dark:text-slate-100 ${className} `}
+      type='button'
+      className={`w-full px-2 py-1 rounded-md flex justify-between    dark:bg-stone-800 border border-slate-200 hover:border-blue-400 dark:border-slate-600 dark:hover:border-blue-600 dark:text-slate-100 ${className} `}
       onClick={() => toggleDropdown()}
       aria-label={
         isDropdownOpen
           ? 'close user options dropdown'
           : 'Open user options dropdown'
       }
-      aria-haspopup="true"
+      aria-haspopup='true'
       aria-expanded={isDropdownOpen}
-      aria-controls="dropdown-menu"
+      aria-controls='dropdown-menu'
     >
       <UserIcon url={userStore.user?.avatar?.url || ''} />
-      <span className="my-auto">{userStore.user?.firstName}</span>
-      <span className="my-auto">
+      <span className='my-auto'>{userStore.user?.firstName}</span>
+      <span className='my-auto'>
         <FaCaretDown />
       </span>
     </button>

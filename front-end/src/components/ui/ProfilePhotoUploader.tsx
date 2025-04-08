@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { CiCamera } from 'react-icons/ci';
 import { IoPersonOutline } from 'react-icons/io5';
 
@@ -12,6 +13,7 @@ export default function ProfilePhotoUploader({
   onFileChange,
   imgPreviewUrl,
 }: Props) {
+  const { register } = useFormContext();
   return (
     <div className='h-24 w-24 rounded-full relative mx-auto'>
       <div className=' flex h-full w-full rounded-full  bg-gray-200 justify-center mb-4'>
@@ -25,13 +27,14 @@ export default function ProfilePhotoUploader({
         )}
       </div>
       <label
-        className=' dark:text-slate-200  px-6 py-2 rounded-md  self-center'
+        className=' dark:text-slate-200   rounded-md  self-center'
         htmlFor='profile'
       >
         <input
           id='profile'
           className='hidden'
           type='file'
+          {...register('avatar')}
           name='avatar'
           onChange={onFileChange}
           accept='image/*'

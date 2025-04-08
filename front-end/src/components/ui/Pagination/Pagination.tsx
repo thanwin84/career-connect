@@ -1,12 +1,12 @@
-import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
-import PageButton from "./PageButton";
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi';
+import PageButton from './PageButton';
 
 type Props = {
   handlePageChange: (page: number) => void;
   totalPages: number;
   currentPage: number;
   className?: string;
-  position?: "center" | "start" | "end";
+  position?: 'center' | 'start' | 'end';
 };
 
 export default function Pagination({
@@ -14,12 +14,12 @@ export default function Pagination({
   totalPages,
   currentPage,
   className,
-  position = "center",
+  position = 'center',
 }: Props) {
   const positions = {
-    center: "justify-center",
-    end: "justify-end",
-    start: "justify-start",
+    center: 'justify-center',
+    end: 'justify-end',
+    start: 'justify-start',
   };
 
   const displayPageButtons = () => {
@@ -35,7 +35,7 @@ export default function Pagination({
     );
     if (currentPage > 3) {
       pageButtons.push(
-        <span className="font-bold px-4 py-2 bg-white dark:bg-zinc-900 dark:text-white shadow-lg rounded-md text-blue-700">
+        <span className='font-bold px-4 py-2 bg-white dark:bg-stone-900 dark:text-white shadow-lg rounded-md text-blue-700'>
           ...
         </span>
       );
@@ -77,8 +77,8 @@ export default function Pagination({
     if (currentPage < totalPages - 2) {
       pageButtons.push(
         <span
-          key="dot-2"
-          className="font-bold px-4 py-2 bg-white dark:bg-zinc-900 dark:text-white shadow-lg rounded-md text-blue-700"
+          key='dot-2'
+          className='font-bold px-4 py-2 bg-white dark:bg-stone-900 dark:text-white shadow-lg rounded-md text-blue-700'
         >
           ...
         </span>
@@ -99,12 +99,12 @@ export default function Pagination({
 
   return (
     <div
-      aria-label="Pagination controls"
+      aria-label='Pagination controls'
       className={`py-6 px-2 w-full flex ${className} ${positions[position]}`}
     >
       {currentPage > 1 && (
         <button
-          className="px-4 py-2 text-blue-700 dark:text-slate-100 bg-white dark:bg-zinc-900 shadow-lg rounded-md flex gap-2 items-center  hover:bg-blue-700 dark:hover:bg-blue-700  hover:text-white  mr-4"
+          className='px-4 py-2 text-blue-700 dark:text-slate-100 bg-white dark:bg-stone-900 shadow-lg rounded-md flex gap-2 items-center  hover:bg-blue-700 dark:hover:bg-blue-700  hover:text-white  mr-4'
           onClick={() => {
             let pageNumber = currentPage - 1;
             handlePageChange(pageNumber);
@@ -115,11 +115,11 @@ export default function Pagination({
           Prev
         </button>
       )}
-      <div className="flex gap-2">{displayPageButtons()}</div>
+      <div className='flex gap-2'>{displayPageButtons()}</div>
 
       {currentPage !== totalPages && (
         <button
-          className="ml-2 px-4 py-2 text-blue-700 dark:text-slate-100 bg-white dark:bg-zinc-900 shadow-lg rounded-md flex gap-2 my-auto items-center hover:bg-blue-700 dark:hover:bg-blue-700 hover:text-white"
+          className='ml-2 px-4 py-2 text-blue-700 dark:text-slate-100 bg-white dark:bg-stone-900 shadow-lg rounded-md flex gap-2 my-auto items-center hover:bg-blue-700 dark:hover:bg-blue-700 hover:text-white'
           onClick={() => handlePageChange(currentPage + 1)}
           aria-label={`Go to next page`}
         >

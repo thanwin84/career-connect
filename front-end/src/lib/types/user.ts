@@ -61,3 +61,10 @@ export type UpdateUserProfile = Pick<
 >;
 // API RESPONSE
 export type CurrentUserResponse = BaseApiReponse<User>;
+export type UserNameAutocompleteSuggestions = BaseApiReponse<
+  {
+    _id: string;
+    firstName: string;
+    lastName: string;
+  }[]
+>;

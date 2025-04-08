@@ -37,6 +37,7 @@ export const useUserStore = create<Store>((set) => ({
   addUser: (user: User) =>
     set(
       produce((draft) => {
+        console.log(user);
         draft.user = user;
         draft.isLoggedIn = true;
         draft.userAvatar = user.avatar?.url || null;

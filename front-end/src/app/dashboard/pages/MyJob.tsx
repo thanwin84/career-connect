@@ -17,7 +17,7 @@ export default function MyJob({}: Props) {
   };
   // TODO: after refresh tab should not change it back to start
   return (
-    <div className='bg-slate-50 dark:bg-zinc-800  h-screen'>
+    <div className='bg-slate-50 dark:bg-stone-900  h-screen'>
       <Tabs
         tabs={Object.values(tabs)}
         defaultTab={tabs.ALL}

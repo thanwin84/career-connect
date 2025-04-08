@@ -18,12 +18,12 @@ export default function PostJobsLayout({}: Props) {
   return (
     <PostLayoutProvider>
       <Sheet>
-        <Sidebar>
+        <Sidebar className='dark:bg-stone-800'>
           <BigSidebar />
         </Sidebar>
         <SideContent>
-          <MainNavbar />
-          <main className='dark:bg-zinc-900 bg-slate-50 p-4'>
+          <MainNavbar className='dark:bg-stone-800' />
+          <main className='dark:bg-stone-900 bg-slate-50 p-4'>
             <Outlet />
           </main>
         </SideContent>

@@ -11,7 +11,7 @@ export default function BigSidebar({ className }: Props) {
   const { collapsed } = usePostLayoutContext();
   return (
     <aside
-      className={`border dark:border-none flex flex-col  px-4 pt-10 dark:bg-black/[0.96]  ${className}`}
+      className={`border dark:border-none flex flex-col  px-4 pt-10   ${className}`}
     >
       <CloseButton className='mb-8' />
       {postJobsLinks?.map((link) => (

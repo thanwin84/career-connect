@@ -1,11 +1,12 @@
 import { LovedIcon, LoveIcon } from '@/assets/icons/Icons';
-import { Button } from '@/components/ui';
+import { BackButton, Button } from '@/components/ui';
 import { useCreateJobApplication } from '@/hooks/api';
 import { Job } from '@/lib/types';
 import ObjectID from 'bson-objectid';
 import { useForm } from 'react-hook-form';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { useFindJobsContext } from '../pages/FindJobs';
+import { motion } from 'motion/react';
 
 type Props = {
   className?: string;
@@ -31,14 +32,9 @@ export default function JobDetails({ className }: Props) {
 
   return (
     <section
-      className={`px-4 py-6 w-full min-h-screen bg-white dark:bg-zinc-900 ${className}`}
+      className={`px-4 py-6 w-full min-h-screen bg-white dark:bg-stone-900 ${className}`}
     >
-      <button
-        className='text-2xl ml-2 hover:text-blue-600'
-        onClick={toggleOpenDetails}
-      >
-        <IoMdArrowRoundBack />
-      </button>
+      <BackButton onClick={toggleOpenDetails} />
       <div className='space-y-2 py-2 justify-center text-center border-b border-gray-300 dark:border-gray-500'>
         <div className='mx-auto  bg-blue-700 text-white p-4 rounded-md w-16'>
           {company.name.substring(0, 1).toUpperCase()}

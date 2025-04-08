@@ -16,7 +16,7 @@ export default function Sidebar({ className, children }: Props) {
     : ['lg'].includes(currentSize)
     ? '25%'
     : 0;
-  console.log(currentSize);
+
   if (currentSize === 'md' || currentSize === 'xs' || currentSize === 'sm') {
     return null;
   }

@@ -98,7 +98,7 @@ export default function FindJobs() {
   }
 
   return (
-    <section className='w-full  px-10'>
+    <section className='w-full bg-slate-50 dark:bg-stone-800  px-10'>
       <findJobsContext.Provider
         value={{
           toggleOpenDetails,
@@ -112,18 +112,18 @@ export default function FindJobs() {
         }}
       >
         <SearchBar
-          className='mt-4  mb-2 rounded-md '
+          className=' mb-2 rounded-md '
           defaultSearch={formState.search as string}
           defaultLocation={formState.location as string}
         />
         <div className='w-full lg:w-5/6  flex flex-col md:flex-row gap-10 mt-4 relative'>
-          <FilterJobsContainer className='w-full mx-auto md:w-[280px] md:sticky md:top-0 md:self-start flex-none' />
+          <FilterJobsContainer className='w-full mx-auto md:w-[280px] md:sticky md:top-24 md:self-start flex-none' />
           <FindJobsContainer className='w-2/6 flex-grow' />
         </div>
 
         <SlideOpen
           isOpen={openDetails}
-          className='overflow-y-scroll'
+          className='overflow-y-scroll bg-stone-900'
           closeFn={toggleOpenDetails}
         >
           {openDetails && <JobDetails />}

@@ -29,7 +29,7 @@ export default function HomePage({}: Props) {
     }
   }
   return (
-    <main className='mt-8 dark:bg-zinc-900 min-h-screen'>
+    <main className='py-8 min-h-screen dark:bg-stone-800 bg-slate-50'>
       <div className='w-[90%] md:w-[80%] mx-auto space-y-6'>
         <div className='text-center'>
           <h2 className=' text-slate-700 font-extrabold tracking-wide text-4xl dark:text-blue-500'>

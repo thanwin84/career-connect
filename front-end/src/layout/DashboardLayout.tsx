@@ -13,13 +13,13 @@ import { Outlet } from 'react-router-dom';
 
 export default function DashboardLayout() {
   return (
-    <Sheet>
-      <Sidebar>
+    <Sheet className='dark:bg-stone-800'>
+      <Sidebar className='dark:bg-stone-800'>
         <BigSidebar />
       </Sidebar>
-      <SideContent>
+      <SideContent className='dark:bg-stone-800'>
         <Navbar />
-        <div className='dark:bg-zinc-800 bg-slate-50 min-h-screen'>
+        <div className='dark:bg-stone-900 bg-slate-50 min-h-screen'>
           <Outlet />
         </div>
       </SideContent>

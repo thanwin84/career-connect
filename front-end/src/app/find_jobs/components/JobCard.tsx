@@ -28,7 +28,7 @@ export default function JobCard({ className, job, save = false }: Props) {
 
   return (
     <article
-      className={`w-full bg-white dark:bg-zinc-900 border rounded-md  hover:border-blue-400 hover:border-2 ${className} ${
+      className={`w-full bg-white dark:bg-stone-900 h-56 border rounded-md  hover:border-blue-400 hover:border-2 ${className} ${
         job._id === currentJobDetails?._id
           ? 'border-2 border-blue-700'
           : 'border-gray-200'
@@ -92,7 +92,6 @@ export default function JobCard({ className, job, save = false }: Props) {
           </span>
         )}
         <Button
-          category='success'
           classname=''
           onClick={handleClick}
           aria-label={`See details of ${job.position} at ${job.company}`}

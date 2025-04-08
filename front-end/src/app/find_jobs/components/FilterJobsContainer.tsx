@@ -41,7 +41,7 @@ export default function FilterJobsContainer({ className }: Props) {
   return (
     <Form
       aria-label='Filter buttons'
-      className={`bg-white dark:bg-zinc-900  shadow-md  px-4 ${className}`}
+      className={`bg-white dark:bg-stone-900  shadow-md rounded-lg  px-4 ${className}`}
     >
       <div className='flex justify-between px-3 py-3 border-b border-gray-300 dark:border-gray-500'>
         <span className='font-medium text-gray-700 dark:text-slate-300'>
