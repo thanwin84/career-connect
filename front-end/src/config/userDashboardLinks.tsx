@@ -1,8 +1,8 @@
 import {
   BarChartIcon,
-  ProfileIcon,
   AdminSettingIcon,
   CalenderIcon,
+  SettingIcon,
 } from '@/assets/icons/Icons';
 
 const links = [
@@ -17,14 +17,14 @@ const links = [
     icon: <BarChartIcon />,
   },
   {
-    text: 'profile',
-    path: 'profile',
-    icon: <ProfileIcon />,
-  },
-  {
     text: 'admin',
     path: 'admin',
     icon: <AdminSettingIcon />,
+  },
+  {
+    text: 'Setting',
+    path: 'setting',
+    icon: <SettingIcon />,
   },
 ] as const;
 

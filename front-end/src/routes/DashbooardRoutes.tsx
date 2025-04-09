@@ -6,7 +6,6 @@ import { Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import { permissions } from '@/config/permissions';
 
-const Profile = lazy(() => import('@/app/dashboard/pages/Profile'));
 const EditProfile = lazy(() => import('@/app/dashboard/pages/EditProfile'));
 const Setting = lazy(() => import('@/app/setting/pages/Setting'));
 const Admin = lazy(() => import('@/app/dashboard/pages/Admin'));
@@ -49,10 +48,10 @@ const DashboardRoutes = (
         />
       </Route>
       <Route
-        path='profile'
+        path='setting'
         element={
           <Suspense>
-            <Profile />
+            <Setting />
           </Suspense>
         }
       />

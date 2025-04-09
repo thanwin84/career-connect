@@ -26,7 +26,7 @@ export default function SettingPageLayout() {
   }
 
   return (
-    <div className='w-full bg-white dark:bg-stone-900 h-screen '>
+    <div className='w-full bg-white dark:bg-stone-900 min-h-screen '>
       <h2 className='text-2xl font-bold px-2 py-4 text-slate-800  dark:text-slate-100 ml-4'>
         Setting
       </h2>
