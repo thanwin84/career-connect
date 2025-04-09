@@ -18,6 +18,10 @@ import upload from '../middleware/multer.middleware';
 
 const userRouter = Router();
 
+userRouter
+  .route('/:userId/update-basic-information')
+  .patch(upload.single('avatar'), updateUser);
+
 userRouter.route('/profile/:userId').get(getUserById);
 
 userRouter.use(authenticateUser);
@@ -30,7 +34,6 @@ userRouter.route('/get-users-list').get(getUsersList);
 
 userRouter.route('/current-user').get(getCurrentUser);
 userRouter.route('/admin/app-stats').get(getApplicationStats);
-userRouter.route('/update-user').patch(upload.single('avatar'), updateUser);
 userRouter.route('/add-phone-number').patch(addPhoneNumber);
 userRouter.route('/add-education').patch(addEducation);
 userRouter.route('/education/:recordId').patch(deleteEducationEntry);
