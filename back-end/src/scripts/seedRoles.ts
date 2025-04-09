@@ -20,6 +20,7 @@ export const populateRoles = async () => {
           permissions.JOB_CREATE,
           permissions.VIEW_ADMIN_DASHBOARD,
           permissions.ROle_ASSIGN,
+          permissions.OTHER_USER_EDIT,
         ],
       },
       {

@@ -13,9 +13,11 @@ export const permissions = {
   CANDIDATE_VIEW: 'candidate:view',
   OTHER_PROFILE_VIEW: 'profile:view',
   PROFILE_UPDATE: 'profile:update',
+  PROFILE_WRITE: 'profile:write',
   ACCOUNT_DELETE: 'account:delete',
   USER_ACCOUNT_DELETE: 'user:delete',
   VIEW_ADMIN_DASHBOARD: 'view:dashboard',
   ROle_ASSIGN: 'role:create',
+  OTHER_USER_EDIT: 'other_user_edit',
 };
 export type Permissions = (typeof permissions)[keyof typeof permissions];
