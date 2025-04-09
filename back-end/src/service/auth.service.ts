@@ -84,9 +84,10 @@ export const registerUser = async (data: any, file?: Express.Multer.File) => {
 
 export const loginUser = async (email: string, password: string) => {
   userSchema.pick({ email: true, password: true }).parse({ email, password });
-  const user: UserDocument | null = await User.findOne({
+  const user: any = await User.findOne({
     email: email,
-  });
+  }).populate('role worksAt');
+
   if (!user) {
     throw new NotFoundError('user does not exist');
   }
