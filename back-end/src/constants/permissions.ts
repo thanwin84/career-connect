@@ -13,6 +13,7 @@ export const permissions = {
   CANDIDATE_VIEW: 'candidate:view',
   OTHER_PROFILE_VIEW: 'profile:view',
   PROFILE_UPDATE: 'profile:update',
+  PROFILE_WRITE: 'profile:write',
   ACCOUNT_DELETE: 'account:delete',
   USER_ACCOUNT_DELETE: 'user:delete',
   VIEW_ADMIN_DASHBOARD: 'view:dashboard',

@@ -18,11 +18,17 @@ export const registerUser = async (data: any, file?: Express.Multer.File) => {
 
   try {
     session.startTransaction();
-    const userRole = isFirstAccount ? 'admin' : data.role;
-    const role = await Role.findOne({ role: userRole }).session(session);
+    let primaryRole;
 
-    if (!role) {
-      throw new NotFoundError(`role: ${userRole} is not found`);
+    if (data.role !== 'user') {
+      const userRole = isFirstAccount ? 'admin' : data.role;
+      primaryRole = await Role.findOne({ role: userRole }).session(session);
+    }
+    const defaultRole = await Role.findOne({ role: 'user' }).session(session);
+
+    if (!defaultRole) {
+      logger.error(`Role not found for user`);
+      throw new NotFoundError(`role: ${primaryRole} is not found`);
     }
 
     const userExists = await User.findOne({ email: data.email }).session(
@@ -45,11 +51,13 @@ export const registerUser = async (data: any, file?: Express.Multer.File) => {
         };
       }
     }
+    const roles = [defaultRole._id.toString()];
+    if (primaryRole) roles.push(primaryRole._id.toString());
     const user = await User.create(
       [
         {
           ...data,
-          role: [role?.id],
+          role: roles,
         },
       ],
       { session: session }

@@ -27,6 +27,7 @@ export const populateRoles = async () => {
         permissions: [
           permissions.APPLICATION_CREATE,
           permissions.OTHER_PROFILE_VIEW,
+          permissions.PROFILE_WRITE,
         ],
       },
       {
