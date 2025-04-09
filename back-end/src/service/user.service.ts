@@ -265,3 +265,44 @@ export const usersNameAutocompleteSuggestionService = async (
 
   return results;
 };
+
+export const getUserByIdService = async (userId: string) => {
+  validId('userId').parse(userId);
+  const users = await User.aggregate([
+    {
+      $match: {
+        _id: new mongoose.Types.ObjectId(userId),
+      },
+    },
+    {
+      $lookup: {
+        from: 'companies',
+        localField: 'worksAt',
+        foreignField: '_id',
+        as: 'company',
+      },
+    },
+    {
+      $addFields: {
+        company: { $first: '$company' },
+      },
+    },
+    {
+      $project: {
+        password: 0,
+      },
+    },
+    {
+      $lookup: {
+        from: 'roles',
+        localField: 'role',
+        foreignField: '_id',
+        as: 'role',
+      },
+    },
+  ]);
+  if (!users) {
+    throw new NotFoundError(`User with id ${userId} is not found`);
+  }
+  return users[0];
+};

@@ -9,6 +9,7 @@ import {
   currentUser,
   deleteAddEducationEntryService,
   getApplicationStatsService,
+  getUserByIdService,
   getUserListService,
   toggleAccessStatusService,
   updateEducationEntryService,
@@ -171,6 +172,15 @@ const usersNameAutocompleteSuggestions = asyncHandler(
   }
 );
 
+const getUserById = asyncHandler(async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const user = await getUserByIdService(userId);
+  res
+    .status(statusCodes.OK)
+    .json(
+      new ApiResponse(statusCodes.OK, user, `User is fetched successfully`)
+    );
+});
 export {
   getCurrentUser,
   getApplicationStats,
@@ -183,4 +193,5 @@ export {
   addPhoneNumber,
   uploadPhoto,
   usersNameAutocompleteSuggestions,
+  getUserById,
 };

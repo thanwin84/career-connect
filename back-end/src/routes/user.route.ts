@@ -11,11 +11,14 @@ import {
   addPhoneNumber,
   uploadPhoto,
   usersNameAutocompleteSuggestions,
+  getUserById,
 } from '../controllers/user.controller';
 import { authenticateUser } from '../middleware/auth.middleware';
 import upload from '../middleware/multer.middleware';
 
 const userRouter = Router();
+
+userRouter.route('/profile/:userId').get(getUserById);
 
 userRouter.use(authenticateUser);
 userRouter.route('/search').get(usersNameAutocompleteSuggestions);
