@@ -6,6 +6,7 @@ import { useAddEducationRecord } from './useAddEducationRecord';
 import { useDeleteEducationRecord } from './useDeleteEducationRecord';
 import { useUpdateUser } from './useUpdateUser';
 import { useUserToggleAccessStatus } from './useUserToggleAccessStatus';
+import { useGetUserById } from './useGetUserById';
 
 export {
   useAddPhoneNumber,
@@ -16,4 +17,5 @@ export {
   useDeleteEducationRecord,
   useUpdateUser,
   useUserToggleAccessStatus,
+  useGetUserById,
 };

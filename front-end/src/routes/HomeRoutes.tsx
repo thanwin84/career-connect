@@ -10,6 +10,7 @@ import Error from '@/pages/Error';
 
 const FindJobs = lazy(() => import('../app/find_jobs/pages/FindJobs'));
 const Register = lazy(() => import('../app/auth/pages/Register'));
+const Profile = lazy(() => import('../app/profile/pages/Profile'));
 
 const HomeRoutes = (
   <>
@@ -20,7 +21,7 @@ const HomeRoutes = (
         errorElement={<Error />}
       >
         <Route index element={<HomePage />} />
-
+        <Route path='/users/:userId' element={<Profile />} />
         <Route
           path={routes.JOBS}
           element={

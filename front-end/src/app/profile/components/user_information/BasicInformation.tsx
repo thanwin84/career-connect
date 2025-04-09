@@ -4,6 +4,8 @@ import { User } from '@/lib/types';
 import BasicInfo from './BasicInfo';
 import Heading from './Heading';
 import EditButton from '@/components/ui/EditButton';
+import { CanAccess } from '@/auth';
+import { permissions } from '@/config/permissions';
 
 type Props = {
   className?: string;
@@ -15,12 +17,13 @@ export default function BasicInformation({ user, className }: Props) {
   const navigate = useNavigate();
   return (
     <section
-      className={`bg-white dark:bg-stone-800 w-full rounded-md shadow-md px-8 py-6 ${className}`}
+      className={`bg-white dark:bg-stone-900 w-full rounded-md shadow-md px-8 py-6 ${className}`}
     >
       <div className='flex justify-between mb-4'>
         <Heading icon={<CgProfile />} content='Basic Information' />
-
-        <EditButton onClick={() => navigate('../profile/edit')} />
+        <CanAccess requiredPermissions={[permissions.OTHER_USER_EDIT]}>
+          <EditButton onClick={() => navigate('../profile/edit')} />
+        </CanAccess>
       </div>
       <div className='grid grid-cols-2 py-2 gap-2'>
         <BasicInfo label='Email' text={email} />

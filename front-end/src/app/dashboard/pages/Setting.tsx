@@ -6,7 +6,7 @@ import {
   DeleteAccount,
   ChangePassword,
   TwoStepAuthentication,
-} from '../components';
+} from '../components/setting';
 
 i;
 

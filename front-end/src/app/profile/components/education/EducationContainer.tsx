@@ -5,6 +5,8 @@ import { Heading } from '../user_information';
 import AddEducation from './AddEducation';
 import EditEducation from './EditEducation';
 import EducationRecordList from './EducationRecordList';
+import { CanAccess } from '@/auth';
+import { permissions } from '@/config/permissions';
 
 type Props = {
   className?: string;
@@ -15,17 +17,19 @@ export default function EducationContainer({ className }: Props) {
 
   return (
     <section
-      className={`bg-white dark:bg-stone-800 w-full rounded-md shadow-md py-4 ${className}`}
+      className={`bg-white dark:bg-stone-900 w-full rounded-md shadow-md py-4 ${className}`}
     >
       <div className='px-6 py-2 flex justify-between'>
         <Heading icon={<FaGraduationCap />} content='Education' />
-        <button
-          className='text-blue-600 hover:underline'
-          onClick={profileStore.toggleAddEducationModal}
-          aria-label='Click to add Education record'
-        >
-          + Add Education
-        </button>
+        <CanAccess requiredPermissions={[permissions.OTHER_USER_EDIT]}>
+          <button
+            className='text-blue-600 hover:underline'
+            onClick={profileStore.toggleAddEducationModal}
+            aria-label='Click to add Education record'
+          >
+            + Add Education
+          </button>
+        </CanAccess>
       </div>
       <EducationRecordList />
       {/* adding education modal */}

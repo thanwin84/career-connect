@@ -6,8 +6,8 @@ import { Route } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import { permissions } from '@/config/permissions';
 
-const EditProfile = lazy(() => import('@/app/dashboard/pages/EditProfile'));
-const Setting = lazy(() => import('@/app/setting/pages/Setting'));
+const EditProfile = lazy(() => import('@/app/profile/pages/EditProfile'));
+const Setting = lazy(() => import('@/app/dashboard/pages/Setting'));
 const Admin = lazy(() => import('@/app/dashboard/pages/Admin'));
 const Stats = lazy(() => import('@/app/dashboard/user-stats/pages/Stats'));
 const DashboardLayout = lazy(() => import('@/layout/DashboardLayout'));

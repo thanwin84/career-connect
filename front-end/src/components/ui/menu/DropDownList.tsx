@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useLogout } from '../../../hooks/api/auth/useLogout';
 import { motion } from 'motion/react';
+import { useUserStore } from '@/lib/store/userStore';
 
 type Props = {
   className?: string;
@@ -13,6 +14,7 @@ export default function DropDownList({
   toggleDropdown,
 }: Props) {
   const { logout } = useLogout();
+  const { user } = useUserStore();
   return (
     <>
       {isDropDownOpen && (
@@ -28,8 +30,8 @@ export default function DropDownList({
             role='menuitem'
             className='dark:text-slate-200 text-slate-800 font-semibold  text-center py-1 hover:bg-gray-100 dark:hover:bg-stone-700 dark:hover:text-slate-100 rounded-md'
           >
-            <Link to='/dashboard/setting' onClick={toggleDropdown}>
-              Setting
+            <Link to={`/users/${user?._id}`} onClick={toggleDropdown}>
+              Profile
             </Link>
           </li>
           <li

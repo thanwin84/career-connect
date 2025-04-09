@@ -33,3 +33,5 @@ export const updateEducationRecordRequest = (
     `/users/education/${educationRecordId}/update-record`,
     formData
   );
+export const getUserByIdRequest = (id: string): Promise<BaseApiReponse<User>> =>
+  customFetch.get(`/users/profile/${id}`);
