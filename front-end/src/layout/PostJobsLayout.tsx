@@ -17,11 +17,11 @@ type Props = {
 export default function PostJobsLayout({}: Props) {
   return (
     <PostLayoutProvider>
-      <Sheet>
+      <Sheet className='dark:bg-stone-900'>
         <Sidebar className='dark:bg-stone-800'>
           <BigSidebar />
         </Sidebar>
-        <SideContent>
+        <SideContent className='dark:bg-stone-900 min-h-screen'>
           <MainNavbar className='dark:bg-stone-800' />
           <main className='dark:bg-stone-900 bg-slate-50 p-4'>
             <Outlet />

@@ -1,20 +1,20 @@
 import { RxCross2 as CrossIcon } from 'react-icons/rx';
 import { IoMenu } from 'react-icons/io5';
-import { usePostLayoutContext } from '../../context/postLayoutContext';
+import { useSheetContext } from '@/components/ui/sheet/Sheet';
 
 type Props = {
   className?: string;
 };
 
 export default function CloseButton({ className }: Props) {
-  const { toggleCollapsed, collapsed } = usePostLayoutContext();
+  const { toggleCollapse, isCollapsed } = useSheetContext();
   return (
     <button
-      onClick={toggleCollapsed}
-      className={`p-2 text-nowrap mb-4  gap-4  h-10 text-slate-800 dark:text-slate-100 ${className}`}
+      onClick={toggleCollapse}
+      className={`w-full  mb-4   text-slate-800 dark:text-slate-100 flex items-center justify-center ${className}`}
     >
-      {!collapsed ? (
-        <div className='flex gap-4'>
+      {!isCollapsed ? (
+        <div className='w-full flex gap-4'>
           <span className='my-auto'>
             <CrossIcon strokeWidth={1.5} />
           </span>

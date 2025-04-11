@@ -16,6 +16,11 @@ type Props = {
   isLoading: boolean;
 };
 
+const jobTypeOptions = Object.values(constants.JOB_TYPE).map((item) => ({
+  value: item,
+  label: item.toUpperCase(),
+}));
+
 export default function CreateJobForm({
   job,
   title,
@@ -23,7 +28,6 @@ export default function CreateJobForm({
   onSave,
   isLoading,
 }: Props) {
-  console.log(job);
   const methods = useForm<jobFormType>({
     resolver: zodResolver(jobFormSchema),
     defaultValues: {
@@ -58,16 +62,12 @@ export default function CreateJobForm({
               <FormInput label='City' name='jobLocation.city' />
             </div>
 
-            <div className='lg:flex gap-4'>
+            <div className='lg:flex gap-4 '>
               <FormSelect
-                options={[
-                  'Please select option',
-                  ...Object.values(constants.JOB_TYPE),
-                ]}
-                label='Job Type'
-                className='flex-1'
                 name='jobType'
-                placeholder='Select Job Type'
+                label='Job Type'
+                options={jobTypeOptions}
+                placeholder='Please select an option'
               />
             </div>
             <SelectSingleOptionBox

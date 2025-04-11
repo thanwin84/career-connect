@@ -13,7 +13,7 @@ export default function JobsContainer() {
   return (
     <section role='region' aria-label='list of jobs created by you'>
       <h2 className='font-bold text-slate-600 dark:text-slate-200 mb-2 px-6'>
-        {} job{jobs.length > 1 ? 's' : ''} found
+        {pagination.totalItems} job{jobs.length > 1 ? 's' : ''} found
       </h2>
       <section
         role='list'

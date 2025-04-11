@@ -23,7 +23,7 @@ export default function JobCard({ job }: Props) {
     <article
       role='listitem'
       aria-labelledby={`job-title-${job._id}`}
-      className='p-4 rounded-md mb-2 shadow-md bg-white dark:bg-black/[0.96]'
+      className='p-4 rounded-md mb-2 shadow-md bg-white dark:bg-stone-800'
     >
       <header className='flex border-b border-b-slate-200 p-4'>
         <div className='mr-4 bg-blue-700 text-white p-4 rounded-md'>
