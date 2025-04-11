@@ -24,7 +24,6 @@ export default function Sheet({ className, children }: Props) {
 
   function toggleCollapse() {
     setIsCollapsed(!isCollapsed);
-    setShowBigSidebar(!showBigSidebar);
   }
 
   const toggleOpen = () => {

@@ -9,20 +9,21 @@ type Props = {
 };
 
 export default function SideContent({ className, children }: Props) {
-  const { showBigSidebar } = useSheetContext();
+  const { showBigSidebar, isCollapsed } = useSheetContext();
   const currentSize = useWindowScreenSize();
   const ml = ['2xl', 'xl'].includes(currentSize)
     ? '16%'
     : ['lg'].includes(currentSize)
     ? '25%'
     : 0;
+  const _ml = isCollapsed ? '6%' : ml;
   return (
     <AnimatePresence>
       <motion.div
         animate={{
-          marginLeft: showBigSidebar ? ml : 0,
+          marginLeft: showBigSidebar ? _ml : 0,
         }}
-        transition={{ duration: 0.3, ease: 'easeInOut', delay: 0 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
         className={`flex-1  ${className}`}
       >
         {children}
