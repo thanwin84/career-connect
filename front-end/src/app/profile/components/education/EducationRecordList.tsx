@@ -6,12 +6,13 @@ type Props = {
 };
 export default function EducationRecordList({ className }: Props) {
   const userStore = useUserStore();
-  const educationLen = userStore.user?.educationRecords?.length || 0;
+  const educationLen =
+    userStore.currentSelectedUser?.educationRecords?.length || 0;
 
   if (
-    userStore.user &&
-    userStore.user.educationRecords &&
-    userStore.user.educationRecords.length === 0
+    userStore.currentSelectedUser &&
+    userStore.currentSelectedUser.educationRecords &&
+    userStore.currentSelectedUser.educationRecords.length === 0
   ) {
     return (
       <div className='py-4'>
@@ -25,16 +26,18 @@ export default function EducationRecordList({ className }: Props) {
   }
   return (
     <div className={`px-6 py-4 ${className}`}>
-      {userStore.user &&
-        userStore.user?.educationRecords?.map((record, index) => (
-          <EducationInfo
-            key={record._id}
-            record={record}
-            className={`${
-              educationLen - 1 != index ? 'border-b border-slate-300' : ''
-            }`}
-          />
-        ))}
+      {userStore.currentSelectedUser &&
+        userStore.currentSelectedUser?.educationRecords?.map(
+          (record, index) => (
+            <EducationInfo
+              key={record._id}
+              record={record}
+              className={`${
+                educationLen - 1 != index ? 'border-b border-slate-300' : ''
+              }`}
+            />
+          )
+        )}
     </div>
   );
 }

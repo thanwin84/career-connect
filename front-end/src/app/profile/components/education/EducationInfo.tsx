@@ -1,5 +1,7 @@
 import { UniversityIcon } from '@/assets/icons/Icons';
+import { CanAccess } from '@/auth';
 import EditButton from '@/components/ui/EditButton';
+import { permissions } from '@/config/permissions';
 import { useProfileStore } from '@/lib/store/ProfileStore';
 import { Education } from '@/lib/types';
 
@@ -41,7 +43,9 @@ export default function EducationInfo({ record, className }: Props) {
             </span>
           </p>
 
-          <EditButton onClick={handleClick} />
+          <CanAccess requiredPermissions={[permissions.OTHER_USER_EDIT]}>
+            <EditButton onClick={handleClick} />
+          </CanAccess>
         </div>
       </div>
     </div>

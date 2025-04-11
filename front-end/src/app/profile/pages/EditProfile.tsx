@@ -8,11 +8,11 @@ import {
 import { useFilePreview } from '@/hooks';
 import { useUpdateUser } from '@/hooks/api';
 import { userFormSchema } from '@/lib/schemas';
+import { useProfileStore } from '@/lib/store/ProfileStore';
 import { useUserStore } from '@/lib/store/userStore';
 import { UpdateUserProfile } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, FormProvider } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 const formSchema = userFormSchema.pick({
@@ -25,10 +25,10 @@ const formSchema = userFormSchema.pick({
 });
 type FormType = z.infer<typeof formSchema>;
 
-export default function EditProfile() {
+export default function EditProfile({ className }: { className?: string }) {
   const userStore = useUserStore();
-  const user = userStore.user;
-  const navigate = useNavigate();
+  const user = userStore.currentSelectedUser;
+  const { toggleEditUserModal } = useProfileStore();
   const { isPending, updateUser } = useUpdateUser();
   const { fileUrl, handleFileChange, file } = useFilePreview(user?.avatar?.url);
 
@@ -48,6 +48,7 @@ export default function EditProfile() {
 
   function handleFormSubmit(data: FormType) {
     const formData = new FormData();
+
     if (file) {
       formData.append('avatar', file);
     }
@@ -57,16 +58,28 @@ export default function EditProfile() {
     formData.append('location[country]', data.location?.country as string);
     formData.append('phoneNumber', data?.phoneNumber || '');
     formData.append('email', data.email as string);
+
     updateUser(formData);
-    if (fileUrl) {
-      userStore.updateUserAvatar(fileUrl);
-    }
-    navigate('/dashboard/profile');
+
+    userStore.updateUser(
+      {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        location: {
+          city: data.location.city,
+          country: data.location.country,
+        },
+        phoneNumber: data.phoneNumber,
+      },
+      fileUrl as string
+    );
+    toggleEditUserModal();
   }
 
   return (
-    <section className='p-4  '>
-      <div className='bg-white  dark:bg-stone-800 p-4 rounded-md shadow-md'>
+    <section className={`w-full ${className} `}>
+      <div className='bg-white p-8 dark:bg-stone-800  rounded-md shadow-md'>
         <h2
           id='formTitle'
           className='mb-4 text-2xl font-semibold dark:text-slate-200'

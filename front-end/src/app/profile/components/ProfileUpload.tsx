@@ -24,7 +24,7 @@ export default function ProfileUpload({ className }: Props) {
   const userStore = useUserStore();
   const profileStore = useProfileStore();
   const { fileUrl, handleFileChange, file } = useFilePreview(
-    userStore.user?.avatar?.url || ''
+    userStore.currentSelectedUser?.avatar?.url || ''
   );
   const { uploadPhoto, isLoading, isSuccess } = useFileUpload();
 

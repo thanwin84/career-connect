@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
-import { Education, User } from '../types';
+import { Education, UpdateUserProfile, User } from '../types';
 
 type UserState = {
   isLoggedIn: boolean;
   userAvatar: string | null;
   user: User | null;
+  currentSelectedUser: User | null;
   jobAppliedIds: string[];
   isLoading: boolean;
   permissions: string[];
@@ -13,6 +14,7 @@ type UserState = {
 
 type Store = UserState & {
   addUser: (user: User) => void;
+  addCurrentSelectedUser: (user: User) => void;
   logoutUser: () => void;
   toggleTwoStepAuthentication: () => void;
   addPhoneNumber: (phoneNumber: string) => void;
@@ -21,6 +23,7 @@ type Store = UserState & {
   deleteEducationRecord: (id: string) => void;
   updateUserAvatar: (avatar: string) => void;
   setLoading: (value: boolean) => void;
+  updateUser: (data: Omit<UpdateUserProfile, 'avatar'>, avatar: string) => void;
 };
 
 const initialUserState: UserState = {
@@ -30,6 +33,7 @@ const initialUserState: UserState = {
   jobAppliedIds: [],
   isLoading: true,
   permissions: [],
+  currentSelectedUser: null,
 };
 
 export const useUserStore = create<Store>((set) => ({
@@ -45,6 +49,12 @@ export const useUserStore = create<Store>((set) => ({
           user?.role.map((item) => item.permissions).flat() || [];
       })
     ),
+  addCurrentSelectedUser: (user: User) =>
+    set(
+      produce((draft) => {
+        draft.currentSelectedUser = user;
+      })
+    ),
   setLoading: (value: Boolean) =>
     set(
       produce((draft) => {
@@ -57,6 +67,7 @@ export const useUserStore = create<Store>((set) => ({
         draft.user = null;
         draft.isLoggedIn = false;
         draft.userAvatar = null;
+        draft.permissions = [];
       })
     ),
   toggleTwoStepAuthentication: () =>
@@ -78,37 +89,63 @@ export const useUserStore = create<Store>((set) => ({
   updateEducationRecord: (education: Education, id: string) =>
     set(
       produce((draft) => {
-        if (draft.user && draft.user.educationRecords) {
-          draft.user.educationRecords = draft.user.educationRecords.map(
-            (record: Education) => (record._id === id ? education : record)
-          );
+        if (
+          draft.currentSelectedUser &&
+          draft.currentSelectedUser.educationRecords
+        ) {
+          draft.currentSelectedUser.educationRecords =
+            draft.currentSelectedUser.educationRecords.map(
+              (record: Education) => (record._id === id ? education : record)
+            );
         }
       })
     ),
   addEducationRecord: (education: Education) =>
     set(
       produce((draft) => {
-        if (draft.user && draft.user.educationRecords) {
-          draft.user.educationRecords.push(education);
+        if (
+          draft.currentSelectedUser &&
+          draft.currentSelectedUser.educationRecords
+        ) {
+          draft.currentSelectedUser.educationRecords.push(education);
         }
       })
     ),
   deleteEducationRecord: (id: string) =>
     set(
       produce((draft) => {
-        if (draft.user && draft.user.educationRecords) {
-          draft.user.educationRecords = draft.user.educationRecords.filter(
-            (record: Education) => record._id !== id
-          );
+        if (
+          draft.currentSelectedUser &&
+          draft.currentSelectedUser.educationRecords
+        ) {
+          draft.currentSelectedUser.educationRecords =
+            draft.currentSelectedUser.educationRecords.filter(
+              (record: Education) => record._id !== id
+            );
         }
       })
     ),
   updateUserAvatar: (avatar: string) =>
     set(
       produce((draft) => {
-        if (draft.user) {
-          if (draft.user.avatar) {
-            draft.user.avatar.url = avatar;
+        if (draft.currentSelectedUser) {
+          if (draft.currentSelectedUser.avatar) {
+            draft.currentSelectedUser.avatar.url = avatar;
+          }
+        }
+      })
+    ),
+  updateUser: (data: Omit<UpdateUserProfile, 'avatar'>, avatar: string) =>
+    set(
+      produce((draft) => {
+        if (draft.currentSelectedUser) {
+          draft.currentSelectedUser.firstName = data.firstName;
+          draft.currentSelectedUser.lastName = data.lastName;
+          draft.currentSelectedUser.email = data.email;
+          draft.currentSelectedUser.location = data.location;
+          draft.currentSelectedUser.phoneNumber = data.phoneNumber;
+          if (draft.currentSelectedUser.avatar) {
+            draft.currentSelectedUser.avatar.url = avatar;
           }
         }
       })

@@ -27,7 +27,7 @@ export default function AvatarWithEdit({ avatarUrl, className }: Props) {
         <FaUserCircle className='w-28 h-28 text-slate-400' />
       )}
 
-      <CanAccess requiredPermissions={[permissions.OTHER_USER_EDIT]}>
+      <CanAccess requiredPermissions={[permissions.PROFILE_UPDATE]}>
         <button
           onClick={profileStore.toggleProfileUploadModal}
           className='text-lg p-1 rounded-full absolute bottom-1 left-1/2 transform -translate-x-1/2 text-slate-700 bg-slate-200 hover:text-blue-600'

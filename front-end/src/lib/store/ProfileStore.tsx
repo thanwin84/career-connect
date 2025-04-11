@@ -7,6 +7,7 @@ type ProfileState = {
   editEducationModal: boolean;
   selectedEducationRecord: Education | null;
   profilePhotoUploadModal: boolean;
+  editUserModal: boolean;
 };
 
 type Store = ProfileState & {
@@ -15,6 +16,7 @@ type Store = ProfileState & {
   handleSetEducationRecord: (record: Education) => void;
   resetSelectedEducationRecord: () => void;
   toggleProfileUploadModal: () => void;
+  toggleEditUserModal: () => void;
 };
 
 const profileInitialState: ProfileState = {
@@ -22,6 +24,7 @@ const profileInitialState: ProfileState = {
   editEducationModal: false,
   selectedEducationRecord: null,
   profilePhotoUploadModal: false,
+  editUserModal: false,
 };
 
 export const useProfileStore = create<Store>((set) => ({
@@ -57,6 +60,12 @@ export const useProfileStore = create<Store>((set) => ({
     set(
       produce((draft) => {
         draft.profilePhotoUploadModal = !draft.profilePhotoUploadModal;
+      })
+    ),
+  toggleEditUserModal: () =>
+    set(
+      produce((draft) => {
+        draft.editUserModal = !draft.editUserModal;
       })
     ),
 }));

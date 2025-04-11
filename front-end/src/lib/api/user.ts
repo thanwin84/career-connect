@@ -14,13 +14,15 @@ export const uploadPhotoRequest = (userId: string, formData: FormData) =>
     headers: multipartConfig,
   });
 
-export const updateUserRequest = (formData: FormData) =>
-  customFetch.patch('/users/update-user', formData, {
+export const updateUserRequest = (formData: FormData, userId: string) =>
+  customFetch.patch(`/users/${userId}/update-basic-information`, formData, {
     headers: multipartConfig,
   });
 
-export const addEducationRecordRequest = (formData: EducationFormType) =>
-  customFetch.patch('/users/add-education', formData);
+export const addEducationRecordRequest = (
+  formData: EducationFormType,
+  userId: string
+) => customFetch.patch(`/users/${userId}/add-education`, formData);
 
 export const deleteEducationRecordRequest = (recordId: string) =>
   customFetch.patch(`/users/education/${recordId}`);
