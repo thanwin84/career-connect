@@ -27,12 +27,12 @@ const Tabs = ({
     <div className={`w-full p-5  ${className}`}>
       <tabContext.Provider value={{ currentTab }}>
         <div
-          className="flex rounded-sm shadow-sm bg-gray-100 dark:bg-black/[0.96]"
-          role="tablist"
+          className='flex  shadow-sm bg-gray-100 dark:bg-stone-900 dark:border dark:border-stone-800 rounded-lg '
+          role='tablist'
         >
           {tabs?.map((tab, index) => (
             <button
-              role="tab"
+              role='tab'
               aria-selected={currentTab === tab}
               aria-controls={`panel-${tab}`}
               onClick={() => setCurrentTab(tab)}

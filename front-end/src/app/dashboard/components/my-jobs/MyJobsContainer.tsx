@@ -53,7 +53,7 @@ export default function MyJobsContainer({ type = 'all' }: Props) {
               <JobCard
                 date={getLastStatusUpdatedDate(job.statusHistory)}
                 key={job._id}
-                job={job.job}
+                jobApplication={job}
                 jobStatus={job.status}
               />
             </li>

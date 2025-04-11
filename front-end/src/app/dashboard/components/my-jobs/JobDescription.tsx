@@ -17,18 +17,17 @@ export default function JobDescription({ className }: Props) {
   const statusUpdatedDate = getLastStatusUpdatedDate(
     myJobStore.selectedMyJob.statusHistory
   );
-  const { company, position, jobLocation, createdAt } =
-    myJobStore.selectedMyJob.job;
+  const { job, company, createdAt } = myJobStore.selectedMyJob;
   return (
     <article
-      className={`py-6 px-4 bg-white bg-black/[0.96] rounded-md ${className}`}
+      className={`py-6 px-4 bg-white dark:bg-stone-800 rounded-md ${className}`}
     >
       <JobHeader
-        position={position}
-        company={company.name}
-        jobLocation={jobLocation.city}
-        country={jobLocation.country}
-        jobCreatedDate={createdAt.toString()}
+        position={job.position}
+        company={company}
+        jobLocation={job.jobLocation.city}
+        country={job.jobLocation.country}
+        jobCreatedDate={createdAt}
       />
       <JobStatusBadge
         statusLabel={myJobStore.selectedMyJob.status}

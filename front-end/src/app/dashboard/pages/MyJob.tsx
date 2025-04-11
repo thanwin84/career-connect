@@ -21,7 +21,7 @@ export default function MyJob({}: Props) {
       <Tabs
         tabs={Object.values(tabs)}
         defaultTab={tabs.ALL}
-        className=''
+        className='dark:bg-stone-900'
         tabFontSize='text-sm'
       >
         <TabContentList>
