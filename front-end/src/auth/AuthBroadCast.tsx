@@ -9,7 +9,7 @@ export default function AuthBroadcast({}: Props) {
     const broadcast = new BroadcastChannel('auth');
     broadcast.onmessage = (event: MessageEvent) => {
       if (event.data == 'logout') {
-        window.location.href = '/login';
+        // window.location.reload();
       }
     };
     return () => broadcast.close();
