@@ -27,7 +27,7 @@ export const jobApplicationPipeline = [
   {
     $lookup: {
       from: 'users',
-      localField: 'recruiterId',
+      localField: 'job.createdBy',
       foreignField: '_id',
       as: 'recruiter',
       pipeline: [
