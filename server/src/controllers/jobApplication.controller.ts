@@ -126,7 +126,6 @@ const getAllJobApplications = asyncHandler(
       candidateId,
       recruiterId,
       sort,
-      candidateName,
     } = req.query;
     const data = await getAllJobApplicationsService({
       limit: Number(limit),

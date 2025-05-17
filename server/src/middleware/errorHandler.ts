@@ -6,7 +6,7 @@ import { z } from 'zod';
 interface CustomError extends Error {
   statusCode?: number;
 }
-const maskSessitiveData = (body: Record<string, any>) => {
+const maskSessitiveData = (body: Record<string, string>) => {
   if (!body) {
     return {};
   }
@@ -20,6 +20,7 @@ const errorHandler = (
   err: CustomError,
   req: Request,
   res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next: NextFunction
 ) => {
   logger.error({

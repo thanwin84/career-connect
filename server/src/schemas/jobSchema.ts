@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { DateMixin, IDSchema, locationZodSchema } from './mixin';
 import { experianceLevel, JOB_TYPE } from '../constants';
-import { validId } from '../utils';
 
 export const jobSchema = z.object({
   ...IDSchema.shape,

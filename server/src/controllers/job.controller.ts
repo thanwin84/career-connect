@@ -12,7 +12,6 @@ import {
   updateJobService,
 } from '../service/job.service';
 import { ApiResponse } from '../utils/ApiResponse';
-import { jobSchema } from '../schemas/jobSchema';
 
 const getAllJobsCreatedByUser = asyncHandler(
   async (req: Request, res: Response) => {

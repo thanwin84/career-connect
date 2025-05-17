@@ -55,7 +55,7 @@ export const markAsRead = asyncHandler(async (req, res) => {
     { userId: userId, status: 'unread' },
     { $set: { status: 'read' } }
   );
-  console.log(userId);
+
   res
     .status(statusCodes.OK)
     .json(

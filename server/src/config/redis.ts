@@ -1,5 +1,6 @@
 import { createClient } from 'redis';
 import { appConfig } from './appConfig';
+import { logger } from '../utils/logger';
 
 const redisClient = createClient({
   username: appConfig.REDIS_USERNAME,
@@ -10,7 +11,7 @@ const redisClient = createClient({
   },
 });
 
-redisClient.on('error', (err) => console.log('Redis Client Error', err));
+redisClient.on('error', (err) => logger.error(err));
 
 async function redisConnect() {
   await redisClient.connect();

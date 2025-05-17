@@ -57,7 +57,7 @@ export const populateRoles = async () => {
         permissions: [permissions.OTHER_PROFILE_VIEW],
       },
     ]);
-  } catch (error) {
-    console.log('Error has occured while seeding', error);
+  } catch {
+    logger.error('Error has occured while seeding');
   }
 };

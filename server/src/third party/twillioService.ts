@@ -14,25 +14,15 @@ class TwillioService {
   }
 
   async sendVerificationToken(phoneNumber: string, channel: string) {
-    try {
-      const verification = await client.verify.v2
-        .services(this.serviceId)
-        .verifications.create({ to: phoneNumber, channel: channel });
-      return verification;
-    } catch (error) {
-      throw error;
-    }
+    return await client.verify.v2
+      .services(this.serviceId)
+      .verifications.create({ to: phoneNumber, channel: channel });
   }
 
   async verificationCheck(phoneNumber: string, code: string) {
-    try {
-      const verificationCheck = await client.verify.v2
-        .services(this.serviceId)
-        .verificationChecks.create({ to: phoneNumber, code });
-      return verificationCheck.status;
-    } catch (error) {
-      throw error;
-    }
+    return await client.verify.v2
+      .services(this.serviceId)
+      .verificationChecks.create({ to: phoneNumber, code });
   }
 }
 const twillioService = new TwillioService();

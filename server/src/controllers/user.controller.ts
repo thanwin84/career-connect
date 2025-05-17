@@ -17,7 +17,6 @@ import {
   uploadPhotoService,
   usersNameAutocompleteSuggestionService,
 } from '../service/user.service';
-import { SortOrder } from 'mongoose';
 
 const getCurrentUser = asyncHandler(async (req: Request, res: Response) => {
   const { userId } = req.user;

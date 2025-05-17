@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 import { BadRequestError, NotFoundError } from '../errors/customErrors';
 import { JobApplication } from '../models/jobApplication.model';
@@ -209,7 +210,7 @@ export const jobApplicationStatsService = async (userId: string) => {
 
 export const getJobApplicationService = async (applicationId: string) => {
   validId('applicationId').parse(applicationId);
-  console.log(applicationId);
+
   const jobApplications = await JobApplication.aggregate([
     {
       $match: {

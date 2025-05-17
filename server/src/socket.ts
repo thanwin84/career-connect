@@ -12,13 +12,10 @@ export const startSocket = (server: http.Server) => {
     },
   });
   io.on('connection', (socket) => {
-    console.log(`User with id ${socket.id} is connected`);
     socket.on('register', (userId) => {
       onlineUsers.set(userId, socket.id);
     });
-    socket.on('disconnect', () => {
-      console.log(`User with id ${socket.id} is disconnected`);
-    });
+    socket.on('disconnect', () => {});
   });
 
   return { io, onlineUsers };

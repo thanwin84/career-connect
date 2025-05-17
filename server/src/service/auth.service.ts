@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 import {
   BadRequestError,
@@ -5,7 +6,7 @@ import {
   UnauthenticatedError,
 } from '../errors/customErrors';
 import { Role } from '../models/role.model';
-import { User, UserDocument } from '../models/user.model';
+import { User } from '../models/user.model';
 import { uploadOnCloudinary } from '../utils/cloudinary';
 import { logger } from '../utils/logger';
 import { sendEmail } from '../utils/sendEmail';

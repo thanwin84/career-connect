@@ -9,8 +9,9 @@ import userRouter from './user.route';
 import emailRouter from './email.routes';
 import roleRouter from './role.route';
 import companyRouter from './company.routes';
+import { Express } from 'express';
 
-const configureRoute = (app: any) => {
+const configureRoute = (app: Express) => {
   app.use('/api/v1/account-setting', accountRouter);
   app.use('/api/v1/auth', authRouter);
   app.use('/api/v1/verification', verificationRouter);

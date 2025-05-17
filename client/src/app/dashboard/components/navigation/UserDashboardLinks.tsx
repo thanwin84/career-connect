@@ -7,10 +7,10 @@ import { NavLink } from 'react-router-dom';
 type Props = {
   className?: string;
 };
-const commonStyle = 'w-[130px] flex mb-6 gap-6 text-xl mb-4';
+const commonStyle = 'w-full  flex px-2 py-1 rounded-md mb-6 gap-6 text-xl mb-4';
 const linkStyle = `text-gray-700 hover:text-blue-600 dark:hover:text-blue-500 dark:text-white`;
 const loadingStyle = `text-blue-400  dark:hover:text-blue-500 dark:text-white`;
-const activeStyle = `text-blue-700 hover:text-blue-600`;
+const activeStyle = `text-blue-700 dark:text-blue-500  hover:text-blue-600`;
 
 export default function UserDashboardLinks({ className }: Props) {
   const { toggleOpen, showSmallSidebar } = useSheetContext();
@@ -38,7 +38,7 @@ export default function UserDashboardLinks({ className }: Props) {
             key={text}
             end
           >
-            <span className='my-auto'>{icon}</span>
+            <span className='my-auto '>{icon}</span>
             <span className=''>{text}</span>
           </NavLink>
         );

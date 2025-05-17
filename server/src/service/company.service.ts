@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DuplicateResourceError, NotFoundError } from '../errors/customErrors';
 import { Company } from '../models/company.model';
 import { companySchema } from '../schemas/company.schema';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose, { InferSchemaType } from 'mongoose';
 import { JOB_STATUS } from '../constants';
 

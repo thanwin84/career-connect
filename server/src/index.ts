@@ -32,6 +32,7 @@ app.use(cors(corsOptions));
 configureRoute(app);
 app.use(errorHandler);
 // start workers
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 deleteAccountWorker;
 
 //seeding

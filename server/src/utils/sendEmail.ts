@@ -3,7 +3,6 @@ import nodemailer from 'nodemailer';
 import { logger } from './logger';
 import { User } from '../models/user.model';
 import bcrypt from 'bcrypt';
-import mongoose from 'mongoose';
 
 // Looking to send emails in production? Check out our Email API/SMTP product!
 const transporter = nodemailer.createTransport({

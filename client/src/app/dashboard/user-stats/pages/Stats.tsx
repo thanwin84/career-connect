@@ -18,7 +18,7 @@ export default function Stats() {
 
   const { defaultStats, monthlyApplications } = data.data;
   return (
-    <div className=''>
+    <div>
       <StatsContainer defaultStats={defaultStats} />
       {monthlyApplications?.length > 1 && (
         <ChartsContainers data={monthlyApplications} />

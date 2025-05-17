@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
-import {
-  BadRequestError,
-  DuplicateResourceError,
-  NotFoundError,
-} from '../errors/customErrors';
+import { DuplicateResourceError, NotFoundError } from '../errors/customErrors';
 import { Role } from '../models/role.model';
 import { User } from '../models/user.model';
 import { addRoleSchema, removeRoleSchema, roleSchema } from '../schemas/role';

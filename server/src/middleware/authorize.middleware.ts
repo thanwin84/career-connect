@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { Permissions } from '../constants/permissions';
 import { NotFoundError, UnauthorizedError } from '../errors/customErrors';
 import { User } from '../models/user.model';
-import { Role, RoleType } from '../models/role.model';
+import { RoleType } from '../models/role.model';
 import mongoose from 'mongoose';
 
 export const authorize = (requiredPermission: Permissions) => {

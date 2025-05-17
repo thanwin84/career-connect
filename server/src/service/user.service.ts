@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 import { redisClient } from '../config/redis';
 import { BadRequestError, NotFoundError } from '../errors/customErrors';
@@ -5,7 +6,6 @@ import { Job } from '../models/job.model';
 import { User } from '../models/user.model';
 import { educationSchema, userSchema } from '../schemas/userSchema';
 import { Pagination } from '../types';
-import { SortOrder } from '../types/shared';
 import { validId } from '../utils';
 import { deleteAsset, uploadOnCloudinary } from '../utils/cloudinary';
 

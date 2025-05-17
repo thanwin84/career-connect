@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 import {
   ExperianceLevel,
@@ -15,7 +16,6 @@ import { validId } from '../utils';
 import { sortOptions } from '../config/appConfig';
 import { jobAggregationPipeline } from '../db/aggregationPipelines';
 import { Company } from '../models/company.model';
-import { truncate } from 'fs/promises';
 
 export const getSingleJobService = async (jobId: string) => {
   validId('jobId').parse(jobId);
@@ -67,6 +67,7 @@ export const getAllJobsCreatedByUserService = async ({
   userId,
 }: GetAllJobsCreatedByUser) => {
   const skips = (page - 1) * limit;
+
   const queryObject: any =
     currentUserRole === 'admin'
       ? {}
@@ -169,12 +170,12 @@ export const GetJobsService = async ({
   const sortKey =
     sortOptions[sort as keyof typeof sortOptions] || sortOptions['newest'];
   if (minSalary || maxSalary) {
-    (queryObject['salary.min'] = minSalary
+    queryObject['salary.min'] = minSalary
       ? { $gte: Number(minSalary) }
-      : { $gte: 0 }),
-      (queryObject['salary.max'] = maxSalary
-        ? { $lte: Number(maxSalary) }
-        : { $lte: Number.MAX_SAFE_INTEGER });
+      : { $gte: 0 };
+    queryObject['salary.max'] = maxSalary
+      ? { $lte: Number(maxSalary) }
+      : { $lte: Number.MAX_SAFE_INTEGER };
   }
   if (jobType && Array.isArray(jobType)) {
     queryObject.jobType = { $in: jobType };
