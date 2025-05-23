@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 
 type Config<TData> = {
@@ -25,7 +26,8 @@ const useMutation = <TData, TVariables>(
     isSuccess: false,
   });
   const { onError, onSuccess } = config;
-  async function mutate(formData: TVariables) {
+
+  async function mutate(formData: TVariables): Promise<TData> {
     try {
       setState({
         data: null,
@@ -35,6 +37,7 @@ const useMutation = <TData, TVariables>(
         isSuccess: false,
       });
       const data = await mutationFn(formData);
+
       if (onSuccess) {
         onSuccess(data);
       }
@@ -45,17 +48,29 @@ const useMutation = <TData, TVariables>(
         error: '',
         isSuccess: true,
       });
-    } catch (error) {
+      return data;
+    } catch (error: any) {
+      const normalizedError = {
+        status: error.response?.status || 500,
+        message:
+          error.response?.data?.message ||
+          error.message ||
+          'Something went wrong',
+        data: error.response?.data || null,
+      };
+
       if (onError) {
-        onError(error);
+        onError(normalizedError);
       }
+
       setState({
         data: null,
         isPending: false,
         isError: true,
-        error: error,
+        error: normalizedError,
         isSuccess: false,
       });
+      throw normalizedError;
     }
   }
   function resetState() {

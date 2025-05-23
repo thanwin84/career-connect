@@ -1,25 +1,24 @@
-import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useQuery } from '@/hooks';
 import { getUserListRequest } from '@/lib/api';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 
 export const useGetUserList = () => {
-  const [params] = useSearchParams();
-
-  const { data, isError, isLoading, isSuccess, refetch, error } = useQuery(() =>
-    getUserListRequest(params.toString())
-  );
-
-  useEffect(() => {
-    refetch();
-  }, [params.toString()]);
-
-  return {
-    data,
+  const [searchParams] = useSearchParams();
+  const {
+    data: userList,
     isError,
     isLoading,
     isSuccess,
-    refetch,
-    error,
+  } = useQuery({
+    queryKey: ['userList', searchParams.toString()],
+    queryFn: () => getUserListRequest(searchParams.toString()),
+    placeholderData: keepPreviousData,
+  });
+
+  return {
+    userList,
+    isError,
+    isLoading,
+    isSuccess,
   };
 };

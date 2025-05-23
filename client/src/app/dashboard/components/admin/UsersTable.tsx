@@ -1,7 +1,7 @@
 import { useUserToggleAccessStatus } from '@/hooks/api';
 import { User } from '@/lib/types';
 import { formatDate } from '@/utils';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ToggleStatus from './ToggleStatus';
 import {
   SelectableCell,
@@ -31,10 +31,11 @@ export default function UsersTable({ users, isDataLoading = false }: Props) {
     'Role',
     'Actions',
   ];
-  const [userList, setUserList] = useState<User[]>(users);
+
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const { toggleUserAccessStatus } = useUserToggleAccessStatus();
+  const { mutate: toggleUserAccessStatus } = useUserToggleAccessStatus();
+
   function handleAllSelect() {
     const isSelected = !isAllSelected;
     setIsAllSelected(isSelected);
@@ -46,39 +47,26 @@ export default function UsersTable({ users, isDataLoading = false }: Props) {
       }
     });
   }
-  function handleToggle(_id: string) {
-    // TODO: optimistic update
-    setUserList((prevList) =>
-      prevList.map((user) => {
-        if (user._id === _id) {
-          // status = user.accessStatus
-        }
-        return user._id === _id
-          ? { ...user, accessStatus: !user.accessStatus }
-          : user;
-      })
-    );
-    toggleUserAccessStatus(_id);
+  async function handleToggle(_id: string) {
+    toggleUserAccessStatus({ userId: _id });
   }
-  useEffect(() => {
-    setUserList(users);
-  }, [users]);
-
   function handleSingleSelect(id: string) {
     const newList = selectedIds.includes(id)
       ? selectedIds.filter((_id) => _id !== id)
       : [...selectedIds, id];
     setSelectedIds(newList);
   }
+
   return (
-    <>
+    <div>
       <UserTableToolbar
         onClearAll={() => setSelectedIds([])}
         totalSelectItems={selectedIds.length}
       />
+
       <Table isDataLoading={isDataLoading}>
         <TableHead>
-          <TableRow>
+          <TableRow key={''}>
             <SelectableCell
               isSelected={isAllSelected}
               onSelect={() => handleAllSelect()}
@@ -91,10 +79,11 @@ export default function UsersTable({ users, isDataLoading = false }: Props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {userList.map((user) => {
+          {users.map((user) => {
             const isSelected = selectedIds.includes(user._id);
             return (
               <TableRow
+                key={user._id}
                 className={`${
                   isSelected
                     ? 'dark:bg-stone-600 bg-slate-200'
@@ -117,7 +106,7 @@ export default function UsersTable({ users, isDataLoading = false }: Props) {
                 <TableCell>
                   <ul>
                     {user.role.map((item) => (
-                      <li>{item.role}</li>
+                      <li key={item.role}>{item.role}</li>
                     ))}
                   </ul>
                 </TableCell>
@@ -132,6 +121,6 @@ export default function UsersTable({ users, isDataLoading = false }: Props) {
           })}
         </TableBody>
       </Table>
-    </>
+    </div>
   );
 }

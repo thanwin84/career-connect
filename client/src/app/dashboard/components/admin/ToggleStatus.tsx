@@ -4,11 +4,17 @@ import { AnimatePresence, motion } from 'motion/react';
 type Props = {
   accessStatus: boolean;
   onToggleClick: () => void;
+  isDisabled?: boolean;
 };
 
-export default function ToggleStatus({ accessStatus, onToggleClick }: Props) {
+export default function ToggleStatus({
+  accessStatus,
+  onToggleClick,
+  isDisabled = false,
+}: Props) {
   return (
     <button
+      disabled={isDisabled}
       type='submit'
       onClick={onToggleClick}
       aria-label={

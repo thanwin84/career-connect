@@ -1,4 +1,4 @@
-import { LoadingPage, Pagination } from '@/components/ui';
+import { Pagination } from '@/components/ui';
 import { useGetUserList } from '@/hooks/api';
 import { useSearchParams } from 'react-router-dom';
 import UsersTable from './UsersTable';
@@ -8,13 +8,14 @@ type Props = {
 };
 
 export default function UsersContainer({ className }: Props) {
-  const { isLoading, data } = useGetUserList();
+  const { isLoading, userList } = useGetUserList();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  if (!data) {
-    return <LoadingPage />;
-  }
-  const { users, pagination } = data.data;
+  const users = userList?.data?.users ?? [];
+  const pagination = userList?.data?.pagination ?? {
+    currentPage: 1,
+    totalPages: 1,
+  };
 
   function handlePageChange(pageNumber: number) {
     searchParams.set('page', String(pageNumber));
@@ -22,7 +23,7 @@ export default function UsersContainer({ className }: Props) {
   }
 
   return (
-    <div className={` w-full px-6 ${className}`}>
+    <div className={` w-full px-6  ${className}`}>
       <UsersTable isDataLoading={isLoading} users={users || []} />
       {pagination.totalPages > 1 && (
         <Pagination
