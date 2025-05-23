@@ -23,7 +23,7 @@ const verifyVerificationCode = asyncHandler(
       throw new BadRequestError('both code and phone is required');
     }
     const response = await twilioService.verificationCheck(phoneNumber, code);
-    if (response === 'approved') {
+    if (response.status === 'approved') {
       res
         .status(statusCodes.OK)
         .json({ message: 'user has been approved', data: response });

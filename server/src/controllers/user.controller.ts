@@ -116,10 +116,10 @@ const toggleAccessStatus = asyncHandler(async (req: Request, res: Response) => {
   if (!userId) {
     throw new BadRequestError('User id is missing');
   }
-  await toggleAccessStatusService(userId);
+  const user = await toggleAccessStatusService(userId);
   res
     .status(statusCodes.OK)
-    .json(new ApiResponse(statusCodes.OK, {}, 'Access status is updated'));
+    .json(new ApiResponse(statusCodes.OK, user, 'Access status is updated'));
 });
 
 const getUsersList = asyncHandler(async (req: Request, res: Response) => {

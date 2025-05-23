@@ -248,7 +248,7 @@ export const toggleAccessStatusService = async (userId: string) => {
     throw new NotFoundError(`User with id ${userId} is not found`);
   }
   user.accessStatus = !user.accessStatus;
-  await user.save();
+  return await user.save();
 };
 
 export const usersNameAutocompleteSuggestionService = async (
