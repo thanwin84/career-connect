@@ -1,11 +1,10 @@
 import { appConfig } from '../config/appConfig';
-import nodemailer from 'nodemailer';
+import { createTransport } from 'nodemailer';
 import { logger } from './logger';
 import { User } from '../models/user.model';
 import bcrypt from 'bcrypt';
 
-// Looking to send emails in production? Check out our Email API/SMTP product!
-const transporter = nodemailer.createTransport({
+const transporter = createTransport({
   host: 'sandbox.smtp.mailtrap.io',
   port: 2525,
   auth: {
@@ -38,7 +37,6 @@ function VerifyEmailHtml({ name, url }: { name: string; url: string }) {
     `;
 }
 
-// async..await is not allowed in global scope, must use a wrapper
 export async function sendEmail({
   emailType,
   to,
@@ -48,6 +46,7 @@ export async function sendEmail({
   emailType: 'emailVerify' | 'forgotPassword';
   to: string;
   userId: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   session: any;
 }) {
   const hashedToken = await bcrypt.hash(userId, 10);
@@ -77,26 +76,24 @@ export async function sendEmail({
     { session }
   );
   try {
-    // send mail with defined transport object
     await transporter.sendMail({
-      from: 'thanwin@mail.com', // sender address
-      to: to, // list of receivers
+      from: 'thanwin@mail.com',
+      to: to,
       subject:
         emailType === 'emailVerify'
           ? 'Verify your email'
-          : 'Verify your password', // Subject line
-      text: 'Hello world?', // plain text body
+          : 'Verify your password',
+      text: 'Hello world?',
       html:
         emailType === 'emailVerify'
           ? VerifyEmailHtml({
               name: user?.firstName || '',
               url: verificationUrl,
             })
-          : `<p>"hello world" </p>`, // html body
+          : `<p>"hello world" </p>`,
     });
     logger.info(`${emailType} email is sent to ${userId}`);
   } catch (error) {
-    console.log(error);
     logger.error(error, 'Something went wrong while sending email');
   }
 }

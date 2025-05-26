@@ -1,11 +1,7 @@
 import { CorsOptions } from 'cors';
 import { appConfig } from './appConfig';
 
-const whiteList = [
-  appConfig.FRONT_END_BASE_URL,
-  'http://localhost:4173',
-  'http://localhost:3000',
-];
+const whiteList = [appConfig.FRONT_END_BASE_URL];
 
 export const corsOptions: CorsOptions = {
   origin: function (
