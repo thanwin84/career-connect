@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { corsOptions } from './config/corsOption';
 import http from 'http';
-import { redisConnect } from './config/redis';
+// import { redisConnect } from './config/redis';
 import configureRoute from './routes';
 import { deleteAccountWorker } from './tasks/account-deletion/deleteAccountWorker';
 import { startSocket } from './socket';
@@ -56,9 +56,9 @@ connectToDB()
       logger.info(`Server is running on port ${port}`);
       populateRoles();
 
-      redisConnect().then(() => {
-        logger.info('redis is connected');
-      });
+      // redisConnect().then(() => {
+      //   logger.info('redis is connected');
+      // });
     });
   })
   .catch((error) => logger.error('mongodb connection failed error ', error));

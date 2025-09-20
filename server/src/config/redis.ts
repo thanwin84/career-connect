@@ -2,19 +2,23 @@ import { createClient } from 'redis';
 import { appConfig } from './appConfig';
 import { logger } from '../utils/logger';
 
+
 const redisClient = createClient({
   username: appConfig.REDIS_USERNAME,
   password: appConfig.REDIS_PASSWORD,
   socket: {
-    host: appConfig.REDIS_HOST,
-    port: 12624,
-  },
+        host: appConfig.REDIS_HOST,
+        port: 14722
+    }
 });
 
-redisClient.on('error', (err) => logger.error(err));
-
-async function redisConnect() {
+(async()=>{
+  redisClient.on('error', (err) => logger.error(err));
+  redisClient.on('ready', ()=> logger.info("Redis is ready"))
   await redisClient.connect();
-}
+})();
 
-export { redisConnect, redisClient };
+
+
+export {  redisClient };
+

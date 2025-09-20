@@ -4,5 +4,5 @@ export const redisConnectionConfig = {
   username: appConfig.REDIS_USERNAME,
   password: appConfig.REDIS_PASSWORD,
   host: appConfig.REDIS_HOST,
-  port: 12624,
+  port: 14722,
 };
