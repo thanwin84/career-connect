@@ -171,3 +171,4 @@ This project includes a `Dockerfile` and `docker-compose.yml` for easy container
     ```
 
     This will start the application in a Docker container. You can access the application in your browser at `http://localhost:5173` (or the port specified in your `docker-compose.yml` file).
+Navid
